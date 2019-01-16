@@ -129,6 +129,13 @@ class ImagePDF:
         QtWidgets.QMessageBox.information(self.central_widget, '信息', message)
 
 
+def start():
+    app = QtWidgets.QApplication(sys.argv)
+    ui = ImagePDF()
+    ui.main_window.show()
+    sys.exit(app.exec_())
+
+
 def get_dir_name(file_dir):
     base_name = os.path.basename(file_dir)  # 获得地址的文件名
     dir_name = os.path.dirname(file_dir)  # 获得地址的父链接
@@ -136,7 +143,4 @@ def get_dir_name(file_dir):
 
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    ui = ImagePDF()
-    ui.main_window.show()
-    sys.exit(app.exec_())
+    start()
