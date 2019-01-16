@@ -64,3 +64,8 @@ class CodeRecognition:
 
 
 cr = CodeRecognition('tyoui', 'zw13312324165', 6533, '1928b28e4ce11c541695bbb4510a4c41')
+
+if __name__ == '__main__':
+    # 第一个参数是要识别图像的照片。第二参数是图片类型（看code_type.txt文件）
+    cr = cr.decode('code.png', 3006)
+    print(cr)
