@@ -18,7 +18,7 @@
         author_email='jtyoui@qq.com',
         license='MIT Licence',
         packages=find_packages(),
-        platforms="window",
+        platforms="any",
         package_data={'': ['*']},
         classifiers=(
             "Programming Language :: Python :: 3",
