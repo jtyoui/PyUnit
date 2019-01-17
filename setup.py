@@ -11,6 +11,7 @@ setup(
     packages=find_packages(),
     platforms="window",
     package_data={'': ['*']},
+    install_requires=['PyQt5', 'PyMuPDF', 'requests', 'pygame'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
