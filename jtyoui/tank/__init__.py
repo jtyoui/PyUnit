@@ -384,7 +384,7 @@ class Explode(BaseItem):
     def __init__(self, tank, window):
         super().__init__()
         self.img = [load_img('blast0'), load_img('blast1'), load_img('blast2'), load_img('blast3'), load_img('blast4'),
-                    load_img('blast5')]
+                    load_img('blast5'),load_img('blast6')]
         self.rect = tank.rect
         self.stop = 0
         self.window = window
