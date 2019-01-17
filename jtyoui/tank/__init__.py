@@ -5,8 +5,8 @@ import pygame
 from urllib.request import urlretrieve
 import os
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 600
-MY_TANK_SPEED = 3
+SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 700
+MY_TANK_SPEED = 4
 MY_BIRTH_LEFT, MY_BIRTH_TOP = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 60
 img = pygame.image
 music = pygame.mixer.music
@@ -42,7 +42,7 @@ class TankGame:
         pygame.init()
         pygame.font.init()
         self.display = pygame.display
-        self.window = self.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+        self.window = self.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT], pygame.RESIZABLE, 32)
         self.display.set_caption('坦克世界')
         self.my_tank = MyTank(MY_BIRTH_LEFT, MY_BIRTH_TOP, self.window)
         self.creat_enemy_number = 10
@@ -55,12 +55,13 @@ class TankGame:
     def creat_enemy(self, number):
         for _ in range(number):
             left = random.randint(0, SCREEN_WIDTH - self.my_tank.tank_width)
-            enemy_tank = EnemyTank(left, 20, self.window, random.randint(2, 4) + number * 0.1)
+            enemy_tank = EnemyTank(left, 20, self.window)
             TankGame.enemy_tank_list.append(enemy_tank)
 
     def creat_walls(self):
-        for i in range(20):
-            w = Wall(60 * i, 200, self.window)
+        for i in range(SCREEN_WIDTH // 60 + 1):
+            wall_h = random.randint(100, 500)
+            w = Wall(60 * i, wall_h, self.window)
             TankGame.wall_list.append(w)
 
     @staticmethod
@@ -84,6 +85,8 @@ class TankGame:
                 self.number += 1
                 self.my_tank_lift += 1
                 self.creat_enemy(self.creat_enemy_number)
+                self.wall_list.clear()
+                self.creat_walls()
             self.show_my_tank()
             self.show_enemy_tank()
             self.show_bullet(TankGame.enemy_bullet_list)
@@ -134,8 +137,13 @@ class TankGame:
                 ls.remove(b)
 
     def get_event(self):
+        global SCREEN_WIDTH, SCREEN_HEIGHT
         event_list = pygame.event.get()
         for event in event_list:
+            if event.type == pygame.VIDEORESIZE:
+                SCREEN_WIDTH, SCREEN_HEIGHT = event.size
+                self.window = self.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT], pygame.RESIZABLE, 32)
+
             if event.type == pygame.QUIT:
                 self.end_game()
             if event.type == pygame.KEYDOWN:
@@ -176,9 +184,9 @@ class Tank(BaseItem):
     def __init__(self, left, top, window, image, direction, speed):
         super().__init__()
         self.window = window
-        self.load_img = image
+        self.load_image = image
         self.direction = direction
-        self.img = self.load_img[self.direction]
+        self.img = self.load_image[self.direction]
         self.rect = self.img.get_rect()
         self.rect.left = left
         self.rect.top = top
@@ -195,7 +203,7 @@ class Tank(BaseItem):
         return Bullet(self, self.window)
 
     def display(self):
-        self.img = self.load_img[self.direction]
+        self.img = self.load_image[self.direction]
         self.window.blit(self.img, self.rect)
 
     def wall_not(self, direction):
@@ -253,14 +261,22 @@ class Tank(BaseItem):
 
 class MyTank(Tank):
     def __init__(self, left, top, window):
-        self.img = dict(U=load_img('p1tankU'), D=load_img('p1tankD'), L=load_img('p1tankL'), R=load_img('p1tankR'))
+        self.img = dict(U=load_img('p2tankU'), D=load_img('p2tankD'), L=load_img('p2tankL'), R=load_img('p2tankR'))
         super().__init__(left, top, window, self.img, U, MY_TANK_SPEED)
 
 
 class EnemyTank(Tank):
-    def __init__(self, left, top, window, speed):
-        self.load_img = dict(U=load_img('p2tankU'), D=load_img('enemy3D'), L=load_img('enemy2L'), R=load_img('enemy1R'))
-        super().__init__(left, top, window, self.load_img, self.random_direction(), speed)
+    def __init__(self, left, top, window):
+        self.img1 = dict(U=load_img('enemy1U'), D=load_img('enemy1D'), L=load_img('enemy1L'), R=load_img('enemy1R'))
+        self.img2 = dict(U=load_img('enemy2U'), D=load_img('enemy2D'), L=load_img('enemy2L'), R=load_img('enemy2R'))
+        self.img3 = dict(U=load_img('enemy3U'), D=load_img('enemy3D'), L=load_img('enemy3L'), R=load_img('enemy3R'))
+        self.img31 = dict(U=load_img('enemy3U_1'), D=load_img('enemy3D_1'), L=load_img('enemy3L_1'),
+                          R=load_img('enemy3R_1'))
+        self.img32 = dict(U=load_img('enemy3U_2'), D=load_img('enemy3D_2'), L=load_img('enemy3L_2'),
+                          R=load_img('enemy3R_2'))
+        # 不同的坦克击中的次数不一样
+        image, self.click_count, speed = random.choice([(self.img1, 1, 4), (self.img3, 3, 3), (self.img2, 1, 5)])
+        super().__init__(left, top, window, image, self.random_direction(), speed)
         self.step = 100
 
     @staticmethod
@@ -331,7 +347,15 @@ class Bullet(BaseItem):
             hit = pygame.sprite.collide_rect(self, enemy)
             if hit:
                 self.live = False
-                enemy.live = False
+                if enemy.click_count == 1:
+                    enemy.live = False
+                    return None
+                enemy.click_count -= 1
+                if enemy.click_count == 2:
+                    enemy.load_image = enemy.img32
+                if enemy.click_count == 1:
+                    enemy.load_image = enemy.img31
+                load_music('hit')
 
     def hit_my_tank(self, tank):
         hit = pygame.sprite.collide_rect(self, tank)
