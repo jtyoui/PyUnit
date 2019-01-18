@@ -6,28 +6,25 @@ from urllib.request import urlretrieve
 import os
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 700
-MY_TANK_SPEED = 4
 MY_BIRTH_LEFT, MY_BIRTH_TOP = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 60
-img = pygame.image
-music = pygame.mixer.music
 DIRECTION = [U, D, L, R] = ['U', 'D', 'L', 'R']
-
-url = 'https://raw.githubusercontent.com/jtyoui/logo/master/img/'
+Tank_IMAGE_POSITION = './tank_img'
+URL = 'https://raw.githubusercontent.com/jtyoui/logo/master/img/'
 
 
 def load_img(name_img):
-    save = 'C:\\tank_img' + os.sep + name_img + '.gif'
+    save = Tank_IMAGE_POSITION + os.sep + name_img + '.gif'
     if not os.path.exists(save):
-        urlretrieve(url + name_img + '.gif', save)
-    return img.load(save)
+        urlretrieve(URL + name_img + '.gif', save)
+    return pygame.image.load(save)
 
 
 def load_music(name_music):
-    save = 'C:\\tank_img' + os.sep + name_music + '.wav'
+    save = Tank_IMAGE_POSITION + os.sep + name_music + '.wav'
     if not os.path.exists(save):
-        urlretrieve(url + name_music + '.wav', save)
-    music.load(save)
-    music.play()
+        urlretrieve(URL + name_music + '.wav', save)
+    pygame.mixer.music.load(save)
+    pygame.mixer.music.play()
 
 
 class TankGame:
@@ -37,8 +34,8 @@ class TankGame:
     wall_list = list()
 
     def __init__(self):
-        if not os.path.exists('C:\\tank_img'):
-            os.makedirs('C:\\tank_img')
+        if not os.path.exists(Tank_IMAGE_POSITION):
+            os.makedirs(Tank_IMAGE_POSITION)
         pygame.init()
         pygame.font.init()
         self.display = pygame.display
@@ -262,7 +259,8 @@ class Tank(BaseItem):
 class MyTank(Tank):
     def __init__(self, left, top, window):
         self.img = dict(U=load_img('p2tankU'), D=load_img('p2tankD'), L=load_img('p2tankL'), R=load_img('p2tankR'))
-        super().__init__(left, top, window, self.img, U, MY_TANK_SPEED)
+        self.my_tank_speed = 4
+        super().__init__(left, top, window, self.img, U, self.my_tank_speed)
 
 
 class EnemyTank(Tank):
@@ -384,7 +382,7 @@ class Explode(BaseItem):
     def __init__(self, tank, window):
         super().__init__()
         self.img = [load_img('blast0'), load_img('blast1'), load_img('blast2'), load_img('blast3'), load_img('blast4'),
-                    load_img('blast5'),load_img('blast6')]
+                    load_img('blast5'), load_img('blast6')]
         self.rect = tank.rect
         self.stop = 0
         self.window = window
