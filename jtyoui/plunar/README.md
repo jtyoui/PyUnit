@@ -5,7 +5,7 @@
 ## 这是一个阳历转化农历的程序
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)](https://www.jtyoui.com/)
 [![](https://img.shields.io/badge/Python-3.6-green.svg)]()
-[![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)](http://www.tyoui.cn)
+[![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)](http://www.jtyoui.com)
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
 [![](https://img.shields.io/badge/项目-jtyoui.plunar-black.svg)]()
 
@@ -16,6 +16,7 @@ Python版阳历转农历
     pip install jtyoui
 
 ## 使用
+```python
     from jtyoui.plunar import Lunar
     
     if __name__ == '__main__':
@@ -30,7 +31,7 @@ Python版阳历转农历
         print(lun.week)  # 星期几、英文字符
         print(lun.h)  # 节日
         print(lun)  # 二零一九年 七月 十四 星期四 无
-
+```
 
 ## 编程语言
 [点击查看Python3版本](https://gitee.com/tyoui/plunar)

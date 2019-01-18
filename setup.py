@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jtyoui',
-    version='19.1.16',
+    version='19.1.18',
     description='This is my collection bag.',
     url='https://github.com/jtyoui',
     author='jtyoui',

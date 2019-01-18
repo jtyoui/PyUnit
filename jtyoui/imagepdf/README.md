@@ -20,11 +20,12 @@ PDF和照片可以相互转化
 
 
 ### 执行程序
+```python
     from jtyoui.imagepdf import *
     
     if __name__ == '__main__':
         start()
-
+```
 
 ### 核心代码
 ```Python
