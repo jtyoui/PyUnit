@@ -7,7 +7,7 @@
 [![](https://img.shields.io/badge/Python-3.6-green.svg)]()
 [![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)](http://www.tyoui.cn)
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
-
+[![](https://img.shields.io/badge/项目-jtyoui.imagepdf-black.svg)]()
 
 
 #### 介绍
@@ -16,9 +16,15 @@ PDF和照片可以相互转化
 
 #### 安装教程
 
-1. git clone https://gitee.com/tyoui/imgPDF.git
-2. 运行pdf.py
-3. 或者直接运行pdf.exe可执行文件
+    pip install jtyoui
+
+
+### 执行程序
+    from jtyoui.imagepdf import *
+    
+    if __name__ == '__main__':
+        start()
+
 
 ### 核心代码
 ```Python
