@@ -7,13 +7,18 @@
 [![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)](http://www.jtyoui.com)
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
 
-
+## 安装
+    pip install jtyoui
 
 ## 训练代码(文本是UTF-8格式)
-    if __name__ == '__main__':
-        neologism_words = analysis(file='西游记.txt', thread_num=10, flag=True)
-        for k, v in neologism_words.items():
-            print('key:{0} number:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
+```python
+    from jtyoui.word import *
+        if __name__ == '__main__':
+            neologism_words = analysis(file='小时代.txt', thread_num=10, flag=True)
+            for k, v in neologism_words.items():
+                print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
+```
+    
 
 
 ## 接口参数
