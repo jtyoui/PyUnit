@@ -21,7 +21,7 @@ PDF和照片可以相互转化
 
 ### 执行程序
 ```python
-    from jtyoui.imagepdf import *
+    from jtyoui.imagepdf import start
     
     if __name__ == '__main__':
         start()

@@ -12,7 +12,7 @@
 
 ## 训练代码(文本是UTF-8格式)
 ```python
-    from jtyoui.word import *
+    from jtyoui.word import analysis
         if __name__ == '__main__':
             neologism_words = analysis(file='小时代.txt', thread_num=10, flag=True)
             for k, v in neologism_words.items():
