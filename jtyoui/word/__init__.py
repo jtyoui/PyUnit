@@ -46,17 +46,16 @@ class Neologism(Thread):
         global All_LENS
         for word in ls:
             All_LENS += len(word)
-            clean_data = clean(data=word)
-            if clean_data:
-                self.split(clean_data)
+            clean_data, lens = clean(data=word)
+            if lens > 2:
+                self.split(clean_data, lens)
 
-    def split(self, words):
+    def split(self, words, lens):
         """
         拆分字符，最大匹配num个字符，并也字典的形式返回，
         [出现次数,出现频率,凝固程度,自由程度,关键字的左邻,关键字的右邻](作为信息熵的衡量)
         """
         global ALL_WORDS
-        lens = len(words)
         for i in range(0, lens):
             for j in range(1, self.split_num + 1):
                 if i + j < lens:
@@ -70,7 +69,7 @@ class Neologism(Thread):
                         ALL_WORDS[key] = [1, 0.0, 1, 0, [words[i - 1]], [words[i + j]]]
 
 
-def statistics(key_list):
+def statistics(key_list):  # 统计每个单词的频率
     for key in key_list:
         ALL_WORDS[key][1] = ALL_WORDS[key][0] / All_LENS
 
@@ -82,23 +81,23 @@ def handle(key_list):
     计算凝固程度,自由程度
     """
     for key in key_list:
-        key_list_words = ALL_WORDS[key]
+        word_list = ALL_WORDS[key]  # 获得一个单词的链表信息
         if len(key) == 1:
             continue
         end_all = front_all = 0.0
-        left = key_list_words[1] / (ALL_WORDS[key[0]][1] * ALL_WORDS[key[1:]][1])
-        right = key_list_words[1] / (ALL_WORDS[key[-1]][1] * ALL_WORDS[key[:-1]][1])
+        left = word_list[1] / (ALL_WORDS[key[0]][1] * ALL_WORDS[key[1:]][1])
+        right = word_list[1] / (ALL_WORDS[key[-1]][1] * ALL_WORDS[key[:-1]][1])
 
-        for front in key_list_words[4]:
+        for front in word_list[4]:
             if ALL_WORDS.get(front):
                 front_all -= math.log(ALL_WORDS[front][1]) * ALL_WORDS[front][1]
 
-        for end in key_list_words[5]:
+        for end in word_list[5]:
             if ALL_WORDS.get(end):
                 end_all -= math.log(ALL_WORDS[end][1]) * ALL_WORDS[end][1]
 
-        key_list_words[2] = left if left < right else right
-        key_list_words[3] = front_all if front_all < end_all else end_all
+        word_list[2] = left if left < right else right
+        word_list[3] = front_all if front_all < end_all else end_all
 
 
 def filter_words(frequency, cond, free, flag):
@@ -141,9 +140,7 @@ def read_file(file, file_encoding='utf-8'):
 def clean(data):
     # 去除非中文字符
     words = [work for work in data if 19968 < ord(work) < 40959]
-    if len(words) > 2:
-        return ''.join(words)
-    return None
+    return ''.join(words), len(words)
 
 
 def analysis(file, thread_num=10, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False):
@@ -162,30 +159,35 @@ def analysis(file, thread_num=10, split_num=4, frequency=0.0001, cond=10, free=0
     for neologism in neologisms:
         neologism.start()
     queues.join()
-    print("开始统计频率.........")
     keys_list = list(ALL_WORDS.keys())
     size = len(keys_list) // split_num + 1
+    print("开始统计频率.........")
+    thread_open(split_num, statistics, keys_list, size)
+    print("开始处理数据.........")
+    thread_open(split_num, handle, keys_list, size)
+    print("开始过滤数据.........")
+    return filter_words(frequency, cond, free, flag)
+
+
+def thread_open(split_num, target, keys_list, size):
+    """
+    开启多线程
+    :param split_num: 线程数
+    :param target: 被开启的方法
+    :param keys_list: 所有单词的键链表
+    :param size: 被分割成一块的大小
+    :return: 无
+    """
     threads = []
     for i in range(split_num):
-        t = Thread(target=statistics, args=(keys_list[i * size:(i + 1) * size],))
+        t = Thread(target=target, args=(keys_list[i * size:(i + 1) * size],))
         threads.append(t)
         t.start()
     for t in threads:
         t.join()
-    print("开始处理数据.........")
-    for i in range(split_num):
-        t = Thread(target=handle, args=(keys_list[i * size:(i + 1) * size],))
-        threads.append(t)
-        t.start()
-    for t in threads:
-        t.join()
-    print("开始过滤数据.........")
-    neologism_word = filter_words(frequency, cond, free, flag)
-    print("分析完毕！..........")
-    return neologism_word
 
 
 if __name__ == '__main__':
-    neologism_words = analysis(file='小时代.txt', thread_num=10, frequency=0.00001, split_num=8, cond=100, flag=True)
+    neologism_words = analysis(file=r'E:\小时代.txt', thread_num=10, frequency=0.00001, split_num=8, cond=100, flag=True)
     for k, v in neologism_words.items():
         print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
