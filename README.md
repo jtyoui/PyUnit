@@ -1,4 +1,4 @@
-# **安装步骤** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)][1]
+# **安装步骤** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
 
 
 ## 上传命令

@@ -1,4 +1,4 @@
-# **imgPDF** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)][1]
+# **imgPDF** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
 
 
 ## PDF和照片相互装换程序

@@ -1,4 +1,4 @@
-# **Tank** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **Tank** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
 
 
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]

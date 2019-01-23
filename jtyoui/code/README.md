@@ -1,4 +1,4 @@
-# **验证码识别。Python版本** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)][1]
+# **验证码识别** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
 
 
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]

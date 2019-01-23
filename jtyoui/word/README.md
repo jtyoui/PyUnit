@@ -1,4 +1,4 @@
-# **Neologism** [![jtyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **Neologism** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
 
 
 ## 这是一个无监督训练文本词库与分词
