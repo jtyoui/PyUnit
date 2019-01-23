@@ -7,7 +7,7 @@
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
 [![](https://img.shields.io/badge/项目-jtyoui.tank-black.svg)]()
 
-##介绍
+## 介绍
 用Python简单实现的坦克大战
 
 ### 安装
