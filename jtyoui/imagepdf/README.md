@@ -1,11 +1,10 @@
-# **imgPDF** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)](http://www.jtyoui.com)
+# **imgPDF** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)][1]
 
-[![](https://github.com/zhangwei0530/logo/blob/master/logo/logo.png?raw=true)](http://www.jtyoui.com)
 
 ## PDF和照片相互装换程序
-[![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)](https://www.jtyoui.com/)
+[![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
 [![](https://img.shields.io/badge/Python-3.6-green.svg)]()
-[![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)](http://www.tyoui.cn)
+[![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)][1]
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
 [![](https://img.shields.io/badge/项目-jtyoui.imagepdf-black.svg)]()
 
@@ -67,3 +66,5 @@ PDF和照片可以相互转化
 [点击查看Python3版本](https://gitee.com/tyoui/imgPDF)
 
 [点击查看Java8版本](https://gitee.com/tyoui/jpdf)
+
+[1]: https://www.jtyoui.com

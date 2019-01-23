@@ -1,6 +1,5 @@
 # **安装步骤** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)][1]
 
-[![](https://github.com/zhangwei0530/logo/blob/master/logo/logo.png?raw=true)][1]
 
 ## 上传命令
     python setup.py bdist_wheel

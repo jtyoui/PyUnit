@@ -1,10 +1,9 @@
-# **Neologism** [![jtyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)](http://www.jtyoui.com)
+# **Neologism** [![jtyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
 
-[![](https://github.com/zhangwei0530/logo/blob/master/logo/logo.png?raw=true)](http://www.jtyoui.com)
 
 ## 这是一个无监督训练文本词库与分词
 [![](https://img.shields.io/badge/Python-3.6-green.svg)]()
-[![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)](http://www.jtyoui.com)
+[![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)][1]
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
 
 ## 安装
@@ -43,3 +42,6 @@
        
 ## 训练政治新闻后的结果
 ![](https://github.com/zhangwei0530/logo/blob/master/photo/snsg.png?raw=true)
+
+
+[1]: https://www.jtyoui.com

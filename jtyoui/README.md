@@ -1,6 +1,4 @@
-# **PySet** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)][1]
-
-[![](https://github.com/zhangwei0530/logo/blob/master/logo/logo.png?raw=true)][1]
+# **Jtyoui** [![tyoui](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png?raw=true)][1]
 
 ## 这是一个Python模块集合
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
