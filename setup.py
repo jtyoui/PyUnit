@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jtyoui',
-    version='19.1.20',
+    version='19.1.25',
     description='This is my collection bag.',
     url='https://github.com/jtyoui',
     author='jtyoui',
@@ -11,7 +11,7 @@ setup(
     packages=find_packages(),
     platforms="window",
     package_data={'': ['*']},
-    install_requires=['PyQt5', 'PyMuPDF', 'requests', 'pygame'],
+    install_requires=['PyQt5', 'PyMuPDF', 'requests', 'pygame', 'fake_useragent'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
