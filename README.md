@@ -1,47 +1,9 @@
-# **安装步骤** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **安装步骤** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 
-## 上传命令
-    打包
-    python setup.py bdist_wheel
-    安装在本机测试
-    pip install --upgrade dist\* 
-    上传到pipy
-    twine upload dist\*
+### 介绍
+    学习Python的集合包.有利于重复使用,避免重复造轮子.并且还能温故而知新.
+    里面包括了许多模块,其中包括:搜狗词库下载,新词发现算法,照片和PDF相互转化,
+    微信自动聊天机器人,中国农历与阳历的转换关系,简体字与繁体字的转换,坦克小游戏等等
 
-## setup.py配置
-    from setuptools import setup, find_packages
-    setup(
-    name='jtyoui',
-    version='19.1.16',
-    description='This is my collection bag.',
-    url='https://github.com/jtyoui',
-    author='jtyoui',
-    author_email='jtyoui@qq.com',
-    license='MIT Licence',
-    packages=find_packages(),
-    platforms="window",
-    package_data={'': ['*']},
-    install_requires=['PyQt5', 'PyMuPDF', 'requests', 'pygame'],
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    zip_safe=False
-    )
-    
-***
-
-### .pypirc 放在 C:\Users\Administrator
-    [distutils]
-    index-servers=pypi
-    
-    [pypi]
-    repository = https://upload.pypi.org/legacy/
-    username: xxxxxxxx
-    password: yyyyyyyy
-
-
-
-[1]: https://www.jtyoui.com
+[1]: https://blog.jtyoui.com

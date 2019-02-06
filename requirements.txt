@@ -1,0 +1,6 @@
+PyQt5
+PyMuPDF
+requests
+pygame
+fake_useragent
+itchat
