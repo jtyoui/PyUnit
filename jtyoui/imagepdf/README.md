@@ -1,4 +1,4 @@
-# **imgPDF** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **imgPDF** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 
 ## PDF和照片相互装换程序
@@ -67,4 +67,4 @@ PDF和照片可以相互转化
 
 [点击查看Java8版本](https://gitee.com/tyoui/jpdf)
 
-[1]: https://www.jtyoui.com
+[1]: https://blog.jtyoui.com

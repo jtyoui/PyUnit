@@ -1,4 +1,4 @@
-# **验证码识别** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **验证码识别** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
@@ -58,4 +58,4 @@
     4105	模糊动态5位数字
     
     
-[1]: https://www.jtyoui.com
+[1]: https://blog.jtyoui.com

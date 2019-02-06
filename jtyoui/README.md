@@ -1,4 +1,4 @@
-# **Jtyoui** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **Jtyoui** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 ## 这是一个Python模块集合
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
@@ -12,4 +12,4 @@
     pip install jtyoui
 
 ***
-[1]: https://www.jtyoui.com
+[1]: https://blog.jtyoui.com

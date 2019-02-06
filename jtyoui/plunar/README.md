@@ -1,4 +1,4 @@
-# **PLunar** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **PLunar** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 
 ## 这是一个阳历转化农历的程序
@@ -36,3 +36,5 @@ Python版阳历转农历
 [点击查看Python3版本](https://gitee.com/tyoui/plunar)
 
 [点击查看Java8版本](https://gitee.com/tyoui/lunar)
+
+[1]: https://blog.jtyoui.com

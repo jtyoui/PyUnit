@@ -37,11 +37,10 @@ class Lunar:
             5-16：为除了闰月外的正常月份是大月还是小月，1为30天，0为29天。
             注意：从1月到12月对应的是第16位到第5位。
             17-20：表示闰月是大月还是小月，仅当存在闰月的情况下有意义。
-        :param date: 输入当前的时期,输入的日期范围是1990-2050年
         """
         self.date = '{0}-{1:0>2}-{2:0>2}'.format(year, month, day)
         if year > 2050 or year < 1990:
-            raise Exception('输入的范围在1990-2050年之间')
+            raise ValueError('输入的范围在1990-2050年之间')
         self.year = 0
         self.month = 0
         self.day = 0
@@ -176,7 +175,7 @@ class Lunar:
 
 
 if __name__ == '__main__':
-    lun = Lunar(year=2018,month=1,day=2)
+    lun = Lunar(year=2018, month=1, day=2)
     print(lun.y)  # 农历的年,中文字符 二零一九
     print(lun.year)  # 农历的年，阿拉伯数字 2019
     print(lun.m)  # 农历的月份 中文字符 七

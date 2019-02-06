@@ -1,4 +1,4 @@
-# **Tank** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **Tank** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
@@ -17,7 +17,7 @@
 #### 使用说明   
 
 ```python
-   from jtyoui.tank import TankGame
+   from jtyoui.game import TankGame
 
     if __name__ == '__main__':
         TankGame().start_game()
@@ -25,6 +25,6 @@
 
 ***
 
-[1]: https://www.jtyoui.com
+[1]: https://blog.jtyoui.com
 
 

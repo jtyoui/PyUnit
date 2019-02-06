@@ -1,3 +1,9 @@
+#!/usr/bin/python3.7
+# -*- coding: utf-8 -*-
+# @Time    : 2018/1/2 16:30
+# @Email  : jtyoui@qq.com
+# @Software: PyCharm
+
 import random
 import sys
 import time
@@ -9,7 +15,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 700
 MY_BIRTH_LEFT, MY_BIRTH_TOP = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 60
 DIRECTION = [U, D, L, R] = ['U', 'D', 'L', 'R']
 Tank_IMAGE_POSITION = './tank_img'
-URL = 'https://raw.githubusercontent.com/jtyoui/logo/master/img/'
+URL = 'https://gitee.com/tyoui/logo/raw/master/img/'
 
 
 def load_img(name_img):

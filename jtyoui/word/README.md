@@ -1,4 +1,4 @@
-# **Neologism** [![](https://github.com/zhangwei0530/logo/blob/master/logo/photolog.png)][1]
+# **Neologism** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 
 ## 这是一个无监督训练文本词库与分词
@@ -44,4 +44,4 @@
 ![](https://github.com/zhangwei0530/logo/blob/master/photo/snsg.png?raw=true)
 
 
-[1]: https://www.jtyoui.com
+[1]: https://blog.jtyoui.com

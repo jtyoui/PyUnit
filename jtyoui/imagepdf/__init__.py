@@ -20,7 +20,7 @@ class ImagePDF:
         self.main_window.setWindowTitle(self.translate("MainWindow", "PDF和图片互转"))  # 设置窗口名字
         self.main_window.setFixedSize(self.main_window.width(), self.main_window.height())  # 禁止窗口大小被改变
         self.pale = QtGui.QPalette()
-        self.req = requests.get('https://raw.githubusercontent.com/jtyoui/logo/master/pdf.png')  # 获取背景图片的网络连接
+        self.req = requests.get('https://gitee.com/tyoui/logo/raw/master/pdf.png')  # 获取背景图片的网络连接
         self.photo = QtGui.QPixmap()
         self.photo.loadFromData(self.req.content)
         self.pale.setBrush(self.main_window.backgroundRole(), QtGui.QBrush(self.photo))  # 加载背景图像

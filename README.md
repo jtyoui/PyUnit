@@ -2,8 +2,12 @@
 
 
 ## 上传命令
+    打包
     python setup.py bdist_wheel
-    twine upload dist/*
+    安装在本机测试
+    pip install --upgrade dist\* 
+    上传到pipy
+    twine upload dist\*
 
 ## setup.py配置
     from setuptools import setup, find_packages
