@@ -8,7 +8,7 @@ requires = open('requirements.txt').readlines()
 
 setup(
     name='jtyoui',
-    version='19.2.2',
+    version='19.2.9',
     description='This is my collection bag.',
     long_description=long_text,
     url='https://github.com/jtyoui/Jtyoui',
@@ -20,7 +20,7 @@ setup(
     package_data={'': ['*']},
     install_requires=requires,
     classifiers=[
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

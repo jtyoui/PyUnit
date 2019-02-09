@@ -4,3 +4,4 @@ requests
 pygame
 fake_useragent
 itchat
+pillow
