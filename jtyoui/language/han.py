@@ -3,7 +3,7 @@
 # @Time : 2019/2/4 0004
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
-from .han_table import Han_J_F  # 引入简体字与繁体字的映射表
+from jtyoui.data import Han_J_F  # 引入简体字与繁体字的映射表
 
 J_F, F_J = Han_J_F, {}  # 简体字:J表示, 繁体字用F表示
 for j, f in Han_J_F.items():
