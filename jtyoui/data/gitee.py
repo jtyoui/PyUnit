@@ -49,3 +49,8 @@ def download_gitee(package, name, address=None, project='logo'):
         return 'success'
     except:
         return 'fail'
+
+
+if __name__ == '__main__':
+    download_gitee('logo', 'logo.png', address='D:\\')  # 将照片logo.png下载到D盘
+    pillow = fetch_gitee('logo', 'logo.png', pil=True)  # 返回PIL.image类型数据
