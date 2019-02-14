@@ -20,11 +20,18 @@ if __name__ == '__main__':
 
 #### 更加自定义的定义
 ```python
-from jtyoui.wx import *
+from jtyoui.wx.AutoChat import *
 if __name__ == '__main__':
     itchat.auto_login(hotReload=True)
     oneself(wx_name='Jtyoui')  # 输入自己的微信名
     itchat.run()
+```
+
+#### 爬取电影机器人
+```python
+from jtyoui.wx import movie_start
+if __name__ == '__main__':
+        movie_start() #打开微信输入电影名字
 ```
 
 ***
