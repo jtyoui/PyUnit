@@ -25,8 +25,8 @@ if __name__ == '__main__':
 
 ### 更换邮件传输协议
 ```python
-from jtyoui.mail import *
-HOST=('smtp.qq.com', 465)
+from jtyoui.mail import send_qq_mail
+HOST=('smtp.163.com', 465)
 flag = send_qq_mail(from_addr='ptyoui@jtyoui.com', password='密码', to_addr='jtyoui@jtyoui.com',content='测试邮箱', subject='政治文件', files='政治.txt',host=HOST)
 if flag:
     print('发送成功!')

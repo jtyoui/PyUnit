@@ -3,4 +3,5 @@
 # @Time : 2019/2/4 0004
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
-import jtyoui.language.han
+
+from .han import j_to_f, f_to_j

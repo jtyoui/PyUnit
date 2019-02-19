@@ -5,9 +5,7 @@
 # @Software : PyCharm
 from jtyoui.data import Han_J_F  # 引入简体字与繁体字的映射表
 
-J_F, F_J = Han_J_F, {}  # 简体字:J表示, 繁体字用F表示
-for j, f in Han_J_F.items():
-    F_J[f] = j
+J_F, F_J = Han_J_F, {f: j for j, f in Han_J_F.items()}  # 简体字:J表示, 繁体字用F表示
 
 
 def j_to_f(str_):

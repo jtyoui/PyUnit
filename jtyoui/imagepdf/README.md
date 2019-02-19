@@ -18,12 +18,19 @@ PDF和照片可以相互转化
     pip install jtyoui
 
 
-### 执行程序
+### 执行程序:两个都可以
 ```python
-from jtyoui.imagepdf import start
+from jtyoui.imagepdf import pdf_image #QT5
 
 if __name__ == '__main__':
-    start()
+    pdf_image()
+```
+
+```python
+from jtyoui.imagepdf import images_pdf #TK
+
+if __name__ == '__main__':
+    images_pdf()
 ```
 
 ### 核心代码
@@ -61,7 +68,7 @@ def pdf_image(pdf_name):
 ```
 
 ### 软件界面
-![](https://github.com/jtyoui/logo/blob/master/img_pdf.png?raw=true)
+![](https://gitee.com/tyoui/logo/raw/master/img_pdf.png)
 
 ## 编程语言
 [点击查看Python3版本](https://gitee.com/tyoui/imgPDF)

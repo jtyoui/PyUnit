@@ -10,8 +10,6 @@ import glob, os, io, urllib.request, tkinter
 from tkinter import filedialog
 from tkinter.messagebox import showinfo, showwarning
 
-tk = tkinter.Tk()
-tk.title('PDF和照片互转器')
 DIRS, FILE = '', ''  # 文件夹地址,pdf文件地址
 
 
@@ -71,7 +69,9 @@ def pdf_image(pdf_name):
     showinfo('提示', '转换成功!')
 
 
-def window_gui():
+def images_pdf():
+    tk = tkinter.Tk()
+    tk.title('PDF和照片互转器')
     tkinter.Button(tk, text="选择照片文件夹", command=select_dir).pack(side=tkinter.LEFT)
     tkinter.Button(tk, text="选择PDF文件", command=select_pdf).pack(side=tkinter.RIGHT)
     photo = urllib.request.urlopen('https://gitee.com/tyoui/logo/raw/master/pdf.png')  # 获取背景图片的网络连接
@@ -84,4 +84,4 @@ def window_gui():
 
 
 if __name__ == '__main__':
-    window_gui()
+    images_pdf()

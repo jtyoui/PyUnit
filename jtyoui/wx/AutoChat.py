@@ -18,14 +18,15 @@ resHeader = {}
 app_id = '86760'
 app_secret = 'ccece9bc703d4064b95f31ced8f84c42'
 rec_tmp_dir = os.path.join(os.getcwd(), 'tmp/')
-if not os.path.exists(rec_tmp_dir):
-    os.mkdir(rec_tmp_dir)
 oneself_name = None
 one_run, run = False, True
+show_api = None
 
 
 class ShowApiRequest:
     def __init__(self, url, my_app_id, my_app_secret):
+        if not os.path.exists(rec_tmp_dir):
+            os.mkdir(rec_tmp_dir)
         self.url = url
         self.my_appId = my_app_id
         self.my_appSecret = my_app_secret
@@ -55,9 +56,6 @@ class ShowApiRequest:
             timeout = (timeouts["connect_timout"], timeouts["read_timeout"])
             res = requests.post(self.url, files=files, data=body, headers=headers, timeout=timeout)
         return res
-
-
-show_api = ShowApiRequest('http://route.showapi.com/60-27","my_appId', app_id, app_secret)
 
 
 def show_robot(info, nick_name, img_dir):  # 调用图灵机器人的接口
@@ -124,6 +122,8 @@ def oneself(wx_name):  # 获得自己的信息
 
 
 def auto_start(wx_name):
+    global show_api
+    show_api = ShowApiRequest('http://route.showapi.com/60-27","my_appId', app_id, app_secret)
     itchat.auto_login(hotReload=True)
     oneself(wx_name)  # 输入自己的微信名
     itchat.run()

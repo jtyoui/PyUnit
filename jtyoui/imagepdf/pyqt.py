@@ -129,7 +129,7 @@ class ImagePDF:
         QtWidgets.QMessageBox.information(self.central_widget, '信息', message)
 
 
-def start():
+def pdf_image():
     app = QtWidgets.QApplication(sys.argv)
     ui = ImagePDF()
     ui.main_window.show()
@@ -143,4 +143,4 @@ def get_dir_name(file_dir):
 
 
 if __name__ == '__main__':
-    start()
+    pdf_image()

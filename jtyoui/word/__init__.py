@@ -188,6 +188,6 @@ def thread_open(split_num, target, keys_list, size):
 
 
 if __name__ == '__main__':
-    neologism_words = analysis(file=r'E:\小时代.txt', thread_num=10, frequency=0.00001, split_num=8, cond=100, flag=True)
+    neologism_words = analysis(file='小时代.txt', thread_num=10, frequency=0.00001, split_num=8, cond=100, flag=True)
     for k, v in neologism_words.items():
         print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
