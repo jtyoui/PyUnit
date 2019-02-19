@@ -4,6 +4,7 @@
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
 
+# 简体字和繁体字字典映射
 Han_J_F = {
     '呆': '獃',
     '板': '板',
