@@ -1,3 +1,6 @@
+.. image:: https://img.shields.io/badge/Python-3.7-green.svg
+.. image:: https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg
+
 ============
 介绍
 ============
