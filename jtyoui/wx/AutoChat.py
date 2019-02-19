@@ -10,17 +10,11 @@ import itchat
 import os
 
 # 全局请求头
-files = {}
-headers = {}
-body = {}
-timeouts = {}
-resHeader = {}
-app_id = '86760'
-app_secret = 'ccece9bc703d4064b95f31ced8f84c42'
+files, headers, body, timeouts, resHeader = {}, {}, {}, {}, {}
+app_id, app_secret = '86760', 'ccece9bc703d4064b95f31ced8f84c42'
 rec_tmp_dir = os.path.join(os.getcwd(), 'tmp/')
-oneself_name = None
+oneself_name = show_api = None
 one_run, run = False, True
-show_api = None
 
 
 class ShowApiRequest:
