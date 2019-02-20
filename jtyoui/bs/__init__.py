@@ -29,7 +29,7 @@ def binary_system(x, base_x, base_y):
         x = str(x)
     y = int(x, base_x)  # 将其他进制先转为十进制
     # 在将十进制转为其他进制,并且将大于10的数字用ASCII值来表示,第一个ASCII是97小写的a
-    m = map(lambda x: chr(x + 87) if x >= 10 else str(x), __successive_division(y, base_y))
+    m = map(lambda b: chr(b + 87) if b >= 10 else str(b), __successive_division(y, base_y))
     bs = ''.join(m)[::-1]  # 返回字符串并且反转
     if int(bs, base_y) == y:  # 检验进制是否正确
         return bs

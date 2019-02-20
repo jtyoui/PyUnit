@@ -1,14 +1,13 @@
 from setuptools import setup, find_packages
-import io
 
-with io.open('README.rst', encoding='utf-8') as f:
+with open('README.rst', encoding='utf-8') as f:
     long_text = f.read()
 
 requires = open('requirements.txt').readlines()
 
 setup(
     name='jtyoui',
-    version='19.2.19',
+    version='19.2.20',
     description='This is my collection bag.',
     long_description=long_text,
     url='https://github.com/jtyoui/Jtyoui',
