@@ -16,20 +16,20 @@ Python版阳历转农历
 
 ## 使用
 ```python
-    from jtyoui.plunar import Lunar
+from jtyoui.plunar import Lunar
     
-    if __name__ == '__main__':
-        lun = Lunar(year=2018, month=1, day=2)
-        print(lun.y)  # 农历的年,中文字符 二零一九
-        print(lun.year)  # 农历的年，阿拉伯数字 2019
-        print(lun.m)  # 农历的月份 中文字符 七
-        print(lun.month)  # 农历的月份 阿拉伯字符 7
-        print(lun.d)  # 农历的日期 中文字符 十四
-        print(lun.day)  # 阳历的日期 阿拉伯数字 15 ，注意。和农历不一样
-        print(lun.w)  # 星期几 中文字符
-        print(lun.week)  # 星期几、英文字符
-        print(lun.h)  # 节日
-        print(lun)  # 二零一九年 七月 十四 星期四 无
+if __name__ == '__main__':
+    lun = Lunar(year=2018, month=1, day=2)
+    print(lun.y)  # 农历的年,中文字符 二零一九
+    print(lun.year)  # 农历的年，阿拉伯数字 2019
+    print(lun.m)  # 农历的月份 中文字符 七
+    print(lun.month)  # 农历的月份 阿拉伯字符 7
+    print(lun.d)  # 农历的日期 中文字符 十四
+    print(lun.day)  # 阳历的日期 阿拉伯数字 15 ，注意。和农历不一样
+    print(lun.w)  # 星期几 中文字符
+    print(lun.week)  # 星期几、英文字符
+    print(lun.h)  # 节日
+    print(lun)  # 二零一九年 七月 十四 星期四 无
 ```
 
 ## 编程语言
