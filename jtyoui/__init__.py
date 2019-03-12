@@ -16,5 +16,7 @@ from .data import *  # 常量
 from .fractal import *  # 分形
 from .web import *  # 网页
 from .language import *  # 语言
+from .regular import *  # 正则
+from .decorator import *  # 装饰器
 
 __all__ = [a for a in dir() if not a.startswith('_')]
