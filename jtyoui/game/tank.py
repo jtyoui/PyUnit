@@ -7,9 +7,14 @@
 import random
 import sys
 import time
-import pygame
+from jtyoui.error import LibraryNotInstallError
 from urllib.request import urlretrieve
 import os
+
+try:
+    import pygame
+except ModuleNotFoundError:
+    raise LibraryNotInstallError("安装pygame包: pip install pygame")
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 700
 MY_BIRTH_LEFT, MY_BIRTH_TOP = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 60

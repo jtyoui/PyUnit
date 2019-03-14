@@ -1,5 +1,4 @@
 PyMuPDF
 requests
-pygame
 itchat
 pillow

@@ -17,3 +17,8 @@ class UAPageVersionError(Exception):
 class BaiDuMapError(Exception):
     """百度地图接口异常"""
     pass
+
+
+class LibraryNotInstallError(Exception):
+    """第三方库没有安装"""
+    pass

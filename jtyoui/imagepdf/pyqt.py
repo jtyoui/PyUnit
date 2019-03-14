@@ -1,7 +1,12 @@
 # -*- coding: UTF-8 -*-
 import fitz, glob, os, sys
 import requests
-from PyQt5 import (QtCore, QtGui, QtWidgets)
+from jtyoui.error import LibraryNotInstallError
+
+try:
+    from PyQt5 import (QtCore, QtGui, QtWidgets)
+except ModuleNotFoundError:
+    raise LibraryNotInstallError("安装: pip install PyQt5")
 
 
 class ImagePDF:
