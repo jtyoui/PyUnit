@@ -20,7 +20,7 @@ if __name__ == '__main__':
     save_csv('./景区.csv')    #保存cvs文件
 ```
 
-#### 下载每一个省下面所有的景区,比如贵州省
+#### 下载某一个省下面所有的景区,比如贵州省
 ```python
 from jtyoui.data import GuiZhou
 from jtyoui.maps import bd_map,save_csv
