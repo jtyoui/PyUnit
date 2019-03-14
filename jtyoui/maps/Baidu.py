@@ -15,6 +15,12 @@ AK = ['8R82NkA5j2YzCO1hG2grXUxdLQnnHdVA', 'mSYhaXLLGXffSkkgkalK84RV0Aof22vA', 'O
 
 class Data:
     def __init__(self, name, location, address):
+        """
+        爬取的数据类
+        :param name: 名称
+        :param location: 百度坐标系
+        :param address: 名称的详细地址
+        """
         self.name = name
         self.location = location
         self.address = address
@@ -27,23 +33,31 @@ class Data:
 
 
 def get_data(title, scope, page_size=20, page_num=0):
+    """
+    获取数据
+    :param title: 主题
+    :param scope: 范围
+    :param page_size: 返回一条是数据,默认是20,最大是20
+    :param page_num: 页数
+    :return: 主题信息集合
+    """
     global _total_data
-    ak = choice(AK)
+    ak = choice(AK)  # 随机选取一个Ak值.AK要在百度接口上获取
     address = f'http://api.map.baidu.com/place/v2/search?query={title}&region={scope}&output=json&ak={ak}&page_size=' \
         f'{page_size}&page_num={page_num}'
     r = requests.get(address, headers={'User-Agent': random()})
     json = r.json()
-    print(json)
     status = json.get('status')
     if status == 401:
         get_data(title, scope, page_num=page_num)
         return None
     elif str(status).startswith('3'):
         raise BaiDuMapError('该模块已经废弃不可用')
-    results = json['results']
-    total = json['total']
-    page = ceil(total / page_size)
-    current_page = page_num + 1
+    print(json)
+    results = json['results']  # 获取主要信息
+    total = json['total']  # 获取总条数
+    page = ceil(total / page_size)  # 取上整,获取页数
+    current_page = page_num + 1  # 当前页数,应该等于上一页加1
     for result in results:
         name = result['name']
         locations = result['location']
@@ -55,17 +69,26 @@ def get_data(title, scope, page_size=20, page_num=0):
 
 
 def bd_map(title, scope, page_size=20, page_num=0):
+    """获取信息,和get_data()一样"""
     get_data(title, scope, page_size, page_num)
     return _total_data
 
 
 def save_txt(file):
+    """
+    保存到纯文本
+    :param file: 文件地址
+    """
     with open(file, encoding='utf-8', mode='a') as f:
         for d in _total_data:
             f.write(str(d) + '\n')
 
 
 def save_csv(file):
+    """
+    保存到csv文件
+    :param file: csv文件地址
+    """
     with open(file, encoding='GBK', mode='w') as f:
         for d in _total_data:
             d = str(d).replace('\t', ',')
