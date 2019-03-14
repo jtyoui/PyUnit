@@ -12,3 +12,8 @@ class BrowserTypeError(Exception):
 class UAPageVersionError(Exception):
     """ua版本异常,重新指定版本即可"""
     pass
+
+
+class BaiDuMapError(Exception):
+    """百度地图接口异常"""
+    pass
