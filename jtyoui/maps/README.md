@@ -18,9 +18,29 @@ if __name__ == '__main__':
     bd = bd_map('景区', '黔东南苗族侗族自治州')
     # save_txt('./景区.txt')  #保存文本
     save_csv('./景区.csv')    #保存cvs文件
-    for b in bd:
-        print(b)
 ```
+
+#### 下载每一个省下面所有的景区,比如贵州省
+```python
+from jtyoui.data import GuiZhou
+from jtyoui.maps import bd_map,save_csv
+if __name__ == '__main__':
+    for gz in GuiZhou:
+        bd_map('景区', gz)
+    save_csv('./贵州下所有的景区.csv')
+```
+
+### 下载全国(中国)下面的所有景区
+```python
+from jtyoui.data import Whole_Country
+from jtyoui.maps import bd_map,save_csv
+if __name__ == '__main__':
+    for province in Whole_Country:
+        for city in province:
+            bd_map('景区', city)
+    save_csv('./全国下面所有的景区.csv')
+```
+
 #### 文本结果
     名字:西江千户苗寨	坐标:108.179706,26.500228	地址:贵州省黔东南苗族侗族自治州雷山县黔东南苗族侗族自治州雷山县西江镇南贵村
     名字:镇远古城水上游	坐标:108.436202,27.054738	地址:贵州省黔东南苗族侗族自治州镇远县贵州省黔东南苗族侗族自治州舞阳镇步行街县委对面禹门码头

@@ -19,6 +19,14 @@ if __name__ == '__main__':
     pillow = fetch_gitee('logo', 'logo.png', pil=True)  # 返回PIL.image类型数据
 ```
 
+### 省份名字
+```python
+from jtyoui.data import province
+if __name__ == '__main__':
+        print(province.GuiZhou) #获取贵州省下面的市名字
+        print(province.Province) # 获取全国省名字
+
+```
 
 ***
 [1]: https://blog.jtyoui.com
