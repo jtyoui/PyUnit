@@ -21,7 +21,10 @@ ________________________
 12. [新词发现](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/word)   
 13. [微信](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/wx)   
 14. [正则](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/regular)   
-15. [装饰器](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/decorator)   
+15. [装饰器](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/decorator)
+16. [异常](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/error)        
+17. [地图](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/maps)       
+
 __________________________
 
 

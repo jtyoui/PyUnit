@@ -3,7 +3,7 @@
 # @Time : 2019/2/14 0014
 # @Email : jtyoui@qq.com
 import requests
-from fake_useragent import UserAgent
+from jtyoui.web import random
 import re
 import itchat
 
@@ -12,7 +12,7 @@ url = 'https://m.xunleige.com/'
 
 def movie(name):
     param = dict(searchword=name.encode('gb2312'))
-    response = requests.post(url + 'search.asp', data=param, headers={'User-Agent': UserAgent().random})
+    response = requests.post(url + 'search.asp', data=param, headers={'User-Agent': random()})
     response.encoding = 'GBK'
     data = response.text
     find, = re.findall(pattern=r'<div class="list mb">(.+)</div>', string=data, flags=re.S)

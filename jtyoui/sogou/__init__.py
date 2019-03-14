@@ -4,7 +4,7 @@
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
 import requests
-from fake_useragent import UserAgent
+from jtyoui.web import random
 from urllib.parse import quote
 import re
 import struct
@@ -23,7 +23,7 @@ class SoGou:
         初始化，也就是模糊搜索的第一步
         :param search:  关键字
         """
-        self.header = {'User-Agent': UserAgent().random}  # 设置UA
+        self.header = {'User-Agent': random()}  # 设置UA
         # 将中文字转化为URL链接。注意搜狗将中文字进行的GBK编码。而不是UTF-8
         url_word = quote(search.encode('GBK'))
         url = 'https://pinyin.sogou.com/dict/search/search_list/%s/normal/' % url_word  # 搜索链接

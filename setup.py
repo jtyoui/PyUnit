@@ -7,7 +7,7 @@ requires = open('requirements.txt').readlines()
 
 setup(
     name='jtyoui',
-    version='19.3.11',
+    version='19.3.14',
     description='This is my collection bag.',
     long_description=long_text,
     url='https://github.com/jtyoui/Jtyoui',

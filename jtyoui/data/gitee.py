@@ -5,7 +5,7 @@
 # @Software : PyCharm
 import os
 import requests
-from fake_useragent import UserAgent
+from jtyoui.web import random
 from urllib.request import urlretrieve
 import io
 from PIL import Image
@@ -23,7 +23,7 @@ def fetch_gitee(package, name, project='logo', pil=True):
     :return: 返回字节数据
     """
     url = GITEE.format(project=project, package=package, name=name)
-    response = requests.get(url=url, headers={'User-Agent': UserAgent().random})  # 动态增加UA
+    response = requests.get(url=url, headers={'User-Agent': random()})  # 动态增加UA
     content = response.content
     if pil:
         byte = io.BytesIO(content)  # 转成字节流
@@ -54,3 +54,4 @@ def download_gitee(package, name, address=None, project='logo'):
 if __name__ == '__main__':
     download_gitee('logo', 'logo.png', address='D:\\')  # 将照片logo.png下载到D盘
     pillow = fetch_gitee('logo', 'logo.png', pil=True)  # 返回PIL.image类型数据
+    print(pillow)

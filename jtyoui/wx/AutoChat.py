@@ -4,7 +4,7 @@
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
 import requests
-from fake_useragent import UserAgent
+from jtyoui.web import random
 import json
 import itchat
 import os
@@ -26,7 +26,7 @@ class ShowApiRequest:
         self.my_appSecret = my_app_secret
         body["showapi_appid"] = my_app_id
         body["showapi_sign"] = my_app_secret
-        headers["User-Agent"] = UserAgent().random
+        headers["User-Agent"] = random()
 
     @staticmethod
     def add_file(key, value_url):
