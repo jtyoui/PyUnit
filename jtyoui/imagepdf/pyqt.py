@@ -5,7 +5,7 @@ from jtyoui.error import LibraryNotInstallError
 
 try:
     from PyQt5 import (QtCore, QtGui, QtWidgets)
-except ModuleNotFoundError:
+except ImportError:
     raise LibraryNotInstallError("安装: pip install PyQt5")
 
 
