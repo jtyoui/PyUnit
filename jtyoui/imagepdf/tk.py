@@ -29,6 +29,8 @@ def start():
         image_pdf(DIRS)  # 执行图片转pdf
         DIRS = ''
     elif FILE:
+        if not os.path.exists(FILE[:-4]):
+            os.mkdir(FILE[:-4])
         pdf_image(FILE)  # 执行pdf转照片
         FILE = ''
     else:
@@ -64,7 +66,7 @@ def pdf_image(pdf_name):
         page = pdf[pg]  # 获得每一页的对象
         trans = fitz.Matrix(1.0, 1.0).preRotate(0)
         pm = page.getPixmap(matrix=trans, alpha=False)  # 获得每一页的流对象
-        pm.writePNG(dir_name + os.sep + base_name[:-4] + '_' + '{:0>3d}.png'.format(pg + 1))  # 保存图片
+        pm.writePNG(FILE[:-4] + os.sep + base_name[:-4] + '_{:0>4d}.png'.format(pg + 1))  # 保存图片
     pdf.close()
     showinfo('提示', '转换成功!')
 

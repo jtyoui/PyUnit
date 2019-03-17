@@ -19,12 +19,6 @@ PDF和照片可以相互转化
 
 
 ### 执行程序:两个都可以
-```python
-from jtyoui.imagepdf import pdf_image #QT5
-
-if __name__ == '__main__':
-    pdf_image()
-```
 
 ```python
 from jtyoui.imagepdf import images_pdf #TK
