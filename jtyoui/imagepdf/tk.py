@@ -71,7 +71,7 @@ def pdf_image(pdf_name):
     showinfo('提示', '转换成功!')
 
 
-def images_pdf():
+def UI():
     tk = tkinter.Tk()
     tk.title('PDF和照片互转器')
     tkinter.Button(tk, text="选择照片文件夹", command=select_dir).pack(side=tkinter.LEFT)
@@ -86,4 +86,4 @@ def images_pdf():
 
 
 if __name__ == '__main__':
-    images_pdf()
+    UI()
