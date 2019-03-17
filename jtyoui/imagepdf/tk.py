@@ -6,9 +6,11 @@
 
 import fitz  # 安装 pip install PyMuPDF
 from PIL import Image, ImageTk  # 安装 pip install pillow
-import glob, os, io, urllib.request, tkinter
-from tkinter import filedialog
-from tkinter.messagebox import showinfo, showwarning
+from tkinter import filedialog, messagebox
+import os
+import io
+import urllib.request
+import tkinter
 
 DIRS, FILE = '', ''  # 文件夹地址,pdf文件地址
 
@@ -34,7 +36,7 @@ def start():
         pdf_image(FILE)  # 执行pdf转照片
         FILE = ''
     else:
-        showwarning('警告', '先选择在执行!')
+        messagebox.showwarning('警告', '先选择在执行!')
 
 
 def get_dir_name(file_dir):
@@ -44,10 +46,10 @@ def get_dir_name(file_dir):
 
 
 def image_pdf(file_dir):
-    img = file_dir + "/*"  # 获得文件夹下的所有对象
     dir_name, base_name = get_dir_name(file_dir)
     doc = fitz.open()
-    for img in sorted(glob.glob(img)):  # 排序获得对象
+    for img in os.listdir(file_dir):  # 排序获得对象
+        img = file_dir + os.sep + img
         img_doc = fitz.open(img)  # 获得图片对象
         pdf_bytes = img_doc.convertToPDF()  # 获得图片流对象
         img_pdf = fitz.open("pdf", pdf_bytes)  # 将图片流创建单个的PDF文件
@@ -56,7 +58,7 @@ def image_pdf(file_dir):
         img_pdf.close()
     doc.save(dir_name + os.sep + base_name + ".pdf")  # 保存文档
     doc.close()
-    showinfo('提示', '转换成功!')
+    messagebox.showinfo('提示', '转换成功!')
 
 
 def pdf_image(pdf_name):
@@ -68,7 +70,7 @@ def pdf_image(pdf_name):
         pm = page.getPixmap(matrix=trans, alpha=False)  # 获得每一页的流对象
         pm.writePNG(FILE[:-4] + os.sep + base_name[:-4] + '_{:0>4d}.png'.format(pg + 1))  # 保存图片
     pdf.close()
-    showinfo('提示', '转换成功!')
+    messagebox.showinfo('提示', '转换成功!')
 
 
 def UI():
