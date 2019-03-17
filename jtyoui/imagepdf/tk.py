@@ -72,17 +72,30 @@ def pdf_image(pdf_name):
 
 
 def UI():
-    tk = tkinter.Tk()
-    tk.title('PDF和照片互转器')
-    tkinter.Button(tk, text="选择照片文件夹", command=select_dir).pack(side=tkinter.LEFT)
-    tkinter.Button(tk, text="选择PDF文件", command=select_pdf).pack(side=tkinter.RIGHT)
+    root = tkinter.Tk()
+    root.title('PDF和照片互转器')  # 标题
+    root.resizable(width=False, height=False)  # 防止大小调整
+    canvas = tkinter.Canvas(root, width=450, height=320, highlightthickness=0)  # 创建画布
+
     photo = urllib.request.urlopen('https://gitee.com/tyoui/logo/raw/master/pdf.png')  # 获取背景图片的网络连接
     data_stream = io.BytesIO(photo.read())  # 转化为字节流对象
     pil_image = Image.open(fp=data_stream)  # 生成图片
     image = ImageTk.PhotoImage(pil_image)  # 生成tk图片对象
-    tkinter.Label(tk, image=image, compound=tkinter.CENTER).pack()
-    tkinter.Button(tk, text="点击执行", command=start).pack()
-    tk.mainloop()
+    canvas.create_image(225, 160, image=image)
+
+    select_dir_button = tkinter.Button(root, text="选择照片文件夹", command=select_dir, bg='yellow')  # 创建按钮
+    select_pdf_button = tkinter.Button(root, text="选择PDF文件", command=select_pdf, bg='green')
+    click_button = tkinter.Button(root, text="点击执行", command=start, bg='blue')
+
+    select_dir_button.pack()  # 启动按钮
+    select_pdf_button.pack()
+    click_button.pack()
+
+    canvas.create_window(240, 120, width=100, height=30, window=select_dir_button)  # 将按钮创建到画布
+    canvas.create_window(240, 190, width=100, height=30, window=select_pdf_button)
+    canvas.create_window(240, 260, width=100, height=30, window=click_button)
+    canvas.pack()  # 启动画布
+    root.mainloop()  # 主程序循环
 
 
 if __name__ == '__main__':
