@@ -47,12 +47,12 @@ def get_dir_name(file_dir):
 
 def image_pdf(file_dir):
     dir_name, base_name = get_dir_name(file_dir)
-    doc = fitz.open()
+    doc = fitz.Document()
     for img in os.listdir(file_dir):  # 排序获得对象
         img = file_dir + os.sep + img
-        img_doc = fitz.open(img)  # 获得图片对象
+        img_doc = fitz.Document(img)  # 获得图片对象
         pdf_bytes = img_doc.convertToPDF()  # 获得图片流对象
-        img_pdf = fitz.open("pdf", pdf_bytes)  # 将图片流创建单个的PDF文件
+        img_pdf = fitz.Document("pdf", pdf_bytes)  # 将图片流创建单个的PDF文件
         doc.insertPDF(img_pdf)  # 将单个文件插入到文档
         img_doc.close()
         img_pdf.close()
@@ -63,7 +63,7 @@ def image_pdf(file_dir):
 
 def pdf_image(pdf_name):
     dir_name, base_name = get_dir_name(pdf_name)
-    pdf = fitz.open(pdf_name)
+    pdf = fitz.Document(pdf_name)
     for pg in range(0, pdf.pageCount):
         page = pdf[pg]  # 获得每一页的对象
         trans = fitz.Matrix(1.0, 1.0).preRotate(0)
@@ -73,7 +73,7 @@ def pdf_image(pdf_name):
     messagebox.showinfo('提示', '转换成功!')
 
 
-def UI():
+def ui():
     root = tkinter.Tk()
     root.title('PDF和照片互转器')  # 标题
     root.resizable(width=False, height=False)  # 防止大小调整
@@ -101,4 +101,4 @@ def UI():
 
 
 if __name__ == '__main__':
-    UI()
+    ui()

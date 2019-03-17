@@ -4,4 +4,4 @@
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
 
-from .tk import UI  # tkinter写的界面
+from .tk import ui  # tkinter写的界面
