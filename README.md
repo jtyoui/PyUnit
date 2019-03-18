@@ -24,7 +24,7 @@ ________________________
 15. [装饰器](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/decorator)
 16. [异常](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/error)        
 17. [地图](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/maps)       
-
+18. [文本相似度](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/similarity)
 __________________________
 
 
