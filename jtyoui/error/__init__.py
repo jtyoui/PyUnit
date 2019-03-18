@@ -22,3 +22,8 @@ class BaiDuMapError(Exception):
 class LibraryNotInstallError(Exception):
     """第三方库没有安装"""
     pass
+
+
+class CoordinateLengthNotEqualError(Exception):
+    """坐标维数不相等"""
+    pass
