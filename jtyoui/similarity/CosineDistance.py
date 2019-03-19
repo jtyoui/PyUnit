@@ -23,7 +23,7 @@ def cosine_distance(coordinate_p, coordinate_q):
     """
     if len(coordinate_q) != len(coordinate_p):
         raise CoordinateLengthNotEqualError("坐标长度不一致")
-    numerator, denominator = 0, 1
+    numerator, denominator = 0, 1  # 分子和父母
     for x, y in zip(coordinate_p, coordinate_q):
         numerator += x * y
     q = [x ** 2 for x in coordinate_q]

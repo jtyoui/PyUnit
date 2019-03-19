@@ -2,3 +2,4 @@ PyMuPDF
 requests
 itchat
 pillow
+jieba
