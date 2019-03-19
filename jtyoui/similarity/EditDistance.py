@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:37
 # @Author: Jtyoui
-from array import array
 
 """
 编辑距离
@@ -13,4 +12,24 @@ from array import array
 
 
 def edit_distance(chars, other_chars):
-    w, h = len(chars), len(other_chars)
+    """
+    编辑距离
+    :param chars: 字符串
+    :param other_chars: 另一个字符串
+    :return: 编辑距离值
+    """
+    w, h = len(chars), len(other_chars)  # 计算出长和宽
+    array = [[0 for _ in range(h + 1)] for _ in range(w + 1)]  # 初始化
+    for i in range(w + 1):
+        for j in range(h + 1):
+            if i == 0 or j == 0:
+                array[i][j] = i + j
+            elif chars[i - 1] == other_chars[j - 1]:  # 判断相等,等于对角值
+                array[i][j] = array[i - 1][j - 1]
+            else:  # 判断不相等
+                array[i][j] = min(array[i - 1][j - 1], array[i - 1][j], array[i][j - 1]) + 1
+    return array[w][h]
+
+
+if __name__ == '__main__':
+    print(edit_distance('我吃饭了', '我正在吃饭'))
