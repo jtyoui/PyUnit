@@ -3,3 +3,4 @@ requests
 itchat
 pillow
 jieba
+numpy

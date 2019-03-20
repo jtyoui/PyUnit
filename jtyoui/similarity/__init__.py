@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:32
-# @Author: Jtyoui
+# @Author: Jtyoui@qq.com
 
 from .ChebyshevDistance import chebyshev_distance  # 切比雪夫距离(棋盘距离)
 from .CosineDistance import cosine_distance  # 余弦距离

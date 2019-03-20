@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/11 11:43
-# @Author: Jtyoui
+# @Author: Jtyoui@qq.com
 import functools
 import re
 

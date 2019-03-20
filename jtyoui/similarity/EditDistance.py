@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:37
-# @Author: Jtyoui
+# @Author: Jtyoui@qq.com
 
 """
 编辑距离
@@ -22,12 +22,8 @@ def edit_distance(chars, other_chars):
     array = [[0 for _ in range(h + 1)] for _ in range(w + 1)]  # 初始化
     for i in range(w + 1):
         for j in range(h + 1):
-            if i == 0 or j == 0:
-                array[i][j] = i + j
-            elif chars[i - 1] == other_chars[j - 1]:  # 判断相等,等于对角值
-                array[i][j] = array[i - 1][j - 1]
-            else:  # 判断不相等
-                array[i][j] = min(array[i - 1][j - 1], array[i - 1][j], array[i][j - 1]) + 1
+            array[i][j] = i + j if i == 0 or j == 0 else min(array[i - 1][j - 1], array[i - 1][j], array[i][j - 1]) + 1
+            array[i][j] = array[i - 1][j - 1] if chars[i - 1] == other_chars[j - 1] else array[i][j]
     return array[w][h]
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:36
-# @Author: Jtyoui
+# @Author: Jtyoui@qq.com
 
 """
 余弦距离

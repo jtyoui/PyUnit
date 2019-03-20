@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:36
-# @Author: Jtyoui
+# @Author: Jtyoui@qq.com
 
 import hashlib
 import jieba
@@ -16,7 +16,7 @@ def handle(content, weight, f):
     将内容转成字典格式
     :param content: 文本内容
     :param weight: 特征值
-    :param f: simhash的bit位数
+    :param f: simHash的bit位数
     :return: 海明距离值
     """
     c = []
@@ -38,8 +38,8 @@ def features_dict(features, f):
     """
     特征值字典
     :param features: 特征值
-    :param f: simhash的bit位数
-    :return: simhash值
+    :param f: simHash的bit位数
+    :return: simHash值
     """
     v = [0] * f
     masks = [1 << i for i in range(f)]
@@ -56,10 +56,10 @@ def features_dict(features, f):
 
 def distance(sim_hash, another, f):
     """
-    计算两个simhash的距离
-    :param sim_hash: simhash值
-    :param another: 另一个simhash的值
-    :param f: simhash的bit位数
+    计算两个simHash的距离
+    :param sim_hash: simHash值
+    :param another: 另一个simHash的值
+    :param f: simHash的bit位数
     :return: 海明距离
     """
     x = (sim_hash ^ another) & ((1 << f) - 1)
@@ -76,7 +76,7 @@ def ham_distance(chars, other_chars, weight=None, f=64):
     :param chars: 字符串
     :param other_chars: 另一个字符串
     :param weight: 权重字典:weight={"电影": 3}
-    :param f: samhash的bit位数
+    :param f: samHash的bit位数
     :return: 海明距离值
     """
     v0 = handle(chars, weight, f)

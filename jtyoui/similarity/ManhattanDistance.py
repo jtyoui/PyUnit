@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:33
-# @Author: Jtyoui
+# @Author: Jtyoui@qq.com
 
 """
 曼哈顿距离
