@@ -83,9 +83,12 @@ if __name__ == '__main__':
     txt = sg.load_word(' https://pinyin.sogou.com/d/dict/download_cell.php?id=8084&name=蟋蟀名称')  # 选择具体的下载词库链接
     print(txt)  # 打印
   
-  
- # 搜索到的全部下载
- if __name__ == '__main__':
+```
+
+### 搜索到的全部下载
+```python
+from jtyoui.sogou import SoGou
+if __name__ == '__main__':
     sg = SoGou('动物')  # 获取搜索关键字下的词库
     txt = sg.load_word()  # 下载动物类全部信息
     print(txt)  # 打印

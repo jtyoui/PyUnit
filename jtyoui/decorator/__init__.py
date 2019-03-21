@@ -4,6 +4,7 @@
 # @Author: Jtyoui@qq.com
 import functools
 import re
+from jtyoui.error import CoordinateLengthNotEqualError, ParameterNotEmptyError
 
 """
 装饰器模式
@@ -40,6 +41,20 @@ def replace_regular(re_, replace_):
         return wraps
 
     return remove_replace
+
+
+def parameter_set_length(fun):
+    """参数集合长度验证修饰器"""
+
+    @functools.wraps(fun)
+    def wraps(x, y):
+        if not (x and y):
+            raise ParameterNotEmptyError("参数不能为空")
+        if len(x) != len(y):
+            raise CoordinateLengthNotEqualError("两个参数长度不一致")
+        return fun(x, y)
+
+    return wraps
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@
 ```python
 
 from jtyoui.regular import Non_Chinese
-from jtyoui.decorator import replace_regular
+from jtyoui.decorator import *
 
 
 @replace_regular(' ', '')
@@ -28,10 +28,14 @@ def remove_blank(a, b):
 def remove_non_chinese(a, b):
     print(a, b)
 
+@parameter_set_length
+def set_length(x,y):
+    print(x,y)
+
 if __name__ == '__main__':
     remove_blank('你好  吗?', b='我  很好!')
     remove_non_chinese('你好#$%76#%吗wore?', b='我$%^787word很好!')
-
+    set_length(x=[3,4],y=[1,2])
 ```
 
 ***

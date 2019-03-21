@@ -27,3 +27,8 @@ class LibraryNotInstallError(Exception):
 class CoordinateLengthNotEqualError(Exception):
     """坐标维数不相等"""
     pass
+
+
+class ParameterNotEmptyError(Exception):
+    """参数不能为空"""
+    pass

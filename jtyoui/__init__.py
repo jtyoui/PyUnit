@@ -20,7 +20,7 @@ from jtyoui.regular import *  # 正则
 from jtyoui.decorator import *  # 装饰器
 from jtyoui.error import *  # 异常
 from jtyoui.maps import *  # 地图
-from jtyoui.similarity import *  # 文本相似度算法
+from jtyoui.statistics import *  # 文本统计方法
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.append('game')
