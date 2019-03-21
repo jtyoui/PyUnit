@@ -3,7 +3,7 @@
 # @Time  : 2019/3/18 9:32
 # @Author: Jtyoui@qq.com
 
-from jtyoui.error import CoordinateLengthNotEqualError
+from jtyoui import parameter_set_length
 import math
 
 """
@@ -13,6 +13,7 @@ import math
 """
 
 
+@parameter_set_length
 def euclidean_distance(coordinate_p, coordinate_q):
     """
     欧氏距离
@@ -20,8 +21,6 @@ def euclidean_distance(coordinate_p, coordinate_q):
     :param coordinate_q: q坐标
     :return: 欧氏距离值
     """
-    if len(coordinate_q) != len(coordinate_p):
-        raise CoordinateLengthNotEqualError("坐标长度不一致")
     numerator = 0
     for x, y in zip(coordinate_p, coordinate_q):
         numerator += (x - y) ** 2

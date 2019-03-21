@@ -1,11 +1,11 @@
-# **Similarity** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
+# **Distance** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
-## 距离模块集合
+## 计算距离模块集合
 [![](https://img.shields.io/badge/个人网站-jtyoui.statistics-yellow.com.svg)][1]
 [![](https://img.shields.io/badge/Python-3.6-green.svg)]()
 [![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)][1]
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
-[![](https://img.shields.io/badge/文本相似度-Similarity-black.svg)]()
+[![](https://img.shields.io/badge/文本相似度-distance-black.svg)]()
 
 ### 安装
     pip install jtyoui

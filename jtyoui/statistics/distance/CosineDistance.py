@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:36
 # @Author: Jtyoui@qq.com
+from jtyoui import parameter_set_length
+import math
 
 """
 余弦距离
@@ -10,10 +12,9 @@
 余弦相似度用向量空间中两个向量夹角的余弦值作为衡量两个个体间差异的大小。
 相比距离度量，余弦相似度更加注重两个向量在方向上的差异，而非距离或长度上
 """
-import math
-from jtyoui.error import CoordinateLengthNotEqualError
 
 
+@parameter_set_length
 def cosine_distance(coordinate_p, coordinate_q):
     """
     余弦距离又叫余弦角度
@@ -21,8 +22,6 @@ def cosine_distance(coordinate_p, coordinate_q):
     :param coordinate_q:q坐标
     :return:余弦距离
     """
-    if len(coordinate_q) != len(coordinate_p):
-        raise CoordinateLengthNotEqualError("坐标长度不一致")
     numerator, denominator = 0, 1  # 分子和父母
     for x, y in zip(coordinate_p, coordinate_q):
         numerator += x * y

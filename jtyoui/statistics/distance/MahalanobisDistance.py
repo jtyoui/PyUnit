@@ -3,7 +3,7 @@
 # @Time  : 2019/3/18 9:34
 # @Author: Jtyoui@qq.com
 import numpy as np
-from jtyoui.error import CoordinateLengthNotEqualError
+from jtyoui import parameter_set_length
 
 """
 马氏距离
@@ -15,6 +15,7 @@ from jtyoui.error import CoordinateLengthNotEqualError
 """
 
 
+@parameter_set_length
 def mahalanobis_distance(coordinate_x, coordinate_y):
     """
     求解马氏距离
@@ -22,10 +23,8 @@ def mahalanobis_distance(coordinate_x, coordinate_y):
     :param coordinate_y: y轴向量
     :return result: 两个点的马氏距离
     """
-    if len(coordinate_x) != len(coordinate_y):
-        raise CoordinateLengthNotEqualError("坐标长度不一致")
-        # 马氏距离要求样本数要大于维数，否则无法求协方差矩阵
-        # 此处进行转置，表示10个样本，每个样本2维
+    # 马氏距离要求样本数要大于维数，否则无法求协方差矩阵
+    # 此处进行转置，表示10个样本，每个样本2维
     x = np.vstack([coordinate_x, coordinate_y])
     x_t = x.T  # 转置
     s = np.cov(x)  # 两个维度之间协方差矩阵

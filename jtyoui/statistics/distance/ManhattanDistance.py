@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:33
 # @Author: Jtyoui@qq.com
-from jtyoui.error import CoordinateLengthNotEqualError
+from jtyoui import parameter_set_length
 
 """
 曼哈顿距离
@@ -12,6 +12,7 @@ from jtyoui.error import CoordinateLengthNotEqualError
 """
 
 
+@parameter_set_length
 def manhattan_distance(coordinate_p, coordinate_q):
     """
     曼哈顿距离
@@ -19,8 +20,6 @@ def manhattan_distance(coordinate_p, coordinate_q):
     :param coordinate_q: q坐标
     :return: 曼哈顿距离值
     """
-    if len(coordinate_q) != len(coordinate_p):
-        raise CoordinateLengthNotEqualError("坐标长度不一致")
     point = (abs(x - y) for x, y in zip(coordinate_q, coordinate_p))
     return sum(point)
 

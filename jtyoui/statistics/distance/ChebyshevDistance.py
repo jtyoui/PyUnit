@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:34
 # @Author: Jtyoui@qq.com
-from jtyoui.error import CoordinateLengthNotEqualError
+from jtyoui import parameter_set_length
 
 """
 切比雪夫距离(棋盘距离)
@@ -14,6 +14,7 @@ from jtyoui.error import CoordinateLengthNotEqualError
 """
 
 
+@parameter_set_length
 def chebyshev_distance(coordinate_p, coordinate_q):
     """
     传入的是两个可迭代对象,每一个是一个n位坐标,比如:p=(x1,x2,x3....xn),q=(y1,y2,y3....yn)
@@ -21,8 +22,6 @@ def chebyshev_distance(coordinate_p, coordinate_q):
     :param coordinate_q: q坐标
     :return: 切比雪夫距离(棋盘距离)
     """
-    if len(coordinate_q) != len(coordinate_p):
-        raise CoordinateLengthNotEqualError("坐标长度不一致")
     coordinate = []
     for x, y in zip(coordinate_p, coordinate_q):
         coordinate.append(abs(x - y))

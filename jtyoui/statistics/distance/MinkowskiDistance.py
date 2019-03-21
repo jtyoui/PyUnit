@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 17:16
 # @Author: Jtyoui@qq.com
-import os
 
 """
 闵可夫斯基距离
