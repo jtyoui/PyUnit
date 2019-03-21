@@ -1,4 +1,4 @@
-# Statistics [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
+# **Statistics** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
 ## 统计学模块集合
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
@@ -8,7 +8,7 @@
 [![](https://img.shields.io/badge/统计学-Statistics-black.svg)]()
 
 ### 数据描述性分析部分
-#### [![Distance]](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics/distance)：距离计算模块，包含欧氏距离，马氏距离等距离计算方法
+#### [Distance](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics/distance)：距离计算模块，包含欧氏距离，马氏距离等距离计算方法
 #### CorreCoef：相关系数与相关系数矩阵计算模块，包含pearman相关系数，spearman相关系数等相关系数计算方法
 #### GeneralStats：一般分析统计量计算模块，包含平均数，中位数，众数，分位数，方差，标准差，极差，偏度，峰度等统计量计算方法
 
@@ -32,3 +32,7 @@
 
 ### 因子分析部分
 #### FacAnaly：因子分析模块
+
+
+***
+[1]: https://blog.jtyoui.com
