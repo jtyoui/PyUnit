@@ -4,7 +4,6 @@
 # @Author: Jtyoui@qq.com
 
 from jtyoui import parameter_set_length
-import math
 
 """
 欧氏距离
@@ -24,7 +23,7 @@ def euclidean_distance(coordinate_p, coordinate_q):
     numerator = 0
     for x, y in zip(coordinate_p, coordinate_q):
         numerator += (x - y) ** 2
-    return math.sqrt(numerator)
+    return pow(numerator, 0.5)
 
 
 if __name__ == '__main__':

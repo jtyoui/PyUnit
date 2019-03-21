@@ -3,7 +3,6 @@
 # @Time  : 2019/3/18 9:36
 # @Author: Jtyoui@qq.com
 from jtyoui import parameter_set_length
-import math
 
 """
 余弦距离
@@ -27,7 +26,7 @@ def cosine_distance(coordinate_p, coordinate_q):
         numerator += x * y
     q = [x ** 2 for x in coordinate_q]
     p = [y ** 2 for y in coordinate_p]
-    return numerator / math.sqrt(sum(q) * sum(p))
+    return numerator / pow(sum(q) * sum(p), 0.5)
 
 
 if __name__ == '__main__':

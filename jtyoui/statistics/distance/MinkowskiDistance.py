@@ -31,4 +31,4 @@ def minkowski_distance(coordinate_p, coordinate_q, dimension):
 
 
 if __name__ == '__main__':
-    print(minkowski_distance([3, 0], ([0, 4]), 3))
+    print(minkowski_distance([3, 0], [0, 4], 3))

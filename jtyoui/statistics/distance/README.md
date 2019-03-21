@@ -138,5 +138,8 @@ print(value)
 
 ```
 
+#### 参考资料
+[常见的距离公式](https://blog.csdn.net/jiangjiang_jian/article/details/77527855)
+
 ***
 [1]: https://blog.jtyoui.statistics.com
