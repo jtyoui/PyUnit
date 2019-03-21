@@ -35,16 +35,16 @@ def kendall_coefficient(sample_x, sample_y):
         set_x, set_y = sample_x, sample_y
     n = len(sample_x)
     intersection = set_x.intersection(set_y)  # 交集
-    c = len(intersection) / 2  # 一致性的元素对数
+    c = len(intersection)  # 一致性的元素个数
     union = set_x.union(set_y)  # 并集
-    d = len(union) / 2 - c  # 不一致性的元素对数
+    d = len(union) - c  # 不一致性的元素个数
     n3 = n * (n - 1) / 2
     count_x, count_y = Counter(sample_x), Counter(sample_y)
     n1, n2 = 0, 0
     for i in intersection:
         n1 += count_x.get(i) * (count_x.get(i) - 1) / 2  # x中第i个小集合所包含的元素数
         n2 += count_y.get(i) * (count_y.get(i) - 1) / 2  # y中第i个小集合所包含的元素数
-    return (c - d) / (pow((n3 - n1) * (n3 - n2), 0.5))
+    return (c - d) * 2 / (pow((n3 - n1) * (n3 - n2), 0.5))
 
 
 if __name__ == '__main__':
