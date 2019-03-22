@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 700
 MY_BIRTH_LEFT, MY_BIRTH_TOP = SCREEN_WIDTH / 2, SCREEN_HEIGHT - 60
 DIRECTION = [U, D, L, R] = ['U', 'D', 'L', 'R']
-Tank_IMAGE_POSITION = './tank_img'
+Tank_IMAGE_POSITION = r'D:/tank_img'
 URL = 'https://gitee.com/tyoui/logo/raw/master/img/'
 
 
