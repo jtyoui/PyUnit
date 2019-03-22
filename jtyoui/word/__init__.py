@@ -77,7 +77,7 @@ def statistics(key_list):  # 统计每个单词的频率
 def handle(key_list):
     """
     处理数据
-    计算左邻字集合和右邻字集合有多随机，左邻字信息熵和右邻字信息熵中的较小值
+    计算左邻字集合和右邻字集合的频率，左邻字信息熵和右邻字信息熵中的较小值
     计算凝固程度,自由程度
     """
     for key in key_list:
@@ -85,18 +85,21 @@ def handle(key_list):
         if len(key) == 1:
             continue
         end_all = front_all = 0.0
-        left = word_list[1] / (ALL_WORDS[key[0]][1] * ALL_WORDS[key[1:]][1])
-        right = word_list[1] / (ALL_WORDS[key[-1]][1] * ALL_WORDS[key[:-1]][1])
+        left = word_list[1] / (ALL_WORDS[key[0]][1] * ALL_WORDS[key[1:]][1])  # 左邻字集合的频率
+        right = word_list[1] / (ALL_WORDS[key[-1]][1] * ALL_WORDS[key[:-1]][1])  # 右邻字集合的频率
 
         for front in word_list[4]:
             if ALL_WORDS.get(front):
-                front_all -= math.log(ALL_WORDS[front][1]) * ALL_WORDS[front][1]
+                front_all -= math.log(ALL_WORDS[front][1]) * ALL_WORDS[front][1]  # 左邻字的信息熵
 
         for end in word_list[5]:
             if ALL_WORDS.get(end):
-                end_all -= math.log(ALL_WORDS[end][1]) * ALL_WORDS[end][1]
+                end_all -= math.log(ALL_WORDS[end][1]) * ALL_WORDS[end][1]  # 右邻字的信息熵
 
+        # 左邻字集合和右邻字集合的频率相比较.谁越少说明该词语越容易接近谁
         word_list[2] = left if left < right else right
+
+        # 左邻字集合的信息熵和右邻字集合的信息熵的相比较.谁的信息熵越少说明该集合提供的信息越大
         word_list[3] = front_all if front_all < end_all else end_all
 
 
