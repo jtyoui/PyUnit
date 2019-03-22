@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/21 14:59
 # @Author: Jtyoui@qq.com
+from jtyoui.decorator import parameter_set_length
 
 """
 平均值,中位数,众数,分位数,极差,方差,标准差,偏度,峰度
@@ -10,7 +11,7 @@
 
 class AnalysisMath:
 
-    def __init__(self, data):
+    def __init__(self, data=()):
         if not isinstance(data, (set, list, tuple)):
             raise TypeError("传入一个可替代对象.比如list,set,tuple类型")
         self.data = data
@@ -38,6 +39,12 @@ class AnalysisMath:
         elif flag == 3:
             all_ = [1 / data for data in self.data]
             return self.length / sum(all_)
+
+    def expect(self, data=None):
+        """数学期望"""
+        if data:
+            self.__init__(data)
+        return self.average(0)
 
     def median(self):
         """中位数"""
@@ -73,8 +80,10 @@ class AnalysisMath:
         """极差"""
         return max(self.data) - min(self.data)
 
-    def variance(self):
+    def variance(self, data=None):
         """方差"""
+        if data:
+            self.__init__(data)
         average = self.average(0)
         all_ = [(data - average) ** 2 for data in self.data]
         return sum(all_) / self.length
@@ -109,6 +118,21 @@ class AnalysisMath:
         denominator = self.standard() ** 4  # 标准差**4
 
         return numerator / denominator - 3  # 通常将峰度值做减3处理，使得正态分布的峰度0
+
+
+@parameter_set_length
+def cov(x, y):
+    """协方差"""
+    """expect_x:表示x的数学期望"""
+    if isinstance(x, (set, list, tuple)) and isinstance(y, (set, list, tuple)):
+        ana = AnalysisMath()
+        expect_x = ana.expect(x)
+        expect_y = ana.expect(y)
+        xy = [x_ * y_ for x_, y_ in zip(x, y)]
+        expect_xy = ana.expect(xy)
+        return expect_xy - expect_x * expect_y
+    else:
+        raise TypeError("x,y类型必须满足其中一个(set, list, tuple)")
 
 
 if __name__ == '__main__':
