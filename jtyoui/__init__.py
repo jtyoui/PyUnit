@@ -24,5 +24,5 @@ from jtyoui.statistics import *  # 文本统计方法
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.append('game')
-__version__ = '19.3.14'
+__version__ = '19.3.25'
 __author__ = 'Jtyoui'
