@@ -46,10 +46,12 @@ class AnalysisMath:
             self.__init__(data)
         return self.average(0)
 
+    @property
     def median(self):
         """中位数"""
         return self.quantile(2)
 
+    @property
     def mode_number(self):
         """众数"""
         data = {}
@@ -76,6 +78,7 @@ class AnalysisMath:
         else:
             return data[middle]
 
+    @property
     def range(self):
         """极差"""
         return max(self.__data) - min(self.__data)
@@ -88,10 +91,13 @@ class AnalysisMath:
         all_ = [(data - average) ** 2 for data in self.__data]
         return sum(all_) / self.__length
 
-    def standard(self):
+    def standard(self, data=None):
         """标准差"""
+        if data:
+            self.__init__(data)
         return pow(self.variance(), 0.5)
 
+    @property
     def skewness(self):
         """偏度(偏态系数)"""
         x_3 = [data ** 3 for data in self.__data]
@@ -105,6 +111,7 @@ class AnalysisMath:
         denominator = pow(expect_2 - expect_1 ** 2, 1.5)  # 分母
         return numerator / denominator
 
+    @property
     def kurtosis(self):
         """峰度"""
         """
@@ -138,11 +145,11 @@ def cov(x, y):
 if __name__ == '__main__':
     analysis = AnalysisMath(data=[1, 2, 3, 5, 7, 2, 4, 2, 8, 9])
     print(analysis.average(3))
-    print(analysis.median())
-    print(analysis.mode_number())
+    print(analysis.median)
+    print(analysis.mode_number)
     print(analysis.quantile(2))
-    print(analysis.range())
+    print(analysis.range)
     print(analysis.variance())
     print(analysis.standard())
-    print(analysis.skewness())
-    print(analysis.kurtosis())
+    print(analysis.skewness)
+    print(analysis.kurtosis)

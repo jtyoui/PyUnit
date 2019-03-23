@@ -21,14 +21,14 @@ if __name__ == '__main__':
     """
     analysis = jtyoui.AnalysisMath(data=[1, 2, 3, 5, 7, 2, 4, 2, 8, 9])
     print(analysis.average(3)) # 平均值  2.7305233503088093
-    print(analysis.median()) # 中位数   3.5
-    print(analysis.mode_number()) # 众数  2
+    print(analysis.median) # 中位数   3.5
+    print(analysis.mode_number) # 众数  2
     print(analysis.quantile(2)) # 分位数  3.5
-    print(analysis.range())# 极差   8
+    print(analysis.range)# 极差   8
     print(analysis.variance()) # 方差 7.209999999999999
     print(analysis.standard()) # 标准差 2.6851443164195103
-    print(analysis.skewness()) # 偏度  0.5157053955946609
-    print(analysis.kurtosis()) # 峰度   -1.2029562885574623
+    print(analysis.skewness) # 偏度  0.5157053955946609
+    print(analysis.kurtosis)  # 峰度   -1.2029562885574623
     
 ```
 
