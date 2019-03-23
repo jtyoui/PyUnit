@@ -14,8 +14,8 @@ class AnalysisMath:
     def __init__(self, data=()):
         if not isinstance(data, (set, list, tuple)):
             raise TypeError("传入一个可替代对象.比如list,set,tuple类型")
-        self.data = data
-        self.length = len(data)
+        self.__data = data
+        self.__length = len(data)
 
     def average(self, flag=0):
         """平均数"""
@@ -27,18 +27,18 @@ class AnalysisMath:
         :param flag:根据不同的数值,进行不同的平均值
         """
         if flag == 0:
-            return sum(self.data) / self.length
+            return sum(self.__data) / self.__length
         elif flag == 1:
             all_ = 1
-            for data in self.data:
+            for data in self.__data:
                 all_ *= abs(data)
-            return pow(all_, self.length)
+            return pow(all_, self.__length)
         elif flag == 2:
-            all_ = [data ** 2 for data in self.data]
-            return pow(sum(all_) / self.length, 0.5)
+            all_ = [data ** 2 for data in self.__data]
+            return pow(sum(all_) / self.__length, 0.5)
         elif flag == 3:
-            all_ = [1 / data for data in self.data]
-            return self.length / sum(all_)
+            all_ = [1 / data for data in self.__data]
+            return self.__length / sum(all_)
 
     def expect(self, data=None):
         """数学期望"""
@@ -53,7 +53,7 @@ class AnalysisMath:
     def mode_number(self):
         """众数"""
         data = {}
-        for d in self.data:
+        for d in self.__data:
             data[d] = data.get(d, 0) + 1
         max_ = sorted(data.items(), key=lambda x: x[1], reverse=True)
         return max_[0][0]
@@ -69,8 +69,8 @@ class AnalysisMath:
         if position > 3:
             raise ValueError("position的取值范围是[1,2,3]整数")
 
-        data = sorted(self.data)
-        middle, mod = divmod(self.length * position, 4)
+        data = sorted(self.__data)
+        middle, mod = divmod(self.__length * position, 4)
         if mod == 0:
             return (data[middle - 1] + data[middle]) / 2
         else:
@@ -78,15 +78,15 @@ class AnalysisMath:
 
     def range(self):
         """极差"""
-        return max(self.data) - min(self.data)
+        return max(self.__data) - min(self.__data)
 
     def variance(self, data=None):
         """方差"""
         if data:
             self.__init__(data)
         average = self.average(0)
-        all_ = [(data - average) ** 2 for data in self.data]
-        return sum(all_) / self.length
+        all_ = [(data - average) ** 2 for data in self.__data]
+        return sum(all_) / self.__length
 
     def standard(self):
         """标准差"""
@@ -94,12 +94,12 @@ class AnalysisMath:
 
     def skewness(self):
         """偏度(偏态系数)"""
-        x_3 = [data ** 3 for data in self.data]
-        x_2 = [data ** 2 for data in self.data]
+        x_3 = [data ** 3 for data in self.__data]
+        x_2 = [data ** 2 for data in self.__data]
 
         expect_1 = self.average(0)  # x的数学期望
-        expect_3 = sum(x_3) / self.length  # x**3的数学期望
-        expect_2 = sum(x_2) / self.length  # x**2的数学期望
+        expect_3 = sum(x_3) / self.__length  # x**3的数学期望
+        expect_2 = sum(x_2) / self.__length  # x**2的数学期望
 
         numerator = expect_3 - 3 * expect_1 * (expect_2 - expect_1 ** 2) - expect_1 ** 3  # 分子
         denominator = pow(expect_2 - expect_1 ** 2, 1.5)  # 分母
@@ -112,8 +112,8 @@ class AnalysisMath:
         如果超值峰度为负，称为低峰态
         """
         average = self.average(0)  # 数学期望
-        all_4 = [(data - average) ** 4 for data in self.data]
-        numerator = sum(all_4) / self.length  # 四阶样本中心矩
+        all_4 = [(data - average) ** 4 for data in self.__data]
+        numerator = sum(all_4) / self.__length  # 四阶样本中心矩
 
         denominator = self.standard() ** 4  # 标准差**4
 
