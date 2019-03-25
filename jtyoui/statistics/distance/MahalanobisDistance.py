@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:34
 # @Author: Jtyoui@qq.com
-import numpy as np
-from jtyoui import parameter_set_length
+from jtyoui.statistics.analysis import Matrix, cov, AnalysisMath
 
 """
 马氏距离
@@ -15,32 +14,33 @@ from jtyoui import parameter_set_length
 """
 
 
-@parameter_set_length
-def mahalanobis_distance(coordinate_x, coordinate_y):
+def mahalanobis_distance(matrix, coordinate):
     """
     求解马氏距离
-    :param coordinate_x: x轴向量
-    :param coordinate_y: y轴向量
+    :param matrix: 矩阵列表
+    :param coordinate: 坐标
     :return result: 两个点的马氏距离
     """
     # 马氏距离要求样本数要大于维数，否则无法求协方差矩阵
     # 此处进行转置，表示10个样本，每个样本2维
-    x = np.vstack([coordinate_x, coordinate_y])
-    x_t = x.T  # 转置
-    s = np.cov(x)  # 两个维度之间协方差矩阵
-    s_i = np.linalg.inv(s)  # 协方差矩阵的逆矩阵
-    # 马氏距离计算两个样本之间的距离，此处共有4个样本，两两组合，共有6个距离。
-    n = x_t.shape[0]
-    result = []
-    for i in range(0, n):
-        for j in range(i + 1, n):
-            delta = x_t[i] - x_t[j]
-            point = x_t[i], x_t[j]
-            distance = np.sqrt(np.dot(np.dot(delta, s_i), delta.T))
-            result.append((point, distance))
-
-    return result
+    s = Matrix(matrix).t
+    ana = AnalysisMath()
+    mean, c, distance = [], [], []
+    for index, i in enumerate(s):
+        c.append([cov(i, j) for j in s])
+    s_i = Matrix(c).i  # 协方差矩阵的逆矩阵
+    for data in s:
+        mean.append(ana.expect(data))
+    distance.append([i - j for i, j in zip(coordinate, mean)])
+    ma = Matrix(Matrix(distance) * s_i) * Matrix(distance).t
+    return pow(ma[0][0], 0.5)
 
 
 if __name__ == '__main__':
-    print(mahalanobis_distance((3, 5, 2, 8), (4, 6, 2, 4)))
+    mat = [
+        [3, 4],
+        [5, 6],
+        [2, 8],
+        [8, 4]
+    ]
+    print(mahalanobis_distance(mat, [3, 4]))

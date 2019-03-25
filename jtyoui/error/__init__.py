@@ -32,3 +32,8 @@ class CoordinateLengthNotEqualError(Exception):
 class ParameterNotEmptyError(Exception):
     """参数不能为空"""
     pass
+
+
+class MatrixNotDottedError(Exception):
+    """矩阵不能点乘"""
+    pass
