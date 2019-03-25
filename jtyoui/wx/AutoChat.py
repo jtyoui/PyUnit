@@ -6,7 +6,7 @@
 import requests
 from jtyoui.web import random
 import json
-import itchat
+import itchat  # 安装 pip install itchat
 import os
 
 # 全局请求头

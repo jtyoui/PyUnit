@@ -1,6 +1,0 @@
-PyMuPDF
-requests
-itchat
-pillow
-jieba
-numpy

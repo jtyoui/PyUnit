@@ -7,27 +7,24 @@ import os
 import requests
 from jtyoui.web import random
 from urllib.request import urlretrieve
-import io
-from PIL import Image
 
 GITEE = 'https://gitee.com/tyoui/{project}/raw/master/{package}/{name}'  # gitee上保存数据的格式
 
 
-def fetch_gitee(package, name, project='logo', pil=True):
+def fetch_gitee(package, name, project='logo'):
     """
     爬取非结构文本数据
     :param package: 包名
     :param name: 文件名
     :param project: 项目名
-    :param pil: 是否返回PIL.Image类型
     :return: 返回字节数据
     """
     url = GITEE.format(project=project, package=package, name=name)
     response = requests.get(url=url, headers={'User-Agent': random()})  # 动态增加UA
     content = response.content
-    if pil:
-        byte = io.BytesIO(content)  # 转成字节流
-        return Image.open(fp=byte)
+    # if pil:
+    #     byte = io.BytesIO(content)  # 转成字节流
+    #     return Image.open(fp=byte)
     return content
 
 
@@ -53,5 +50,5 @@ def download_gitee(package, name, address=None, project='logo'):
 
 if __name__ == '__main__':
     download_gitee('logo', 'logo.png', address='D:\\')  # 将照片logo.png下载到D盘
-    pillow = fetch_gitee('logo', 'logo.png', pil=True)  # 返回PIL.image类型数据
+    pillow = fetch_gitee('logo', 'logo.png')  # 返回PIL.image类型数据
     print(pillow)
