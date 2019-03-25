@@ -4,7 +4,6 @@
 # @Author: Jtyoui@qq.com
 
 import hashlib
-import jieba
 
 """
 海明距离
@@ -13,21 +12,21 @@ import jieba
 """
 
 
-def handle(content, weight, f):
+def handle(participle_ls, weight, f):
     """
     将内容转成字典格式
-    :param content: 文本内容
+    :param participle_ls: 文本分词内容,是一个list分词对象
     :param weight: 特征值
     :param f: simHash的bit位数
     :return: 海明距离值
     """
     c = []
-    for jb in jieba.cut(content):
+    for ls in participle_ls:
         if weight:
-            v = weight.get(jb, 1)
+            v = weight.get(ls, 1)
         else:
             v = 1
-        c.append((jb, v))
+        c.append((ls, v))
     return features_dict(c, f)
 
 
@@ -87,4 +86,6 @@ def ham_distance(chars, other_chars, weight=None, f=64):
 
 
 if __name__ == '__main__':
-    print(ham_distance('我吃饭了,明天去看电影', '我在吃饭了,马上去看电影', weight={"电影": 3}))
+    a = ['我', '吃饭', '了', '明天', '去', '看', '电影']
+    b = ['我', '在', '吃饭', '了', '马上', '去', '看', '电影']
+    print(ham_distance(a, b, weight={"电影": 3}))
