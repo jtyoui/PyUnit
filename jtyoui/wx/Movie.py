@@ -4,8 +4,13 @@
 # @Email : jtyoui@qq.com
 import requests
 from jtyoui.web import random
+from jtyoui.error import LibraryNotInstallError
 import re
-import itchat  # 安装 pip install itchat
+
+try:
+    import itchat  # 安装 pip install itchat
+except ModuleNotFoundError:
+    raise LibraryNotInstallError("安装 pip install itchat")
 
 url = 'https://m.xunleige.com/'
 

@@ -5,8 +5,13 @@
 # @Software : PyCharm
 import requests
 from jtyoui.web import random
+from jtyoui.error import LibraryNotInstallError
 import json
-import itchat  # 安装 pip install itchat
+
+try:
+    import itchat  # 安装 pip install itchat
+except ModuleNotFoundError:
+    raise LibraryNotInstallError("安装 pip install itchat")
 import os
 
 # 全局请求头

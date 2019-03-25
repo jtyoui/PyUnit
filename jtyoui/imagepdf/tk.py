@@ -3,9 +3,18 @@
 # @Time : 2019/2/9 0009
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
+from jtyoui.error import LibraryNotInstallError
 
-import fitz  # 安装 pip install PyMuPDF
-from PIL import Image, ImageTk  # 安装 pip install pillow
+try:
+    import fitz  # 安装 pip install PyMuPDF
+except ModuleNotFoundError:
+    raise LibraryNotInstallError("安装 pip install PyMuPDF")
+
+try:
+    from PIL import Image, ImageTk  # 安装 pip install pillow
+except ImportError:
+    raise LibraryNotInstallError("安装 pip install pillow")
+
 from tkinter import filedialog, messagebox
 import os
 import io
