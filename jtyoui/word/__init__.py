@@ -3,5 +3,5 @@
 # @Time  : 2019/3/26 9:47
 # @Author: Jtyoui@qq.com
 
-from .Neologism import analysis  # 没有多线程
+from .Neologism import analysis_single  # 没有多线程
 from .ThreadNeologism import thread_analysis  # 有多线程

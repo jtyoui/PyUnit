@@ -121,7 +121,7 @@ def clean(data):
     return data, len(data)
 
 
-def analysis(file, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False):
+def analysis_single(file, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False):
     """
     :param file: 训练的文本
     :param split_num: 匹配个数
@@ -147,6 +147,6 @@ def analysis(file, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False)
 
 
 if __name__ == '__main__':
-    neologism_words = analysis(r'1.txt', 6, 0.00001, 100, 0.1, flag=True)
+    neologism_words = analysis_single(r'1.txt', 6, 0.00001, 100, 0.1, flag=True)
     for k, v in neologism_words.items():
         print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
