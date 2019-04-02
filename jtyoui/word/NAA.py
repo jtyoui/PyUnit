@@ -75,7 +75,7 @@ class NAA:
             for j in range(1, self.split_num + 1):
                 if i + j < lens:
                     k = words[i:i + j]
-                    word = self.naa_words[k]
+                    word = self.naa_words.get(k)
                     if word:
                         word[0] += 1
                         word[1] = word[0] / self.all_lens
