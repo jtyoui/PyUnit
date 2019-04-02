@@ -9,6 +9,7 @@ import math
 import re
 from jtyoui.regular import Non_Chinese
 from jtyoui.decorator import replace_regular
+import os
 
 ALL_WORDS = dict()
 All_LENS = 0
@@ -54,7 +55,7 @@ def split(words, lens, split_num):
                     word[4].append(words[i - 1])
                     word[5].append(words[i + j])
                 else:
-                    ALL_WORDS.setdefault(key, [1, 0.0, 1, 0, [words[i - 1]], [words[i + j]]])
+                    ALL_WORDS[key] = [1, 0.0, 1, 0, [words[i - 1]], [words[i + j]]]
 
 
 def statistics():  # 统计每个单词的频率
@@ -121,9 +122,9 @@ def clean(data):
     return data, len(data)
 
 
-def analysis_single(file, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False):
+def analysis_single(file_str, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False):
     """
-    :param file: 训练的文本
+    :param file_str: 训练的文本,或者字符串,或者是句子列表
     :param split_num: 匹配个数
     :param frequency: 频率
     :param cond: 凝聚度
@@ -131,10 +132,14 @@ def analysis_single(file, split_num=4, frequency=0.0001, cond=10, free=0.1, flag
     :param flag:是否是并且还是或者,默认是或者，满足一个就过滤
     :return: 分析完毕的字典
     """
-    with open(file, encoding='utf-8') as fp:
-        for line in fp:
-            read_string(line, split_num)
-        print('读文件完毕!')
+    if os.path.exists(file_str):
+        with open(file_str, encoding='utf-8') as fp:
+            for line in fp:
+                read_string(line, split_num)
+    elif isinstance(file_str, list):
+        read_ls(file_str, split_num)
+    else:
+        read_string(file_str, split_num)
 
     print("开始统计频率.........")
     statistics()
@@ -147,6 +152,6 @@ def analysis_single(file, split_num=4, frequency=0.0001, cond=10, free=0.1, flag
 
 
 if __name__ == '__main__':
-    neologism_words = analysis_single(r'1.txt', 6, 0.00001, 100, 0.1, flag=True)
+    neologism_words = analysis_single(r'西游记.txt', 6, 0.00001, 100, 0.1, flag=True)
     for k, v in neologism_words.items():
         print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))

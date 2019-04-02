@@ -11,16 +11,17 @@
 
 ## 训练代码(文本是UTF-8格式)
 ```python
-from jtyoui.word import analysis
+from jtyoui.word import analysis_single,thread_analysis
 if __name__ == '__main__':
-    neologism_words = analysis(file='小时代.txt', thread_num=10, flag=True)
+    neologism_words = analysis_single(file_str='小时代.txt') #单线程
+    neologism=thread_analysis(file='小时代.txt') #多线程,并没有什么卵用,不建议使用
     for k, v in neologism_words.items():
         print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
 ```
     
 
 
-## 接口参数
+## 接口参数(也废除)
     def analysis(file, thread_num=10, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False)
        """
     :param file: 训练的文本
