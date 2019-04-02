@@ -152,6 +152,6 @@ def analysis_single(file_str, split_num=4, frequency=0.0001, cond=10, free=0.1, 
 
 
 if __name__ == '__main__':
-    neologism_words = analysis_single(r'西游记.txt', 6, 0.00001, 100, 0.1, flag=True)
+    neologism_words = analysis_single(r'D:\data.txt', 6, 0.00001, 100, 0.1, flag=True)
     for k, v in neologism_words.items():
         print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))

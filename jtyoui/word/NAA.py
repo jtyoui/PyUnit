@@ -172,5 +172,4 @@ if __name__ == '__main__':
     naa.handle()
     data = naa.filter(filter_free=0.7, filter_cond=84, flag=False)
     for key, value in data.items():
-        print('关键字:' + key, '次数:' + str(value[0]), '频率:' + str(value[1]), '凝聚度:' + str(value[2]),
-              '自由度:' + str(value[3]))
+        print(F'关键字:{key},次数:{value[0]},频率:{value[1]},凝聚度:{value[2]},自由度:{(value[3])}')
