@@ -9,6 +9,7 @@ import math
 import re
 from jtyoui.regular import Non_Chinese
 from jtyoui.decorator import replace_regular
+from collections import Counter
 import os
 
 ALL_WORDS = dict()
@@ -45,22 +46,34 @@ def split(words, lens, split_num):
     拆分字符，最大匹配num个字符，并也字典的形式返回，
     [出现次数,出现频率,凝固程度,自由程度,关键字的左邻,关键字的右邻](作为信息熵的衡量)
     """
-    for i in range(0, lens):
-        for j in range(1, split_num + 1):
-            if i + j < lens:
-                key = words[i:i + j]
+    for i in range(lens):
+        for j in range(i + 1, split_num + 1 + i):
+            if j < lens:
+                key = words[i:j]
                 word = ALL_WORDS.get(key)
                 if word:
                     word[0] += 1
                     word[4].append(words[i - 1])
-                    word[5].append(words[i + j])
+                    word[5].append(words[j])
                 else:
-                    ALL_WORDS[key] = [1, 0.0, 1, 0, [words[i - 1]], [words[i + j]]]
+                    ALL_WORDS[key] = [1, 0.0, 1, 0, [words[i - 1]], [words[j]]]
 
 
-def statistics():  # 统计每个单词的频率
+def statistics():
+    """统计每个单词的频率"""
     for key in ALL_WORDS:
         ALL_WORDS[key][1] = ALL_WORDS[key][0] / All_LENS
+
+
+def information_entropy(word_ls):
+    """信息熵"""
+    entropy_all = 0.0
+    key_count = Counter(word_ls)
+    for key, count in key_count.items():
+        word = ALL_WORDS.get(key)
+        if word:
+            entropy_all -= math.log(word[1]) * word[1] * count  # 邻字的信息熵
+    return entropy_all
 
 
 def handle():
@@ -69,51 +82,34 @@ def handle():
     计算左邻字集合和右邻字集合的频率，左邻字信息熵和右邻字信息熵中的较小值
     计算凝固程度,自由程度
     """
-    for key in ALL_WORDS:
-        word_list = ALL_WORDS[key]  # 获得一个单词的链表信息
-        if len(key) == 1:
-            continue
-        end_all = front_all = 0.0
-        left = word_list[1] / (ALL_WORDS[key[0]][1] * ALL_WORDS[key[1:]][1])  # 左邻字集合的频率
-        right = word_list[1] / (ALL_WORDS[key[-1]][1] * ALL_WORDS[key[:-1]][1])  # 右邻字集合的频率
+    for key, word_list in ALL_WORDS.items():
+        if len(key) > 1:
+            # 左邻字集合的凝聚度和右邻字集合的凝聚度相比较.谁越少说明该词语越容易接近谁
+            left = word_list[1] / (ALL_WORDS[key[0]][1] * ALL_WORDS[key[1:]][1])  # 左邻字集合的凝聚度
+            right = word_list[1] / (ALL_WORDS[key[-1]][1] * ALL_WORDS[key[:-1]][1])  # 右邻字集合的凝聚度
+            word_list[2] = left if left < right else right
 
-        for front in word_list[4]:
-            if ALL_WORDS.get(front):
-                front_all -= math.log(ALL_WORDS[front][1]) * ALL_WORDS[front][1]  # 左邻字的信息熵
-
-        for end in word_list[5]:
-            if ALL_WORDS.get(end):
-                end_all -= math.log(ALL_WORDS[end][1]) * ALL_WORDS[end][1]  # 右邻字的信息熵
-
-        # 左邻字集合和右邻字集合的频率相比较.谁越少说明该词语越容易接近谁
-        word_list[2] = left if left < right else right
-
-        # 左邻字集合的信息熵和右邻字集合的信息熵的相比较.谁的信息熵越少说明该集合提供的信息越大
-        word_list[3] = front_all if front_all < end_all else end_all
+            # 左邻字集合的信息熵和右邻字集合的信息熵的相比较.谁的信息熵越少说明该集合提供的信息越大
+            front_all = information_entropy(word_list[4])  # 左邻字集合的信息熵
+            end_all = information_entropy(word_list[5])  # 右邻字集合的信息熵
+            word_list[3] = front_all if front_all < end_all else end_all
 
 
-def filter_words(frequency, cond, free, flag):
+def filter_words(count, frequency, cond, free):
     """
     过滤一些不重要的数据
     [出现次数,出现频率,凝固程度,自由程度]
+    :param count:key出现的次数
     :param frequency: 过滤的频率
     :param cond:过滤凝聚度
     :param free:过滤自由度
-    :param flag: 是否是并且还是或者,默认是或者，满足一个就过滤
     :return:过滤后的数据字典
     """
-    key_words = dict()
-    for key in ALL_WORDS.keys():
+    for key, one_word in ALL_WORDS.items():
         if len(key) <= 1:
             continue
-        one_word = ALL_WORDS[key]
-        if flag:
-            if one_word[1] > frequency and one_word[2] > cond and one_word[3] > free:
-                key_words[key] = [one_word[0], one_word[1], one_word[2], one_word[3]]
-        else:
-            if one_word[1] > frequency or one_word[2] > cond or one_word[3] > free:
-                key_words[key] = [one_word[0], one_word[1], one_word[2], one_word[3]]
-    return key_words
+        if (one_word[0] > count or one_word[1] > frequency) and one_word[2] > cond and one_word[3] > free:
+            yield key, one_word
 
 
 @replace_regular(Non_Chinese, '')
@@ -122,14 +118,10 @@ def clean(data):
     return data, len(data)
 
 
-def analysis_single(file_str, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False):
+def analysis_single(file_str, split_num=4):
     """
     :param file_str: 训练的文本,或者字符串,或者是句子列表
     :param split_num: 匹配个数
-    :param frequency: 频率
-    :param cond: 凝聚度
-    :param free: 自由度
-    :param flag:是否是并且还是或者,默认是或者，满足一个就过滤
     :return: 分析完毕的字典
     """
     if os.path.exists(file_str):
@@ -147,11 +139,11 @@ def analysis_single(file_str, split_num=4, frequency=0.0001, cond=10, free=0.1, 
     print("开始处理数据.........")
     handle()
 
-    print("开始过滤数据.........")
-    return filter_words(frequency, cond, free, flag)
+    print("开始过滤数据.........可自定义考虑范围")
+    return ALL_WORDS
 
 
 if __name__ == '__main__':
-    neologism_words = analysis_single(r'D:\data.txt', 6, 0.00001, 100, 0.1, flag=True)
-    for k, v in neologism_words.items():
-        print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
+    analysis_single(r'D:\data.txt', 6)
+    for k, v in filter_words(count=100, frequency=0.0001, cond=0.00001, free=1):
+        print(F'关键字:{k} 次数:{v[0]} 频率:{v[1]} 凝聚度:{v[2]} 自由度:{v[3]}')
