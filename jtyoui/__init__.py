@@ -19,6 +19,7 @@ from jtyoui.decorator import *  # 装饰器
 from jtyoui.error import *  # 异常
 from jtyoui.maps import *  # 地图
 from jtyoui.statistics import *  # 文本统计方法
+from jtyoui.bayes import *  # 贝叶斯算法
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
