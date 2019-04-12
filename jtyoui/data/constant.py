@@ -3,7 +3,6 @@
 # @Time : 2019/2/19
 # @Email : jtyoui@qq.com
 
-from enum import Enum, unique
 
 # 常见的照片格式
 Photo_Format = (
@@ -15,8 +14,8 @@ Photo_Format = (
 Decode = ('Unicode', 'ASCII', 'GBK', 'GB2312', 'UTF-8', 'ISO-8859-1', 'UTF-16', 'GB18030', 'ISO-8859-2')
 
 
-@unique
-class MathSymbols(Enum):
+# 数学符号
+class MathSymbols:
     """‖‰℃℉←↑→↓∈∏∑°√∝∞∟∠∣∧∨∩∪∫∮～≈≌≒≠≡"""
     vector_value = '‖'  # ‖A‖ 表示A向量的值
     one_thousand = '‰'  # 千分号
@@ -47,3 +46,9 @@ class MathSymbols(Enum):
     reversible = '≒'  # 可逆
     not_equal = '≠'  # 不等于
     identity = '≡'  # 恒等于
+    ls = list('‖‰℃℉←↑→↓∈∏∑°√∝∞∟∠∣∧∨∩∪∫∮～≈≌≒≠≡')
+
+
+if __name__ == '__main__':
+    print(MathSymbols.intersection)
+    print(MathSymbols.ls)
