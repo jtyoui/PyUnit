@@ -24,5 +24,5 @@ from jtyoui.tools import *  # 常见的工具类函数
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.3.25'
+__version__ = '19.4.12'
 __author__ = 'Jtyoui'

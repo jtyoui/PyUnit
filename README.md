@@ -7,15 +7,15 @@ ________________________
 
 ## 模块如下
 
-1. [进制转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bs)  
-2. [验证码识别](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/code)  
-3. [数据下载](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/data)  
-4. [分形模型](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/fractal)   
-5. [小游戏 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/game)  
-6. [照片与PDF互转](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/imagepdf)   
-7. [语言处理 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language)  
-8. [邮箱应用 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/mail)  
-9. [阳历转农历](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/plunar)  
+1.  [进制转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bs)  
+2.  [验证码识别](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/code)  
+3.  [数据下载](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/data)  
+4.  [分形模型](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/fractal)   
+5.  [小游戏 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/game)  
+6.  [照片与PDF互转](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/imagepdf)   
+7.  [语言处理 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language)  
+8.  [邮箱应用 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/mail)  
+9.  [阳历转农历](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/plunar)  
 10. [搜狗下载](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/sogou)    
 11. [网页处理](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/web)   
 12. [新词发现](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/word)   
@@ -25,6 +25,9 @@ ________________________
 16. [异常](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/error)        
 17. [地图](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/maps)       
 18. [计算统计](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics)
+19. [贝叶斯算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bayes)
+20. [常见的工具类](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools)
+
 __________________________
 
 

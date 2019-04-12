@@ -13,7 +13,7 @@ setup(
     author_email='jtyoui@qq.com',
     license='MIT Licence',
     packages=find_packages(),
-    platforms=["window10"],
+    platforms=["window10", "Linux"],
     package_data={'': ['*']},
     install_requires=['requests'],
     classifiers=[
