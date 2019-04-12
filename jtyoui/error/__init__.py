@@ -37,3 +37,8 @@ class ParameterNotEmptyError(Exception):
 class MatrixNotDottedError(Exception):
     """矩阵不能点乘"""
     pass
+
+
+class InconsistentLengthError(Exception):
+    """长度不一致错误"""
+    pass
