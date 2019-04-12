@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='jtyoui',
-    version='19.3.25',
+    version='19.4.12',
     description='This is my collection bag.',
     long_description=long_text,
     url='https://github.com/jtyoui/Jtyoui',

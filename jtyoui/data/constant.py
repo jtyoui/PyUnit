@@ -17,7 +17,7 @@ Decode = ('Unicode', 'ASCII', 'GBK', 'GB2312', 'UTF-8', 'ISO-8859-1', 'UTF-16', 
 
 @unique
 class MathSymbols(Enum):
-    """‖‰℃℉←↑→↓∈∏∑°√∝∞∟∠∣∧∨∩∪∫∮～≈≌≒≠≡≤≥≦≧≮≯"""
+    """‖‰℃℉←↑→↓∈∏∑°√∝∞∟∠∣∧∨∩∪∫∮～≈≌≒≠≡"""
     vector_value = '‖'  # ‖A‖ 表示A向量的值
     one_thousand = '‰'  # 千分号
     celsius_scale = '℃'  # 摄氏温标的温度计量单位
@@ -42,3 +42,8 @@ class MathSymbols(Enum):
     or_ = '∨'  # 逻辑或
     closed_curve = '∮'  # 闭合曲线
     asymptotically_equal = '～'  # 逐渐相等,f(x)～g(x),表示lim f(x)=lim g(x)
+    approximately_equal = '≈'  # 约等于
+    identically_equal = '≌'  # 全等
+    reversible = '≒'  # 可逆
+    not_equal = '≠'  # 不等于
+    identity = '≡'  # 恒等于
