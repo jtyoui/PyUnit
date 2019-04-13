@@ -14,9 +14,12 @@
 
 ### 使用
 ```python
-from jtyoui.tools import *
+from jtyoui.tools import Tool
 if __name__ == '__main__':
-    s = index_select_string('01056666600000056', '我家在贵州省遵义县的一个地方是虾子', '56+')
+    tool=Tool( '我家在贵州省遵义县的一个地方是虾子')
+    s = tool.index_select_string('01056666600000056', '56+')
+    print(s)
+    s=tool.split('贵州')
     print(s)
 # ['贵州省遵义县', '虾子']
 ```
