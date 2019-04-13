@@ -77,6 +77,29 @@ class Tool:
             ls_word = ls_words
         return ls_word
 
+    def string_select_index(self, ls, start_name, end_name, flag='O'):
+        """将一段文字进行标记返回标记的列表"""
+        """
+        :param ls:标记的关键字列表
+        :param start_name:开始标记的名称
+        :param end_name:连续标记的名称
+        :param flag:不在关键字列表中默认标记，默认是O,大写的o
+        """
+        labels = [flag for _ in range(len(self._string))]
+        for word in ls:
+            index = 0
+            while True:
+                start = self._string.find(word, index)
+                if start > -1:
+                    end = start + len(word)
+                    labels[start] = start_name
+                    for i in range(start + 1, end):
+                        labels[i] = end_name
+                    index = end
+                else:
+                    break
+        return labels
+
 
 if __name__ == '__main__':
     tool = Tool('我家在贵州省遵义县的一个地方是虾子')
@@ -85,3 +108,6 @@ if __name__ == '__main__':
     tool.string = '一、相亲最大的好处是。二、想要什么婚姻。三五、开放型的婚姻是凉鞋。三、'
     t_s = tool.split('[一二三四五六七八九十]+、', retain=True)
     print(t_s)
+    tool.string = '我家在贵州省遵义县的一个地方是虾子'
+    s_i = tool.string_select_index(ls=['贵州省', '遵义县', '虾子'], start_name='5', end_name='6')
+    print(s_i)
