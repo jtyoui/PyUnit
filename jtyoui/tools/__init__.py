@@ -77,15 +77,17 @@ class Tool:
             ls_word = ls_words
         return ls_word
 
-    def string_select_index(self, ls, start_name, end_name, flag='O'):
+    def string_select_index(self, ls, start_name, end_name, flag='O', labels=None):
         """将一段文字进行标记返回标记的列表"""
         """
         :param ls:标记的关键字列表
         :param start_name:开始标记的名称
         :param end_name:连续标记的名称
         :param flag:不在关键字列表中默认标记，默认是O,大写的o
+        :param labels:自定义标记
         """
-        labels = [flag for _ in range(len(self._string))]
+        if not labels:
+            labels = [flag for _ in range(len(self._string))]
         for word in ls:
             index = 0
             while True:
