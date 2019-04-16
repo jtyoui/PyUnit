@@ -2,7 +2,7 @@
 
 
 ## 这是一个无监督训练文本词库与分词
-[![](https://img.shields.io/badge/Python-3.6-green.svg)]()
+[![](https://img.shields.io/badge/Python-3.7-green.svg)]()
 [![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)][1]
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
 

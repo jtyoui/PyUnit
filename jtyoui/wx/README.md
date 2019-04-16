@@ -2,7 +2,7 @@
 
 ## 这是一个用Python写微信自动聊天机器
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
-[![](https://img.shields.io/badge/Python-3.6-green.svg)]()
+[![](https://img.shields.io/badge/Python-3.7-green.svg)]()
 [![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)][1]
 [![](https://img.shields.io/badge/Email-jtyoui@qq.com-red.svg)]()
 [![](https://img.shields.io/badge/项目-微信-black.svg)]()
