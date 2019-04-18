@@ -12,9 +12,10 @@ import operator
 class Tool:
     """自定义工具类"""
     _string: str
+    generator = True
 
     def index_select_string(self, index, select):
-        """利用索引的关系来找字符串"""
+        """利用索引的关系来标记字符串"""
         """
         利用索引的关系来找字符串:一般用在深度学习中的标注模型
         :param index: 索引
@@ -103,15 +104,29 @@ class Tool:
                     break
         return labels
 
+    def select_ls(self, ls_):
+        """根据列表里面的元素选取字符串中的元素"""
+        """
+        :param ls:列表元素，比如['张三','李四','王麻子']，string='张三去李四家找东西'
+        :param generator:是否启动生成器模式
+        :return :['张三','李四']
+        """
+        if self.generator:
+            return (name for name in ls_ if self._string.find(name) > 0)
+        else:
+            return [name for name in ls_ if self._string.find(name) > 0]
 
-def select_row(iterable_, row):
-    """选取可迭代对象中的某一列"""
-    """
-    :param iterable_:可迭代对象
-    :param row:每一列
-    """
-    g = operator.itemgetter(row)
-    return [g(i) for i in iterable_]
+    def select_row(self, iterable_, row):
+        """选取可迭代对象中的某一列"""
+        """
+        :param iterable_:可迭代对象
+        :param row:每一列
+        """
+        g = operator.itemgetter(row)
+        if self.generator:
+            return (g(i) for i in iterable_)
+        else:
+            return [g(i) for i in iterable_]
 
 
 if __name__ == '__main__':
@@ -129,4 +144,6 @@ if __name__ == '__main__':
         [1, 0, -1],
         [0, 1, 1]
     ]
-    print(select_row(d, 1))  # [2, 0, 1]
+    print(tool.select_row(d, 1))  # [2, 0, 1]
+    tool.generator = False
+    print(tool.select_ls(['遵义县', '虾子']))
