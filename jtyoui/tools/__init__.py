@@ -5,6 +5,7 @@
 import re
 from jtyoui.error import InconsistentLengthError
 from dataclasses import dataclass
+import operator
 
 
 @dataclass
@@ -103,6 +104,16 @@ class Tool:
         return labels
 
 
+def select_row(iterable_, row):
+    """选取可迭代对象中的某一列"""
+    """
+    :param iterable_:可迭代对象
+    :param row:每一列
+    """
+    g = operator.itemgetter(row)
+    return [g(i) for i in iterable_]
+
+
 if __name__ == '__main__':
     tool = Tool('我家在贵州省遵义县的一个地方是虾子')
     i_s = tool.index_select_string('01056666600000056', '56+')
@@ -113,3 +124,9 @@ if __name__ == '__main__':
     tool.string = '我家在贵州省遵义县的一个地方是虾子'
     s_i = tool.string_select_index(ls=['贵州省', '遵义县', '虾子'], start_name='5', end_name='6')
     print(s_i)
+    d = [
+        [1, 2, 3],
+        [1, 0, -1],
+        [0, 1, 1]
+    ]
+    print(select_row(d, 1))  # [2, 0, 1]
