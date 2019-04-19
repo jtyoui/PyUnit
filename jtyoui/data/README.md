@@ -16,7 +16,7 @@
 from jtyoui.data import *
 if __name__ == '__main__':
     download_gitee('logo', 'logo.png', address='D:\\')  # 将照片logo.png下载到D盘
-    pillow = fetch_gitee('logo', 'logo.png', pil=True)  # 返回PIL.image类型数据
+    pillow = fetch_gitee('logo', 'logo.png')  # 返回PIL.image类型数据
 ```
 
 ### 省份名字
@@ -27,6 +27,17 @@ if __name__ == '__main__':
         print(province.Province) # 获取全国省名字
 
 ```
+
+### 获取常见的值
+
+1.  常见的照片格式
+2.  常见的文字编码格式
+3.  数学符号
+4.  将英文的星期转为中文
+5.  将中文的星期转为英文
+6.  将英文的月份转为中文
+7.  将中文的月份转为英文
+8.  翻译http转态码的含义
 
 ***
 [1]: https://blog.jtyoui.com

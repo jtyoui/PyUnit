@@ -22,33 +22,41 @@ def fetch_gitee(package, name, project='logo'):
     url = GITEE.format(project=project, package=package, name=name)
     response = requests.get(url=url, headers={'User-Agent': random()})  # 动态增加UA
     content = response.content
-    # if pil:
-    #     byte = io.BytesIO(content)  # 转成字节流
-    #     return Image.open(fp=byte)
     return content
 
 
-def download_gitee(package, name, address=None, project='logo'):
+def download_gitee(package, name, file_dir=None, project='logo'):
     """
     下载非结构文本数据
     :param package: 包名
     :param name: 文件名
-    :param address: 保存文件的地址
+    :param file_dir: 保存文件的文件夹地址
     :param project: 项目名
     :return: 下载成功返回'success',失败返回'fail'
     """
-    if not address:
+    if not file_dir:
         address = os.path.join(os.getcwd(), name)  # 默认保存地址是运行项目当前的位置
+    elif os.path.isdir(file_dir):
+        address = os.path.join(file_dir, name)
+    elif not os.path.exists(file_dir):
+        os.mkdir(file_dir)
+        address = os.path.join(file_dir, name)
+    else:
+        address = file_dir
     url = GITEE.format(project=project, package=package, name=name)
     try:
         place = urlretrieve(url, address)  # 下载
         print('\033[1;33m' + place[0])
         return 'success'
-    except:
+    except Exception as e:
+        print(e)
         return 'fail'
 
 
 if __name__ == '__main__':
-    download_gitee('logo', 'logo.png', address='D:\\')  # 将照片logo.png下载到D盘
-    pillow = fetch_gitee('logo', 'logo.png')  # 返回PIL.image类型数据
+    status = download_gitee('logo', 'logo.png', file_dir='D://temp')  # 将照片logo.png下载到D盘
+    print(status)
+    pillow = fetch_gitee('logo', 'logo.png')  # 返回的是字节数据
     print(pillow)
+    # byte = io.BytesIO(pillow)  # 转成字节流
+    # Image.open(fp=byte)
