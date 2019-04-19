@@ -49,6 +49,41 @@ class MathSymbols:
     ls = list('‖‰℃℉←↑→↓∈∏∑°√∝∞∟∠∣∧∨∩∪∫∮～≈≌≒≠≡')
 
 
+week_to_chinese = {
+    'Monday': '星期一',
+    'Mon': '星期一',
+    'Mon.': '星期一',
+    'Tuesday': '星期二',
+    'Tues': '星期二',
+    'Tues.': '星期二',
+    'Wednesday': '星期三',
+    'Wed': '星期三',
+    'Wed.': '星期三',
+    'Thursday': '星期四',
+    'Thur': '星期四',
+    'Thur.': '星期四',
+    'Thurs': '星期四',
+    'Thurs.': '星期四',
+    'Friday': '星期五',
+    'Fri': '星期五',
+    'Fri.': '星期五',
+    'Saturday': '星期六',
+    'Sat': '星期六',
+    'Sat.': '星期六',
+    'Sunday': '星期日',
+    'Sun': '星期日',
+    'Sun.': '星期日',
+}
+week_to_english = {
+    '星期一': 'Monday',
+    '星期二': 'Tuesday',
+    '星期三': 'Wednesday',
+    '星期四': 'Thursday',
+    '星期五': 'Friday',
+    '星期六': 'Saturday',
+    '星期日': 'Sunday',
+}
+
 if __name__ == '__main__':
     print(MathSymbols.intersection)
     print(MathSymbols.ls)
