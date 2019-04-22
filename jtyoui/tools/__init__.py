@@ -76,6 +76,8 @@ class Tool:
                     w = word[match.end():]
                     if w:
                         ls_words.append(w)
+                else:
+                    ls_words.append(word)
             ls_word = ls_words
         return ls_word
 
@@ -133,8 +135,8 @@ if __name__ == '__main__':
     tool = Tool('我家在贵州省遵义县的一个地方是虾子')
     i_s = tool.index_select_string('01056666600000056', '56+')
     print(i_s)
-    tool.string = '一、相亲最大的好处是。二、想要什么婚姻。三五、开放型的婚姻是凉鞋。三、'
-    t_s = tool.split('[一二三四五六七八九十]+、', retain=True)
+    tool.string = '我在这里、一、相亲最大的好处是。二、想要什么婚姻。三五、开放型的婚姻是凉鞋。三、'
+    t_s = tool.split('[一二三四五六七八九十]+、', retain=False)
     print(t_s)
     tool.string = '我家在贵州省遵义县的一个地方是虾子'
     s_i = tool.string_select_index(ls=['贵州省', '遵义县', '虾子'], start_name='5', end_name='6')
