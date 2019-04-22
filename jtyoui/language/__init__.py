@@ -5,3 +5,4 @@
 # @Software : PyCharm
 
 from .han import j_to_f, f_to_j
+from .PinYin import load_pin_yin, chinese_to_pin_yin
