@@ -3,6 +3,5 @@
 # @Time : 2019/4/17
 # @Email : jtyoui@qq.com
 
-import ctypes
 
-#https://docs.python.org/2/library/ctypes.html
+# https://docs.python.org/2/library/ctypes.html
