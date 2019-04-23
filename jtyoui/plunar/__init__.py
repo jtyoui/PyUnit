@@ -1,31 +1,5 @@
 import time
-
-holiday = {
-    "01-01": "元旦节",
-    "腊月卅十": "除夕",
-    "正月除一": "春节",
-    "正月十五": "元宵节",
-    "02-14": "情人节",
-    "03-08": "妇女节",
-    "03-12": "植树节",
-    "04-01": "愚人节",
-    "04-05": "清明节",
-    "五月除五": "端午节",
-    "05-01": "劳动节",
-    "05-04": "青年节",
-    "06-01": "儿童节",
-    "07-01": "建党节",
-    "七月除七": "七夕节",
-    "08-01": "建军节",
-    "七月十五": "中元节",
-    "八月十五": "中秋节",
-    "九月除九": "重阳节",
-    "09-10": "教师节",
-    "10-01": "国庆节",
-    "11-01": "万圣节",
-    "12-24": "平安夜",
-    "12-25": "圣诞节"
-}
+from jtyoui.data import holiday, week_to_chinese, chinese_mon
 
 
 class Lunar:
@@ -46,8 +20,8 @@ class Lunar:
         self.day = 0
         self.week = 0
         self.leap = False
-        self.chinese_week = dict(Mon='一', Tue='二', Wed='三', Thu='四', Fri='五', Sat='六', Sun='日')
-        self.chinese_number = ["零", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "冬", "腊"]
+        self.chinese_week = week_to_chinese
+        self.chinese_number = chinese_mon
         self.lunar_info = [
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
             0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
@@ -156,7 +130,7 @@ class Lunar:
         """
         :return: 年 月 日 星期 节日(没有是无)
         """
-        return self.y + ('润年 ' if self.leap else "年 ") + self.m + "月 " + self.d + " 星期" + self.w + " 节日：" + self.h
+        return self.y + ('润年 ' if self.leap else "年 ") + self.m + "月 " + self.d + " " + self.w + " 节日：" + self.h
 
     def __getattr__(self, item):
         if item == 'y':
@@ -172,6 +146,9 @@ class Lunar:
             return self.chinese_week.get(self.week)
         elif item == 'h':
             return self.get_holiday(self.date)
+
+    def __repr__(self):
+        return self.__str__()
 
 
 if __name__ == '__main__':
