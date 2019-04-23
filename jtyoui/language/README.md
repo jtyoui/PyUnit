@@ -20,5 +20,18 @@ if __name__ == '__main__':
     f = han.f_to_j('千載正字一夕改,如今吾輩來重光!')
     print(''.join(f))
 ```
+
+#### 将汉字转为拼音
+```python
+from jtyoui.language import load_pin_yin,chinese_to_pin_yin
+if __name__ == '__main__':
+    load = load_pin_yin(True) #带声调
+    print(chinese_to_pin_yin(load, '我喜欢你！'))
+    # ['wǒ', 'xǐ', 'huān', 'nǐ'] 
+    
+    load = load_pin_yin(False) #不带声调
+    print(chinese_to_pin_yin(load, '你好！世界'))
+    # ['ni', 'hao', 'shi', 'jie']
+```
 ***
 [1]: https://blog.jtyoui.com

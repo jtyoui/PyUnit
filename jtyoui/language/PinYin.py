@@ -51,4 +51,5 @@ def chinese_to_pin_yin(pin_yin, string_):
 if __name__ == '__main__':
     load = load_pin_yin(True)
     print(chinese_to_pin_yin(load, '我喜欢你！'))
+    load = load_pin_yin(False)
     print(chinese_to_pin_yin(load, '你好！世界'))
