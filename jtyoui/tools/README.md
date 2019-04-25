@@ -14,7 +14,7 @@
 
 ### 使用
 ```python
-from jtyoui.tools import Tool
+from jtyoui.tools import Tool,StringTime
 if __name__ == '__main__':
     tool=Tool( '我家在贵州省遵义县的一个地方是虾子')
     i_s = tool.index_select_string('01056666600000056', '56+')
@@ -28,6 +28,8 @@ if __name__ == '__main__':
     s_i = tool.string_select_index(ls=['贵州省', '遵义县', '虾子'], start_name='5', end_name='6')
     print(s_i)#['O', 'O', 'O', '5', '6', '6', '5', '6', '6', 'O', 'O', 'O', 'O', 'O', 'O', '5', '6']
      
+    st = StringTime('二零零七年十月三十一号下午2点半')
+    print(st.fine_times()) # 2007-10-31 14:30:00
 ```
 
 ***

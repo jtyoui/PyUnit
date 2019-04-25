@@ -62,6 +62,9 @@ class StringTime:
     }
 
     def find(self, name):
+        """根据名字来查找年月日号
+        ：:param name:填写：年、月、日、号、来找对应的日期
+        """
         if name == '年':
             flag = '%Y'
             re_ = self.re_year
@@ -86,6 +89,7 @@ class StringTime:
         return date_time if date_time else []
 
     def find_hour(self):
+        """找对应的小时"""
         hours = []
         flag = 0
         for d in re.findall(self.re_hour, self.sentence):
@@ -103,6 +107,7 @@ class StringTime:
         return hours if hours else []
 
     def find_min(self):
+        """找对应的分钟"""
         minute = []
         for d in re.findall(self.re_min, self.sentence):
             for i in d:
@@ -114,6 +119,7 @@ class StringTime:
         return minute if minute else []
 
     def find_sec(self):
+        """找对应的秒钟"""
         second = []
         for d in re.findall(self.re_sec, self.sentence):
             if d:
@@ -122,7 +128,10 @@ class StringTime:
         return second if second else []
 
     def fine_times(self):
-        """st = StringTime('二零零七年十月三十一号下午2点半') print(st.fine_times())"""
+        """ 根据一句话来找对应的时间
+        >>> st = StringTime('二零零七年十月三十一号下午2点半')
+        >>> print(st.fine_times())
+        """
         str_ = [self.chinese_numerals.get(s, s) for s in self.sentence]
         string = ''
         for index, c in enumerate(str_):
