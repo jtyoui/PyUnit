@@ -10,17 +10,19 @@ import itertools
 
 class StringTime:
     def __init__(self, sentence):
-        self.sentence = sentence
+        self._sentence = sentence
         self.local = time.localtime()
         self.re_year = r'(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d*年)'
         self.re_mon = r'(上个月)|(这个月)|(下个月)|(上月)|(这月)|(下月)|(\d*月)'
         self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d*日)|(\d*号)'
+        self.re_week = r'(上周)|(下周)|(上个周)|(下个周)|(星期日)|(星期天)|(星期\d*)'
         self.re_hour = r'(早上)|(下午)|(\d*点)'
         self.re_min = r'(\d*分)|(\d*点半)'
         self.re_sec = r'(\d*秒)'
         self.now_year = self.local.tm_year
         self.now_mon = self.local.tm_mon
         self.now_day = self.local.tm_mday
+        self.now_week = self.local.tm_wday + 1
 
     chinese_numerals = {
         '零': '0',
@@ -35,6 +37,14 @@ class StringTime:
         '九': '9',
         '两': '2',
     }
+
+    @property
+    def sentence(self):
+        return self._sentence
+
+    @sentence.setter
+    def sentence(self, sentence):
+        self._sentence = sentence
 
     @staticmethod
     def adds(x, fmt):
@@ -59,6 +69,12 @@ class StringTime:
         '上月': -1 * 31,
         '这月': 0,
         '下月': 1 * 31,
+        '下周': 7,
+        '上周': -7,
+        '下个周': 7,
+        '上个周': -7,
+        '这周': 0,
+        '这个周': 0,
     }
 
     def find(self, name):
@@ -74,18 +90,36 @@ class StringTime:
         elif name == '日' or name == '号':
             flag = '%d'
             re_ = self.re_day
+        elif name == '周':
+            flag = '%d'
+            re_ = self.re_week
         else:
             flag = None
             re_ = ''
-        date_time = []
+        date_time, day, add = [], 0, 0
         for d in re.findall(re_, self.sentence):
             for i in d:
                 if i:
-                    if i in self.add_time:
-                        date_time.append(self.adds(self.add_time[i], flag))
-                    elif name in i:
-                        if i[:-1].isdigit():
-                            date_time.append(i[:-1])
+                    if i in ['星期日', '星期天']:
+                        day = 7 - self.now_week
+                    elif '星期' in i and i[-1].isdigit():
+                        week = int(i[-1])
+                        day = week - self.now_week
+                    elif '周' in i:
+                        add = self.add_time[i]
+                    else:
+                        if i in self.add_time:
+                            date_time.append(self.adds(self.add_time[i], flag))
+                        elif name in i:
+                            if i[:-1].isdigit():
+                                date_time.append(i[:-1])
+        if day != 0 or add != 0:
+            days = self.adds(day + add, flag)
+            if int(days) >= self.now_day:
+                date_time.append(days)
+            else:
+                date_time.append(days)
+                return date_time, 1
         return date_time if date_time else []
 
     def find_hour(self):
@@ -134,28 +168,37 @@ class StringTime:
         """
         str_ = [self.chinese_numerals.get(s, s) for s in self.sentence]
         string = ''
-        for index, c in enumerate(str_):
+        for index, c in enumerate(str_):  # 判断十在每个位置上的不同意义
             if c == '十':
-                if str_[index - 1].isdigit() and str_[index + 1].isdigit():
+                if str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：二十一实际上十可以取空，变成21
                     c = ''
-                elif str_[index - 1].isdigit() and (not str_[index + 1].isdigit()):
+                elif str_[index - 1].isdigit() and (not str_[index + 1].isdigit()):  # 比如：二十实际上十变成0，变成20
                     c = '0'
-                elif not str_[index - 1].isdigit() and str_[index + 1].isdigit():
+                elif not str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：十三实际上十变成1，变成13
                     c = '1'
                 else:
-                    c = '10'
+                    c = '10'  # 其余情况十就变成10
             string += c
-        self.sentence = string
-        y = self.find('年')
-        m = self.find('月')
-        d = self.find('号')
-        d = d + self.find('日')
-        h = self.find_hour()
-        mi = self.find_min()
-        sec = self.find_sec()
+        self._sentence = string
+        y = self.find('年')  # 找到一句话中的年份
+        m = self.find('月')  # 找到一句话中的月份
+        d = self.find('号')  # 找到一句话中的天数
+        d = d + self.find('日')  # 找到一句话中的天数
+        w = self.find('周')  # 找到一句话中的天数
+        if isinstance(w, tuple):
+            if m:
+                m[0] = int(m[0]) + w[1]
+            else:
+                m = [self.now_mon + w[1]]
+            d += d + w[0]
+        else:
+            d += d + w
+        h = self.find_hour()  # 找到一句话中的小时
+        mi = self.find_min()  # 找到一句话中的分钟
+        sec = self.find_sec()  # 找到一句话中的秒钟
         for y_, m_, d_, h_, mi_, sec_ in itertools.zip_longest(y, m, d, h, mi, sec):
             if not y_ and not m_ and not d_:
-                return ''
+                return '未找到时间年月日'
             if not y_ and m_:
                 y_ = self.now_year
             if not m_ and d_:
@@ -174,8 +217,12 @@ class StringTime:
                 return f'{y_}-{m_:0>2}-{d_:0>2}'
             else:
                 return f'{y_}-{m_:0>2}-{d_:0>2} {h_:0>2}:{mi_:0>2}:{sec_:0>2}'
+        else:
+            return '未找到时间'
 
 
 if __name__ == '__main__':
     st = StringTime('二零零七年十月三十一号下午2点半')
+    print(st.fine_times())
+    st.sentence = '下周星期一下午2点半开会'
     print(st.fine_times())
