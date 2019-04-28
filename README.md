@@ -27,6 +27,8 @@ ________________________
 18. [计算统计](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics)
 19. [贝叶斯算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bayes)
 20. [常见的工具类](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools)
+21. [c模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/c)
+22. [百度应用](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/baidu)
 
 __________________________
 
