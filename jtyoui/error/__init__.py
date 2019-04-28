@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/14 10:36
-# @Author: Jtyoui
+# @Author: jtyoui@qq.com
 
 
 class BrowserTypeError(Exception):
@@ -41,4 +41,9 @@ class MatrixNotDottedError(Exception):
 
 class InconsistentLengthError(Exception):
     """长度不一致错误"""
+    pass
+
+
+class NameOfTrainStationNotFoundError(Exception):
+    """未找到该火车站名字"""
     pass

@@ -15,7 +15,7 @@
 ```python
 from jtyoui.data import *
 if __name__ == '__main__':
-    download_gitee('logo', 'logo.png', address='D:\\')  # 将照片logo.png下载到D盘
+    download_gitee('logo', 'logo.png', 'D:\\')  # 将照片logo.png下载到D盘
     pillow = fetch_gitee('logo', 'logo.png')  # 返回PIL.image类型数据
 ```
 
@@ -38,6 +38,21 @@ if __name__ == '__main__':
 6.  将英文的月份转为中文
 7.  将中文的月份转为英文
 8.  翻译http转态码的含义
+
+
+### 获得火车站信息
+```python
+import jtyoui
+if __name__ == '__main__':
+    print(jtyoui.Train_Station['安顺'])  # 查看安顺火车站是哪个省
+    desc = jtyoui.find_train_desc('安顺火车站')  # 查看安顺火车站的摘要
+    print(desc)
+    info = jtyoui.find_train_info('安顺站')  # 查询安顺火车站的基本信息
+    print(info)
+    di = desc_info = jtyoui.find_train_desc_info('宋')
+    print(di)
+
+```
 
 ***
 [1]: https://blog.jtyoui.com

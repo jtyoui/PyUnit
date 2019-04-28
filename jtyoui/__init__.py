@@ -22,8 +22,9 @@ from jtyoui.statistics import *  # 文本统计方法
 from jtyoui.bayes import *  # 贝叶斯算法
 from jtyoui.tools import *  # 常见的工具类函数
 from jtyoui.c import *  # 增加c代码引用
+from jtyoui.baidu import *  # 增加关于百度的资料及应用
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.4.15'
+__version__ = '19.4.28'
 __author__ = 'Jtyoui'
