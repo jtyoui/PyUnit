@@ -34,7 +34,7 @@ class _Html(HTMLParser):
             self.string += data
 
 
-def translate(name, languages, headers=_headers):
+def translate_to_chinese(name, languages, headers=_headers):
     """将一种语言翻译成中文
     :param name: 单词
     :param languages:语言、及包含：from jtyoui.data import Languages
@@ -72,9 +72,9 @@ def translate(name, languages, headers=_headers):
 
 
 if __name__ == '__main__':
-    print(translate('good', Languages.English))  # 英语
-    print(translate('アベンジャーズ', Languages.Japanese))  # 日语
-    print(translate('안녕하세요', Languages.Korean))  # 韩语
-    print(translate('Bonjour', Languages.French))  # 法语
-    print(translate('Hallo', Languages.German))  # 德语
-    print(translate('Amor', Languages.Spanish))  # 西班牙语
+    print(translate_to_chinese('good', Languages.English))  # 英语
+    print(translate_to_chinese('アベンジャーズ', Languages.Japanese))  # 日语
+    print(translate_to_chinese('안녕하세요', Languages.Korean))  # 韩语
+    print(translate_to_chinese('Bonjour', Languages.French))  # 法语
+    print(translate_to_chinese('Hallo', Languages.German))  # 德语
+    print(translate_to_chinese('Amor', Languages.Spanish))  # 西班牙语

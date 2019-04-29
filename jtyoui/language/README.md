@@ -38,12 +38,12 @@ if __name__ == '__main__':
 ```python
 import jtyoui
 if __name__ == '__main__':
-    print(jtyoui.translate('good', jtyoui.Languages.English))  # 英语
-    print(jtyoui.translate('アベンジャーズ', jtyoui.Languages.Japanese))  # 日语
-    print(jtyoui.translate('안녕하세요', jtyoui.Languages.Korean))  # 韩语
-    print(jtyoui.translate('Bonjour', jtyoui.Languages.French))  # 法语
-    print(jtyoui.translate('Hallo', jtyoui.Languages.German))  # 德语
-    print(jtyoui.translate('Amor', jtyoui.Languages.Spanish))  # 西班牙语
+    print(jtyoui.translate_to_chinese('good', jtyoui.Languages.English))  # 英语
+    print(jtyoui.translate_to_chinese('アベンジャーズ', jtyoui.Languages.Japanese))  # 日语
+    print(jtyoui.translate_to_chinese('안녕하세요', jtyoui.Languages.Korean))  # 韩语
+    print(jtyoui.translate_to_chinese('Bonjour', jtyoui.Languages.French))  # 法语
+    print(jtyoui.translate_to_chinese('Hallo', jtyoui.Languages.German))  # 德语
+    print(jtyoui.translate_to_chinese('Amor', jtyoui.Languages.Spanish))  # 西班牙语
 
 ```
 
