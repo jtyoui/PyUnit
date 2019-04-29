@@ -4,5 +4,6 @@
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
 
-from .han import j_to_f, f_to_j
-from .PinYin import load_pin_yin, chinese_to_pin_yin
+from .han import j_to_f, f_to_j  # 增加简体字互转繁体字
+from .PinYin import load_pin_yin, chinese_to_pin_yin  # 增加拼音
+from .Translates import translate  # 增加翻译
