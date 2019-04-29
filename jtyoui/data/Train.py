@@ -3,12 +3,10 @@
 # @Time    : 2019/4/28 18:35
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
-from urllib.parse import quote
-import requests
-from jtyoui.web import random
 from jtyoui.baidu import BaiDuInfoSearch
 from jtyoui.error import NameOfTrainStationNotFoundError
 from jtyoui.file_zip import load_zip
+from jtyoui.baidu import load_BaiDuBaiKe
 
 _lines = load_zip('train.zip', 'train.txt')
 
@@ -32,9 +30,7 @@ def _find_train_station_(name):
             name += '站'
         else:
             raise NameOfTrainStationNotFoundError(F"没有找到{name}火车站信息，请正确输入！")
-    url = F'https://baike.baidu.com/item/{quote(name)}'
-    response = requests.get(url, headers={'User-Agent': random()})
-    text = response.content.decode('utf-8')
+    text = load_BaiDuBaiKe(name)
     if '站' in text:
         return text
     return ''
