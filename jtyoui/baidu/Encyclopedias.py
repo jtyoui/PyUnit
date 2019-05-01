@@ -90,6 +90,10 @@ class BaiDuInfoSearch:
 
 
 def load_BaiDuBaiKe(name):
+    """下载百度百科里面的内容信息
+    :param name: 百科百科名字
+    :return: 百度百科的文本信息
+    """
     url = F'https://baike.baidu.com/item/{quote(name)}'
     response = requests.get(url, headers={'User-Agent': random()})
     data = response.content.decode('utf-8')

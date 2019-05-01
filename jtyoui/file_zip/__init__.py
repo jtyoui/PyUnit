@@ -6,17 +6,18 @@ import zipfile
 from os import path
 
 
-def load_zip(zip_name, file_name):
+def load_zip(zip_name, file_name, encoding='UTF-8'):
     """加载zip数据
-    :param zip_name:模型名字
-    :param file_name:文件名字
-    :return: 模型数据
+    :param zip_name:压缩包的名字
+    :param file_name:压缩包里面文件的名字
+    :param encoding:文件的编码
+    :return: 压缩包里面的数据：默认编码的UTF-8
     """
     file_zip = path.dirname(path.abspath(__file__))
     file_zip = path.join(path.dirname(file_zip), 'file_zip', zip_name)
     f = zipfile.ZipFile(file_zip)
     fp = f.read(file_name)
-    lines = fp.decode('utf-8').split('\n')
+    lines = fp.decode(encoding).split('\n')
     return lines
 
 
