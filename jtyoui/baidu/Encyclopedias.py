@@ -89,7 +89,7 @@ class BaiDuInfoSearch:
         return self.BD.close()
 
 
-def load_BaiDuBaiKe(name):
+def Load_BaiDuBaiKe(name):
     """下载百度百科里面的内容信息
     :param name: 百科百科名字
     :return: 百度百科的文本信息
@@ -101,7 +101,7 @@ def load_BaiDuBaiKe(name):
 
 
 if __name__ == '__main__':
-    text = load_BaiDuBaiKe('万绮雯')
+    text = Load_BaiDuBaiKe('万绮雯')
     bd = BaiDuInfoSearch(text)
     print(bd.desc())
     for name, value in bd.info().items():

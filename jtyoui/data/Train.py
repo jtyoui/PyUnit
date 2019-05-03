@@ -6,7 +6,7 @@
 from jtyoui.baidu import BaiDuInfoSearch
 from jtyoui.error import NameOfTrainStationNotFoundError
 from jtyoui.file_zip import load_zip
-from jtyoui.baidu import load_BaiDuBaiKe
+from jtyoui.baidu import Load_BaiDuBaiKe
 
 _lines = load_zip('train.zip', 'train.txt')
 
@@ -30,7 +30,7 @@ def _find_train_station_(name):
             name += '站'
         else:
             raise NameOfTrainStationNotFoundError(F"没有找到{name}火车站信息，请正确输入！")
-    text = load_BaiDuBaiKe(name)
+    text = Load_BaiDuBaiKe(name)
     if '站' in text:
         return text
     return ''

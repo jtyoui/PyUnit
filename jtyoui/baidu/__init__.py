@@ -4,4 +4,4 @@
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
 
-from .Encyclopedias import BaiDuInfoSearch, load_BaiDuBaiKe  # 百度百科搜索基本信息
+from .Encyclopedias import BaiDuInfoSearch, Load_BaiDuBaiKe  # 百度百科搜索基本信息

@@ -26,5 +26,5 @@ from jtyoui.baidu import *  # 增加关于百度的资料及应用
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.4.28'
+__version__ = '19.5.3'
 __author__ = 'Jtyoui'

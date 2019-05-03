@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='jtyoui',
-    version='19.4.28',
+    version='19.5.3',
     description='This is my collection bag.',
     long_description=long_text,
     url='https://github.com/jtyoui/Jtyoui',
@@ -15,7 +15,7 @@ setup(
     packages=find_packages(),
     platforms=["window10", "Linux"],
     package_data={'': ['*']},
-    install_requires=['requests'],
+    install_requires=['requests==2.9.2'],
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",

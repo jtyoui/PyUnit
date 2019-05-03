@@ -161,10 +161,10 @@ class StringTime:
                     second.append(d[:-1])
         return second if second else []
 
-    def fine_times(self):
+    def find_times(self):
         """ 根据一句话来找对应的时间
         >>> st = StringTime('二零零七年十月三十一号下午2点半')
-        >>> print(st.fine_times())
+        >>> print(st.find_times())
         """
         str_ = [self.chinese_numerals.get(s, s) for s in self.sentence]
         string = ''
@@ -223,6 +223,6 @@ class StringTime:
 
 if __name__ == '__main__':
     st = StringTime('二零零七年十月三十一号下午2点半')
-    print(st.fine_times())
+    print(st.find_times())
     st.sentence = '下周星期一下午2点半开会'
-    print(st.fine_times())
+    print(st.find_times())
