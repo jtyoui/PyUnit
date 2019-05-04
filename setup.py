@@ -15,7 +15,7 @@ setup(
     packages=find_packages(),
     platforms=["window10", "Linux"],
     package_data={'': ['*']},
-    install_requires=['requests==2.9.2'],
+    install_requires=['requests>=2.9.2'],
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",

@@ -10,3 +10,4 @@ from .province import *  # 中国省市所有名字
 from .Train import find_train_info, find_train_desc, find_train_desc_info, Train_Station  # 关于火车站的信息
 from .Enums import *  # 增加枚举
 from .Address import find_address  # 查询地址
+from .TimeZone import TZ  # 时区

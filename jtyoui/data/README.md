@@ -54,5 +54,14 @@ if __name__ == '__main__':
 
 ```
 
+### 获得时区
+```python
+import datetime
+import pytz
+import jtyoui
+if __name__ == '__main__':
+    print(datetime.datetime.now(tz=pytz.timezone(jtyoui.TZ.Asia_BeiJing)))
+```
+
 ***
 [1]: https://blog.jtyoui.com

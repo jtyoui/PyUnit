@@ -6,6 +6,7 @@ from enum import Enum
 
 
 class Languages(Enum):
+    """英语单词对应中文"""
     English = '英语'
     Japanese = '日语'
     Korean = '韩语'
