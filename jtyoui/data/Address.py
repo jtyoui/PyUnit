@@ -23,10 +23,11 @@ def find_address(name):
     :param name: 输入一个地址。
     :return: 地址的信息
     """
+    assert True if name else False, '输入的字符串不能为空'
     global _Address
     if not _Address:
         if 'Windows' in platform():
-            path = r'c:/jtyoui_address'
+            path = r'D:/jtyoui_address'
         else:
             path = r'./jtyoui_address'
         if not os.path.exists(path):

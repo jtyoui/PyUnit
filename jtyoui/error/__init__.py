@@ -47,3 +47,8 @@ class InconsistentLengthError(Exception):
 class NameOfTrainStationNotFoundError(Exception):
     """未找到该火车站名字"""
     pass
+
+
+class DownloadDataExceptionError(Exception):
+    """下载数据异常"""
+    pass
