@@ -29,6 +29,7 @@ ________________________
 20. [常见的工具类](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools)
 21. [c模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/c)
 22. [百度应用](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/baidu)
+23. [日语单词翻译](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/jp)
 
 __________________________
 
