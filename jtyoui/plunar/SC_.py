@@ -132,12 +132,12 @@ class Lunar:
         return 29 if (self.lunar_info[lunar_year] & (0x10000 >> lunar_month)) == 0 else 30
 
     def get_china_day(self, d):
-        chinese_ten = ["初", "十", "廿", "卅"]
+        chinese_ten = ['初', '十', '廿', '卅']
         n = 9 if d % 10 == 0 else (d % 10 - 1)
         if d == 10:
-            return "初十"
+            return '初十'
         elif n == 0:
-            return chinese_ten[d // 10] + "一"
+            return chinese_ten[d // 10] + '一'
         else:
             return chinese_ten[d // 10] + self.chinese_number[n]
 
@@ -146,7 +146,7 @@ class Lunar:
         if x:
             return x
         else:
-            z = holiday.get(self.chinese_number[self.month - 1] + "月" + self.get_china_day(self.day))
+            z = holiday.get(self.chinese_number[self.month - 1] + '月' + self.get_china_day(self.day))
             return z if z else '无'
 
     def __str__(self):
@@ -154,9 +154,9 @@ class Lunar:
         :return: 年 月 日 星期 节日(没有是无)
         """
         if self.leap:
-            return self.y + '年 闰' + self.m + '月 ' + self.d + " " + self.w + " 节日：" + self.h
+            return self.y + '年 闰' + self.m + '月 ' + self.d + ' ' + self.w + ' 节日：' + self.h
         else:
-            return self.y + "年 " + self.m + "月 " + self.d + " " + self.w + " 节日：" + self.h
+            return self.y + '年 ' + self.m + '月 ' + self.d + ' ' + self.w + ' 节日：' + self.h
 
     def __getattr__(self, item):
         if item == 'y':
@@ -172,6 +172,13 @@ class Lunar:
             return self.chinese_week.get(self.week)
         elif item == 'h':
             return self.get_holiday(self.date)
+
+    def to_sc(self):
+        """年 月 日 """
+        if self.leap:
+            return str(self.year) + '年闰' + str(self.month) + '月' + str(self.day) + '日'
+        else:
+            return str(self.year) + '年' + str(self.month) + '月' + str(self.day) + '日'
 
     def __repr__(self):
         return self.__str__()

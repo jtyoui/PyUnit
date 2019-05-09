@@ -3,4 +3,5 @@
 # @Time  : 2019/5/9 11:50
 # @Author: Jtyoui@qq.com
 
-from .SC import Lunar, SC  # 阳历转农历
+from .SC_ import Lunar, SC  # 阳历转农历
+from .CTC_ import CTC  # 农历转阳历
