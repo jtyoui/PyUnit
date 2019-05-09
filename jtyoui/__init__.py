@@ -6,7 +6,7 @@
 
 from jtyoui.bs import binary_system  # 任意进制转换
 from jtyoui.code import cr  # 二维码识别
-from jtyoui.plunar import Lunar  # 农历
+from jtyoui.plunar import *  # 农历、阳历
 from jtyoui.sogou import SoGou  # 下载搜狗
 from jtyoui.word import *  # 新词发现
 from jtyoui.mail import *  # 邮箱
