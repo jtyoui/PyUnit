@@ -27,5 +27,5 @@ from jtyoui.jp import *  # 提取日语意思
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.5.7'
+__version__ = '19.5.9'
 __author__ = 'Jtyoui'
