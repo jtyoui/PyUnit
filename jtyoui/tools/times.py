@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/4/24 17:29
 # @Author: Jtyoui@qq.com
+from jtyoui.data import chinese_mon_number, add_time
 import re
 import datetime
 import time
 import itertools
+import copy
 
 
 class StringTime:
@@ -23,20 +25,9 @@ class StringTime:
         self.now_mon = self.local.tm_mon
         self.now_day = self.local.tm_mday
         self.now_week = self.local.tm_wday + 1
-
-    chinese_numerals = {
-        '零': '0',
-        '一': '1',
-        '二': '2',
-        '三': '3',
-        '四': '4',
-        '五': '5',
-        '六': '6',
-        '七': '7',
-        '八': '8',
-        '九': '9',
-        '两': '2',
-    }
+        self.chinese_numerals = copy.deepcopy(chinese_mon_number)
+        self.chinese_numerals.pop('十')
+        self.add_time = add_time
 
     @property
     def sentence(self):
@@ -50,32 +41,6 @@ class StringTime:
     def adds(x, fmt):
         add = datetime.datetime.now() + datetime.timedelta(days=x)
         return add.strftime(fmt)
-
-    add_time = {
-        '前天': -2,
-        '昨天': -1,
-        '今天': 0,
-        '明天': 1,
-        '后天': 2,
-        '去年': -1 * 365,
-        '前年': -2 * 365,
-        '昨年': -1 * 365,
-        '今年': 0,
-        '明年': 1 * 365,
-        '后年': 2 * 365,
-        '上个月': -1 * 31,
-        '这个月': 0,
-        '下个月': 1 * 31,
-        '上月': -1 * 31,
-        '这月': 0,
-        '下月': 1 * 31,
-        '下周': 7,
-        '上周': -7,
-        '下个周': 7,
-        '上个周': -7,
-        '这周': 0,
-        '这个周': 0,
-    }
 
     def find(self, name):
         """根据名字来查找年月日号
