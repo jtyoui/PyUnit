@@ -12,16 +12,16 @@ _TIANGAN_DIZHI = {}
 _SC = {}
 
 
-def download_date(download_address='./date'):
+def download_date(download_address='date'):
     global _CTC, _TIANGAN_DIZHI, _SC
-    if not os.path.exists(download_address + '/date.zip'):
+    if not os.path.exists(download_address + os.sep + 'date.zip'):
         from jtyoui.data import download_gitee
         b = download_gitee('packet', 'date.zip', download_address)
     else:
         b = 'success'
     if b == 'success':
         from jtyoui.compress import unzip
-        ls = unzip(download_address + '/date.zip', 'date.txt', sep='\r\n')
+        ls = unzip(download_address + os.sep + 'date.zip', 'date.txt', sep='\r\n')
         for line in ls[:-1]:
             ctc, cs, td = line.split('\t')
             _CTC[ctc] = cs
@@ -30,7 +30,6 @@ def download_date(download_address='./date'):
                 _TIANGAN_DIZHI[td].append(ctc)
             else:
                 _TIANGAN_DIZHI[td] = [ctc]
-        return True
     else:
         from jtyoui.error import DownloadDataExceptionError
         raise DownloadDataExceptionError('下载失败！请检查网络。')
