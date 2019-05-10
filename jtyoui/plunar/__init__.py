@@ -5,3 +5,4 @@
 
 from .SC_ import Lunar, SC  # 阳历转农历
 from .CTC_ import CTC  # 农历转阳历
+from .BatchCalendar import *  # 批量转换日历
