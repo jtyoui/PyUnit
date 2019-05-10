@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/5/10 9:15
 # @Author: Jtyoui@qq.com
+import os
 
 """
 该方法属于大量日期转化。也内存转为代价提高速度。该类只能查询1901-2099年。
@@ -12,12 +13,14 @@ _SC = {}
 
 
 def download_date(download_address='./date'):
-    from jtyoui.data import download_gitee
-    from jtyoui.compress import unzip
-    from jtyoui.error import DownloadDataExceptionError
     global _CTC, _TIANGAN_DIZHI, _SC
-    b = download_gitee('packet', 'date.zip', download_address)
+    if not os.path.exists(download_address + '/date.zip'):
+        from jtyoui.data import download_gitee
+        b = download_gitee('packet', 'date.zip', download_address)
+    else:
+        b = 'success'
     if b == 'success':
+        from jtyoui.compress import unzip
         ls = unzip(download_address + '/date.zip', 'date.txt', sep='\r\n')
         for line in ls[:-1]:
             ctc, cs, td = line.split('\t')
@@ -29,6 +32,7 @@ def download_date(download_address='./date'):
                 _TIANGAN_DIZHI[td] = [ctc]
         return True
     else:
+        from jtyoui.error import DownloadDataExceptionError
         raise DownloadDataExceptionError('下载失败！请检查网络。')
 
 
