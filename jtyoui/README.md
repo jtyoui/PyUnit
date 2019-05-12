@@ -8,8 +8,16 @@
 [![](https://img.shields.io/badge/项目-jtyoui-black.svg)]()
 
 
-#### 安装
+### 安装
     pip install jtyoui
+
+### 网站
+>>> [作者的网站](https://blog.jtyoui.com)
+
+### 作者唯一的邮箱
+>>> jtyoui@qq.com  
+
+
 
 ***
 [1]: https://blog.jtyoui.com

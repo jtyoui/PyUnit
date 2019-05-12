@@ -7,15 +7,26 @@ ________________________
 
 ## 模块如下
 
-1.  [进制转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bs)  
+1.  [任意进制转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bs)  
 2.  [验证码识别](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/code)  
 3.  [数据下载](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/data)  
+>>> [火车站查询](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/data/Train.py)   
+>>> 常用变量整理  
+>>> 常用数据  
+>>> 时区切换  
+>>> 查询天气预报  
+>>> 全国地址查询  
+>>> 繁、简体数据  
 4.  [分形模型](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/fractal)   
+>>> 康托三分集   
+>>> 任意边的科赫雪花    
 5.  [小游戏 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/game)  
+>>> 坦克小游戏   
 6.  [照片与PDF互转](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/imagepdf)   
+>>> 自带tk界面
 7.  [语言处理 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language)  
 8.  [邮箱应用 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/mail)  
-9.  [阳历转农历](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/plunar)  
+9.  [阳历和农历相互转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/plunar)  
 10. [搜狗下载](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/sogou)    
 11. [网页处理](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/web)   
 12. [新词发现](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/word)   

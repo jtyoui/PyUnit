@@ -11,3 +11,4 @@ from .Train import find_train_info, find_train_desc, find_train_desc_info, Train
 from .Enums import *  # 增加枚举
 from .Address import find_address  # 查询地址
 from .TimeZone import TZ  # 时区
+from .WeatherAddress import WeatherForecast  # 天气预报

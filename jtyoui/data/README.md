@@ -30,14 +30,14 @@ if __name__ == '__main__':
 
 ### 获取常见的值
 
-1.  常见的照片格式
-2.  常见的文字编码格式
-3.  数学符号
-4.  将英文的星期转为中文
-5.  将中文的星期转为英文
-6.  将英文的月份转为中文
-7.  将中文的月份转为英文
-8.  翻译http转态码的含义
+1.  [常见的照片格式](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
+2.  [常见的文字编码格式](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
+3.  [数学符号](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
+4.  [将英文的星期转为中文](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
+5.  [将中文的星期转为英文](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
+6.  [将英文的月份转为中文](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
+7.  [将中文的月份转为英文](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
+8.  [翻译http转态码的含义](https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/constant.py)
 
 
 ### 获得火车站信息
@@ -56,12 +56,27 @@ if __name__ == '__main__':
 
 ### 获得时区
 ```python
-import datetime
-import pytz
-import jtyoui
 if __name__ == '__main__':
-    print(datetime.datetime.now(tz=pytz.timezone(jtyoui.TZ.Asia_BeiJing)))
+    import datetime
+    import pytz
+    import jtyoui
+    print(datetime.datetime.now(tz=pytz.timezone(jtyoui.TZ.Asia_BeiJing))) #设置北京时区
 ```
+
+### 获取天气预报
+```python
+if __name__ == '__main__':
+    import pprint
+    import jtyoui
+    w = jtyoui.WeatherForecast()
+    w.set_city('九龙')
+    pprint.pprint(w.get_today_weather())  # 获得当天 天气预报
+    pprint.pprint(w.get_7day_weather())  # 获得7天天气预报
+    pprint.pprint(w.get_15day_weather())  # 获得15天天气预报
+
+```
+
+
 
 ***
 [1]: https://blog.jtyoui.com

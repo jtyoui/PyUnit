@@ -12,11 +12,11 @@
     pip install jtyoui
 
 
-### 查询信息
+### 查询任意实体信息
 ```python
 import jtyoui
 if __name__ == '__main__':
-    text = jtyoui.load_BaiDuBaiKe('万绮雯')
+    text = jtyoui.Load_BaiDuBaiKe('万绮雯')
     bd = jtyoui.BaiDuInfoSearch(text)
     print(bd.desc()) # 万绮雯（Joey Meng)，1970年10月2日出生中国香港，演员。
     for name, value in bd.info().items():
