@@ -8,6 +8,7 @@ setup(
     version='19.5.12',
     description='This is my collection bag.',
     long_description=long_text,
+    long_description_content_type="text/markdown",
     url='https://github.com/jtyoui/Jtyoui',
     author='Jtyoui',
     author_email='jtyoui@qq.com',
