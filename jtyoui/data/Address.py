@@ -7,6 +7,15 @@ from platform import platform
 import os
 import bz2
 import json
+import re
+
+re_id_card = """
+(?P<province>[^省]+省|.+自治区)
+(?P<city>[^自治州]+自治州|[^市]+市|[^盟]+盟|[^地区]+地区|.+区划)
+(?P<county>[^市]+市|[^县]+县|[^旗]+旗|[^区]+区)?
+(?P<town>[^区]+区|[^镇]+镇)?
+(?P<village>.*)
+""".replace('\n', '')
 
 _Address = {}
 
@@ -15,6 +24,13 @@ def _load(file_address):  # 下载地址的压缩包
     from urllib.request import urlretrieve
     url = 'https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/rear.bz2'
     place = urlretrieve(url, file_address)  # 下载
+    print('---------验证数据-------')
+    if not os.path.exists(file_address):
+        print('下载失败')
+    elif os.stat(file_address).st_size != 2292518:
+        print('下载失败、移除无效文件！')
+        os.remove(file_address)
+
     print('\033[1;33m' + place[0])
 
 
@@ -64,7 +80,18 @@ def find_address(name):
     return address
 
 
+def find_identity_card_address(card_addr):
+    names = re.match(re_id_card, card_addr)
+    province = names.group('province')
+    city = names.group('city')
+    county = names.group('county')
+    town = names.group('town')
+    village = names.group('village')
+    return province, city, county, town, village
+
+
 if __name__ == '__main__':
     import pprint
 
     pprint.pprint(find_address('晋安'))
+    print(find_identity_card_address('贵州省贵阳市南明区花果园延安南路28号'))

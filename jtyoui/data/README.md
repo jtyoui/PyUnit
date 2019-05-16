@@ -76,6 +76,22 @@ if __name__ == '__main__':
 
 ```
 
+### 获得地址信息
+```python
+import jtyoui
+if __name__ == '__main__':
+    import pprint
+
+    pprint.pprint(jtyoui.find_address('晋安'))#获得一般地址
+    print(jtyoui.find_identity_card_address('贵州省贵阳市南明区花果园延安南路28号'))#获取身份证地址
+    
+# ['山西省 太原市 杏花岭区 敦化坊街道办事处 晋安西街社区居委会',
+#  '福建省 福州市 晋安区',
+#  '江西省 南昌市 南昌县 冈上镇 晋安村委会',
+#  '河南省 开封市 金明区 城西街道 晋安社区']
+# ('贵州省', '贵阳市', '南明区', None, '花果园延安南路28号')
+
+```
 
 
 ***
