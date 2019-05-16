@@ -11,9 +11,19 @@ import copy
 
 
 class StringTime:
-    def __init__(self, sentence):
+    def __init__(self, sentence, date_str=None, date_format='%Y-%m-%d %H:%M:%S'):
+        """传入一个字符串时间和现在时间。
+        >>> st = StringTime('二零零七年十月三十一号下午2点半')
+        >>> print(st.find_times())
+        :param sentence: 字符串时间
+        :param date_str: 你认为的现在时间，不传默认是当前时间
+        :param date_format:时间格式
+        """
         self._sentence = sentence
-        self.local = time.localtime()
+        self._localtime = date_str if date_str else time.strftime(date_format)
+        self.format = date_format
+        # 自定义
+        self.local = time.strptime(self._localtime, self.format)
         self.re_year = r'(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d*年)'
         self.re_mon = r'(上个月)|(这个月)|(下个月)|(上月)|(这月)|(下月)|(\d*月)'
         self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d*日)|(\d*号)'
@@ -37,9 +47,8 @@ class StringTime:
     def sentence(self, sentence):
         self._sentence = sentence
 
-    @staticmethod
-    def adds(x, fmt):
-        add = datetime.datetime.now() + datetime.timedelta(days=x)
+    def adds(self, x, fmt):
+        add = datetime.datetime.strptime(self._localtime, self.format) + datetime.timedelta(days=x)
         return add.strftime(fmt)
 
     def find(self, name):
@@ -127,10 +136,7 @@ class StringTime:
         return second if second else []
 
     def find_times(self):
-        """ 根据一句话来找对应的时间
-        >>> st = StringTime('二零零七年十月三十一号下午2点半')
-        >>> print(st.find_times())
-        """
+        """ 根据一句话来找对应的时间"""
         str_ = [self.chinese_numerals.get(s, s) for s in self.sentence]
         string = ''
         for index, c in enumerate(str_):  # 判断十在每个位置上的不同意义
@@ -187,7 +193,12 @@ class StringTime:
 
 
 if __name__ == '__main__':
+    # 默认是当日期
     st = StringTime('二零零七年十月三十一号下午2点半')
     print(st.find_times())
     st.sentence = '下周星期一下午2点半开会'
+    print(st.find_times())
+    print('-----------------------------------')
+    # 切换日期
+    st = StringTime('下周星期一下午2点半开会', '2019-4-17 00:00:00')
     print(st.find_times())
