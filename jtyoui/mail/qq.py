@@ -48,8 +48,10 @@ def send_qq_mail(from_addr, password, to_addr, content, subject='', files=None, 
             server.quit()
 
 
+# jfciwswgxlmedjei9
+
 if __name__ == '__main__':
-    flag = send_qq_mail('ptyoui@jtyoui.com', 'jfciwswgxlmedjei', 'jtyoui@jtyoui.com', '测试邮箱', '政治文件', files='政治.txt')
+    flag = send_qq_mail('ptyoui@jtyoui.com', '授权码', 'jtyoui@jtyoui.com', '测试邮箱', '政治文件', files='政治.txt')
     if flag:
         print('发送成功!')
     else:
