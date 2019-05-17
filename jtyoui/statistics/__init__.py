@@ -8,3 +8,4 @@ from .coefficient import *  # 相关系数
 from .analysis import *  # 分析数学
 from .dr import *  # 降维
 from .clustering import *  # 聚类
+from .maths import *  # 数学类
