@@ -13,7 +13,7 @@
 #### 模块介绍
 ```python
 from jtyoui.statistics import chebyshev_distance  # 切比雪夫距离
-from jtyoui.statistics import cosine_distance  # 余弦距离
+from jtyoui.statistics import cosine  # 余弦距离
 from jtyoui.statistics import edit_distance  # 编辑距离
 from jtyoui.statistics import euclidean_distance  # 欧氏距离
 from jtyoui.statistics import ham_distance  # 海明距离
@@ -46,7 +46,7 @@ print(value)
 余弦相似度用向量空间中两个向量夹角的余弦值作为衡量两个个体间差异的大小。
 相比距离度量，余弦相似度更加注重两个向量在方向上的差异，而非距离或长度上
 """
-value=cosine_distance(point_x,point_y)
+value=cosine(point_x,point_y)
 print(value)
 
 

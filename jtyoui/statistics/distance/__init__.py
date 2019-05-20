@@ -4,7 +4,7 @@
 # @Author: Jtyoui@qq.com
 
 from .ChebyshevDistance import chebyshev_distance  # 切比雪夫距离
-from .CosineDistance import cosine_distance  # 余弦距离
+from .CosineDistance import cosine_distance, cosine  # 余弦距离
 from .EditDistance import edit_distance  # 编辑距离
 from .EuclideanDistance import euclidean_distance  # 欧氏距离
 from .HammingDistance import ham_distance  # 海明距离
