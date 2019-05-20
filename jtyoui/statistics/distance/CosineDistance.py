@@ -14,7 +14,7 @@ from jtyoui import parameter_set_length
 
 
 @parameter_set_length
-def cosine_distance(coordinate_p, coordinate_q):
+def cosine(coordinate_p, coordinate_q):
     """
     余弦距离又叫余弦角度
     :param coordinate_p:p坐标
@@ -29,5 +29,17 @@ def cosine_distance(coordinate_p, coordinate_q):
     return numerator / pow(sum(q) * sum(p), 0.5)
 
 
+def cosine_distance(sentence, data):
+    import jieba  # 安装 pip install jieba
+    ls, ds = [], []
+    s = jieba.cut(sentence)
+    d = jieba.cut(data)
+    for c in set(list(s) + list(d)):
+        if len(c) > 1:
+            ls.append(sentence.count(c))
+            ds.append(data.count(c))
+    return cosine(ls, ds)
+
+
 if __name__ == '__main__':
-    print(cosine_distance((0, 1), (1, 0)))
+    print(cosine_distance('我吃饭了', '我正在吃饭'))

@@ -315,7 +315,7 @@ add_time = {
 
 # 中文数字
 num_symbol = ['一', '二', '两', '三', '四', '五', '六', '七', '八', '九', '十']
-more_num_symbol = ['零', '百', '千', '万', '亿', '兆'] + num_str_start_symbol
+more_num_symbol = ['零', '百', '千', '万', '亿', '兆'] + num_symbol
 
 if __name__ == '__main__':
     print(MathSymbols.intersection)
