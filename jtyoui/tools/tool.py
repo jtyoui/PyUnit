@@ -4,15 +4,15 @@
 # @Author: Jtyoui@qq.com
 import re
 from jtyoui.error import InconsistentLengthError
-from dataclasses import dataclass
 import operator
 
 
-@dataclass
 class Tool:
     """自定义工具类"""
-    _string: str
     generator = True
+
+    def __init__(self, string):
+        self._string = string
 
     def index_select_string(self, index, select):
         """利用索引的关系来标记字符串"""
