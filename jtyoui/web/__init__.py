@@ -3,4 +3,4 @@
 # @Time : 2019/2/19
 # @Email : jtyoui@qq.com
 from .header import header, free_header  # 封装header
-from .ua import random, ua  # 封装UA
+from .ua import random, ua, headers_ua  # 封装UA

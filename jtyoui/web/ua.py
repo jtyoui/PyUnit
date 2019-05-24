@@ -43,6 +43,8 @@ def ua(browser='chrome', version='0.1.11'):
 
 
 random = ua
+headers_ua = {'user-agent': random()}
 
 if __name__ == '__main__':
     print(random())
+    print(headers_ua)

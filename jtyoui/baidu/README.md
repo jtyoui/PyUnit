@@ -16,8 +16,7 @@
 ```python
 import jtyoui
 if __name__ == '__main__':
-    text = jtyoui.Load_BaiDuBaiKe('万绮雯')
-    bd = jtyoui.BaiDuInfoSearch(text)
+    bd = jtyoui.BaiDuInfoSearch('万绮雯')
     print(bd.desc()) # 万绮雯（Joey Meng)，1970年10月2日出生中国香港，演员。
     for name, value in bd.info().items():
         print(name, value)

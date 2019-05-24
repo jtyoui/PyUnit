@@ -6,7 +6,7 @@
 from html.parser import HTMLParser
 from urllib.parse import quote
 import requests
-from jtyoui.web import random
+from jtyoui.web import headers_ua
 
 
 class _InfoSearch(HTMLParser):
@@ -34,15 +34,15 @@ class _InfoSearch(HTMLParser):
             self._info_name = True
         elif tag == 'dd' and 'basicInfo-item value' in attr:
             self._info_value = True
+        elif tag == 'div' and 'configModuleBanner' in attr:
+            self._desc_flag = False
         else:
             return
         self._data_flag = ''
 
     def handle_endtag(self, tag):  # 结束标签
         _data = self._data_flag.replace('\n', '').replace(u'\xa0', '')
-        if tag == 'div':
-            self._desc_flag = False
-        elif tag == 'dt':
+        if tag == 'dt':
             self._info_name = False
             if _data:
                 self.info_name.append(_data)
@@ -74,19 +74,18 @@ class BaiDuInfoSearch:
     """百度百科搜索基本信息"""
 
     def __init__(self, data):
-        self.BD = _InfoSearch()
-        self.BD.feed(data)
+        if '<html>' not in data:
+            data = Load_BaiDuBaiKe(data)
+        self._BD = _InfoSearch()
+        self._BD.feed(data)
 
     def info(self):
         """基本信息"""
-        return self.BD.basic_info()
+        return self._BD.basic_info()
 
     def desc(self):
         """描述信息"""
-        return self.BD.describe()
-
-    def close(self):
-        return self.BD.close()
+        return self._BD.describe()
 
 
 def Load_BaiDuBaiKe(name):
@@ -95,14 +94,14 @@ def Load_BaiDuBaiKe(name):
     :return: 百度百科的文本信息
     """
     url = F'https://baike.baidu.com/item/{quote(name)}'
-    response = requests.get(url, headers={'User-Agent': random()})
+    response = requests.get(url, headers=headers_ua)
     data = response.content.decode('utf-8')
     return data
 
 
 if __name__ == '__main__':
-    text = Load_BaiDuBaiKe('万绮雯')
-    bd = BaiDuInfoSearch(text)
+    import pprint
+
+    bd = BaiDuInfoSearch('玛卡')
     print(bd.desc())
-    for name, value in bd.info().items():
-        print(name, value)
+    pprint.pprint(bd.info())
