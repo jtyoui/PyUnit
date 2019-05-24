@@ -41,5 +41,15 @@ if __name__ == '__main__':
         print(headers_ua)#{'user-agent': 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1464.0 Safari/537.36'}
 ```
 
+### 增加HTML解析
+```python
+from jtyoui.web import ParseHtml
+if __name__ == '__main__':
+    html = '<div class="declare" id="J-declare">声明：百科词条人人可编辑。<a class="declare-details"></a>'
+    p = ParseHtml(start_tag='div',start_attr= ['class="declare"'], end_tag='a', end_attr=['class="declare-details"'])
+    p.feed(html)
+    print(p.get_data())  # 声明：百科词条人人可编辑。
+```
+
 ***
 [1]: https://blog.jtyoui.com
