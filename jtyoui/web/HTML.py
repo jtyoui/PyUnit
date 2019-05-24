@@ -31,7 +31,6 @@ class ParseHtml(HTMLParser):
     def handle_starttag(self, tag, attrs):  # 开始标签
         for attr in self._start_attr:
             if attr not in attrs:
-                self._flag = False
                 break
         else:
             if tag == self._start_tag:
@@ -40,7 +39,6 @@ class ParseHtml(HTMLParser):
 
         for att in self._end_attr:
             if att not in attrs:
-                self._flag = False
                 break
         else:
             if tag == self._end_tag:
@@ -58,7 +56,7 @@ class ParseHtml(HTMLParser):
 
     def get_data(self):
         """得到数据"""
-        return self._data.replace(' ', '')
+        return self._data.strip()
 
     @staticmethod
     def _split(words):
