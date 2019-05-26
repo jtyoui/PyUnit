@@ -18,7 +18,7 @@ class Sentence:
 
     def __init__(self):
         self.url = 'http://zaojv.com/wordQueryDo.php'
-        from bs4 import BeautifulSoup  # 安装bs4
+        from bs4 import BeautifulSoup  # 安装bs4: pip install bs4
         self._BeautifulSoup = BeautifulSoup
         self.total = 1
         self.page = 1
