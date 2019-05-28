@@ -52,3 +52,8 @@ class NameOfTrainStationNotFoundError(Exception):
 class DownloadDataExceptionError(Exception):
     """下载数据异常"""
     pass
+
+
+class NotLegitimateNumber(Exception):
+    """不是一个合法的数字"""
+    pass

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/5/17 14:43
 # @Author: Jtyoui@qq.com
+from jtyoui.error import NotLegitimateNumber
 import math
 
 
@@ -48,8 +49,39 @@ def dirichlet_function(value):
     return 1
 
 
+def is_prime(n):
+    """判断一个数是否为质数"""
+    if (not isinstance(n, int)) or (n <= 1):
+        raise NotLegitimateNumber('不是一个合法的数字')
+    if n % 2 == 0:  # 判断偶数
+        return False
+    else:
+        for i in range(3, int(math.sqrt(n)) + 1, 2):  # 判断奇数
+            if n % i == 0:
+                return False
+        return True
+
+
+def primes(n):
+    """埃拉托斯特尼质数筛法
+    >>> print(len(list(primes(1_0000_0000))))  # 时间5.5541136264801025秒
+    """
+    n += 1
+    ps = [True] * n
+    half = int(math.sqrt(n))
+    for index in range(3, half + 1):
+        if is_prime(index):  # 取开平方的质数
+            ps[index * index: n: index] = [False] * math.ceil((n - index * index) / index)
+    yield 2
+    for y in range(3, n, 2):
+        if ps[y]:
+            yield y
+
+
 if __name__ == '__main__':
     print(sign_function(123.22))
     print(integral_function(25.2))
     print(integral_function('-3.1'))
     print(dirichlet_function(math.pi))
+    print(is_prime(915452))
+    print(len(list(primes(1_0000_0000))))  # 时间5.5541136264801025秒

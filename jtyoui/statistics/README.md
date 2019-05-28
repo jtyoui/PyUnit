@@ -13,7 +13,7 @@
 #### [数据常用分析](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics/analysis): 分析计算模块,包含中位数,众数,分位数,方差,标准差等
 #### [数据降维](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics/dr): 奇异值分解(SVD)、主成分分析(PCA)、因子分析(FA)、独立成分分析(ICA)等
 #### [数据聚类](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics/clustering)
-
+#### [数学函数类](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics/maths): 一些常见的数学函数
 
 
 ### 参考文档
