@@ -65,17 +65,22 @@ def is_prime(n):
 def primes(n):
     """埃拉托斯特尼质数筛法
     >>> print(len(list(primes(1_0000_0000))))  # 时间5.5541136264801025秒
+     10万内：9592
+     100万内：78498
+     1000万内：664579
+     1亿内：5761455
     """
     n += 1
     ps = [True] * n
+    total = [2]
     half = int(math.sqrt(n))
-    for index in range(3, half + 1):
+    for index in range(3, half + 1, 2):
         if is_prime(index):  # 取开平方的质数
             ps[index * index: n: index] = [False] * math.ceil((n - index * index) / index)
-    yield 2
     for y in range(3, n, 2):
         if ps[y]:
-            yield y
+            total.append(y)
+    return total
 
 
 if __name__ == '__main__':
@@ -84,4 +89,4 @@ if __name__ == '__main__':
     print(integral_function('-3.1'))
     print(dirichlet_function(math.pi))
     print(is_prime(915452))
-    print(len(list(primes(1_0000_0000))))  # 时间5.5541136264801025秒
+    print(len(primes(1_0000_0000)))  # 时间5.5541136264801025秒
