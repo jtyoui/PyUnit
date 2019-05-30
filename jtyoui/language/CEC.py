@@ -31,21 +31,21 @@ class ChineseError:
         self._word = None
 
     def _flag(self, ls):
-        total, index = [], 0
+        total, index = [], -1
         value = ' '.join(ls)
         fuz = self._fuzzy(value)
         for k, v in self._words.items():
             if v in value:
-                index = value.index(v)
+                index = value.find(v)
             else:
                 v = self._fuzzy(v)
                 if v in fuz:
-                    index = fuz.index(v)
-            if index:  # 替换错误单词
+                    index = fuz.find(v)
+            if index > -1:  # 替换错误单词
                 index_ = value[:index].count(' ')
                 name = self._word[:index_] + k + self._word[index_ + len(k):]
                 total.append(name)
-                index = 0
+                index = -1
         return total
 
     def _fuzzy(self, words):
