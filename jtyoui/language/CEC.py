@@ -11,8 +11,10 @@ import os
 
 
 class ChineseError:
+    """基于拼音谐音纠错"""
+
     def __init__(self, words_or_file):
-        self.model = load_pin_yin(False)
+        self.model = load_pin_yin(False)  # 加载拼音模型
         self._words = {}
         if (not isinstance(words_or_file, str)) and isinstance(words_or_file, Iterable):
             for word in words_or_file:
@@ -40,6 +42,7 @@ class ChineseError:
         return total
 
     def fuzzy(self, words):
+        """转为模糊音"""
         total = []
         for word in words.split(' '):
             for correct, error in self.fuzzy_tone.items():
@@ -49,6 +52,7 @@ class ChineseError:
         return ' '.join(total)
 
     def error_word(self, word):
+        """将错误的词语转为正确的词语"""
         ls = chinese_to_pin_yin(self.model, word)
         total = self._flag(ls)
         return total
