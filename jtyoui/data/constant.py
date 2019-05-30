@@ -328,6 +328,7 @@ fuzzy_tone = {
     'en': 'eng',
     'in': 'ing',
     'an': 'ang',
+    'ei': 'ui'
 }
 
 if __name__ == '__main__':
