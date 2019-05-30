@@ -3,7 +3,7 @@
     学习Python的集合包.有利于重复使用,避免重复造轮子.并且还能温故而知新.里面包括了许多模块,其中包括:搜狗词库下载,新词发现算法,
     照片和PDF相互转化, 微信自动聊天机器人,中国农历与阳历的转换关系,简体字与繁体字的转换,坦克小游戏,分形模式,邮箱,地图,正则,装饰器,
     数学统计,数据处理,nlp算法、进制转换 验证码识别 数据下载 分形模型 小游戏 照片与PDF互转 语言处理 邮箱应用 阳历转农历 搜狗下载 
-    网页处理 新词发现 微信 正则 装饰器 异常 地图 计算统计 贝叶斯算法 常见的工具类 c模块 百度应用 日语单词翻译、天气预报等等
+    网页处理 新词发现 微信 正则 装饰器 异常 地图 计算统计 贝叶斯算法 常见的工具类 c模块 百度应用 日语单词翻译、天气预报、汉语纠错等等
   
 ## 安装
     pip install jtyoui
@@ -37,6 +37,7 @@ ________________________
 >>> [繁、简体转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/han.py)  
 >>> [中文翻译成拼音](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/PinYin.py)       
 >>> [六国语言翻译成中文](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/Translates.py)     
+>>> [汉语纠错](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/CEC.py)  
 8.  [邮箱应用 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/mail)
 >>> [QQ邮箱](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/mail/qq.py)  
 9.  [阳历和农历相互转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/plunar) 
@@ -82,7 +83,11 @@ __________________________
 
 
 ## introduce
-    Learning Python's collection packages is conducive to reuse, avoid repeating wheel building, and learn new things from the past.
-    It includes many modules, including: Sogou Lexicon Download, New Word Discovery Algorithms, Photos and PDF Interchange.
-    WeChat Automatic Chat Robot, Chinese Lunar Calendar and the YangLi conversion relationship, simplified characters
-    and traditional characters conversion, tank games and so on.
+    Learn Python collections. It's good for reuse, avoiding repetitive wheels, and it's also new. It includes a number of modules, 
+    including: Sogou lexicon download, new word discovery algorithm, photo and PDF conversion, WeChat Automatic chat robot, 
+    conversion relationship between Chinese lunar calendar and solar calendar, conversion of simplified and traditional characters,
+    tank games, fractal mode, mailbox, map, regular, decorator, mathematical statistics, data processing, nlp algorithm, 
+    binary conversion verification code identification Data download fractal model game photos and PDF interchanging language 
+    processing mailbox application solar calendar to the Chinese calendar search dog download web page processing new words 
+    found WeChat regular decorator anomaly map calculation statistics Bayesian algorithm common tools c module Baidu application 
+    Japanese word translation, weather Forecast, Chinese word correction, etc.
