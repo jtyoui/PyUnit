@@ -3,8 +3,9 @@
 # @Time  : 2019/5/29 17:44
 # @Author: Jtyoui@qq.com
 
-"""汉语纠错（Chinese error correction）"""
+"""汉语拼音纠错（Chinese error correction）"""
 from jtyoui.language.PinYin import load_pin_yin, chinese_to_pin_yin
+from jtyoui.data import fuzzy_tone
 from collections import Iterable
 import os
 
@@ -24,20 +25,35 @@ class ChineseError:
                     self._words[line] = ' '.join(ls)
         else:
             raise TypeError('输入一个纠错列表或者文件地址')
+        self.fuzzy_tone = fuzzy_tone
 
-    def set_word(self, word):
+    def _flag(self, ls):
         total = []
-        ls = chinese_to_pin_yin(self.model, word)
         value = ' '.join(ls)
+        fuz = self.fuzzy(value)
         for k, v in self._words.items():
             if v == value:
                 total.append(k)
+            else:
+                if self.fuzzy(v) == fuz:
+                    total.append(k)
         return total
 
-    def fuzzy_tone(self):
-        pass
+    def fuzzy(self, words):
+        total = []
+        for word in words.split(' '):
+            for correct, error in self.fuzzy_tone.items():
+                if error not in word and correct in word:
+                    word = word.replace(correct, error)
+            total.append(word)
+        return ' '.join(total)
+
+    def error_word(self, word):
+        ls = chinese_to_pin_yin(self.model, word)
+        total = self._flag(ls)
+        return total
 
 
 if __name__ == '__main__':
-    ce = ChineseError(['北京', '上海'])
-    print(ce.set_word('北经'))
+    ce = ChineseError(['六盘水钟山区'])
+    print(ce.error_word('六盘水综三去'))
