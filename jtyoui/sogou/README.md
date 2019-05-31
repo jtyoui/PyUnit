@@ -85,11 +85,11 @@ if __name__ == '__main__':
   
 ```
 
-### 搜索到的全部下载
+### 搜索到的全部下载（支持模糊搜索）
 ```python
 from jtyoui.sogou import SoGou
 if __name__ == '__main__':
-    sg = SoGou('动物')  # 获取搜索关键字下的词库
+    sg = SoGou('蟋蟀名称')  # 获取搜索关键字下的词库
     txt = sg.load_word()  # 下载动物类全部信息
     print(txt)  # 打印
         
@@ -98,7 +98,9 @@ if __name__ == '__main__':
 #### 打印格式：是一个键值对。键是词库名，值的词库内容
 
     {'动物词汇大全【官方推荐】': ['阿比西尼亚猫', '阿博胡鲶', '阿勃劳棱鲱'....]}
-    
+
+### 搜狗词库表
+[点击查询搜狗词库表](https://gitee.com/tyoui/word)    
     
 
 [1]: https://blog.jtyoui.com

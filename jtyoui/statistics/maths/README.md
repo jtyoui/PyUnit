@@ -23,7 +23,7 @@ if __name__ == '__main__':
 ```python
 from jtyoui.statistics.maths import primes
 if __name__ == '__main__':
-    print(len(list(primes(1_0000_0000))))  # 时间5.5541136264801025秒
+    print(len(primes(1_0000_0000)))  # 时间5.5541136264801025秒
 ```
 
 ***

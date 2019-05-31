@@ -47,6 +47,14 @@ if __name__ == '__main__':
 
 ```
 
+### 拼音纠错
+```python
+from jtyoui.language import ChineseError
+if __name__ == '__main__':
+    ce = ChineseError(['六盘水钟山区'])
+    print(ce.error_word('六盘水综三去'))
+```
+
 
 ***
 [1]: https://blog.jtyoui.com

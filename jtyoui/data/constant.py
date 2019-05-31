@@ -317,6 +317,20 @@ add_time = {
 num_symbol = ['一', '二', '两', '三', '四', '五', '六', '七', '八', '九', '十']
 more_num_symbol = ['零', '百', '千', '万', '亿', '兆'] + num_symbol
 
+# 模糊音
+fuzzy_tone = {
+    'z': 'zh',
+    'l': 'n',
+    'c': 'ch',
+    'f': 'h',
+    's': 'sh',
+    'r': 'l',
+    'en': 'eng',
+    'in': 'ing',
+    'an': 'ang',
+    'ei': 'ui'
+}
+
 if __name__ == '__main__':
     print(MathSymbols.intersection)
     print(MathSymbols.ls)
