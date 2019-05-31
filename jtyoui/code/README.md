@@ -58,7 +58,7 @@ if __name__ == '__main__':
     4105	模糊动态5位数字
    
 ## 求打赏
-<img src="https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/wx.png" width = "300" height = "300" div align=left />  
-<img src="https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/zfb.jpg" width = "300" height = "300" div align=right />  
+<img src="https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/wx.png" width = "300" height = "411" div align=left />  
+<img src="https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/zfb.jpg" width = "300" height = "466" div align=right />  
     
 [1]: https://blog.jtyoui.com
