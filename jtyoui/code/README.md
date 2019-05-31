@@ -13,14 +13,14 @@
 #### 使用说明   
 
 ```python
-    from jtyoui.code import cr
-    
-    if __name__ == '__main__':
-        # 第一个参数是要识别验证码照片的地址。必填。str类型
-        # 第二参数是图片类型(看下面code_type类型)，必填，int类型
-        # 第三个参数是等待时间的延迟。默认是60秒。非必填，int类型
-        code = cr.decode(filename=None, code_type=None, timeout=60)
-        print(code)
+from jtyoui.code import cr
+
+if __name__ == '__main__':
+    # 第一个参数是要识别验证码照片的地址。必填。str类型
+    # 第二参数是图片类型(看下面code_type类型)，必填，int类型
+    # 第三个参数是等待时间的延迟。默认是60秒。非必填，int类型
+    code = cr.decode(filename=None, code_type=None, timeout=60)
+    print(code)
 ```
 
 ### code_type类型，验证码类型都是4位。
@@ -56,6 +56,11 @@
     6701	多选题返回数字（8个图中选择1-8个）
     6101	简单问答题（拼音字母、汉字、计数、认图）
     4105	模糊动态5位数字
-    
+   
+## 求打赏
+
+![微信](https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/wx.png)   
+
+![支付宝](https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/zfb.jpg)  
     
 [1]: https://blog.jtyoui.com
