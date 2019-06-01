@@ -5,6 +5,9 @@
 import zipfile
 from os import path
 
+file_zip_path = path.dirname(path.abspath(__file__))
+sep = path.sep
+
 
 def load_zip(zip_name, file_name, encoding='UTF-8', sep='\n'):
     """加载zip数据
@@ -14,8 +17,7 @@ def load_zip(zip_name, file_name, encoding='UTF-8', sep='\n'):
     :param sep:压缩文件里面的换行符
     :return: 压缩包里面的数据：默认编码的UTF-8
     """
-    file_zip = path.dirname(path.abspath(__file__))
-    file_zip = path.join(path.dirname(file_zip), 'file_zip', zip_name)
+    file_zip = path.join(path.dirname(file_zip_path), 'file_zip', zip_name)
     f = zipfile.ZipFile(file_zip)
     fp = f.read(file_name)
     lines = fp.decode(encoding).split(sep)

@@ -108,8 +108,27 @@ if __name__ == '__main__':
     # (153) 我爱你可以为你放弃一切！包括你。
     # (154) 说什么我爱你都他妈的对不起。
     # (155) 你问我爱你有多深，拳头代表我的心。
-
 ```
+
+### 验证码生成器
+```python
+from jtyoui.tools import Captcha
+if __name__ == '__main__':
+    c = Captcha(300, 60)  # 验证码大小是300*60
+    c.format(lower=1, upper=2, digits=4, special=1)  # 有小写字母1个、大写字母2、数字4个、特殊符号1个
+    c.make_photo(f'D://')  # 生成的验证码存放在D盘下
+```
+
+### 验证码批量生产
+```python
+from jtyoui.tools import Captcha
+if __name__ == '__main__':
+    c = Captcha(300, 60)  # 验证码大小是300*60
+    for _ in range(10):#生成10张
+        c.format(lower=1, upper=2, digits=4, special=1)  # 有小写字母1个、大写字母2、数字4个、特殊符号1个
+        c.make_photo(f'D://')  # 生成的验证码存放在D盘下
+```
+
 
 ***
 [1]: https://blog.jtyoui.com

@@ -72,6 +72,7 @@ ________________________
 >>> [提取字符串时间](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools/times.py)       
 >>> [利用索引的关系来标记字符串](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools/tool.py)    
 >>> [汉语造句](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools/SentenceMake.py)  
+>>> [验证码生成器](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools/captcha.py)  
 21. [c模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/c)    
 22. [百度应用](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/baidu)   
 >>> [查询任意实体信息](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/baidu/Encyclopedias.py)  
