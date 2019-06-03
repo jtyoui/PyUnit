@@ -137,7 +137,7 @@ class StringTime:
 
     def find_times(self):
         """ 根据一句话来找对应的时间"""
-        str_ = [self.chinese_numerals.get(s, s) for s in self.sentence]
+        str_ = [self.chinese_numerals.get(s, s) for s in self.sentence] + [' ']  # 加[' ']的原因保证index+1不会出现list索引溢出
         string = ''
         for index, c in enumerate(str_):  # 判断十在每个位置上的不同意义
             if c == '十':
