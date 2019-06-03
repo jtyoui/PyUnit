@@ -16,7 +16,7 @@
 ```python
 
 from jtyoui.regular import Non_Chinese
-from jtyoui.decorator import *
+from jtyoui.decorator import replace_regular,parameter_set_length
 
 
 @replace_regular(' ', '')
@@ -36,6 +36,20 @@ if __name__ == '__main__':
     remove_blank('你好  吗?', b='我  很好!')
     remove_non_chinese('你好#$%76#%吗wore?', b='我$%^787word很好!')
     set_length(x=[3,4],y=[1,2])
+```
+
+## 单身模式修饰器
+```python
+from jtyoui.decorator import singleton
+
+@singleton
+class A:
+    pass
+    
+if __name__ == '__main__':
+    a = A()
+    b = A()
+    print(id(a) == id(b))  # True
 ```
 
 ***
