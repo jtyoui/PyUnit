@@ -14,7 +14,7 @@
 from jtyoui.word import analysis_single,thread_analysis
 if __name__ == '__main__':
     neologism_words = analysis_single(file_str='小时代.txt') #单线程
-    neologism=thread_analysis(file='小时代.txt') #多线程,并没有什么卵用,不建议使用
+    # neologism=thread_analysis(file='小时代.txt') #多线程,不建议使用
     for k, v in neologism_words.items():
         print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
 ```

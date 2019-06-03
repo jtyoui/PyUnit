@@ -45,8 +45,7 @@ class Tool:
         self._string = string
 
     def split(self, re_, flag=0, retain=True):
-        """支持正则分割"""
-        """
+        """支持正则分割
         :param re_:正则表达式
         :param flag: re.search(re_, self.string, flag), 默认flag=0
         :param retain: 是否要保留正则匹配的字符,默认是保留
@@ -82,8 +81,7 @@ class Tool:
         return ls_word
 
     def string_select_index(self, ls, start_name, end_name, flag='O', labels=None):
-        """将一段文字进行标记返回标记的列表"""
-        """
+        """将一段文字进行标记返回标记的列表
         :param ls:标记的关键字列表
         :param start_name:开始标记的名称
         :param end_name:连续标记的名称
@@ -107,10 +105,8 @@ class Tool:
         return labels
 
     def select_ls(self, ls_):
-        """根据列表里面的元素选取字符串中的元素"""
-        """
-        :param ls:列表元素，比如['张三','李四','王麻子']，string='张三去李四家找东西'
-        :param generator:是否启动生成器模式
+        """根据列表里面的元素选取字符串中的元素
+        :param ls_:列表元素，比如['张三','李四','王麻子']，string='张三去李四家找东西'
         :return :['张三','李四']
         """
         if self.generator:
@@ -119,8 +115,7 @@ class Tool:
             return [name for name in ls_ if self._string.find(name) > 0]
 
     def select_row(self, iterable_, row):
-        """选取可迭代对象中的某一列"""
-        """
+        """选取可迭代对象中的某一列
         :param iterable_:可迭代对象
         :param row:每一列
         """
