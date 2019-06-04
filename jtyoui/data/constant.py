@@ -331,6 +331,10 @@ fuzzy_tone = {
     'ei': 'ui'
 }
 
+# 中文空格
+chinese_blank_space = '\u3000'
+chinese_blank_spaces = '　'
+
 if __name__ == '__main__':
     print(MathSymbols.intersection)
     print(MathSymbols.ls)
