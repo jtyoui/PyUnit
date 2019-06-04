@@ -11,12 +11,15 @@
 
 ## 训练代码(文本是UTF-8格式)
 ```python
-from jtyoui.word import analysis_single,thread_analysis
+from jtyoui.word import Neologism
 if __name__ == '__main__':
-    neologism_words = analysis_single(file_str='小时代.txt') #单线程
-    # neologism=thread_analysis(file='小时代.txt') #多线程,不建议使用
-    for k, v in neologism_words.items():
-        print('key:{0} count:{1} frequency:{2} cond:{3} free:{4}'.format(k, v[0], v[1], v[2], v[3]))
+    n = Neologism()
+    n.read_file(r'D:\data.txt', 6)
+    n.statistics()
+    n.handle()
+    for k, v in n.filter_words(count=10, frequency=0.0001, cond=84, free=0.7):
+        print(F'关键字:{k} 次数:{v[0]} 频率:{v[1]} 凝聚度:{v[2]} 自由度:{v[3]}')
+
 ```
     
 
