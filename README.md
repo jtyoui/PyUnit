@@ -79,7 +79,15 @@ ________________________
 23. [日语单词翻译](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/jp)    
 >>> [日语文章提取单词翻译](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/jp/Japan.py)   
 24. [压缩包工具](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/compress)   
->>> [解压zip文件](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/compress/Zip.py)  
+>>> [解压zip文件](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/compress/Zip.py)   
+25. [常用算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/algorithm)   
+>>> [搜索算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/algorithm/SearchAlgorithm.py)  
+
+
+
+
+
+
 __________________________
 
 
