@@ -26,8 +26,9 @@ from jtyoui.baidu import *  # 增加关于百度的资料及应用
 from jtyoui.jp import *  # 提取日语意思
 from jtyoui.compress import *  # 压缩包文件
 from jtyoui.algorithm import *  # 常见算法
+from jtyoui.cmd import *  # CMD命令
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.6.4'
+__version__ = '19.6.6'
 __author__ = 'Jtyoui'

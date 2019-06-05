@@ -82,7 +82,9 @@ ________________________
 >>> [解压zip文件](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/compress/Zip.py)   
 25. [常用算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/algorithm)   
 >>> [搜索算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/algorithm/SearchAlgorithm.py)  
-
+>>> [匹配算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/algorithm/MatchingAlgorithm.py)  
+26. [CMD命令](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/cmd)  
+>>> [window命令](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/cmd/windows.py)  
 
 
 
