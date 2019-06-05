@@ -4,6 +4,8 @@
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
 
+"""任意进制相互转化"""
+
 
 def __successive_division(n, x):  # 辗转相除法
     while n:
@@ -36,5 +38,15 @@ def binary_system(x, base_x, base_y):
     raise ValueError('验证进制错误!')  # 如果检验失败,返回错误
 
 
+def gcd(m, n):
+    """最大公约数"""
+    if n == 0:
+        m, n = m, n
+    while m != 0:
+        m, n = n % m, m
+    return n
+
+
 if __name__ == '__main__':
     print(binary_system(2542, 7, 12))
+    print(gcd(97 * 2, 97 * 3))

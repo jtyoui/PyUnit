@@ -9,7 +9,7 @@ class FMMA:
     """FMMA(Forward Maximum Matching Algorithms)正向最大匹配算法"""
 
     def __init__(self, ls, sort=False):
-        """匹配的词典
+        """正向最大匹配算法、匹配的词典
         :param ls: 词典
         :param sort: 是否要排序
         """
@@ -37,7 +37,7 @@ class RMMA:
     """RMMA(Reverse Maximum Matching Algorithms)逆向最大匹配算法"""
 
     def __init__(self, ls, sort=False):
-        """匹配的词典
+        """逆向最大匹配算法、匹配的词典
         :param ls: 词典
         :param sort: 是否要排序
         """
@@ -61,9 +61,41 @@ class RMMA:
         return list(reversed(total))
 
 
+def _kmp(p):
+    i, k, m = 0, -1, len(p)
+    p_next = [-1] * m
+    while i < m - 1:
+        if k == -1 or p[i] == p[k]:
+            i, k = i + 1, k + 1
+            if p[i] == p[k]:
+                p_next[i] = p_next[k]
+            else:
+                p_next[i] = k
+        else:
+            k = p_next[k]
+    return p_next
+
+
+def kmp(string, str_):
+    """KMP(The Knuth-Morris-Pratt Algorithm)无回溯串匹配算法"""
+    j, i = 0, 0
+    p_next = _kmp(string)
+    n, m = len(string), len(str_)
+    while j < n and i < m:
+        if i == -1 or string[j] == str_[i]:
+            j, i = j + 1, i + 1
+        else:
+            i = p_next[i]
+    if i == m:
+        return j - i
+    return -1
+
+
 if __name__ == '__main__':
     r = RMMA(ls=['我们', '野生', '动物园'], sort=True)
     print(r.cut('我们在野生动物园玩', 3))
     print('-----------------------------------------')
     r = FMMA(ls=['我们', '野生', '动物园'], sort=True)
     print(r.cut('我们在野生动物园玩', 3))
+    print('-----------------------------------------')
+    print(kmp('我们在野生动物园玩', '动物园'))
