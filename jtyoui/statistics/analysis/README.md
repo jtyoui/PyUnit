@@ -32,5 +32,19 @@ if __name__ == '__main__':
     
 ```
 
+## 统计分类指标
+```python
+from jtyoui.statistics import confusion_matrix,precision,recall,f_measure
+if __name__ == '__main__':
+    simples = [1, 1, 0, 0, 0, 0, 1, 0, 0, 1]  # 实际分类的值
+    prediction = [0, 1, 0, 1, 1, 0, 1, 1, 0, 1]  # 预测分类的值
+    m = confusion_matrix(simple=simples, pred=prediction)  # 混淆矩阵
+    p_ = precision(*m)  # 准确率
+    r_ = recall(*m)  # 召回率
+    f_ = f_measure(*m)  # f值
+    print(p_, r_, f_)  # 0.6 0.75 0.6666666666666665
+
+```
+
 ***
 [1]: https://blog.jtyoui.com
