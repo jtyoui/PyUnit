@@ -5,3 +5,4 @@
 from .header import header, free_header  # 封装header
 from .ua import random, ua, headers_ua  # 封装UA
 from .HTML import ParseHtml  # 增加HTML解析
+from .Request import get, post, get_js  # 增加爬虫网站

@@ -55,6 +55,14 @@ if __name__ == '__main__':
     print(ce.error_word('六盘水综三去'))
 ```
 
+### 百度翻译(需要增加cookie，获得cookie的方法是用浏览器使用一次百度翻译)
+```python
+from jtyoui.language import bai_du_translate,BaiDuLanguage
+if __name__ == '__main__':
+    c = 'BAIDUID=1E9344586B339BDFE673A622D274BAD9:FG=1; BIDUPSID=1E9344586B339BDFE673A622D274BAD9; PSTM=1551668971; REALTIME_TRANS_SWITCH=1; FANYI_WORD_SWITCH=1; HISTORY_SWITCH=1; SOUND_SPD_SWITCH=1; SOUND_PREFER_SWITCH=1; MCITY=-%3A; from_lang_often=%5B%7B%22value%22%3A%22dan%22%2C%22text%22%3A%22%u4E39%u9EA6%u8BED%22%7D%2C%7B%22value%22%3A%22zh%22%2C%22text%22%3A%22%u4E2D%u6587%22%7D%2C%7B%22value%22%3A%22en%22%2C%22text%22%3A%22%u82F1%u8BED%22%7D%5D; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; locale=zh; Hm_lvt_64ecd82404c51e03dc91cb9e8c025574=1559124247,1559526164,1559625839,1560239569; delPer=0; H_PS_PSSID=1421_21110_29135_29237_28518_29099_28839; PSINO=6; Hm_lpvt_64ecd82404c51e03dc91cb9e8c025574=1560242851; yjs_js_security_passport=412be9bc7e1f3b3ca2628a701b66667a703c1b81_1560242855_js; to_lang_often=%5B%7B%22value%22%3A%22zh%22%2C%22text%22%3A%22%u4E2D%u6587%22%7D%2C%7B%22value%22%3A%22en%22%2C%22text%22%3A%22%u82F1%u8BED%22%7D%2C%7B%22value%22%3A%22jp%22%2C%22text%22%3A%22%u65E5%u8BED%22%7D%5D'
+    p = bai_du_translate('https://fanyi.baidu.com/v2transapi', 'goods', BaiDuLanguage.English, BaiDuLanguage.Chinese, c)
+    print(p)
+```
 
 ***
 [1]: https://blog.jtyoui.com
