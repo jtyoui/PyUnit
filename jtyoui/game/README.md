@@ -14,7 +14,7 @@
     pip install jtyoui
 
 
-#### 使用说明,需要单独安装PyQt5模块 pip install PyQt5
+#### 使用说明,需要单独安装Pygame模块 pip install Pygame
 
 ```python
 from jtyoui.game import TankGame
