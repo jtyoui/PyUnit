@@ -38,6 +38,7 @@ ________________________
 >>> [中文翻译成拼音](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/PinYin.py)       
 >>> [六国语言翻译成中文](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/Translates.py)     
 >>> [汉语纠错](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/CEC.py)  
+>>> [百度翻译](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/language/BaiDuTranslate.py)   
 8.  [邮箱应用 ](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/mail)
 >>> [QQ邮箱](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/mail/qq.py)  
 9.  [阳历和农历相互转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/plunar) 
