@@ -9,10 +9,12 @@ import requests
 """爬虫网站。请求Get和Post封装"""
 
 
-def get(url, decode='utf-8'):
+def get(url, cookie=None):
     """Get网站"""
+    if cookie:
+        headers_ua['cookie'] = cookie
     response = requests.get(url=url, headers=headers_ua)
-    return response.content.decode(decode)
+    return response
 
 
 def post(url, params, cookie=None):
