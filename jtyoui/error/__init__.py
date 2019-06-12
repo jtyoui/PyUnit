@@ -54,6 +54,11 @@ class DownloadDataExceptionError(Exception):
     pass
 
 
-class NotLegitimateNumber(Exception):
+class NotLegitimateNumberError(Exception):
     """不是一个合法的数字"""
+    pass
+
+
+class NotFindPipError(Exception):
+    """没有找到pip命令"""
     pass

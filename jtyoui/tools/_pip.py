@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/6/12 9:59
 # @Author: Jtyoui@qq.com
+from jtyoui.error import NotFindPipError
 import os
 import time
 
@@ -16,7 +17,17 @@ def pips(module, package=None):
     try:
         m = __import__(module)
     except ModuleNotFoundError:
-        os.system(F'pip install --user {package}')
+        if os.system('pip3.7') == 1:
+            if os.system('pip3') == 1:
+                if os.system('pip') == 1:
+                    raise NotFindPipError('你的电脑没有安装与pip相关的命令')
+                else:
+                    p = 'pip'
+            else:
+                p = 'pip3'
+        else:
+            p = 'pip3.7'
+        os.system(F'{p} install --user {package}')
         time.sleep(2)
         m = __import__(module)
     return m

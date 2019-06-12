@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/5/17 14:43
 # @Author: Jtyoui@qq.com
-from jtyoui.error import NotLegitimateNumber
+from jtyoui.error import NotLegitimateNumberError
 import math
 
 
@@ -52,7 +52,7 @@ def dirichlet_function(value):
 def is_prime(n):
     """判断一个数是否为质数"""
     if (not isinstance(n, int)) or (n <= 1):
-        raise NotLegitimateNumber('不是一个合法的数字')
+        raise NotLegitimateNumberError('不是一个合法的数字')
     if n % 2 == 0:  # 判断偶数
         return False
     else:
