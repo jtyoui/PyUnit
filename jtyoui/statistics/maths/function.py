@@ -83,10 +83,26 @@ def primes(n):
     return total
 
 
+def collatz(n):
+    """Collatz猜想:也叫3n+1猜想，给一个正整数，如果是偶数，则减半；如果是奇数，则变为它的三倍加一。直到变为一停止"""
+    if n > 1 and isinstance(n, int):
+        total = 0
+        while n != 1:
+            if n % 2 == 0:
+                n /= 2
+            else:
+                n = 3 * n + 1
+            total += 1
+    else:
+        raise TypeError('类型错误。必须是大于1的整数')
+    return total
+
+
 if __name__ == '__main__':
     print(sign_function(123.22))
     print(integral_function(25.2))
     print(integral_function('-3.1'))
     print(dirichlet_function(math.pi))
     print(is_prime(915452))
-    print(len(primes(1_0000_0000)))  # 时间5.5541136264801025秒
+    # print(len(primes(1_0000_0000)))  # 时间5.5541136264801025秒
+    print(collatz(27))
