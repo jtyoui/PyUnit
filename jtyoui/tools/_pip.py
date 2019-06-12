@@ -17,9 +17,9 @@ def pips(module, package=None):
     try:
         m = __import__(module)
     except ModuleNotFoundError:
-        if os.system('pip3.7') == 1:
-            if os.system('pip3') == 1:
-                if os.system('pip') == 1:
+        if os.system('pip3.7') in [1, 32512]:  # 1是window退出码，32512是Linux退出码
+            if os.system('pip3') in [1, 32512]:
+                if os.system('pip') in [1, 32512]:
                     raise NotFindPipError('你的电脑没有安装与pip相关的命令')
                 else:
                     p = 'pip'
