@@ -98,6 +98,38 @@ def collatz(n):
     return total
 
 
+def tetrahedron_volume(r1, r2, r3, r4, r5, r6):
+    """知道四面体的边求体积，r1-r6都是边"""
+    R1, R2, R3, R4, R5, R6 = r1 ** 2, r2 ** 2, r3 ** 2, r4 ** 2, r5 ** 2, r6 ** 2
+    one = R1 * R2 * R4 + R1 * R3 * R6 + R2 * R3 * R5 + R4 * R5 * R6
+    two = R1 * R2 * R5 + R1 * R2 * R6 + R1 * R3 * R4 + R1 * R3 * R5 + R1 * R4 * R5 + R1 * R5 * R6 + R2 * R3 * R4 + R2 * R3 * R6 + R2 * R4 * R6 + R2 * R5 * R6 + R3 * R4 * R5 + R3 * R4 * R6
+    three = R1 * R1 * R5 + R1 * R5 * R5 + R2 * R2 * R6 + R2 * R6 * R6 + R3 * R3 * R4 + R3 * R4 * R4
+    s = two - one - three
+    v = math.sqrt(s / 144)
+    return v
+
+
+def tetrahedron_volume2(a, b, c, m, n, l):
+    """知道四面体的边求体积，a, b, c, m, n, l都是边"""
+    v = math.sqrt((4.0 * a * a * b * b * c * c - a * a * (b * b + c * c - m * m) * (b * b + c * c - m * m) - b * b * (
+            c * c + a * a - n * n) * (c * c + a * a - n * n) - c * c * (a * a + b * b - l * l) * (
+                           a * a + b * b - l * l) + (a * a + b * b - l * l) * (b * b + c * c - m * m) * (
+                           c * c + a * a - n * n))) / 12.0
+    return v
+
+
+def helen_formula(a, b, c):
+    """海伦公式，知道三边求面积
+    a、b、c是三角形的三条边
+    """
+    if a > 0 and b > 0 and c > 0:
+        p = (a + b + c) / 2
+        s = math.sqrt(p * (p - a) * (p - b) * (p - c))
+        return s
+    else:
+        raise TypeError('类型错误,三角形三边必须是大于0的数字类型')
+
+
 if __name__ == '__main__':
     print(sign_function(123.22))
     print(integral_function(25.2))
@@ -106,3 +138,6 @@ if __name__ == '__main__':
     print(is_prime(915452))
     # print(len(primes(1_0000_0000)))  # 时间5.5541136264801025秒
     print(collatz(27))
+    print(helen_formula(3, 3, 3))
+    print(tetrahedron_volume(3, 3, 3, 3, 3, 3))
+    print(tetrahedron_volume2(3, 3, 3, 3, 3 * math.sqrt(3), 3 * math.sqrt(3)))
