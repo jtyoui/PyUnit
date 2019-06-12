@@ -30,5 +30,5 @@ from jtyoui.cmd import *  # CMD命令
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.6.6'
+__version__ = '19.6.12'
 __author__ = 'Jtyoui'
