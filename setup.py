@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='jtyoui',
-    version='19.6.6',
+    version='19.6.12',
     description='This is my collection bag.',
     long_description=long_text,
     long_description_content_type="text/markdown",
