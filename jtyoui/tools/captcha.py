@@ -4,7 +4,7 @@
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
 from jtyoui.data import random_lower_char, random_upper_char, random_digits, random_special
-from jtyoui.file_zip import file_zip_path, sep
+from jtyoui.file_zip import sep
 import random
 
 
@@ -54,7 +54,8 @@ class Captcha:
         from PIL import ImageDraw
         from PIL import ImageFilter
         image = Image.new('RGB', (self.width, self.height), (255, 255, 255))
-        font = ImageFont.truetype(file_zip_path + sep + 'font.ttf', 36)
+        font = ImageFont.truetype('arial.ttf', 36)
+
         draw = ImageDraw.Draw(image)
         for w in range(self.width):
             for h in range(self.height):
@@ -70,4 +71,4 @@ if __name__ == '__main__':
     c = Captcha(300, 60)  # 验证码大小是300*60
     for _ in range(10):  # 生成10张验证码
         c.format(lower=1, upper=2, digits=4, special=1)  # 有小写字母1个、大写字母2、数字4个、特殊符号1个
-        c.make_photo(f'D://')  # 生成的验证码存放在D盘下
+        c.make_photo(r'D://')  # 生成的验证码存放在D盘下
