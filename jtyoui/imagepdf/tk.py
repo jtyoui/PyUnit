@@ -4,22 +4,19 @@
 # @Email : jtyoui@qq.com
 # @Software : PyCharm
 from jtyoui.error import LibraryNotInstallError
+from jtyoui.tools import pips
+from jtyoui.file_zip import file_zip_path
+from tkinter import filedialog, messagebox
+import os
+import tkinter
 
 try:
     import fitz  # 安装 pip install PyMuPDF
 except ModuleNotFoundError:
-    raise LibraryNotInstallError("安装 pip install PyMuPDF")
-
-try:
-    from PIL import Image, ImageTk  # 安装 pip install pillow
-except ImportError:
-    raise LibraryNotInstallError("安装 pip install pillow")
-
-from tkinter import filedialog, messagebox
-import os
-import io
-import urllib.request
-import tkinter
+    try:
+        fitz = pips('fitz', 'PyMuPDF')  # 自动安装
+    except ModuleNotFoundError:
+        raise LibraryNotInstallError("安装 pip install PyMuPDF")
 
 DIRS, FILE = '', ''  # 文件夹地址,pdf文件地址
 
@@ -87,12 +84,8 @@ def ui():
     root.title('PDF和照片互转器')  # 标题
     root.resizable(width=False, height=False)  # 防止大小调整
     canvas = tkinter.Canvas(root, width=450, height=320, highlightthickness=0)  # 创建画布
-
-    photo = urllib.request.urlopen('https://gitee.com/tyoui/logo/raw/master/pdf.png')  # 获取背景图片的网络连接
-    data_stream = io.BytesIO(photo.read())  # 转化为字节流对象
-    pil_image = Image.open(fp=data_stream)  # 生成图片
-    image = ImageTk.PhotoImage(pil_image)  # 生成tk图片对象
-    canvas.create_image(225, 160, image=image)
+    photo = tkinter.PhotoImage(file=file_zip_path + os.sep + 'pdf.png')  # 获取背景图片的网络连接
+    canvas.create_image(225, 160, image=photo)
 
     select_dir_button = tkinter.Button(root, text="选择照片文件夹", command=select_dir, bg='yellow')  # 创建按钮
     select_pdf_button = tkinter.Button(root, text="选择PDF文件", command=select_pdf, bg='green')
