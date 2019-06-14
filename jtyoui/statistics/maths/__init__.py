@@ -4,3 +4,4 @@
 # @Author: Jtyoui@qq.com
 
 from .function import *  # 特殊函数
+from .svg import math_tex  # 生成数学公式照片

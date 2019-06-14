@@ -26,5 +26,18 @@ if __name__ == '__main__':
     print(len(primes(1_0000_0000)))  # 时间5.5541136264801025秒
 ```
 
+## 利用Tex生成数学公式照片
+![Tex](https://gitee.com/tyoui/logo/raw/master/packet/math.svg)
+```python
+from jtyoui.statistics import math_tex
+if __name__ == '__main__':
+    Tex = r"""\begin{bmatrix}
+    0 & \cdots & 0 \\
+    \vdots & \ddots & \vdots \\
+    0 & \cdots & 0
+    \end{bmatrix}"""
+    math_tex(Tex)
+```
+
 ***
 [1]: https://blog.jtyoui.com
