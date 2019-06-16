@@ -3,6 +3,7 @@
 # @Time  : 2019/5/17 14:43
 # @Author: Jtyoui@qq.com
 from jtyoui.error import NotLegitimateNumberError
+from jtyoui.file_zip import load_zip
 from functools import reduce
 import math
 
@@ -144,6 +145,15 @@ def factorial(n, number=1):
     return reduce(lambda x, y: x * y, range(1, n + 1, number))
 
 
+def pi(n=7):
+    """计算PI,能精确到小数点：15万5千6百42位
+    :param n:表示精确的小数，n的范围是：0-155640
+    :return:返回的是字符串，默认是返回小数点7位
+    """
+    line = load_zip('pi.zip', 'pi.txt')
+    return line[0][:n + 2]
+
+
 if __name__ == '__main__':
     print(sign_function(123.22))
     print(integral_function(25.2))
@@ -156,3 +166,4 @@ if __name__ == '__main__':
     print(tetrahedron_volume(3, 3, 3, 3, 3, 3))
     print(tetrahedron_volume2(3, 3, 3, 3, 3 * math.sqrt(3), 3 * math.sqrt(3)))
     print(factorial(5, 2))
+    print(pi())

@@ -38,6 +38,11 @@ if __name__ == '__main__':
     \end{bmatrix}"""
     math_tex(Tex)
 ```
-
+## 高精度计算π（能精确到：15万6千位）
+```python
+import jtyoui
+if __name__ == '__main__':
+    print(jtyoui.pi(10_0000)) # 计算10万位PI
+```
 ***
 [1]: https://blog.jtyoui.com
