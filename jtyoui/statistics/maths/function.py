@@ -3,6 +3,7 @@
 # @Time  : 2019/5/17 14:43
 # @Author: Jtyoui@qq.com
 from jtyoui.error import NotLegitimateNumberError
+from functools import reduce
 import math
 
 
@@ -130,6 +131,19 @@ def helen_formula(a, b, c):
         raise TypeError('类型错误,三角形三边必须是大于0的数字类型')
 
 
+def factorial(n, number=1):
+    """求n的阶乘
+    当number==1时，表示n!
+    当number==2时，表示n!!
+    当number==3时，表示n!!!
+    ...................
+    :param n: 输入大于1的整数
+    :param number: 阶乘数
+    :return: n的number阶乘
+    """
+    return reduce(lambda x, y: x * y, range(1, n + 1, number))
+
+
 if __name__ == '__main__':
     print(sign_function(123.22))
     print(integral_function(25.2))
@@ -141,3 +155,4 @@ if __name__ == '__main__':
     print(helen_formula(3, 3, 3))
     print(tetrahedron_volume(3, 3, 3, 3, 3, 3))
     print(tetrahedron_volume2(3, 3, 3, 3, 3 * math.sqrt(3), 3 * math.sqrt(3)))
+    print(factorial(5, 2))
