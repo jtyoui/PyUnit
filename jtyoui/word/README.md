@@ -21,23 +21,7 @@ if __name__ == '__main__':
         print(F'关键字:{k} 次数:{v[0]} 频率:{v[1]} 凝聚度:{v[2]} 自由度:{v[3]}')
 
 ```
-    
 
-
-## 接口参数(也废除)
-    def analysis(file, thread_num=10, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False)
-       """
-    :param file: 训练的文本
-    :param thread_num: 线程数
-    :param split_num: 匹配个数
-    :param frequency: 频率
-    :param cond: 凝聚度
-    :param free: 自由度
-    :param flag:是否是并且还是或者,默认是或者，满足一个就过滤
-    :return: 分析完毕的字典
-    """
-    
-   
 ![](https://gitee.com/tyoui/logo/raw/master/photo/snsg1.png)
 
 
@@ -47,5 +31,15 @@ if __name__ == '__main__':
 ## 训练政治新闻后的结果
 ![](https://gitee.com/tyoui/logo/raw/master/photo/snsg.png)
 
+## 摘要算法
+```python
+from jtyoui.word import TextSummary
+if __name__ == '__main__':
+    data = """6月17日22时55分，四川长宁县发生6.0级地震，震源深度16千米。地震发生两个小时后，离震中较近的四川省宜宾市珙县
+    巡场镇宜宾市矿山急救医院迎来第一个新生儿。医生在余震和医院房屋出现损毁的情况下顶住压力和风险，为产妇接生，母子平安。"""
+    ts = TextSummary(data, title='长宁县地震')
+    print(ts.calc_summary())
+    # ['6月17日22时55分，四川长宁县发生6.0级地震，震源深度16千米。']
+```
 
 [1]: https://blog.jtyoui.com
