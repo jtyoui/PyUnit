@@ -78,8 +78,7 @@ class TextSummary:
 
     def _calc_keywords(self):
         # 计算TF-IDF，取出排名靠前的20个词
-        words_best = list()
-        words_best = words_best + extract_tags(self.text, topK=20)
+        words_best = extract_tags(self.text, topK=20)
         # 提取第一段的关键词
         parts = self.text.lstrip().split('\n')
         first_part = ''
@@ -91,7 +90,7 @@ class TextSummary:
         # 将结果合并成一个句子，并进行分词
         text = ''
         for w in words_best:
-            text = text + ' ' + w
+            text += ' ' + w
         # 计算词性，提取名词和动词
         words = cut(text)
         keywords = list()
@@ -113,7 +112,7 @@ class TextSummary:
         for keyword in self.keywords:
             for sentence in self.sentences:
                 if sentence['text'].find(keyword) >= 0:
-                    sentence['weightKeywords'] = sentence['weightKeywords'] + 1
+                    sentence['weightKeywords'] += 1
 
     def _calc_sentence_weight_by_pos(self):
         # 计算句子的位置权重
@@ -149,9 +148,9 @@ class TextSummary:
 
     def calc_summary(self, ratio=0.1):
         # 清空变量
-        self.keywords = list()
-        self.sentences = list()
-        self.summary = list()
+        self.keywords.clear()
+        self.sentences.clear()
+        self.summary.clear()
 
         # 调用方法，分别计算关键词、分句，计算权重
         self._calc_keywords()
@@ -162,7 +161,6 @@ class TextSummary:
         self.sentences = sorted(self.sentences, key=lambda k: k['weight'], reverse=True)
 
         # 根据排序结果，取排名占前X%的句子作为摘要
-        # print(len(self.sentences))
         for i in range(len(self.sentences)):
             if i < ratio * len(self.sentences):
                 sentence = self.sentences[i]
