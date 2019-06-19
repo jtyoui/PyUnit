@@ -5,6 +5,7 @@
 from jtyoui.error import NotFindPipError
 import os
 import time
+import importlib
 
 
 def pips(module, package=None):
@@ -14,7 +15,7 @@ def pips(module, package=None):
     """
     package = package.lower() if package else module.lower()
     try:
-        m = __import__(module)
+        m = importlib.import_module(module)
     except ModuleNotFoundError:
         if os.system('pip3.7') in [1, 32512]:  # 1是window退出码，32512是Linux退出码
             if os.system('pip3') in [1, 32512]:
@@ -28,7 +29,7 @@ def pips(module, package=None):
             p = 'pip3.7'
         os.system(F'{p} install --user {package}')
         time.sleep(2)
-        m = __import__(module)
+        m = importlib.import_module(module)
     return m
 
 

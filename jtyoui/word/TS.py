@@ -2,8 +2,19 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/6/18 18:01
 # @Author: Jtyoui@qq.com
-from jieba.posseg import cut
-from jieba.analyse import extract_tags
+from jtyoui.error import LibraryNotInstallError
+from jtyoui.tools import pips
+
+try:
+    from jieba.posseg import cut
+    from jieba.analyse import extract_tags
+except ModuleNotFoundError:
+    print('\033[1;31m自动安装jieba包中....\033[0m')
+    try:
+        cut = pips('jieba.posseg', 'jieba').cut
+        extract_tags = pips('jieba.analyse', 'jieba').extract_tags
+    except Exception:
+        raise LibraryNotInstallError('自动安装jieba包失败，请手动安装: pip install jieba')
 
 
 class TextSummary:
@@ -56,17 +67,17 @@ class TextSummary:
             pos = sentence['pos']
             pos['mark'] = list()
             if pos['x'] == 0:
-                pos['mark'].append('FIRSTSECTION')
+                pos['mark'].append('first_section')
             if pos['y'] == 0:
-                pos['mark'].append('FIRSTSENTENCE')
-                last_pos['mark'].append('LASTSENTENCE')
+                pos['mark'].append('first_sentence')
+                last_pos['mark'].append('last_sentence')
             if pos['x'] == self.sentences[len(self.sentences) - 1]['pos']['x']:
-                pos['mark'].append('LASTSECTION')
+                pos['mark'].append('last_section')
             last_pos = pos
-        last_pos['mark'].append('LASTSENTENCE')
+        last_pos['mark'].append('last_sentence')
 
     def _calc_keywords(self):
-        # 计算tf-idfs，取出排名靠前的20个词
+        # 计算TF-IDF，取出排名靠前的20个词
         words_best = list()
         words_best = words_best + extract_tags(self.text, topK=20)
         # 提取第一段的关键词
@@ -109,13 +120,13 @@ class TextSummary:
         for sentence in self.sentences:
             mark = sentence['pos']['mark']
             weight_pos = 0
-            if 'FIRSTSECTION' in mark:
+            if 'first_section' in mark:
                 weight_pos = weight_pos + 2
-            if 'FIRSTSENTENCE' in mark:
+            if 'first_sentence' in mark:
                 weight_pos = weight_pos + 2
-            if 'LASTSENTENCE' in mark:
+            if 'last_sentence' in mark:
                 weight_pos = weight_pos + 1
-            if 'LASTSECTION' in mark:
+            if 'last_section' in mark:
                 weight_pos = weight_pos + 1
             sentence['weight_pos'] = weight_pos
 
