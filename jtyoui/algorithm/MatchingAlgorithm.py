@@ -99,11 +99,38 @@ def kmp(string, str_):
     return -1
 
 
+def max_sub_array(ls: list) -> tuple:
+    """求解最大子数组
+    :param ls: 数字类列表
+    :return:（起始位置，结束位置，最大值）
+    """
+    min_, max_, sum_ = 0, 0, 0
+    return_max = 0, 0, 0
+    for index, value in enumerate(ls):
+        sum_ += value
+        rm = max(sum_, sum_ - ls[index])
+        if sum_ < 0:
+            sub_max = min_, index - 1, sum_ - ls[index]
+            min_, sum_ = index + 1, 0
+        elif rm != sum_ and index > 0:
+            sub_max = min_, index - 1, rm
+        else:
+            continue
+        return_max = sub_max if return_max[2] < sub_max[2] else return_max
+    else:
+        return_max = (min_, len(ls) - 1, sum_) if return_max[2] < sum_ else return_max
+    return return_max
+
+
 if __name__ == '__main__':
-    r = RMMA(ls=['我们', '野生', '动物园'], sort=True)
+    r = RMMA(ls=['我们', '野生', '动物园', '在野'], sort=True)
     print(r.cut('我们在野生动物园玩', 3))
+    # ['我们', '在', '野生', '动物园', '玩']
     print('-----------------------------------------')
-    r = FMMA(ls=['我们', '野生', '动物园'], sort=True)
+    r = FMMA(ls=['我们', '野生', '动物园', '在野'], sort=True)
     print(r.cut('我们在野生动物园玩', 3))
+    # ['我们', '在野', '生', '动物园', '玩']
     print('-----------------------------------------')
     print(kmp('我们在野生动物园玩', '动物园'))
+    print('-----------------------------------------')
+    print(max_sub_array([5, 4, -12, 1, 3, -1, 4, 1, -6]))
