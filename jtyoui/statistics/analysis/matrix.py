@@ -16,15 +16,20 @@ class Matrix:
         self.__data = data
         self.__length = len(data)
 
-    def __mul__(self, other):
+    @staticmethod
+    def _checking(other) -> list:
         if isinstance(other, Matrix):
-            other = other.__data
+            other = deepcopy(other.__data)
         elif not isinstance(other, list):
             raise TypeError("传入list类型")
+        return other
+
+    def __mul__(self, other):
+        dot = []
+        other = self._checking(other)
         other_w, other_h = len(other[0]), len(other)
         data_w, data_h = len(self.__data[0]), self.__length
-        dot = []
-        if data_w != other_h:
+        if data_w != other_h or data_h != other_w:
             raise MatrixNotDottedError("矩阵不能点乘")
 
         for data_j in range(data_h):
@@ -33,6 +38,35 @@ class Matrix:
                 all_ = [self.__data[data_j][j] * other[j][i] for j in range(other_h)]
                 dot[data_j].append(sum(all_))
         return dot
+
+    def __add__(self, other):
+        dot = []
+        other = self._checking(other)
+        other_w, other_h = len(other[0]), len(other)
+        data_w, data_h = len(self.__data[0]), self.__length
+        if data_w != other_w or other_h != data_h:
+            raise MatrixNotDottedError("矩阵不能相加")
+        for j in range(data_h):
+            row = []
+            for i in range(other_w):
+                all_ = self.__data[j][i] + other[j][i]
+                row.append(all_)
+            dot.append(row)
+        return dot
+
+    def __iadd__(self, other):
+        return self.__add__(other)
+
+    def __sub__(self, other):
+        other = self._checking(other)
+        length = len(other)
+        for i in range(length):
+            for j in range(length):
+                other[i][j] = -other[i][j]
+        return self.__add__(other)
+
+    def __isub__(self, other):
+        return self.__sub__(other)
 
     @property
     def i(self):
@@ -135,6 +169,12 @@ class Matrix:
             eye.append([0 for _ in range(length)])
         return eye
 
+    def __len__(self):
+        return len(self.__data)
+
+    def __getitem__(self, item):
+        pass
+
 
 if __name__ == '__main__':
     d = [
@@ -142,5 +182,8 @@ if __name__ == '__main__':
         [1, 0, -1],
         [0, 1, 1]
     ]
-    mat = Matrix(d)
-    print(mat * d)
+    m1 = Matrix(d)
+    m2 = Matrix(d)
+    print(m1 * m2)
+    print(m1 + m2)
+    print(m1 - m2)

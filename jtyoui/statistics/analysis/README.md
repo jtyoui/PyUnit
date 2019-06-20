@@ -46,5 +46,21 @@ if __name__ == '__main__':
 
 ```
 
+## 矩阵的四则运算
+```python
+from jtyoui.statistics.analysis import Matrix
+if __name__ == '__main__':
+    d = [
+        [1, 2, 3],
+        [1, 0, -1],
+        [0, 1, 1]
+    ]
+    m1 = Matrix(d)
+    m2 = Matrix(d)
+    print(m1 * m2)
+    print(m1 + m2)
+    print(m1 - m2)
+```
+
 ***
 [1]: https://blog.jtyoui.com
