@@ -62,3 +62,8 @@ class NotLegitimateNumberError(Exception):
 class NotFindPipError(Exception):
     """没有找到pip命令"""
     pass
+
+
+class NumberValueError(Exception):
+    """number值错误"""
+    pass

@@ -3,6 +3,12 @@
 # @Time  : 2019/6/5 9:57
 # @Author: Jtyoui@qq.com
 from jtyoui.algorithm.SearchAlgorithm import binary_search
+from jtyoui.error import NumberValueError
+
+
+def _verification(number):
+    if not isinstance(number, int) or number < 2:
+        raise NumberValueError(f'输入的值必须大于1，你输入的值是：{number}')
 
 
 class FMMA:
@@ -20,6 +26,7 @@ class FMMA:
 
     def cut(self, line, max_length):
         """输入一行字符串，最大按照max_length拆分"""
+        _verification(max_length)
         total = []
         while len(line) > 0:
             word = line[:max_length]
@@ -48,6 +55,7 @@ class RMMA:
 
     def cut(self, line, max_length):
         """输入一行字符串，最大按照max_length拆分"""
+        _verification(max_length)
         total = []
         while len(line) > 0:
             word = line[-max_length:]
