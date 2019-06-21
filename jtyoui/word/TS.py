@@ -16,6 +16,10 @@ class TextSummary:
         self.cut = pips('jieba.posseg', 'jieba').cut  # 自动安装结巴包失败，请手动安装: pip install jieba
         self.extract_tags = pips('jieba.analyse', 'jieba').extract_tags  # 自动安装结巴包失败，请手动安装: pip install jieba
 
+    def __setitem__(self, title, text):
+        self.title = title
+        self.text = text
+
     def _split_sentence(self):
         # 通过换行符对文档进行分段
         sections = self.text.split('\n')
