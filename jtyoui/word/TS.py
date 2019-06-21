@@ -2,19 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/6/18 18:01
 # @Author: Jtyoui@qq.com
-from jtyoui.error import LibraryNotInstallError
 from jtyoui.tools import pips
-
-try:
-    from jieba.posseg import cut
-    from jieba.analyse import extract_tags
-except ModuleNotFoundError:
-    print('\033[1;31m自动安装结巴包中....\033[0m')
-    try:
-        cut = pips('jieba.posseg', 'jieba').cut
-        extract_tags = pips('jieba.analyse', 'jieba').extract_tags
-    except Exception:
-        raise LibraryNotInstallError('自动安装结巴包失败，请手动安装: pip install jieba')
 
 
 class TextSummary:
@@ -25,6 +13,8 @@ class TextSummary:
         self.keywords = list()
         self.sentences = list()
         self.summary = list()
+        self.cut = pips('jieba.posseg', 'jieba').cut  # 自动安装结巴包失败，请手动安装: pip install jieba
+        self.extract_tags = pips('jieba.analyse', 'jieba').extract_tags  # 自动安装结巴包失败，请手动安装: pip install jieba
 
     def _split_sentence(self):
         # 通过换行符对文档进行分段
@@ -78,21 +68,21 @@ class TextSummary:
 
     def _calc_keywords(self):
         # 计算TF-IDF，取出排名靠前的20个词
-        words_best = extract_tags(self.text, topK=20)
+        words_best = self.extract_tags(self.text, topK=20)
         # 提取第一段的关键词
         parts = self.text.lstrip().split('\n')
         first_part = ''
         if len(parts) >= 1:
             first_part = parts[0]
-        words_best = words_best + extract_tags(first_part, topK=5)
+        words_best = words_best + self.extract_tags(first_part, topK=5)
         # 提取title中的关键词
-        words_best = words_best + extract_tags(self.title, topK=3)
+        words_best = words_best + self.extract_tags(self.title, topK=3)
         # 将结果合并成一个句子，并进行分词
         text = ''
         for w in words_best:
             text += ' ' + w
         # 计算词性，提取名词和动词
-        words = cut(text)
+        words = self.cut(text)
         keywords = list()
         for w in words:
             flag = w.flag
@@ -101,7 +91,7 @@ class TextSummary:
                 if len(word) > 1:
                     keywords.append(word)
         # 保留前20个关键词
-        keywords = extract_tags(' '.join(keywords), topK=20)
+        keywords = self.extract_tags(' '.join(keywords), topK=20)
         keywords = list(set(keywords))
         self.keywords = keywords
 
