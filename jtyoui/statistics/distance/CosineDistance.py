@@ -35,7 +35,7 @@ def cosine_distance(sentence, data):
     s = jieba.cut(sentence)
     d = jieba.cut(data)
     for c in set(list(s) + list(d)):
-        if len(c) > 1:
+        if len(c) > 0:
             ls.append(sentence.count(c))
             ds.append(data.count(c))
     return cosine(ls, ds)
