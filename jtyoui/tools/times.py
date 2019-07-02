@@ -141,68 +141,106 @@ class StringTime:
 
     def find_times(self):
         """ 根据一句话来找对应的时间"""
-        str_ = [self.chinese_numerals.get(s, s) for s in self.sentence] + [' ']  # 加[' ']的原因保证index+1不会出现list索引溢出
-        string = ''
-        for index, c in enumerate(str_):  # 判断十在每个位置上的不同意义
-            if c == '十':
-                if str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：二十一实际上十可以取空，变成21
-                    c = ''
-                elif str_[index - 1].isdigit() and (not str_[index + 1].isdigit()):  # 比如：二十实际上十变成0，变成20
-                    c = '0'
-                elif not str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：十三实际上十变成1，变成13
-                    c = '1'
+        words = re.split(r'[,.，。、?!？！]', self.sentence)
+        times = set()
+        for sentences_ in words:
+            if not sentences_:
+                continue
+            sentences = re.split(r'[到至-]', sentences_)
+            t = re.findall('早上|下午', sentences[0])
+            if t and len(t) == 1:
+                sentences = [_ if re.findall('早上|下午', _) else t[0] + _ for _ in sentences]
+            flag_y, flag_m, flag_d = [], [], []  # 临时变量，存放左右连词的性质
+            for sentence in sentences:
+                str_ = [self.chinese_numerals.get(s, s) for s in sentence] + [' ']  # 加[' ']的原因保证index+1不会出现list索引溢出
+                string = ''
+                for index, c in enumerate(str_):  # 判断十在每个位置上的不同意义
+                    if c == '十':
+                        if str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：二十一实际上十可以取空，变成21
+                            c = ''
+                        elif str_[index - 1].isdigit() and (not str_[index + 1].isdigit()):  # 比如：二十实际上十变成0，变成20
+                            c = '0'
+                        elif not str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：十三实际上十变成1，变成13
+                            c = '1'
+                        else:
+                            c = '10'  # 其余情况十就变成10
+                    string += c
+                self._sentence = string
+                y = self.find('年')  # 找到一句话中的年份
+                m = self.find('月')  # 找到一句话中的月份
+                d = self.find('号')  # 找到一句话中的天数
+                d = d + self.find('日')  # 找到一句话中的天数
+                w = self.find('周')  # 找到一句话中的天数
+                if isinstance(w, tuple):
+                    if m:
+                        m[0] = int(m[0]) + w[1]
+                    else:
+                        m = [self.now_mon + w[1]]
+                    d += d + w[0]
                 else:
-                    c = '10'  # 其余情况十就变成10
-            string += c
-        self._sentence = string
-        y = self.find('年')  # 找到一句话中的年份
-        m = self.find('月')  # 找到一句话中的月份
-        d = self.find('号')  # 找到一句话中的天数
-        d = d + self.find('日')  # 找到一句话中的天数
-        w = self.find('周')  # 找到一句话中的天数
-        if isinstance(w, tuple):
-            if m:
-                m[0] = int(m[0]) + w[1]
-            else:
-                m = [self.now_mon + w[1]]
-            d += d + w[0]
-        else:
-            d += d + w
-        h = self.find_hour()  # 找到一句话中的小时
-        mi = self.find_min()  # 找到一句话中的分钟
-        sec = self.find_sec()  # 找到一句话中的秒钟
-        for y_, m_, d_, h_, mi_, sec_ in itertools.zip_longest(y, m, d, h, mi, sec):
-            if not y_ and not m_ and not d_:
-                return '未找到时间年月日'
-            if not y_ and m_:
-                y_ = self.now_year
-            if not m_ and d_:
-                if not y_:
-                    y_ = self.now_year
-                m_ = self.now_mon
-            if not mi_:
-                mi_ = '00'
-            if not sec_:
-                sec_ = '00'
-            if not m_:
-                return f'{y_}'
-            elif not d_:
-                return f'{y_}-{m_:0>2}'
-            elif not h_:
-                return f'{y_}-{m_:0>2}-{d_:0>2}'
-            else:
-                return f'{y_}-{m_:0>2}-{d_:0>2} {h_:0>2}:{mi_:0>2}:{sec_:0>2}'
-        else:
-            return '未找到时间'
+                    d += d + w
+                h = self.find_hour()  # 找到一句话中的小时
+                mi = self.find_min()  # 找到一句话中的分钟
+                sec = self.find_sec()  # 找到一句话中的秒钟
+                if not (y or m or d or h or mi or sec):
+                    continue
+                if not y:
+                    y = flag_y
+                if not m:
+                    m = flag_m
+                if not d:
+                    d = flag_d
+                flag_y, flag_m, flag_d = y, m, d
+                for y_, m_, d_, h_, mi_, sec_ in itertools.zip_longest(y, m, d, h, mi, sec):
+                    if not y_ and m_:
+                        y_ = self.now_year
+                    if not m_ and d_:
+                        if not y_:
+                            y_ = self.now_year
+                        m_ = self.now_mon
+                    if not mi_:
+                        mi_ = '00'
+                    if not sec_:
+                        sec_ = '00'
+                    if not m_:
+                        times.add(f'{y_}')
+                    elif not d_:
+                        times.add(f'{y_}-{m_:0>2}')
+                    elif not h_:
+                        times.add(f'{y_}-{m_:0>2}-{d_:0>2}')
+                    else:
+                        times.add(f'{y_}-{m_:0>2}-{d_:0>2} {h_:0>2}:{mi_:0>2}:{sec_:0>2}')
+                    break
+        return sorted(times)
 
 
 if __name__ == '__main__':
-    # 默认是当日期
+    print('-----------------默认是当日期------------------')
     st = StringTime('二零零七年十月三十一号下午2点半')
-    print(st.find_times())
-    st.sentence = '下周星期一下午2点半开会'
-    print(st.find_times())
-    print('-----------------------------------')
-    # 切换日期
+    print(st.find_times())  # ['2007-10-31 14:30:00']
+    st.sentence = '下周星期一下午3点半开会'
+    print(st.find_times())  # ['2019-07-08 15:30:00']
+
+    print('-----------------切换日期------------------')
     st = StringTime('下周星期一下午2点半开会', '2019-4-17 00:00:00')
-    print(st.find_times())
+    print(st.find_times())  # ['2019-04-22 14:30:00']
+
+    print('----------------多个时间-------------------')
+    st = StringTime('今天下午3点开会到4点整到12楼大会议室开会。')
+    print(st.find_times())  # ['2019-07-02 15:00:00', '2019-07-02 16:00:00']
+
+    print('----------------没有时间-------------------')
+    st = StringTime('我要是不传时间呢？')
+    print(st.find_times())  # []
+
+    print('---------------只有天数--------------------')
+    st = StringTime('今天去北京，明天去哪里？')
+    print(st.find_times())  # ['2019-07-02', '2019-07-03']
+
+    print('---------------跳断日期--------------------')
+    st = StringTime('下周星期一下午2点半到4点开会')
+    print(st.find_times())  # ['2019-07-08 14:30:00', '2019-07-08 16:00:00']
+
+    print('---------------非常间断日期--------------------')
+    st = StringTime('明天下午2点半一直到下周星期五下午4点开会')
+    print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
