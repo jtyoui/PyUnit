@@ -27,7 +27,7 @@ class StringTime:
         self.re_year = r'(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d*年)'
         self.re_mon = r'(上个月)|(这个月)|(下个月)|(上月)|(这月)|(下月)|(\d*月)'
         self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d*日)|(\d*号)'
-        self.re_week = r'(上周)|(下周)|(上个周)|(下个周)|(星期日)|(星期天)|(星期\d*)'
+        self.re_week = r'(上周)|(下周)|(上个周)|(下个周)|(星期日)|(星期天)|(星期\d*)|(周\d*)'
         self.re_hour = r'(早上)|(下午)|(\d*点)'
         self.re_min = r'(\d*分)|(\d*点半)'
         self.re_sec = r'(\d*秒)'
@@ -80,7 +80,11 @@ class StringTime:
                         week = int(i[-1])
                         day = week - self.now_week
                     elif '周' in i:
-                        add = self.add_time[i]
+                        if i[-1].isdigit():
+                            week = int(i[-1])
+                            day = week - self.now_week
+                        else:
+                            add = self.add_time[i]
                     else:
                         if i in self.add_time:
                             date_time.append(self.adds(self.add_time[i], flag))
