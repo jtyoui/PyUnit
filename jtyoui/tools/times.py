@@ -190,6 +190,8 @@ class StringTime:
                     m = flag_m
                 if not d:
                     d = flag_d
+                if h and not d:
+                    d = [self.now_day]
                 flag_y, flag_m, flag_d = y, m, d
                 for y_, m_, d_, h_, mi_, sec_ in itertools.zip_longest(y, m, d, h, mi, sec):
                     if not y_ and m_:
@@ -243,4 +245,8 @@ if __name__ == '__main__':
 
     print('---------------非常间断日期--------------------')
     st = StringTime('明天下午2点半一直到下周星期五下午4点开会')
+    print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
+
+    print('---------------没有日期--------------------')
+    st = StringTime('下午2点半开会')
     print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
