@@ -23,22 +23,20 @@ def plus_date(start: str, end: str, format_='%Y-%m-%d %H:%M:%S') -> datetime:
 
 
 # 一个日期加多少天或者时间
-def add_day(date: str, format_='%Y-%m-%d', **kwargs) -> datetime:
+def add_day(date: str, format_='%Y-%m-%d', to_str=False, **kwargs) -> datetime:
     """一个日期加多少天或者时间
     :param date: 一个正确的日期
     :param format_: 日期格式化
+    :param to_str: 是否打印字符串
     :param kwargs: 可以填写 :days=xx，seconds=xx,microseconds=xx,milliseconds=xx,minutes=xx,hours=xx,weeks=xx
     :return: 被加后的日期
     """
     start = datetime.datetime.strptime(date, format_)
-    if kwargs.get('to_str'):
-        kwargs.pop('to_str')
-        end = datetime.timedelta(**kwargs)
+    end = datetime.timedelta(**kwargs)
+    if to_str:
         add = start + end
         return add.strftime(format_)
-    else:
-        end = datetime.timedelta(**kwargs)
-        return start + end
+    return start + end
 
 
 if __name__ == '__main__':
