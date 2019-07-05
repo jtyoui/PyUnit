@@ -8,6 +8,7 @@ import datetime
 import time
 import itertools
 import copy
+import calendar
 
 
 class StringTime:
@@ -25,8 +26,8 @@ class StringTime:
         # 自定义
         self.local = time.strptime(self._localtime, self.format)
         self.re_year = r'(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d*年)'
-        self.re_mon = r'(上个月)|(这个月)|(下个月)|(上月)|(这月)|(下月)|(\d*月)'
-        self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d*日)|(\d*号)'
+        self.re_mon = r'(上个月)|(这个月)|(下个月)|(上月)|(这月)|(下月)|(\d{0,2}本?月底?)'
+        self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d*日)|(\d*号)|(\d*天\w?[后前])'
         self.re_week = r'(上周)|(下周)|(上个周)|(下个周)|(星期日)|(星期天)|(星期\d*)|(周\d*)'
         self.re_hour = r'(早上)|(下午)|(\d*点)'
         self.re_min = r'(\d*分)|(\d*点半)'
@@ -38,6 +39,7 @@ class StringTime:
         self.chinese_numerals = copy.deepcopy(chinese_mon_number)
         self.chinese_numerals.pop('十')
         self.add_time = add_time
+        self.times = set()
 
     @property
     def sentence(self):
@@ -59,7 +61,7 @@ class StringTime:
             flag = '%Y'
             re_ = self.re_year
         elif name == '月':
-            flag = '%M'
+            flag = '%m'
             re_ = self.re_mon
         elif name == '日' or name == '号':
             flag = '%d'
@@ -79,7 +81,7 @@ class StringTime:
                     elif '星期' in i and i[-1].isdigit():
                         week = int(i[-1])
                         day = week - self.now_week
-                    elif '周' in i:
+                    elif '周' in i and len(i) < 3:  # 周三、周四等
                         if i[-1].isdigit():
                             week = int(i[-1])
                             day = week - self.now_week
@@ -88,9 +90,23 @@ class StringTime:
                     else:
                         if i in self.add_time:
                             date_time.append(self.adds(self.add_time[i], flag))
-                        elif name in i:
+                        elif name in i and '底' not in i:  # 判断不是xx月底
                             if i[:-1].isdigit():
                                 date_time.append(i[:-1])
+                        elif '月底' in i:  # 处理xx月底
+                            if i[0] == '本':
+                                days = calendar.monthrange(self.now_year, self.now_mon)[1]
+                                date_time.append(self.now_mon)
+                                self._sentence += f'{days}日'
+                            elif i[0].isdigit():
+                                days = calendar.monthrange(self.now_year, int(i[0]))[1]
+                                date_time.append(int(i[0]))
+                                self._sentence += f'{days}日'
+                            else:  # 既没有xx月也没有本月之类的。暂未考虑
+                                pass
+                        elif add_time.get(i[1]):
+                            if i[0].isdigit():
+                                date_time.append(self.adds(int(i[0]), flag))
         if day != 0 or add != 0:
             days = self.adds(day + add, flag)
             if int(days) >= self.now_day:
@@ -142,7 +158,6 @@ class StringTime:
     def find_times(self):
         """ 根据一句话来找对应的时间"""
         words = re.split(r'[,.，。、?!？！]', self.sentence)
-        times = set()
         for sentences_ in words:
             if not sentences_:
                 continue
@@ -205,15 +220,17 @@ class StringTime:
                     if not sec_:
                         sec_ = '00'
                     if not m_:
-                        times.add(f'{y_}')
+                        self.times.add(f'{y_}')
                     elif not d_:
-                        times.add(f'{y_}-{m_:0>2}')
+                        self.times.add(f'{y_}-{m_:0>2}')
                     elif not h_:
-                        times.add(f'{y_}-{m_:0>2}-{d_:0>2}')
+                        self.times.add(f'{y_}-{m_:0>2}-{d_:0>2}')
                     else:
-                        times.add(f'{y_}-{m_:0>2}-{d_:0>2} {h_:0>2}:{mi_:0>2}:{sec_:0>2}')
+                        self.times.add(f'{y_}-{m_:0>2}-{d_:0>2} {h_:0>2}:{mi_:0>2}:{sec_:0>2}')
                     break
-        return sorted(times)
+        times = sorted(self.times)
+        self.times.clear()
+        return times
 
 
 if __name__ == '__main__':
@@ -251,14 +268,14 @@ if __name__ == '__main__':
     st = StringTime('下午2点半开会')
     print(st.find_times())  # ['2019-07-03 14:30:00']
 
-    print('---------------几个月--------------------')
-    st = StringTime('下个月1号下午3点开会')
-    print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
+    print('---------------*几个月以后--------------------')
+    st = StringTime('请王鹏宇下个月1号下午3点上交财务报表')
+    print(st.find_times())  # ['2019-08-01 15:00:00']
 
-    print('--------------几后之后--------------')
-    st = StringTime('三天后下午3点开会')
-    print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
+    print('--------------几天之后--------------')
+    st = StringTime('三天之后下午3点开会')
+    print(st.find_times())  # ['2019-07-08 15:00:00']
 
     print('--------------几月底--------------')
-    st = StringTime('本月底之前必须交报告')
-    print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
+    st = StringTime('明年的2月底之前必须交报告,本月底吃饭')
+    print(st.find_times())  # ['2019-02-28', '2019-07-31']

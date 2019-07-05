@@ -7,7 +7,7 @@ import datetime
 
 # 两个日期相减得差数
 def plus_date(start: str, end: str, format_='%Y-%m-%d %H:%M:%S') -> datetime:
-    """两个日期相减得差数
+    """两个日期相减得差数 :end-start
     :param start: 一个正确的日期
     :param end: 另一个正确的日期
     :param format_: 日期格式化
