@@ -94,7 +94,7 @@ def Load_BaiDuBaiKe(name):
     :return: 百度百科的文本信息
     """
     url = F'https://baike.baidu.com/item/{quote(name)}'
-    response = requests.get(url, headers=headers_ua)
+    response = requests.get(url, headers=headers_ua())
     data = response.content.decode('utf-8')
     return data
 

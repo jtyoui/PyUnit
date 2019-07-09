@@ -12,16 +12,16 @@ import requests
 def get(url, cookie=None):
     """Get网站"""
     if cookie:
-        headers_ua['cookie'] = cookie
-    response = requests.get(url=url, headers=headers_ua)
+        headers_ua()['cookie'] = cookie
+    response = requests.get(url=url, headers=headers_ua())
     return response
 
 
 def post(url, params, cookie=None):
     """Post网站"""
     if cookie:
-        headers_ua['cookie'] = cookie
-    response = requests.post(url=url, data=params, headers=headers_ua)
+        headers_ua()['cookie'] = cookie
+    response = requests.post(url=url, data=params, headers=headers_ua())
     return response
 
 
@@ -35,4 +35,4 @@ def get_js(js, js_fun, js_params):
 
 
 if __name__ == '__main__':
-    print(get('http://www.27k.cc/'))
+    print(get('http://www.27k.cc/').text)

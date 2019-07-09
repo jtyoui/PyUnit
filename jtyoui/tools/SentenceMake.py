@@ -26,7 +26,7 @@ class Sentence:
     def _not_included_data(self, word):
         """未录取句子提取"""
         data_ls = []
-        response = requests.post(self.url, headers=headers_ua, data={'wo': word, 'directGo': 1, 'nsid': 0})
+        response = requests.post(self.url, headers=headers_ua(), data={'wo': word, 'directGo': 1, 'nsid': 0})
         text = response.text
         soup = self._BeautifulSoup(text, features="lxml")
         ls = soup.find('div', id='content').contents
@@ -55,13 +55,13 @@ class Sentence:
 
     def _redirect_link(self, word):
         """获得重定向的链接"""
-        response = requests.post(self.url, headers=headers_ua, data={'wo': word, 'directGo': 1, 'nsid': 0})
+        response = requests.post(self.url, headers=headers_ua(), data={'wo': word, 'directGo': 1, 'nsid': 0})
         return response.url
 
     @staticmethod
     def _get_page_data(url):
         """获得链接中的数据"""
-        response = requests.get(url, headers=headers_ua)
+        response = requests.get(url, headers=headers_ua())
         return response.text
 
     def make_sentence(self, word):
