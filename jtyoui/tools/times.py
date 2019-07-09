@@ -25,13 +25,13 @@ class StringTime:
         self.format = date_format
         # 自定义
         self.local = time.strptime(self._localtime, self.format)
-        self.re_year = r'(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d*年)'
-        self.re_mon = r'(上个月)|(这个月)|(下个月)|(上月)|(这月)|(下月)|(\d{0,2}本?月底?)'
-        self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d*日)|(\d*号)|(\d*天\w?[后前])'
-        self.re_week = r'(上周)|(下周)|(上个周)|(下个周)|(星期日)|(星期天)|(星期\d*)|(周\d*)'
-        self.re_hour = r'(早上)|(下午)|(\d*点)'
-        self.re_min = r'(\d*分)|(\d*点半)'
-        self.re_sec = r'(\d*秒)'
+        self.re_year = r'(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d+年)'
+        self.re_mon = r'(上个?月)|(这个?月)|(下个?月)|(\d{0,2}本?月底?)'
+        self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d+日)|(\d+号)|(\d*天\w?[后前])'
+        self.re_week = r'(上个?周)|(下个?周)|(星期日)|(星期天)|(星期\d+)|(周\d+)'
+        self.re_hour = r'(早上)|(下午)|(\d+点)'
+        self.re_min = r'(\d+分)|(\d+点半)'
+        self.re_sec = r'(\d+秒)'
         self.now_year = self.local.tm_year
         self.now_mon = self.local.tm_mon
         self.now_day = self.local.tm_mday
@@ -278,4 +278,4 @@ if __name__ == '__main__':
 
     print('--------------几月底--------------')
     st = StringTime('明年的2月底之前必须交报告,本月底吃饭')
-    print(st.find_times())  # ['2019-02-28', '2019-07-31']
+    print(st.find_times())  # ['2019-07-31', '2020-02-28']
