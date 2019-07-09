@@ -6,7 +6,6 @@ import datetime
 import re
 
 
-# 两个日期相减得差数
 def plus_date(start: str, end: str, format_='%Y-%m-%d %H:%M:%S') -> datetime:
     """两个日期相减得差数 :end-start
     :param start: 一个正确的日期
@@ -23,7 +22,6 @@ def plus_date(start: str, end: str, format_='%Y-%m-%d %H:%M:%S') -> datetime:
     return plus
 
 
-# 一个日期加多少天或者时间
 def add_day(date: str, format_='%Y-%m-%d', to_str=False, **kwargs) -> datetime:
     """一个日期加多少天或者时间
     :param date: 一个正确的日期
