@@ -129,7 +129,10 @@ class StringTime:
                         flag = 12
                     else:
                         if i[:-1].isdigit():
-                            hours.append(int(i[:-1]) + flag)
+                            if int(i[:-1]) >= 12:
+                                hours.append(int(i[:-1]))
+                            else:
+                                hours.append(int(i[:-1]) + flag)
                         else:
                             hours.append(0)
         return hours if hours else []
