@@ -13,5 +13,6 @@ from .Address import find_address, re_id_card, find_identity_card_address  # 查
 from .TimeZone import TZ  # 时区
 from .WeatherAddress import WeatherForecast  # 天气预报
 from .methods import *  # 一些常见的方法
+from .wordNature import *  # 词性
 
 __all__ = [a for a in dir() if not a.startswith('_')]
