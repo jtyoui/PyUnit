@@ -39,9 +39,16 @@ def random_special(number=1):
     return ''.join(ls)
 
 
+def flag_contain_subset(str_: str, ls: list) -> bool:
+    """输入一个字符串判断字符串的子集是否在ls列表中"""
+    v = (True if subset in str_ else False for subset in ls)
+    return any(v)
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
     print(random_special(4))
     print(random_upper_char(4))
     print(random_digits(4))
+    print(flag_contain_subset('我家住在北京', '家住、诉求、请求、归还、强占、要求、赶去、呼救、欺骗、希望'.split('、')))
