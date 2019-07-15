@@ -45,10 +45,22 @@ def flag_contain_subset(str_: str, ls: list) -> bool:
     return any(v)
 
 
+def contain_subset(str_: str, ls: list) -> (bool, list):
+    """
+    输入一个字符串判断字符串的子集是否在ls列表中,并且返回子集列表
+    :param str_: 字符串
+    :param ls: 字符串列表
+    :return: 存在返回True。不存在返回False。都会返回list列表
+    """
+    v = [subset for subset in ls if subset in str_]
+    return any(v), v
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
     print(random_special(4))
     print(random_upper_char(4))
     print(random_digits(4))
-    print(flag_contain_subset('我家住在北京', '家住、诉求、请求、归还、强占、要求、赶去、呼救、欺骗、希望'.split('、')))
+    print(flag_contain_subset('我家住在北京', '家住、诉求、请求'.split('、')))
+    print(contain_subset('我家住在北京', '家住、诉求、请求'.split('、')))
