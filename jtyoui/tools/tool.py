@@ -125,6 +125,37 @@ class Tool:
         else:
             return [g(i) for i in iterable_]
 
+    def search(self, pattern, flags=0):
+        """根据正则获取字符串的索引以及值，索引和值都是list类型"""
+        r = re.search(pattern, self.string, flags=flags)
+        start, end, value = [], [], []
+        flag = ''
+        while r:
+            start_ = r.start() + len(flag)
+            end_ = r.end() + len(flag)
+            start.append(start_)
+            end.append(end_)
+            value.append(self.string[start_:end_])
+            flag = self.string[:end_]
+            string = self.string[end_:]
+            r = re.search(pattern, string, flags=flags)
+
+        class A:
+
+            @staticmethod
+            def start():
+                return start
+
+            @staticmethod
+            def end():
+                return end
+
+            @staticmethod
+            def value():
+                return value
+
+        return A()
+
 
 if __name__ == '__main__':
     tool = Tool('我家在贵州省遵义县的一个地方是虾子')
@@ -144,3 +175,8 @@ if __name__ == '__main__':
     print(tool.select_row(d, 1))  # [2, 0, 1]
     tool.generator = False
     print(tool.select_ls(['遵义县', '虾子']))
+
+    tool.string = '9994599945545599945'
+    ts = tool.search('(45+)+')
+    print(ts.start(), ts.end(), ts.value())
+    print(tool.string)
