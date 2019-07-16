@@ -5,6 +5,7 @@
 # @Software: PyCharm
 import random
 import string
+import collections
 
 _special = "#$%&@"
 
@@ -56,6 +57,12 @@ def contain_subset(str_: str, ls: list) -> (bool, list):
     return any(v), v
 
 
+def max_str(ls: list):
+    """统计字符串列表出现字符串最多的字符串"""
+    c = collections.Counter(ls)
+    return max(c.keys(), key=c.get)
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -64,3 +71,4 @@ if __name__ == '__main__':
     print(random_digits(4))
     print(flag_contain_subset('我家住在北京', '家住、诉求、请求'.split('、')))
     print(contain_subset('我家住在北京', '家住、诉求、请求'.split('、')))
+    print(max_str(['a', 'a', 'a', 'b', 'c', 'd', 'd']))
