@@ -156,6 +156,10 @@ class Tool:
 
         return A()
 
+    def replace(self, pattern, repl, count=0, flags=0):
+        """正则替换"""
+        return re.sub(pattern, repl, self.string, count=count, flags=flags)
+
 
 if __name__ == '__main__':
     tool = Tool('我家在贵州省遵义县的一个地方是虾子')
@@ -180,3 +184,6 @@ if __name__ == '__main__':
     ts = tool.search('(45+)+')
     print(ts.start(), ts.end(), ts.value())
     print(tool.string)
+
+    tool.string = 'are you fuck!'
+    print(tool.replace('[0-9a-zA-Z]', ''))
