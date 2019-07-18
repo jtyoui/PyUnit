@@ -79,6 +79,13 @@ def contain_list_subset(str_: str, ls: list) -> (bool, list):
     return any(v), v
 
 
+def char_number_split(str_: str, number: int):
+    """根据字符串个数来分割字符串"""
+    while str_:
+        yield str_[:number]
+        str_ = str_[number:]
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -89,3 +96,5 @@ if __name__ == '__main__':
     print(contain_subset('我家住在北京', '家住、诉求、请求'.split('、')))
     print(max_str(['a', 'a', 'a', 'b', 'c', 'd', 'd']))
     print(contain_list_subset('贵州', ['贵州省', '遵义市', '贵州省贵阳市']))
+    for cns in char_number_split('我家住在北京', 4):
+        print(cns)
