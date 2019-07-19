@@ -172,17 +172,20 @@ class StringTime:
             for sentence in sentences:
                 str_ = [self.chinese_numerals.get(s, s) for s in sentence] + [' ']  # 加[' ']的原因保证index+1不会出现list索引溢出
                 string = ''
-                for index, c in enumerate(str_):  # 判断十在每个位置上的不同意义
-                    if c == '十':
-                        if str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：二十一实际上十可以取空，变成21
-                            c = ''
-                        elif str_[index - 1].isdigit() and (not str_[index + 1].isdigit()):  # 比如：二十实际上十变成0，变成20
-                            c = '0'
-                        elif not str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：十三实际上十变成1，变成13
-                            c = '1'
-                        else:
-                            c = '10'  # 其余情况十就变成10
-                    string += c
+                if '十' in str_:
+                    for index, c in enumerate(str_):  # 判断十在每个位置上的不同意义
+                        if c == '十':
+                            if str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：二十一实际上十可以取空，变成21
+                                c = ''
+                            elif str_[index - 1].isdigit() and (not str_[index + 1].isdigit()):  # 比如：二十实际上十变成0，变成20
+                                c = '0'
+                            elif not str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：十三实际上十变成1，变成13
+                                c = '1'
+                            else:
+                                c = '10'  # 其余情况十就变成10
+                        string += c
+                else:
+                    string = ''.join(str_)
                 self._sentence = string
                 y = self.find('年')  # 找到一句话中的年份
                 m = self.find('月')  # 找到一句话中的月份
