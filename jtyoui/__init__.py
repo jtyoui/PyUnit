@@ -31,5 +31,6 @@ from jtyoui.interface import *  # 界面
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.7.17'
+__version__ = '19.7.20'
 __author__ = 'Jtyoui'
+__description__ = '这是一个Python集合包'

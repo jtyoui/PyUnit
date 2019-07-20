@@ -1,16 +1,17 @@
 from setuptools import setup, find_packages
+from jtyoui import __version__, __author__, __description__
 
 with open('README.md', encoding='utf-8') as f:
     long_text = f.read()
 
 setup(
-    name='jtyoui',
-    version='19.7.17',
-    description='This is my collection bag.',
+    name=__author__.lower(),
+    version=__version__,
+    description=__description__,
     long_description=long_text,
     long_description_content_type="text/markdown",
     url='https://github.com/jtyoui/Jtyoui',
-    author='Jtyoui',
+    author=__author__,
     author_email='jtyoui@qq.com',
     license='MIT Licence',
     packages=find_packages(),
@@ -18,6 +19,7 @@ setup(
     package_data={'': ['*']},
     install_requires=['requests'],
     classifiers=[
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
