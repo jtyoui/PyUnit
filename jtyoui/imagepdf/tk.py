@@ -9,6 +9,7 @@ from jtyoui.file_zip import file_zip_path
 from tkinter import filedialog, messagebox
 import os
 import tkinter
+import glob
 
 try:
     import fitz  # 安装 pip install PyMuPDF
@@ -54,8 +55,7 @@ def get_dir_name(file_dir):
 def image_pdf(file_dir):
     dir_name, base_name = get_dir_name(file_dir)
     doc = fitz.Document()
-    for img in os.listdir(file_dir):  # 排序获得对象
-        img = file_dir + os.sep + img
+    for img in sorted(glob.glob(file_dir + '\\*'), key=os.path.getmtime):  # 排序获得对象
         img_doc = fitz.Document(img)  # 获得图片对象
         pdf_bytes = img_doc.convertToPDF()  # 获得图片流对象
         img_pdf = fitz.Document("pdf", pdf_bytes)  # 将图片流创建单个的PDF文件
