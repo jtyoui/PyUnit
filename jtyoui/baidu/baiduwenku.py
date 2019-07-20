@@ -77,6 +77,5 @@ class BaiDuWenKu:
 
 
 if __name__ == '__main__':
-    wk = BaiDuWenKu(
-        url=r'https://wenku.baidu.com/view/f50def7c43323968001c924c.html?sxts=1563610333674')
+    wk = BaiDuWenKu(url=r'https://wenku.baidu.com/view/f50def7c43323968001c924c.html?sxts=1563610333674')
     wk.load(r'D:')
