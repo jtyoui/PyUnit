@@ -61,7 +61,7 @@ def pdf_image(pdf_address, image_dir=None):
         trans = fitz.Matrix(1.0, 1.0).preRotate(0)
         pm = page.getPixmap(matrix=trans, alpha=False)  # 获得每一页的流对象
         if not image_dir:
-            pm.writePNG(dir_name + os.sep + str(base_name[:-4]) + '_{:0>4d}.jpg'.format(pg + 1))  # 保存图片
+            pm.writePNG(str(pdf_address[:-4]) + os.sep + str(base_name[:-4]) + '_{:0>4d}.jpg'.format(pg + 1))  # 保存图片
         else:
             pm.writePNG(image_dir + os.sep + str(base_name[:-4]) + '_{:0>4d}.jpg'.format(pg + 1))  # 保存图片
     pdf.close()
@@ -70,4 +70,4 @@ def pdf_image(pdf_address, image_dir=None):
 
 if __name__ == '__main__':
     image_pdf(r'D:\temp')  # 将照片转pdf
-    pdf_image(r'D:\temp.pdf', r'D:\1')  # 将PDF转照片
+    pdf_image(r'D:\temp.pdf')  # 将PDF转照片
