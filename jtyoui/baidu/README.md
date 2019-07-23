@@ -36,5 +36,13 @@ if __name__ == '__main__':
         # 主要成就 1989年亚洲小姐亚军亚洲电视最佳女主角奖
 ```
 
+### 下载百度文库
+```python
+from jtyoui.baidu import BaiDuWenKu
+if __name__ == '__main__':
+    wk = BaiDuWenKu(url=r'https://wenku.baidu.com/view/f50def7c43323968001c924c.html?sxts=1563610333674') #下载链接
+    wk.load(save_path=r'D:')#保存目录
+```
+
 ***
 [1]: https://blog.jtyoui.com

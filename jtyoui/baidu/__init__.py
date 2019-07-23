@@ -5,3 +5,4 @@
 # @Software: PyCharm
 
 from .Encyclopedias import BaiDuInfoSearch, Load_BaiDuBaiKe  # 百度百科搜索基本信息
+from .baiduwenku import BaiDuWenKu  # 增加百度文库下载

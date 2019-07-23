@@ -5,3 +5,4 @@
 # @Software : PyCharm
 
 from .tk import ui  # tkinter写的界面
+from .image import image_pdf, pdf_image  # 照片互转PDF
