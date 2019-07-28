@@ -6,7 +6,7 @@
 """汉语拼音纠错（Chinese error correction）"""
 from jtyoui.language.PinYin import load_pin_yin, chinese_to_pin_yin
 from jtyoui.data import fuzzy_tone
-from collections import Iterable
+from collections.abc import Iterable
 import os
 
 

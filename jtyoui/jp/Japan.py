@@ -5,8 +5,9 @@
 # @Software: PyCharm
 from urllib.parse import quote
 from jtyoui.error import LibraryNotInstallError
+from jtyoui.decorator import replace_regular
+from jtyoui.web import header
 import requests
-import jtyoui
 
 # 记住下次换缓存
 Response_Headers = """cookie: HJ_UID=a0752831-ba30-9486-ddc8-66bcbb7f303a; _REF=https://www.baidu.com/link?url%3DTvv2c125EbCEB2T5xBtSlQeMb4zSO1v2ZkeB8uvhFXacQdks-Z0OXCabLXXX-Wpa&wd%3D&eqid%3D9cbe02970005752c000000025cd1684b; _REG=www.baidu.com|; _SREG_3=www.baidu.com|; HJ_CST=0; HJ_CSST_3=0; _SREF_3=https://www.baidu.com/link?url%3DTvv2c125EbCEB2T5xBtSlQeMb4zSO1v2ZkeB8uvhFXacQdks-Z0OXCabLXXX-Wpa&wd%3D&eqid%3D9cbe02970005752c000000025cd1684b; TRACKSITEMAP=3%2C6%2C; HJ_SID=5b45f4b2-9ae1-4a93-803b-7e2d08faba78; HJ_SSID_3=e959e1f7-6b25-4c49-a26d-a914297c0f32
@@ -27,7 +28,7 @@ word = {
 }
 
 
-@jtyoui.replace_regular(r'（(.+)）|《(.+)》|[0-9].', '')
+@replace_regular(r'（(.+)）|《(.+)》|[0-9].', '')
 def sub_names(names):
     return names
 
@@ -47,7 +48,7 @@ def analysis(data_name, response_headers=Response_Headers):
                 total.append(lines)
                 name = lines
                 url = F'https://dict.hjenglish.com/jp/jc/{quote(name)}'
-                response = requests.get(url=url, headers=jtyoui.header(response_headers))
+                response = requests.get(url=url, headers=header(response_headers))
                 data = response.text
                 sp = BeautifulSoup(data, 'html.parser')
                 pjm = sp.find(class_='pronounces')

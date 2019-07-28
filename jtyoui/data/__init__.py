@@ -16,5 +16,3 @@ from .methods import *  # 一些常见的方法
 from .wordNature import *  # 词性
 from .fileFormat import FileFormat  # 文件格式
 from .genericity import fun_generic  # 重载
-
-__all__ = [a for a in dir() if not a.startswith('_')]

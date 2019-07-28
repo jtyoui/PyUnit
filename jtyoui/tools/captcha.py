@@ -3,7 +3,7 @@
 # @Time    : 2019/6/1 15:29
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
-from jtyoui.data import random_lower_char, random_upper_char, random_digits, random_special
+from jtyoui.data.methods import random_lower_char, random_upper_char, random_digits, random_special
 from jtyoui.file_zip import sep
 import random
 
