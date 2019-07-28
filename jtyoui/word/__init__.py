@@ -7,3 +7,4 @@ from .neologism import Neologism  # 没有多线程
 from .ThreadNeologism import thread_analysis  # 有多线程
 from .NAA import NAA  # 自动过滤的算法
 from .TS import TextSummary  # 精简摘要算法
+from .tfidf import TFIDF  # 增加TFIDF

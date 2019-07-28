@@ -42,4 +42,13 @@ if __name__ == '__main__':
     # ['6月17日22时55分，四川长宁县发生6.0级地震，震源深度16千米。']
 ```
 
+## TFIDF算法
+```python
+from jtyoui.word import TFIDF
+if __name__ == '__main__':
+    tfidf = TFIDF()
+    tfidf.input_str("这是只猫猫是朋友。这是只狗狗是朋友")
+    print(tfidf.get_tf_idf('猫'))
+```
+
 [1]: https://blog.jtyoui.com
