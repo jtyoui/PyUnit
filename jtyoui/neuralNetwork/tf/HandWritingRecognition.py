@@ -129,12 +129,12 @@ def restore_model(pic):
 
 def test(photo_path):
     pic = get_pic(photo_path)
-    # Image.fromarray(pic.reshape((28, 28))).show()  # 展示画
-    value = restore_model(pic / 255.0)
-    print(value)
-    return value
+    # Image.fromarray(pic.reshape((28, 28))).show()  # 展示图画数字
+    return restore_model(pic / 255.0)
 
 
 if __name__ == '__main__':
+    # 先训练在测试
     train()  # 训练
-    test('./5.jpg')  # 测试
+    # value = test('./5.jpg')  # 测试
+    # print(value)
