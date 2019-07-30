@@ -46,13 +46,20 @@ model_name = 'mist_model'  # 保存名字
 ## 实体识别
     需要修改训练数据，格式要保证一致，修改位置在train方法
 ```python
-from jtyoui.neuralNetwork.tf1.LSTM_CRF import *
+from jtyoui.neuralNetwork.tf1 import NerCRF
 
-def read_data():#需要重新，保证格式一致
-    pass
+
+class Ner(NerCRF):
+    vocab = {}  # 必须重写
+    label_tag = {}  # 必须重写
+
+    def read_data(self):  # 必须重写
+        return [[], []], [[], []]
+
+
 if __name__ == '__main__':
-    train()
-    # test([[1, 2, 3]])
+    ner = Ner()
+    ner.train()  # 开始训练
 
 # 各参数
 batch_size = 64
@@ -63,11 +70,7 @@ dropout_keep_prob = 0.5
 lr = 0.001
 clip_grad = 5.0
 model_path = './model/'
-tag2label = {"O": 0,
-             "B-a": 1, "I-a": 2,
-             "B-b": 3, "I-b": 4,
-             "B-c": 5, "I-c": 6
-             }
+label_tag = {"O": 0,"B-a": 1, "I-a": 2,"B-b": 3, "I-b": 4,"B-c": 5, "I-c": 6}
 ```
 
 ***

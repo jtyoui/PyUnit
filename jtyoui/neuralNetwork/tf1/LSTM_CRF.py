@@ -16,9 +16,9 @@ class NerCRF:
     lr = 0.001
     clip_grad = 5.0
     model_path = './model/'
-    tag2label = {"O": 0, "B-a": 1, "I-a": 2, "B-b": 3, "I-b": 4, "B-c": 5, "I-c": 6}
-    num_tags = len(tag2label)
-    vocab = {}  # 5000为映射表大小，记得更改
+    label_tag = {"O": 0, "B-a": 1, "I-a": 2, "B-b": 3, "I-b": 4, "B-c": 5, "I-c": 6}  # 必须重写
+    num_tags = len(label_tag)
+    vocab = {}  # 必须重写
 
     def get_feed_dict(self, seq_, label_):
         max_len = max(map(lambda x: len(x), seq_))
@@ -33,7 +33,7 @@ class NerCRF:
         return feed_dict
 
     def read_data(self):
-        """需要重新该方法，格式要保证一致"""
+        """必须重写该方法，格式要保证一致"""
         word = [[1, 2, 3], [2, 3, 4, 5], [5, 6, 7, 3, 5, 2]]
         word_label = [[0, 5, 6], [3, 4, 0, 0], [1, 2, 0, 0, 3, 4]]
         return word, word_label
