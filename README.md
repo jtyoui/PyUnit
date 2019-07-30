@@ -86,7 +86,9 @@ ________________________
 >>> [匹配算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/algorithm/MatchingAlgorithm.py)  
 26. [CMD命令](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/cmd)  
 >>> [window命令](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/cmd/windows.py)  
-
+27. [自然语言处理](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/neuralNetwork)
+>>> [百度paddle框架](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/neuralNetwork/paddle)
+>>> [谷歌tensorflow框架](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/neuralNetwork/tf1)
 
 
 
