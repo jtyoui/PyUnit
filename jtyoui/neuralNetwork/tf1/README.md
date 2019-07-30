@@ -1,6 +1,6 @@
-# **TF** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
+# **TF1** [![](https://gitee.com/tyoui/logo/raw/master/logo/photolog.png)][1]
 
-## tf项目集合
+## tensorflow版本1.0项目集合
 [![](https://img.shields.io/badge/个人网站-jtyoui-yellow.com.svg)][1]
 [![](https://img.shields.io/badge/Python-3.7-green.svg)]()
 [![](https://img.shields.io/badge/BlogWeb-Tyoui-bule.svg)][1]
@@ -24,7 +24,7 @@
 
 ## 手写数据训练和测试
 ```python
-from jtyoui.neuralNetwork.tf.HandWritingRecognition import train,test
+from jtyoui.neuralNetwork.tf1.HandWritingRecognition import train,test
 if __name__ == '__main__':
     train()  # 训练
     test('./5.jpg')  # 测试
@@ -41,6 +41,33 @@ steps = 50000  # 训练步数
 moving_average_decay = 0.99  # 滑动平均衰减值
 model_save_path = './model/'  # 保存文件夹
 model_name = 'mist_model'  # 保存名字
+```
+
+## 实体识别
+    需要修改训练数据，格式要保证一致，修改位置在train方法
+```python
+from jtyoui.neuralNetwork.tf1.LSTM_CRF import *
+
+def read_data():#需要重新，保证格式一致
+    pass
+if __name__ == '__main__':
+    train()
+    # test([[1, 2, 3]])
+
+# 各参数
+batch_size = 64
+epoch_num = 20
+hidden_dim = 300
+embeddings = 300
+dropout_keep_prob = 0.5
+lr = 0.001
+clip_grad = 5.0
+model_path = './model/'
+tag2label = {"O": 0,
+             "B-a": 1, "I-a": 2,
+             "B-b": 3, "I-b": 4,
+             "B-c": 5, "I-c": 6
+             }
 ```
 
 ***

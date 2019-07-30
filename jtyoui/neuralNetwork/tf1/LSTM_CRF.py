@@ -7,7 +7,7 @@ from tensorflow.contrib.rnn import LSTMCell
 from tensorflow.contrib.crf import crf_log_likelihood, viterbi_decode
 
 batch_size = 64
-epoch_num = 1
+epoch_num = 20
 hidden_dim = 300
 embeddings = 300
 dropout_keep_prob = 0.5
@@ -84,14 +84,20 @@ def get_feed_dict(seq_, label_):
     return feed_dict
 
 
+def read_data():
+    """需要重新该方法，格式要保证一致"""
+    word = [[1, 2, 3], [2, 3, 4, 5], [5, 6, 7, 3, 5, 2]]
+    word_label = [[0, 5, 6], [3, 4, 0, 0], [1, 2, 0, 0, 3, 4]]
+    return word, word_label
+
+
 def train():
     saver = tensorflow.train.Saver()
     with tensorflow.Session() as sess:
         sess.run(tensorflow.global_variables_initializer())
         for epoch in range(epoch_num):
             for _ in range(batch_size):
-                feed = get_feed_dict(seq_=[[1, 2, 3], [2, 3, 4, 5], [5, 6, 7, 3, 5, 2]],  # 读取数据，需要自己映射字符
-                                     label_=[[0, 5, 6], [3, 4, 0, 0], [1, 2, 0, 0, 3, 4]])  # 字符对应的标签
+                feed = get_feed_dict(*read_data())
                 _, loss_train, step_num_ = sess.run(fetches=[train_op, loss, global_step], feed_dict=feed)
                 print('loss', loss_train)
         saver.save(sess, model_path, global_step=step_num_)
