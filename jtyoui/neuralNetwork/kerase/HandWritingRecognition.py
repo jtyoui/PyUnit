@@ -4,11 +4,11 @@
 # @Author: Jtyoui@qq.com
 from keras.datasets import mnist
 from keras.utils import np_utils
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Dense, Convolution2D, MaxPool2D, Flatten, Dropout
-from keras.optimizers import SGD, Adam
+from keras.optimizers import SGD, Adam, RMSprop
 from keras.layers.recurrent import SimpleRNN
-from keras.models import load_model
+from keras.losses import categorical_crossentropy
 
 
 def nn_model():
@@ -29,7 +29,7 @@ def nn_model():
 
     # loss='mse' 均方差
     opt = SGD(lr=0.2)  # 优化器
-    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])  # 编译
+    model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])  # 编译
     model.fit(x_train, y_train, batch_size=64, epochs=20)
     model_save(model, './model.h5')
 
@@ -60,7 +60,7 @@ def cnn_model():
         Dense(units=10, activation='softmax'),
     ])
     opt = Adam(lr=1e-4)
-    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])
     model.fit(x=x_train, y=y_train, batch_size=64, epochs=20)
     model_save(model, './model.h5')
 
@@ -78,8 +78,8 @@ def rnn_model():
         SimpleRNN(units=50, input_shape=(28, 28)),
         Dense(units=10, activation='softmax'),
     ])
-    opt = Adam(lr=1e-4)
-    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
+    opt = RMSprop(lr=1e-4)
+    model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])
     model.fit(x=x_train, y=y_train, batch_size=64, epochs=20)
     model_save(model, './model.h5')
 
