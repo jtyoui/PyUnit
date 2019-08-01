@@ -10,6 +10,7 @@ from keras.optimizers import SGD, Adam, RMSprop
 from keras.layers.recurrent import SimpleRNN
 from keras.losses import categorical_crossentropy
 from keras.activations import tanh, softmax, relu
+from keras.callbacks import RemoteMonitor
 
 
 def nn_model():
@@ -27,8 +28,8 @@ def nn_model():
     ])
 
     opt = SGD(lr=0.2, clipnorm=1.)  # 优化器
-    model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])  # 编译
-    model.fit(x_train, y_train, batch_size=64, epochs=20)
+    model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['acc', 'mae'])  # 编译
+    model.fit(x_train, y_train, batch_size=64, epochs=20, callbacks=[RemoteMonitor()])
     model_save(model, './model.h5')
 
 
@@ -57,7 +58,7 @@ def cnn_model():
     ])
     opt = Adam(lr=1e-4)
     model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])
-    model.fit(x=x_train, y=y_train, batch_size=64, epochs=20)
+    model.fit(x=x_train, y=y_train, batch_size=64, epochs=20, callbacks=[RemoteMonitor()])
     model_save(model, './model.h5')
 
 
@@ -74,7 +75,7 @@ def rnn_model():
     ])
     opt = RMSprop(lr=1e-4)
     model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])
-    model.fit(x=x_train, y=y_train, batch_size=64, epochs=20)
+    model.fit(x=x_train, y=y_train, batch_size=64, epochs=20, callbacks=[RemoteMonitor()])
     model_save(model, './model.h5')
 
 

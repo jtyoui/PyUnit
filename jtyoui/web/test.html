@@ -1,0 +1,59 @@
+<head>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/d3/5.9.7/d3.min.js"></script>
+    <script src="https://cdn.bootcss.com/c3/0.7.2/c3.min.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/c3/0.7.2/c3.min.css" rel="stylesheet">
+    <title>训练数据展示图</title>
+</head>
+
+<body>
+<div class="container">
+    <h1 style="text-align:center">总体训练网络可视化展览图</h1>
+    <h2 style="text-align:center">训练数据展示图</h2>
+    <hr>
+    <div id="visualization"></div>
+</div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var monitored = {};
+        var source = new EventSource('/subscribe/epoch/end/');
+        var chart = null;
+        source.addEventListener('message', function (e) {
+            console.log(e.data);
+            var data = JSON.parse(e.data);
+            console.log(data);
+            if (chart === null) {
+                for (key in data) {
+                    monitored[key] = [key, data[key]];
+                }
+                var columns = [];
+                for (key in monitored) {
+                    columns.push(monitored[key]);
+                }
+                chart = c3.generate({
+                    bindto: '#visualization',
+                    data: {
+                        x: 'epoch',
+                        columns: columns
+                    }
+                });
+            } else {
+                for (key in data) {
+                    if (key in monitored) {
+                        monitored[key].push(data[key]);
+                    }
+                    var columns = [];
+                    for (key in monitored) {
+                        columns.push(monitored[key]);
+                    }
+                    chart.load({
+                        columns: columns
+                    });
+                }
+            }
+        }, false);
+    });
+</script>
