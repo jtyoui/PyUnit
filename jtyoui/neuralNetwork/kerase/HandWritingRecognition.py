@@ -9,39 +9,35 @@ from keras.layers import Dense, Convolution2D, MaxPool2D, Flatten, Dropout
 from keras.optimizers import SGD, Adam, RMSprop
 from keras.layers.recurrent import SimpleRNN
 from keras.losses import categorical_crossentropy
+from keras.activations import tanh, softmax, relu
 
 
 def nn_model():
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    (x_train, y_train), _ = mnist.load_data()
     # 归一化
     x_train = x_train.reshape(x_train.shape[0], -1) / 255.
-    x_test = x_test.reshape(x_test.shape[0], -1) / 255.
     # one-hot
     y_train = np_utils.to_categorical(y=y_train, num_classes=10)
-    y_test = np_utils.to_categorical(y=y_test, num_classes=10)
 
     # 创建模型:输入784个神经元，输出10个神经元
     model = Sequential([
-        Dense(units=200, input_dim=784, bias_initializer='one', activation='tanh'),
-        Dense(units=100, bias_initializer='one', activation='tanh'),
-        Dense(units=10, bias_initializer='one', activation='softmax'),
+        Dense(units=200, input_dim=784, bias_initializer='one', activation=tanh),
+        Dense(units=100, bias_initializer='one', activation=tanh),
+        Dense(units=10, bias_initializer='one', activation=softmax),
     ])
 
-    # loss='mse' 均方差
-    opt = SGD(lr=0.2)  # 优化器
+    opt = SGD(lr=0.2, clipnorm=1.)  # 优化器
     model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])  # 编译
     model.fit(x_train, y_train, batch_size=64, epochs=20)
     model_save(model, './model.h5')
 
 
 def cnn_model():
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    (x_train, y_train), _ = mnist.load_data()
     # 归一化
     x_train = x_train.reshape(-1, 28, 28, 1) / 255.
-    x_test = x_test.reshape(-1, 28, 28, 1) / 255.
     # one-hot
     y_train = np_utils.to_categorical(y=y_train, num_classes=10)
-    y_test = np_utils.to_categorical(y=y_test, num_classes=10)
 
     model = Sequential([
         # input_shape:输入平面，就在第一个位置设置
@@ -50,14 +46,14 @@ def cnn_model():
         # strides：步长
         # padding有两种方式：same/valid
         # activation：激活函数
-        Convolution2D(input_shape=(28, 28, 1), filters=32, kernel_size=5, strides=1, padding='same', activation='relu'),
+        Convolution2D(input_shape=(28, 28, 1), filters=32, kernel_size=5, strides=1, padding='same', activation=relu),
         MaxPool2D(pool_size=2, strides=2, padding='same'),
-        Convolution2D(filters=64, kernel_size=5, padding='same', activation='relu'),
+        Convolution2D(filters=64, kernel_size=5, padding='same', activation=relu),
         MaxPool2D(pool_size=2, trainable=2, padding='same'),
         Flatten(),  # 扁平化
-        Dense(units=1024, activation='relu'),
+        Dense(units=1024, activation=relu),
         Dropout(0.5),
-        Dense(units=10, activation='softmax'),
+        Dense(units=10, activation=softmax),
     ])
     opt = Adam(lr=1e-4)
     model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])
@@ -66,17 +62,15 @@ def cnn_model():
 
 
 def rnn_model():
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    (x_train, y_train), _ = mnist.load_data()
     # 归一化
     x_train = x_train / 255.
-    x_test = x_test / 255.
     # one-hot
     y_train = np_utils.to_categorical(y=y_train, num_classes=10)
-    y_test = np_utils.to_categorical(y=y_test, num_classes=10)
 
     model = Sequential([
         SimpleRNN(units=50, input_shape=(28, 28)),
-        Dense(units=10, activation='softmax'),
+        Dense(units=10, activation=softmax),
     ])
     opt = RMSprop(lr=1e-4)
     model.compile(optimizer=opt, loss=categorical_crossentropy, metrics=['accuracy'])
