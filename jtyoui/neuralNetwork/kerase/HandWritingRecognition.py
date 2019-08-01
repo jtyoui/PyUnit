@@ -11,6 +11,7 @@ from keras.layers.recurrent import SimpleRNN
 from keras.losses import categorical_crossentropy
 from keras.activations import tanh, softmax, relu
 from keras.callbacks import RemoteMonitor
+from keras.initializers import one, constant
 
 
 def nn_model():
@@ -19,12 +20,12 @@ def nn_model():
     x_train = x_train.reshape(x_train.shape[0], -1) / 255.
     # one-hot
     y_train = np_utils.to_categorical(y=y_train, num_classes=10)
-
+    # constant(value=1.)自定义常数，constant(value=1.)===one()
     # 创建模型:输入784个神经元，输出10个神经元
     model = Sequential([
-        Dense(units=200, input_dim=784, bias_initializer='one', activation=tanh),
-        Dense(units=100, bias_initializer='one', activation=tanh),
-        Dense(units=10, bias_initializer='one', activation=softmax),
+        Dense(units=200, input_dim=784, bias_initializer=constant(value=1.), activation=tanh),
+        Dense(units=100, bias_initializer=one(), activation=tanh),
+        Dense(units=10, bias_initializer=one(), activation=softmax),
     ])
 
     opt = SGD(lr=0.2, clipnorm=1.)  # 优化器
