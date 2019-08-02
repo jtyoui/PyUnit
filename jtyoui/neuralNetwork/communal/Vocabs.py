@@ -32,7 +32,7 @@ def read_train(tag, path):
             for line in lines:
                 k, v = line.split('\t')
                 d.append(vocab.get(k, 1))
-                t.append(tag[v])
+                t.append([tag[v]])
             train.append(d)
             test.append(t)
     return train, test
