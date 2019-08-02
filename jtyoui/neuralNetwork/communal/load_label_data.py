@@ -19,7 +19,7 @@ def get_vocab(path, tags):
                     vocab[k] = i
                     i += 1
                 ds.append(vocab[k])
-                ls.append(tags[v])
+                ls.append([tags[v]])
             else:
                 data.append(copy.deepcopy(ds + [2]))
                 label.append(copy.deepcopy(ls + [2]))
