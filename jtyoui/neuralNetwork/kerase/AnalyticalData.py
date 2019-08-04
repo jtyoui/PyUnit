@@ -17,10 +17,9 @@ def analysis_vocab(vocab_path, save_vocab_model_path, frequency=10):
     f = filter(lambda x: x[1] >= frequency, c.items())
     s = sorted(f, key=lambda x: x[1], reverse=True)
     # 填充是0、开始是1、结束是2、掩码是3、未知是UNK
-    vocab = {'[PAD]': 0, '[CLS]': 1, '[SEP]': 2, '[MASK]': 3}
-    for index, (k, _) in enumerate(iterable=s, start=4):
+    vocab = {'[PAD]': 0, '[UNK]': 1}
+    for index, (k, _) in enumerate(iterable=s, start=len(vocab)):
         vocab[k] = index
-    vocab['[UNK]'] = len(vocab)
     with open(file=save_vocab_model_path, mode='wb') as fp:
         pickle.dump(obj=vocab, file=fp)
 
@@ -39,9 +38,9 @@ def vocab_test(test_path, vocab, max_chunk_length):
             original.append(line)
             m = list(map(lambda x: vocab.get(x, vocab['[UNK]']), line))
             if len(m) <= max_chunk_length:
-                data = [vocab['[PAD]']] * (max_chunk_length - len(m)) + [vocab['[CLS]']] + m + [vocab['[SEP]']]
+                data = [vocab['[PAD]']] * (max_chunk_length - len(m)) + m
             else:
-                data = [vocab['[CLS]']] + m[:max_chunk_length] + [vocab['[SEP]']]
+                data = m[:max_chunk_length]
             test.append(data)
     return test, original
 
@@ -86,11 +85,11 @@ def vocab_train_label(train_or_dev_path, vocab, tags, max_chunk_length):
                 sequence.extend(m)
             data_len = len(data)
             if data_len <= max_chunk_length:
-                data = [vocab['[PAD]']] * (max_chunk_length - data_len) + [vocab['[CLS]']] + data + [vocab['[SEP]']]
-                sequence = [0] * (max_chunk_length - data_len) + [0] + sequence + [0]
+                data = [vocab['[PAD]']] * (max_chunk_length - data_len) + data
+                sequence = [tags['O']] * (max_chunk_length - data_len) + sequence
             else:
-                data = [vocab['[CLS]']] + data[:max_chunk_length] + [vocab['[SEP]']]
-                sequence = [0] + sequence[:max_chunk_length] + [0]
+                data = data[:max_chunk_length]
+                sequence = sequence[:max_chunk_length]
             trains.append(data)
             labels.append(sequence)
     return trains, labels

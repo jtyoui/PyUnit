@@ -17,11 +17,11 @@ train_path = 'data/train.txt'
 test_path = 'data/test.txt'
 temp_path = 'data/crf.txt'
 result_path = 'data/result.txt'
-model_path = 'data/model-ner-8.5.h5'
+model_path = 'data/model-ner.h5'
 
 # analysis_vocab(train_vocab_path, vocab_path_model)  # 训练vocab，只需要训练一次就够了
 vocab = load_vocab(vocab_path_model)
-length = analysis_rational_len(train_path, percent=0.90)
+length = analysis_rational_len(train_path, percent=0.92)
 
 
 def train_model():
@@ -30,7 +30,7 @@ def train_model():
     labels = n.reshape((n.shape[0], n.shape[1], 1))
     model = Sequential([
         Embedding(input_dim=len(vocab), output_dim=300, mask_zero=True),
-        Bidirectional(layer=LSTM(units=300 // 2, return_sequences=True))
+        Bidirectional(layer=LSTM(units=300 // 2, return_sequences=True, dropout=0.1)),
     ])
     crf_ = CRF(units=len(tag), sparse_target=True)
     model.add(crf_)
@@ -58,5 +58,5 @@ def predict_model():
 
 if __name__ == '__main__':
     train_model()
-    # predict_model()
-    # restore_format(crf_path=temp_path, standard_path=result_path)
+    predict_model()
+    restore_format(crf_path=temp_path, standard_path=result_path)
