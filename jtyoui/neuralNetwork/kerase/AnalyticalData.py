@@ -86,7 +86,7 @@ def vocab_train_label(train_or_dev_path, vocab, tags, max_chunk_length):
             data_len = len(data)
             if data_len <= max_chunk_length:
                 data = [vocab['[PAD]']] * (max_chunk_length - data_len) + data
-                sequence = [tags['O']] * (max_chunk_length - data_len) + sequence
+                sequence = [-1] * (max_chunk_length - data_len) + sequence
             else:
                 data = data[:max_chunk_length]
                 sequence = sequence[:max_chunk_length]
