@@ -4,7 +4,6 @@
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
 from jtyoui.web import get
-from jtyoui.imagepdf import image_pdf
 from urllib.request import urlretrieve
 import tempfile
 import json
@@ -51,6 +50,7 @@ class BaiDuWenKu:
         return types, title, data
 
     def _ppt(self, dirs, save_path, title):
+        from jtyoui.imagepdf import image_pdf
         """下载带有ppt格式"""
         content_url = "https://wenku.baidu.com/browse/getbcsurl?doc_id=" + self.id + "&pn=1&rn=99999&type=ppt"
         print(content_url)
