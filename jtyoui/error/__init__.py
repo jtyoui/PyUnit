@@ -67,3 +67,8 @@ class NotFindPipError(Exception):
 class NumberValueError(Exception):
     """number值错误"""
     pass
+
+
+class IdCardCheckError(Exception):
+    """身份证校验成功"""
+    pass
