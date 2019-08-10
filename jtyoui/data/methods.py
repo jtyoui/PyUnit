@@ -6,6 +6,7 @@
 import random
 import string
 import collections
+import re
 
 _special = "#$%&@"
 
@@ -86,6 +87,16 @@ def char_number_split(str_: str, number: int):
         str_ = str_[number:]
 
 
+def split(re_, str_, flag=0, max_split=0) -> list:
+    """支持正则分割
+    :param re_:正则表达式
+    :param str_:字符串
+    :param flag: re.search(re_, self.string, flag), 默认flag=0
+    :param max_split: 最大分割数量
+    """
+    return re.split(pattern=re_, string=str_, maxsplit=max_split, flags=flag)
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -98,3 +109,4 @@ if __name__ == '__main__':
     print(contain_list_subset('贵州', ['贵州省', '遵义市', '贵州省贵阳市']))
     for cns in char_number_split('我家住在北京', 4):
         print(cns)
+    print(split('[.,，。]', '我家组在北京。我去玩，啊'))
