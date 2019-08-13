@@ -51,5 +51,13 @@ if __name__ == '__main__':
     print(p.get_data())  # 声明：百科词条人人可编辑。
 ```
 
+### 增加后端调用接口测试
+```python
+from jtyoui.web.interfaces import interface_test
+if __name__ == '__main__':
+    t=interface_test({'event_id': 'df99f4bb7f94c69c1b37ece4b41f1d05'},'http://127.0.0.1:5000/commit_org')
+    print(t)
+```
+
 ***
 [1]: https://blog.jtyoui.com
