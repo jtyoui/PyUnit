@@ -29,7 +29,7 @@ class StringTime:
         self.re_mon = r'(上个?月)|(这个?月)|(下个?月)|(\d{0,2}本?月底?)'
         self.re_day = r'(今天)|(明天)|(后天)|(昨天)|(前天)|(\d+日)|(\d+号)|(\d*天\w?[后前])'
         self.re_week = r'(上个?周)|(下个?周)|(星期日)|(星期天)|(星期\d+)|(周\d+)'
-        self.re_hour = r'(早上)|(下午)|(\d+点)'
+        self.re_hour = r'(早上)|(下午)|(晚上)|(\d+点)'
         self.re_min = r'(\d+分)|(\d+点半)'
         self.re_sec = r'(\d+秒)'
         self.now_year = self.local.tm_year
@@ -108,7 +108,11 @@ class StringTime:
                             if i[0].isdigit():
                                 date_time.append(self.adds(int(i[0]), flag))
         if day != 0 or add != 0:
-            days = self.adds(day + add, flag)
+            if add == 0 and date_time:
+                days = int(date_time[0]) + day
+                date_time = [days]
+            else:
+                days = self.adds(day + add, flag)
             if int(days) >= self.now_day:
                 date_time.append(days)
             else:
@@ -126,6 +130,8 @@ class StringTime:
                     if i == '早上':
                         flag = 0
                     elif i == '下午':
+                        flag = 12
+                    elif i == '晚上':
                         flag = 12
                     else:
                         if i[:-1].isdigit():
@@ -165,9 +171,9 @@ class StringTime:
             if not sentences_:
                 continue
             sentences = re.split(r'[到至-]', sentences_)
-            t = re.findall('早上|下午', sentences[0])
+            t = re.findall('早上|下午|晚上', sentences[0])
             if t and len(t) == 1:
-                sentences = [_ if re.findall('早上|下午', _) else t[0] + _ for _ in sentences]
+                sentences = [_ if re.findall('早上|下午|晚上', _) else t[0] + _ for _ in sentences]
             flag_y, flag_m, flag_d = [], [], []  # 临时变量，存放左右连词的性质
             for sentence in sentences:
                 str_ = [self.chinese_numerals.get(s, s) for s in sentence] + [' ']  # 加[' ']的原因保证index+1不会出现list索引溢出
@@ -186,6 +192,8 @@ class StringTime:
                         string += c
                 else:
                     string = ''.join(str_)
+                if re.search('[上下]个?周[1-6日]', string):
+                    string = string.replace('周', '周星期')
                 self._sentence = string
                 y = self.find('年')  # 找到一句话中的年份
                 m = self.find('月')  # 找到一句话中的月份
@@ -240,48 +248,56 @@ class StringTime:
 
 
 if __name__ == '__main__':
-    print('-----------------默认是当日期------------------')
-    st = StringTime('二零零七年十月三十一号下午2点半')
-    print(st.find_times())  # ['2007-10-31 14:30:00']
-    st.sentence = '下周星期一下午3点半开会'
-    print(st.find_times())  # ['2019-07-08 15:30:00']
+    # print('-----------------默认是当日期------------------')
+    # st = StringTime('二零零七年十月三十一号下午2点半')
+    # print(st.find_times())  # ['2007-10-31 14:30:00']
+    # st.sentence = '下周星期一下午3点半开会'
+    # print(st.find_times())  # ['2019-07-08 15:30:00']
+    #
+    # print('-----------------切换日期------------------')
+    # st = StringTime('下周星期一下午2点半开会', '2019-4-17 00:00:00')
+    # print(st.find_times())  # ['2019-04-22 14:30:00']
+    #
+    # print('----------------多个时间-------------------')
+    # st = StringTime('今天下午3点开会到4点整到12楼大会议室开会。')
+    # print(st.find_times())  # ['2019-07-02 15:00:00', '2019-07-02 16:00:00']
+    #
+    # print('----------------没有时间-------------------')
+    # st = StringTime('我要是不传时间呢？')
+    # print(st.find_times())  # []
+    #
+    # print('---------------只有天数--------------------')
+    # st = StringTime('今天去北京，明天去哪里？')
+    # print(st.find_times())  # ['2019-07-02', '2019-07-03']
+    #
+    # print('---------------跳断日期--------------------')
+    # st = StringTime('下周星期一下午2点半到4点开会')
+    # print(st.find_times())  # ['2019-07-08 14:30:00', '2019-07-08 16:00:00']
+    #
+    # print('---------------非常间断日期--------------------')
+    # st = StringTime('明天下午2点半一直到下周星期五下午4点开会')
+    # print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
+    #
+    # print('---------------没有日期或者天数--------------------')
+    # st = StringTime('下午2点半开会')
+    # print(st.find_times())  # ['2019-07-03 14:30:00']
+    #
+    # print('---------------*几个月以后--------------------')
+    # st = StringTime('请王鹏宇下个月1号下午3点上交财务报表')
+    # print(st.find_times())  # ['2019-08-01 15:00:00']
+    #
+    # print('--------------几天之后--------------')
+    # st = StringTime('三天之后下午3点开会')
+    # print(st.find_times())  # ['2019-07-08 15:00:00']
+    #
+    # print('--------------几月底--------------')
+    # st = StringTime('明年的2月底之前必须交报告,本月底吃饭')
+    # print(st.find_times())  # ['2019-07-31', '2020-02-28']
+    #
+    # print('--------晚上-----------')
+    # st = StringTime('晚上11点20分')
+    # print(st.find_times())
 
-    print('-----------------切换日期------------------')
-    st = StringTime('下周星期一下午2点半开会', '2019-4-17 00:00:00')
-    print(st.find_times())  # ['2019-04-22 14:30:00']
-
-    print('----------------多个时间-------------------')
-    st = StringTime('今天下午3点开会到4点整到12楼大会议室开会。')
-    print(st.find_times())  # ['2019-07-02 15:00:00', '2019-07-02 16:00:00']
-
-    print('----------------没有时间-------------------')
-    st = StringTime('我要是不传时间呢？')
-    print(st.find_times())  # []
-
-    print('---------------只有天数--------------------')
-    st = StringTime('今天去北京，明天去哪里？')
-    print(st.find_times())  # ['2019-07-02', '2019-07-03']
-
-    print('---------------跳断日期--------------------')
-    st = StringTime('下周星期一下午2点半到4点开会')
-    print(st.find_times())  # ['2019-07-08 14:30:00', '2019-07-08 16:00:00']
-
-    print('---------------非常间断日期--------------------')
-    st = StringTime('明天下午2点半一直到下周星期五下午4点开会')
-    print(st.find_times())  # ['2019-07-03 14:30:00', '2019-07-12 16:00:00']
-
-    print('---------------没有日期或者天数--------------------')
-    st = StringTime('下午2点半开会')
-    print(st.find_times())  # ['2019-07-03 14:30:00']
-
-    print('---------------*几个月以后--------------------')
-    st = StringTime('请王鹏宇下个月1号下午3点上交财务报表')
-    print(st.find_times())  # ['2019-08-01 15:00:00']
-
-    print('--------------几天之后--------------')
-    st = StringTime('三天之后下午3点开会')
-    print(st.find_times())  # ['2019-07-08 15:00:00']
-
-    print('--------------几月底--------------')
-    st = StringTime('明年的2月底之前必须交报告,本月底吃饭')
-    print(st.find_times())  # ['2019-07-31', '2020-02-28']
+    print('--------下个周几-----------')
+    st = StringTime('下个周2')
+    print(st.find_times())
