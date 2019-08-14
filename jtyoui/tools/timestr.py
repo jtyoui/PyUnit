@@ -56,9 +56,9 @@ def check_date_type(date_str: str) -> (bool, datetime):
 
 
 if __name__ == '__main__':
-    # p = plus_date(start='2018-02-01', end='2018-01-01')
-    # print(p.days)
-    # print(add_day(date='2018-02-01', days=-1, to_str=True))
+    p = plus_date(start='2018-02-01', end='2018-01-01')
+    print(p.days)
+    print(add_day(date='2018-02-28', days=1, to_str=True))
     print(check_date_type('2018-2-28 23:00:00'))
     print(check_date_type('2018/2/1'))
     print(check_date_type('2018年2月1日14点15分20秒'))

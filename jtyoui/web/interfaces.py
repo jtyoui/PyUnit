@@ -16,9 +16,15 @@ def interface_test(dict_, address, record_time=True):
     """
     start = time.time()
     j = json.dumps(dict_, ensure_ascii='utf8')
-    d = requests.post(address, j)
-    page = json.loads(d.text)
+    response = requests.post(address, j)
+    page = json.loads(response.text)
     end = time.time()
     if record_time:
         return page, end - start
     return page
+
+
+if __name__ == '__main__':
+    d = {'answer': '我要告南明区政府贪污。', 'event_id': 'df99f4bb7f94c69c1b37ece4b41f1d05'}
+    ji = interface_test(d, 'http://222.85.147.140:10056/commit_org')
+    print(ji)
