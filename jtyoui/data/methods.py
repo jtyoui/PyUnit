@@ -97,6 +97,26 @@ def split(re_, str_, flag=0, max_split=0) -> list:
     return re.split(pattern=re_, string=str_, maxsplit=max_split, flags=flag)
 
 
+def replace(re_, repl, string_, count=0, flags=0):
+    """支持正则替换"""
+    return re.sub(re_, repl, string_, count, flags)
+
+
+def remove_subset(ls: list) -> list:
+    """去除列表中的子集。比如：['aa','a','ab'] --> ['aa','ab']"""
+    total = []
+    for subset in ls:
+        if subset not in total:
+            flag = True
+            for word in total:
+                if subset in word:
+                    flag = False
+                    break
+            if flag:
+                total.append(subset)
+    return total
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -110,3 +130,4 @@ if __name__ == '__main__':
     for cns in char_number_split('我家住在北京', 4):
         print(cns)
     print(split('[.,，。]', '我家组在北京。我去玩，啊'))
+    print(remove_subset(['aa', 'a', 'ab'] * 1_0000))
