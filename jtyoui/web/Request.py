@@ -11,17 +11,19 @@ import requests
 
 def get(url, cookie=None):
     """Get网站"""
+    headers = headers_ua()
     if cookie:
-        headers_ua()['cookie'] = cookie
-    response = requests.get(url=url, headers=headers_ua())
+        headers['cookie'] = cookie
+    response = requests.get(url=url, headers=headers)
     return response
 
 
 def post(url, params, cookie=None):
     """Post网站"""
+    headers = headers_ua()
     if cookie:
-        headers_ua()['cookie'] = cookie
-    response = requests.post(url=url, data=params, headers=headers_ua())
+        headers['cookie'] = cookie
+    response = requests.post(url=url, data=params, headers=headers)
     return response
 
 
