@@ -104,6 +104,7 @@ def replace(re_, repl, string_, count=0, flags=0):
 
 def remove_subset(ls: list) -> list:
     """去除列表中的子集。比如：['aa','a','ab'] --> ['aa','ab']"""
+    ls = sorted(ls, key=lambda x: len(x), reverse=True)
     total = []
     for subset in ls:
         if subset not in total:
