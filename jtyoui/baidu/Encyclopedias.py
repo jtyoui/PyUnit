@@ -7,6 +7,7 @@ from html.parser import HTMLParser
 from urllib.parse import quote
 import requests
 from jtyoui.web import headers_ua
+import re
 
 
 class _InfoSearch(HTMLParser):
@@ -81,11 +82,13 @@ class BaiDuInfoSearch:
 
     def info(self):
         """基本信息"""
-        return self._BD.basic_info()
+        info = self._BD.basic_info()
+        info = re.sub(r'\[\d*-?\d*\]', '', str(info))
+        return eval(info)
 
     def desc(self):
         """描述信息"""
-        return self._BD.describe()
+        return re.sub(r'\[\d*-?\d*\]', '', self._BD.describe())
 
 
 def Load_BaiDuBaiKe(name):
