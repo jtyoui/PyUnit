@@ -10,6 +10,16 @@
 
 ### 安装
     pip install jtyoui
+    
+### 字符串方法反射
+```python
+from jtyoui.reflex import string_function
+
+if __name__ == '__main__':
+    print(string_function('jtyoui', 'BaiDuInfoSearch')('万绮雯').info())
+    print(list(string_function('jtyoui', 'f_to_j', str_='載')))
+    print(list(string_function('jtyoui', 'f_to_j', '載')))
+```
 
 ### 网站
 >>> [作者的网站](https://blog.jtyoui.com)
