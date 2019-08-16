@@ -28,6 +28,7 @@ from jtyoui.compress import *  # 压缩包文件
 from jtyoui.algorithm import *  # 常见算法
 from jtyoui.cmd import *  # CMD命令
 from jtyoui.interface import *  # 界面
+from jtyoui.reflex import *  # 反射
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx', 'neuralNetwork'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
