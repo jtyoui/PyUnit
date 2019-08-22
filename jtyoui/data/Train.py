@@ -40,7 +40,6 @@ def find_train_info(name):
     """查询火车站的基本信息"""
     data = _find_train_station_(name)
     bd = BaiDuInfoSearch(data)
-    bd.close()
     return bd.info()
 
 
@@ -48,7 +47,6 @@ def find_train_desc(name):
     """查询火车站的摘要信息"""
     data = _find_train_station_(name)
     bd = BaiDuInfoSearch(data)
-    bd.close()
     return bd.desc()
 
 
@@ -56,7 +54,6 @@ def find_train_desc_info(name):
     """查询火车站的摘要和基本信息"""
     data = _find_train_station_(name)
     bd = BaiDuInfoSearch(data)
-    bd.close()
     return bd.desc(), bd.info()
 
 
