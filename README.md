@@ -44,7 +44,7 @@ ________________________
 26. [CMD命令](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/cmd)  
 27. [自然语言处理](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/neuralNetwork)  
 28. [反射模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/reflex)  
-
+29. [日志模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/logger)
 
 
 __________________________
