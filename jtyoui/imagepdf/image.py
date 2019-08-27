@@ -70,35 +70,54 @@ def pdf_image(pdf_address, image_dir=None):
     return True
 
 
-def doc_to_photo(doc_path, photo_dir=None):
-    """将文件word：doc或者docx中的照片提出来
-    :param doc_path: doc文件路径
+def doc_to_docx(doc_path, docx_path):
+    """将doc文件转为docx文件
+    :param doc_path: doc文件夹的路径
+    :param docx_path: 保存docx文件夹的路径
+    """
+    from win32com import client
+    w = client.Dispatch('Word.Application')
+    doc = w.Documents.Open(doc_path)
+    doc.SaveAs(docx_path, 16)  # 必须有参数16，否则会出错.
+    w.Quit()
+
+
+def doc_to_photo(doc_path, photo_dir=None) -> bool:
+    """将文件word：docx中的照片提出来,只能支持docx文档
+    :param doc_path: docx文件路径
     :param photo_dir:保存照片的文件夹
+    :return: 有照片返回True，没有照片返回False
     """
     dirname, name = os.path.dirname(doc_path), os.path.basename(doc_path)
     key, value = os.path.splitext(name)  # 获取名字和后缀
+    if value == '.doc':
+        docx_path = dirname + os.sep + key + '.docx'
+        doc_to_docx(doc_path, docx_path)
+        v = doc_to_photo(docx_path, photo_dir)
+        os.remove(docx_path)
+        return v
     if photo_dir:
         photo_path = photo_dir + os.sep + key
     else:
         photo_path = dirname + os.sep + key
     if not os.path.exists(photo_path):
         os.mkdir(photo_path)
-    temp_zip = dirname + os.sep + key + '.zip'  # zip文件的临时地址
-    shutil.copy(doc_path, temp_zip)  # 复制成zip文件
-    with zipfile.ZipFile(temp_zip, 'r')as f:
+    with zipfile.ZipFile(doc_path, 'r')as f:
         for file in f.namelist():
             if 'media' in file:  # 解压获取保存照片的地址
                 f.extract(file, photo_path)
-    os.remove(temp_zip)  # 删除临时zip地址
-    pic = os.listdir(os.path.join(photo_path, 'word' + os.sep + 'media'))
-    for i in pic:  # 移动照片地址
-        shutil.copy(os.path.join(photo_path + os.sep + 'word' + os.sep + 'media', i), photo_path)
-    if os.path.isdir(os.path.join(photo_path, 'word')):  # 删除空目录
+    temp = os.path.join(photo_path, 'word' + os.sep + 'media')
+    if os.path.exists(temp):
+        for i in os.listdir(temp):  # 移动照片地址
+            shutil.copy(os.path.join(temp, i), photo_path)
         shutil.rmtree(os.path.join(photo_path, 'word'))
+        return True
+    print('该文件下没有照片')
+    return False
 
 
 if __name__ == '__main__':
-    image_pdf(r'D:\temp')  # 将照片转pdf
-    pdf_image(r'D:\temp.pdf')  # 将PDF转照片
+    # image_pdf(r'D:\temp')  # 将照片转pdf
+    # pdf_image(r'D:\temp.pdf')  # 将PDF转照片
     path = r'C:\Users\Xiaoi\Desktop\案件附件\downloadFunjian2'
-    doc_to_photo(path + os.sep + '100090;政法-诉讼-民事诉讼.docx', path)
+    doc_to_photo(path + os.sep + '102996;政法-刑案侦破-立案侦查.doc', path)

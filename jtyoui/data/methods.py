@@ -7,6 +7,7 @@ import random
 import string
 import collections
 import re
+import os
 
 _special = "#$%&@"
 
@@ -116,6 +117,13 @@ def remove_subset(ls: list) -> list:
             if flag:
                 total.append(subset)
     return total
+
+
+def rm_empty_dir(dir_path):
+    """删除空目录"""
+    for root, dirs, files in os.walk(dir_path):
+        if not os.listdir(root):
+            os.rmdir(root)
 
 
 if __name__ == '__main__':
