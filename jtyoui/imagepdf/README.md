@@ -62,6 +62,15 @@ def pdf_image(pdf_name):
     pdf.close()
 ```
 
+### 将doc文件中的照片提取出来
+```python
+from jtyoui.imagepdf import doc_to_photo
+import os
+if __name__ == '__main__':
+    path = r'C:\Users\Desktop'
+    doc_to_photo(path + os.sep + '政法-诉讼-民事诉讼.doc', path)
+```
+
 ### 软件界面
 ![](https://gitee.com/tyoui/logo/raw/master/img_pdf.png)
 

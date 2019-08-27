@@ -7,6 +7,8 @@ from jtyoui.error import LibraryNotInstallError
 from jtyoui.tools import pips
 import os
 import glob
+import zipfile
+import shutil
 
 try:
     import fitz  # 安装 pip install PyMuPDF
@@ -68,6 +70,35 @@ def pdf_image(pdf_address, image_dir=None):
     return True
 
 
+def doc_to_photo(doc_path, photo_dir=None):
+    """将文件word：doc或者docx中的照片提出来
+    :param doc_path: doc文件路径
+    :param photo_dir:保存照片的文件夹
+    """
+    dirname, name = os.path.dirname(doc_path), os.path.basename(doc_path)
+    key, value = os.path.splitext(name)  # 获取名字和后缀
+    if photo_dir:
+        photo_path = photo_dir + os.sep + key
+    else:
+        photo_path = dirname + os.sep + key
+    if not os.path.exists(photo_path):
+        os.mkdir(photo_path)
+    temp_zip = dirname + os.sep + key + '.zip'  # zip文件的临时地址
+    shutil.copy(doc_path, temp_zip)  # 复制成zip文件
+    with zipfile.ZipFile(temp_zip, 'r')as f:
+        for file in f.namelist():
+            if 'media' in file:  # 解压获取保存照片的地址
+                f.extract(file, photo_path)
+    os.remove(temp_zip)  # 删除临时zip地址
+    pic = os.listdir(os.path.join(photo_path, 'word' + os.sep + 'media'))
+    for i in pic:  # 移动照片地址
+        shutil.copy(os.path.join(photo_path + os.sep + 'word' + os.sep + 'media', i), photo_path)
+    if os.path.isdir(os.path.join(photo_path, 'word')):  # 删除空目录
+        shutil.rmtree(os.path.join(photo_path, 'word'))
+
+
 if __name__ == '__main__':
     image_pdf(r'D:\temp')  # 将照片转pdf
     pdf_image(r'D:\temp.pdf')  # 将PDF转照片
+    path = r'C:\Users\Xiaoi\Desktop\案件附件\downloadFunjian2'
+    doc_to_photo(path + os.sep + '100090;政法-诉讼-民事诉讼.docx', path)
