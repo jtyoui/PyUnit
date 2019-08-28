@@ -34,6 +34,7 @@ if __name__ == '__main__':
 ## 摘要算法
 ```python
 from jtyoui.word import TextSummary
+# 先安装jieba，pip install jieba
 if __name__ == '__main__':
     data = """6月17日22时55分，四川长宁县发生6.0级地震，震源深度16千米。地震发生两个小时后，离震中较近的四川省宜宾市珙县
     巡场镇宜宾市矿山急救医院迎来第一个新生儿。医生在余震和医院房屋出现损毁的情况下顶住压力和风险，为产妇接生，母子平安。"""

@@ -3,10 +3,10 @@
 # @Time  : 2019/6/18 18:01
 # @Author: Jtyoui@qq.com
 from jtyoui.tools import pips
+from jtyoui.data import word_nature
 
 
 class TextSummary:
-
     def __init__(self, text, title):
         self.title = title
         self.text = text
@@ -123,9 +123,10 @@ class TextSummary:
                 weight_pos = weight_pos + 1
             sentence['weight_pos'] = weight_pos
 
-    def _calc_sentence_weight_cue_words(self):
+    def _calc_sentence_weight_cue_words(self, index=None):
         # 计算句子的线索词权重
-        index = ['总之', '总而言之', '报导', '新华社', '报道']
+        if not index:
+            index = word_nature()['adv_freq']
         for sentence in self.sentences:
             sentence['weightCueWords'] = 0
         for i in index:
@@ -133,14 +134,14 @@ class TextSummary:
                 if sentence['text'].find(i) >= 0:
                     sentence['weightCueWords'] = 1
 
-    def _calc_sentence_weight(self):
+    def _calc_sentence_weight(self, index=None):
         self._calc_sentence_weight_by_pos()
-        self._calc_sentence_weight_cue_words()
+        self._calc_sentence_weight_cue_words(index)
         self._calc_sentence_weight_by_keywords()
         for sentence in self.sentences:
             sentence['weight'] = sentence['weight_pos'] + 2 * sentence['weightCueWords'] + sentence['weightKeywords']
 
-    def calc_summary(self, ratio=0.1):
+    def calc_summary(self, ratio=0.1, index=None):
         # 清空变量
         self.keywords.clear()
         self.sentences.clear()
@@ -149,7 +150,7 @@ class TextSummary:
         # 调用方法，分别计算关键词、分句，计算权重
         self._calc_keywords()
         self._split_sentence()
-        self._calc_sentence_weight()
+        self._calc_sentence_weight(index)
 
         # 对句子的权重值进行排序
         self.sentences = sorted(self.sentences, key=lambda k: k['weight'], reverse=True)
