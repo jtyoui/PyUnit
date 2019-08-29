@@ -43,7 +43,71 @@ if __name__ == '__main__':
     error.error('日志文件写道error.log文件下')
 
 ```
+##日志装饰器
+```python
+from jtyoui.logger import log
+if __name__ == '__main__':
+    #config_file是日志模板地址
+    @log('./ger',config_file=None) #日志保存的目录
+    def division():
+        s = 1 / 0
+        return s
 
+
+    division()
+```
+
+### 日志模块
+```log
+[loggers]
+keys = root,info,error
+
+[handlers]
+keys = console,info,error
+
+[formatters]
+keys = simpleFormatter
+
+[formatter_simpleFormatter]
+format = %(asctime)s - %(module)s - %(thread)d - %(levelname)s : %(message)s
+datefmt = %Y-%m-%d %H:%M:%S
+
+[logger_root]
+level = INFO
+handlers = info,console
+
+[handler_console]
+class = StreamHandler
+level = INFO
+formatter = simpleFormatter
+args = (sys.stdout,)
+
+[logger_info]
+level = INFO
+handlers = info
+qualname = info
+propagate = 0
+
+[handler_info]
+class = FileHandler
+formatter = simpleFormatter
+args = ('logs/info.log', 'a')
+when : D
+backupCount = 30
+
+[logger_error]
+level = ERROR
+handlers = error
+qualname = error
+propagate = 0
+
+[handler_error]
+class = handlers.RotatingFileHandler
+formatter = simpleFormatter
+args = ('logs/error.log', 'a')
+when : D
+backupCount = 30
+```
 
 ***
 [1]: https://blog.jtyoui.com

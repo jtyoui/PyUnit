@@ -34,7 +34,7 @@ def log(log_file, config_file=None):
 
 
 if __name__ == '__main__':
-    @log('./ger')
+    @log('./ger', None)
     def division():
         s = 1 / 0
         return s
