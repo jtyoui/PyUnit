@@ -7,7 +7,7 @@ import os
 import configparser
 
 
-def get_log_config(config_path=os.path.dirname(__file__) + os.sep + 'log.ini', custom_dir=None) -> configparser:
+def get_log_config(config_path=None, custom_dir=None) -> configparser:
     """加载当前文件下的log.ini文件，默认日志文件夹在当前运训目录的logs下,
     如果要自定义文件夹，只需要将custom_dir定义该目录即可，修改目录下的日志文件夹只需要定义handlers即可，程序会自动寻找handlers下的args的值。
     [handlers]
@@ -18,6 +18,8 @@ def get_log_config(config_path=os.path.dirname(__file__) + os.sep + 'log.ini', c
     """
     import sys  # 不能删除，程序会自动加载，勿删除
     cfg = configparser.RawConfigParser()
+    if not config_path:
+        config_path = os.path.dirname(__file__) + os.sep + 'log.ini'
     cfg.read(config_path)
     if custom_dir:
         if not os.path.exists(custom_dir):
@@ -30,7 +32,7 @@ def get_log_config(config_path=os.path.dirname(__file__) + os.sep + 'log.ini', c
                         e = eval(value)
                         if isinstance(e[0], str):
                             es = custom_dir + os.sep + os.path.basename(e[0])
-                            value = str((es, e[1]))
+                            value = str((es, *e[1:]))
                             cfg.set('handler_' + vs, 'args', value)
     else:
         if not os.path.exists('./logs'):
