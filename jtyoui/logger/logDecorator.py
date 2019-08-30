@@ -9,6 +9,11 @@ import os
 
 
 def log(log_file, config_file=None):
+    """日志装饰器，用于测试函数的时候打印日志。
+    :param log_file:日志地址保存地方
+    :param config_file:日志配置地址保存地址。关于日志配置：可以参考官网配置： https://docs.python.org/3.7/library/logging.config.html
+    """
+
     def inner(fun):
         set_log_file_config(get_log_config(config_path=config_file, custom_dir=log_file))
 
@@ -26,7 +31,7 @@ def log(log_file, config_file=None):
                 logging.getLogger('error').exception(e)
                 with open(log_file + os.sep + 'error.log', 'a', newline='\n')as f:
                     f.write('#' * 70 + os.linesep + os.linesep)
-            return False
+                raise e
 
         return wraps
 
