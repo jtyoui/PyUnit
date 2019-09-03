@@ -43,21 +43,19 @@ if __name__ == '__main__':
     error.error('日志文件写道error.log文件下')
 
 ```
-##日志装饰器
+
+### 日志装饰器
 ```python
 from jtyoui.logger import log
+
 if __name__ == '__main__':
     #config_file是日志模板地址
-    @log('./ger',config_file=None) #日志保存的目录
+    @log(log_file='./ger',config_file=None)
     def division():
-        s = 1 / 0
-        return s
-
-
-    division()
+        pass
 ```
 
-### 日志模块
+### [日志配置文件(log.ini)](https://docs.python.org/zh-cn/3.7/library/logging.handlers.html?highlight=timedrotatingfilehandler)
 ```log
 [loggers]
 keys = root,info,error
@@ -89,11 +87,9 @@ qualname = info
 propagate = 0
 
 [handler_info]
-class = FileHandler
+class = handlers.RotatingFileHandler
 formatter = simpleFormatter
-args = ('logs/info.log', 'a')
-when : D
-backupCount = 30
+args = ('logs/info.log', 'a', 102400, 30, 'UTF-8')
 
 [logger_error]
 level = ERROR
@@ -102,11 +98,9 @@ qualname = error
 propagate = 0
 
 [handler_error]
-class = handlers.RotatingFileHandler
+class = handlers.TimedRotatingFileHandler
 formatter = simpleFormatter
-args = ('logs/error.log', 'a')
-when : D
-backupCount = 30
+args = ('logs/error.log', 'D', 1, 30, 'UTF-8')
 ```
 
 ***
