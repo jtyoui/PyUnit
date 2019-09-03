@@ -4,3 +4,4 @@
 # @Author: Jtyoui@qq.com
 from .SearchAlgorithm import *  # 搜索算法
 from .MatchingAlgorithm import *  # 匹配算法
+from .SortAlgorithm import *  # 排序算法

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/6/5 9:57
 # @Author: Jtyoui@qq.com
+"""匹配算法"""
 from jtyoui.algorithm.SearchAlgorithm import binary_search
 from jtyoui.error import NumberValueError
 

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/6/5 9:37
 # @Author: Jtyoui@qq.com
+"""搜索算法"""
 import bisect
 
 

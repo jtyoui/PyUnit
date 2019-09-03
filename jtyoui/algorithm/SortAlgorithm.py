@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/8/26 17:20
 # @Author: Jtyoui@qq.com
+"""排序算法"""
 
 
 def bubbled_sort(ls):
