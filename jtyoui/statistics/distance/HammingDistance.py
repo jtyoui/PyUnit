@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:36
 # @Author: Jtyoui@qq.com
+from jtyoui.decorator import replace_regular
+from jtyoui.regular import punctuation_re
 
 import hashlib
 
@@ -85,7 +87,21 @@ def ham_distance(chars, other_chars, weight=None, f=64):
     return distance(v0, v1, f)
 
 
+@replace_regular(punctuation_re, '')
+def simHash_similarity(text1: (str, dict), text2: (str, dict), weight: dict = None, f: int = 64) -> float:
+    """文本相似度算法
+    :param text1: 文本1
+    :param text2: 文本2
+    :param weight: 文本词权重
+    :param f: hash bit位数
+    :return: 相似度
+    """
+    v = ham_distance(text1, text2, weight=weight, f=f)
+    return 1 - v / f
+
+
 if __name__ == '__main__':
     a = ['我', '吃饭', '了', '明天', '去', '看', '电影']
     b = ['我', '在', '吃饭', '了', '马上', '去', '看', '电影']
     print(ham_distance(a, b, weight={"电影": 3}))
+    print(simHash_similarity(''.join(a), ''.join(b)))

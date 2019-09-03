@@ -33,6 +33,6 @@ from jtyoui.logger import *  # 增加日志文件夹
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx', 'neuralNetwork'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.8.30'
+__version__ = '19.9.3'
 __author__ = 'Jtyoui'
 __description__ = f'这是一个Python集合包,包含了:{len(__all__)}个模块。'
