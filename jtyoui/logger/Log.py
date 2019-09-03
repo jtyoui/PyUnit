@@ -7,6 +7,9 @@ import os
 import configparser
 
 
+# 参考文档：https://docs.python.org/zh-cn/3.7/library/logging.handlers.html?highlight=timedrotatingfilehandler
+
+
 def get_log_config(config_path=None, custom_dir=None) -> configparser:
     """加载当前文件下的log.ini文件，默认日志文件夹在当前运训目录的logs下,
     如果要自定义文件夹，只需要将custom_dir定义该目录即可，修改目录下的日志文件夹只需要定义handlers即可，程序会自动寻找handlers下的args的值。
