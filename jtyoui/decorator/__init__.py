@@ -65,7 +65,7 @@ def singleton(cls, *args, **kwargs):
     def _singleton():
         if cls not in instances:
             instances[cls] = cls(*args, **kwargs)
-        return instances
+        return instances[cls]
 
     return _singleton
 
