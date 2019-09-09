@@ -72,3 +72,8 @@ class NumberValueError(Exception):
 class IdCardCheckError(Exception):
     """身份证校验成功"""
     pass
+
+
+class NotLinuxSystemError(Exception):
+    """不是Linux系统异常"""
+    pass
