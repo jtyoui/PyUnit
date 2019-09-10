@@ -77,3 +77,8 @@ class IdCardCheckError(Exception):
 class NotLinuxSystemError(Exception):
     """不是Linux系统异常"""
     pass
+
+
+class MathValueWarning(Warning):
+    """数值错误"""
+    pass
