@@ -89,7 +89,7 @@ propagate = 0
 [handler_info]
 class = handlers.RotatingFileHandler
 formatter = simpleFormatter
-args = ('logs/info.log', 'a', 102400, 30, 'UTF-8')
+args = ('logs/info.log', 'a', 1048576, 30, 'UTF-8')
 
 [logger_error]
 level = ERROR
@@ -102,6 +102,9 @@ class = handlers.TimedRotatingFileHandler
 formatter = simpleFormatter
 args = ('logs/error.log', 'D', 1, 30, 'UTF-8')
 ```
-
+#### 日志大小说明
+    默认：info日志是1M（1048576）分割
+    error日志是每天分割
+    
 ***
 [1]: https://blog.jtyoui.com

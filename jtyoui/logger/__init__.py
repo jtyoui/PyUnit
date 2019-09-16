@@ -4,3 +4,8 @@
 # @Author: Jtyoui@qq.com
 from .Log import get_log_config, set_log_file_config, log_file_config  # 加载日志文件
 from .logDecorator import *  # 增加日志的装饰器函数
+
+"""
+默认：info日志是1M分割
+error日志是每天分割
+"""

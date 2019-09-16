@@ -3,6 +3,7 @@
 # @Time    : 2019/6/1 22:34
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
+from itertools import combinations_with_replacement, permutations, combinations
 import random
 import string
 import collections
@@ -126,6 +127,24 @@ def rm_empty_dir(dir_path):
             os.rmdir(root)
 
 
+def combination(ls: iter, number=2) -> list:
+    """组合：不重复"""
+    c = combinations(ls, number)
+    return list(c)
+
+
+def combination_repeat(ls: iter, number=2) -> list:
+    """组合：可重复"""
+    c = combinations_with_replacement(ls, number)
+    return list(c)
+
+
+def permutation(ls: iter, number=2) -> list:
+    """排列"""
+    c = permutations(ls, number)
+    return list(c)
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -140,3 +159,6 @@ if __name__ == '__main__':
         print(cns)
     print(split('[.,，。]', '我家组在北京。我去玩，啊'))
     print(remove_subset(['aa', 'a', 'ab'] * 1_0000))
+    print(combination(range(1, 20)))
+    print(combination_repeat(range(1, 20)))
+    print(permutation(range(1, 20)))
