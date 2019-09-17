@@ -43,15 +43,15 @@ class Config:
 
     
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@222.85.230.14:13218/xfj_final?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@ip:port/database?charset=utf8'
 
   
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@222.85.230.14:13218/xfj_final?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@ip:port/database?charset=utf8'
 
 
 class TestingConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@222.85.230.14:13218/xfj_final?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@ip:port/database?charset=utf8'
 
 
 CONFIG = {{
