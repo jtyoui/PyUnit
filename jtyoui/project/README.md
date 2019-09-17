@@ -27,11 +27,11 @@ if __name__ == '__main__':
 
 ### 一步添加
 ```python
-from jtyoui.project import create_all
+from jtyoui.project import create_docker_project
 import os
 if __name__ == '__main__':
     project_address=os.path.basename(__file__)
-    create_all(project_address)
+    create_docker_project(project_address)
 ```
 ***
 [1]: https://blog.jtyoui.com

@@ -100,7 +100,7 @@ flask_sqlalchemy"""
         f.write(text)
 
 
-def create_all(project_address):
+def create_docker_project(project_address):
     create_flaskenv(project_address)
     create_app_sh(project_address)
     create_config(project_address)
@@ -110,4 +110,4 @@ def create_all(project_address):
 
 
 if __name__ == '__main__':
-    create_all(os.path.dirname(__file__))
+    create_docker_project(os.path.dirname(__file__))
