@@ -30,9 +30,10 @@ from jtyoui.cmd import *  # CMD命令
 from jtyoui.interface import *  # 界面
 from jtyoui.reflex import *  # 反射
 from jtyoui.logger import *  # 增加日志文件夹
+from jtyoui.project import *  # 项目接口
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx', 'neuralNetwork'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
-__version__ = '19.9.9'
+__version__ = '19.9.17'
 __author__ = 'Jtyoui'
 __description__ = f'这是一个Python集合包,包含了:{len(__all__)}个模块。'
