@@ -145,6 +145,16 @@ def permutation(ls: iter, number=2) -> list:
     return list(c)
 
 
+def is_chinese(char: str) -> bool:
+    """判断一个字符是否是中文
+    :param char: 一个字符
+    :return: 是中文返回真，否则是假
+    """
+    if len(char) == 1 and '\u4e00' < char < '\u9fa5':
+        return True
+    return False
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -162,3 +172,4 @@ if __name__ == '__main__':
     print(combination(range(1, 20)))
     print(combination_repeat(range(1, 20)))
     print(permutation(range(1, 20)))
+    print(is_chinese('张'), is_chinese('a'))

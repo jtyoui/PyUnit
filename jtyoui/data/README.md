@@ -93,6 +93,14 @@ if __name__ == '__main__':
 
 ```
 
+### 判断一个字符是否是中文
+```python
+from jtyoui.data import is_chinese
+
+if __name__ == '__main__':
+    print(is_chinese('张'), is_chinese('a'))
+```
+
 ### 匹配所有号码（手机卡 + 数据卡 + 上网卡）
 
 <!--
