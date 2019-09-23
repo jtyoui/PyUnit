@@ -70,6 +70,18 @@ def singleton(cls, *args, **kwargs):
     return _singleton
 
 
+def coroutine(func):
+    """自动激活协程装饰器"""
+
+    @functools.wraps(func)
+    def warp(*args, **kwargs):
+        g = func(*args, **kwargs)
+        next(g)
+        return g
+
+    return warp
+
+
 if __name__ == '__main__':
     from jtyoui.regular import Non_Chinese
 
@@ -96,3 +108,13 @@ if __name__ == '__main__':
     a = A()
     b = A()
     print(id(a) == id(b))  # True
+
+
+    @coroutine
+    def receiver():
+        n = 0
+        while True:
+            n = yield n + n
+
+
+    print(receiver().send(10))

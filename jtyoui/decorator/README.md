@@ -52,5 +52,19 @@ if __name__ == '__main__':
     print(id(a) == id(b))  # True
 ```
 
+## 自动激活协程装饰器
+```python
+from jtyoui.decorator import coroutine
+if __name__ == '__main__':
+    @coroutine
+    def receiver():
+        n = 0
+        while True:
+            n = yield n + n
+    
+    
+    print(receiver().send(10))
+```
+
 ***
 [1]: https://blog.jtyoui.com
