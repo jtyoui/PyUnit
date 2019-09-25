@@ -17,7 +17,7 @@ setup(
     packages=find_packages(),
     platforms=["window10", "Linux"],
     package_data={'': ['*']},
-    install_requires=['requests'],
+    install_requires=['requests', 'click'],
     classifiers=[
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
