@@ -39,7 +39,14 @@ if __name__ == '__main__':
    print(kmp('我们在野生动物园玩', '动物园')) # 5
 ```
 
-
+## 映射替换
+```python
+from jtyoui.algorithm import map_replace
+if __name__ == '__main__':
+    print(map_replace('[中国]', '[]', '【】'))
+    print(map_replace('[中国]', maps={'[': '【', ']': '】'}))
+    # 【中国】
+```
 
 
 
