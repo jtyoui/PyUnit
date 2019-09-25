@@ -24,5 +24,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    zip_safe=False
+    zip_safe=False,
+    entry_points={"console_scripts": ["jtyoui = jtyoui.cli:main"]}
 )

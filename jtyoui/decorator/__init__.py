@@ -11,6 +11,18 @@ from jtyoui.error import CoordinateLengthNotEqualError, ParameterNotEmptyError
 """
 
 
+def warp(func):
+    """这个装饰器等效：functools.wraps(fun)"""
+
+    def call(*args, **kwargs):
+        return func(*args, **kwargs)
+
+    call.__doc__ = func.__doc__
+    call.__name__ = func.__name__
+    call.__dict__.update(func.__dict__)
+    return call
+
+
 def replace_regular(re_, replace_):
     """
     根据正则来修改参数
