@@ -19,11 +19,15 @@ def split_doc(func, name):
 
 
 @click.command()
-@click.option('--sort', type=bool, default=False, help=split_doc('binary_search', 'sort'))
-@click.option('--x', type=int, help=split_doc('binary_search', 'x'))
-@click.option('--ls', type=str, help=split_doc('binary_search', 'ls'))
-def binary_search(ls, x, sort):
-    click.echo(jtyoui.binary_search(eval(ls), x, sort))
+@click.option('-f', type=str, help='文本地址')
+@click.option('-n', type=int, help='成词最大粒度')
+@click.option('-t', type=int, help='key出现的次数')
+@click.option('-q', type=float, help='过滤的频率')
+@click.option('-c', type=float, help='过滤凝聚度')
+@click.option('-r', type=float, help='过滤自由度')
+def neologism(f, n, t, q, c, r):
+    from jtyoui.word.neologism import mains as m
+    m(f, n, t, q, c, r)
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
@@ -31,7 +35,7 @@ def binary_search(ls, x, sort):
 def main(): ...
 
 
-main.add_command(binary_search)
+main.add_command(neologism)
 
 if __name__ == "__main__":
     main()

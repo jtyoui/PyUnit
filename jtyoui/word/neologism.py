@@ -109,17 +109,52 @@ class Neologism:
         :param free:过滤自由度
         :return:过滤后的数据字典
         """
+        ls = []
         for key, one_word in self.ALL_WORDS.items():
             if len(key) <= 1:
                 continue
             if (one_word[0] > count or one_word[1] > frequency) and one_word[2] > cond and one_word[3] > free:
-                yield key, one_word
+                ls.append((key, one_word))
+        return remove_subset(ls)
+
+
+def remove_subset(ls: list) -> list:
+    """去除列表中的子集。比如：['aa','a','ab'] --> ['aa','ab']"""
+    ls.sort(key=lambda x: len(x[0]), reverse=True)
+    total = []
+    for subset in ls:
+        flag = True
+        for word in total:
+            if subset[0] in word[0]:
+                flag = False
+                break
+        if flag:
+            total.append(subset)
+    return total
+
+
+def mains(file, split_num, count, frequency, cond, free):
+    """成词发现算法。保存结果在当前运行环境下的result.txt文件中
+    :param file: 文本地址
+    :param split_num: 成词最大粒度
+    :param count: key出现的次数
+    :param frequency: 过滤的频率
+    :param cond: 过滤凝聚度
+    :param free: 过滤自由度
+    """
+    wf = open('result.txt', 'w', encoding='utf-8')
+    n = Neologism()
+    n.read_file(file, split_num)
+    n.statistics()
+    n.handle()
+    print('正在保存文件数据：result.txt')
+    for k, v in n.filter_words(count=count, frequency=frequency, cond=cond, free=free):
+        s = F'关键字:{k} 次数:{v[0]} 频率:{v[1]} 凝聚度:{v[2]} 自由度:{v[3]}'
+        wf.write(s + '\n')
+    wf.flush()
+    wf.close()
+    print('保存完毕')
 
 
 if __name__ == '__main__':
-    n = Neologism()
-    n.read_file(r'D:\data.txt', 6)
-    n.statistics()
-    n.handle()
-    for k, v in n.filter_words(count=10, frequency=0.0001, cond=84, free=0.7):
-        print(F'关键字:{k} 次数:{v[0]} 频率:{v[1]} 凝聚度:{v[2]} 自由度:{v[3]}')
+    mains(r'D:\data.txt', 6, count=10, frequency=0.0001, cond=84, free=0.7)
