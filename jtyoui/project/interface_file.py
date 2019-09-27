@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/9/17 10:49
 # @Author: Jtyoui@qq.com
+"""
+由于创建Flask Docker项目文件较多，特意写了一个脚本：一键生成简单的文件信息。
+"""
 import os
+import warnings
 
 
 def create_flaskenv(project_address):
@@ -43,16 +47,27 @@ class Config:
 
     
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@ip:port/database?charset=utf8'
+    root = ''
+    password = ''
+    ip = ''
+    port = ''
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{{root}}:{{password}}@{{ip}}:{{port}}/database?charset=utf8'
 
   
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@ip:port/database?charset=utf8'
+    root = ''
+    password = ''
+    ip = ''
+    port = ''
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{{root}}:{{password}}@{{ip}}:{{port}}/database?charset=utf8'
 
 
 class TestingConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:gzxiaoi@ip:port/database?charset=utf8'
-
+    root = ''
+    password = ''
+    ip = ''
+    port = ''
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{{root}}:{{password}}@{{ip}}:{{port}}/database?charset=utf8'
 
 CONFIG = {{
     'development': DevelopmentConfig,
@@ -87,7 +102,7 @@ cheaper-initial = 5
 cheaper-step = 1
 cheaper-algo = spare
 cheaper-overload = 5
-        """
+"""
         f.write(text)
 
 
@@ -100,13 +115,44 @@ flask_sqlalchemy"""
         f.write(text)
 
 
+def create_docker_init(project_address):
+    import time
+    t = time.strftime('%Y/%m/%d %H:%M:%S')
+    project_name = os.path.basename(project_address)
+    address = project_address + os.sep + project_name
+    text = f"""#!/usr/bin/python3.7
+# -*- coding: utf-8 -*-
+# @Time  : {t}
+# @Author: Jtyoui@qq.com
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from config import CONFIG
+
+env = os.getenv("FLASK_ENV")
+db = SQLAlchemy()
+app = Flask(__name__)
+app.config.from_object(CONFIG.get(env, CONFIG['development']))
+db.init_app(app)
+"""
+    if not os.path.exists(address):
+        os.mkdir(address)
+    if not os.path.exists(address + os.sep + '__init__.py'):
+        with open(address + os.sep + '__init__.py', 'w', encoding='utf-8')as wf:
+            wf.write(text)
+    else:
+        warnings.warn('路径：' + address + os.sep + '__init__.py已存在。默认不覆盖，请删除后在执行！')
+
+
 def create_docker_project(project_address):
+    """一键创建由Flask创建的Dockers项目文件"""
     create_flaskenv(project_address)
     create_app_sh(project_address)
     create_config(project_address)
     create_dockerfile(project_address)
     create_requirements(project_address)
     create_uwsgi(project_address)
+    create_docker_init(project_address)
 
 
 if __name__ == '__main__':
