@@ -4,6 +4,7 @@
 # @Author: Jtyoui@qq.com
 import jtyoui
 import click
+import os
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', '--h'])
 
@@ -30,12 +31,20 @@ def neologism(f, n, t, q, c, r):
     m(f, n, t, q, c, r)
 
 
+@click.command()
+@click.option('-f', type=str, help='创建Flask Docker项目的路径')
+def docker_file(f):
+    fp = os.path.abspath(f)
+    return jtyoui.create_docker_project(fp)
+
+
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.version_option(version='1.0.0', help='当前版本')
 def main(): ...
 
 
 main.add_command(neologism)
+main.add_command(docker_file)
 
 if __name__ == "__main__":
     main()
