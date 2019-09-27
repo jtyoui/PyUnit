@@ -6,6 +6,7 @@ import jtyoui
 import click
 import os
 
+DESC = jtyoui.__description__ + '更新时间为20' + jtyoui.__version__.replace('.', '-') + '。'
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help', '--h'])
 
 
@@ -19,7 +20,7 @@ def split_doc(func, name):
     return '联系作者写注释！'
 
 
-@click.command()
+@click.command(help='成词发现')
 @click.option('-f', type=str, help='文本地址')
 @click.option('-n', type=int, help='成词最大粒度')
 @click.option('-t', type=int, help='key出现的次数')
@@ -31,14 +32,14 @@ def neologism(f, n, t, q, c, r):
     m(f, n, t, q, c, r)
 
 
-@click.command()
+@click.command(help='创建Flask Docker项目文件')
 @click.option('-f', type=str, help='创建Flask Docker项目的路径')
 def docker_file(f):
     fp = os.path.abspath(f)
     return jtyoui.create_docker_project(fp)
 
 
-@click.group(context_settings=CONTEXT_SETTINGS)
+@click.group(context_settings=CONTEXT_SETTINGS, help=DESC)
 @click.version_option(version='1.0.0', help='当前版本')
 def main(): ...
 
