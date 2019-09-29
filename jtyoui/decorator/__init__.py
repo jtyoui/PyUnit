@@ -5,6 +5,7 @@
 import functools
 import re
 from jtyoui.error import CoordinateLengthNotEqualError, ParameterNotEmptyError
+from .warn import *
 
 """
 装饰器模式

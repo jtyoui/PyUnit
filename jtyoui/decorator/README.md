@@ -38,7 +38,7 @@ if __name__ == '__main__':
     set_length(x=[3,4],y=[1,2])
 ```
 
-## 单身模式修饰器
+### 单身模式修饰器
 ```python
 from jtyoui.decorator import singleton
 
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     print(id(a) == id(b))  # True
 ```
 
-## 自动激活协程装饰器
+### 自动激活协程装饰器
 ```python
 from jtyoui.decorator import coroutine
 if __name__ == '__main__':
@@ -65,6 +65,17 @@ if __name__ == '__main__':
     
     print(receiver().send(10))
 ```
+
+### 警告装饰器
+```python
+from jtyoui.decorator import warns
+if __name__ == '__main__':
+    @warns('该函数已废弃!',DeprecationWarning)
+    def w(): ...
+
+    w()
+```
+
 
 ***
 [1]: https://blog.jtyoui.com
