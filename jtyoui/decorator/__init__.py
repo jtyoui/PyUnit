@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/11 11:43
 # @Author: Jtyoui@qq.com
-import functools
+from jtyoui.decorator.warn import *
 import re
 from jtyoui.error import CoordinateLengthNotEqualError, ParameterNotEmptyError
-from .warn import *
 
 """
 装饰器模式
