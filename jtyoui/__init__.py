@@ -31,6 +31,7 @@ from jtyoui.interface import *  # 界面
 from jtyoui.reflex import *  # 反射
 from jtyoui.logger import *  # 增加日志文件夹
 from jtyoui.project import *  # 项目接口
+from jtyoui.person import *  # 中国人属性
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx', 'neuralNetwork'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人

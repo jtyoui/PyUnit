@@ -13,3 +13,22 @@
 
 ***
 [1]: https://blog.jtyoui.com
+
+### 百家姓
+```python
+from jtyoui.person import SurName,SurNameMessage
+if __name__ == '__main__':
+    print(SurName)
+    print(SurNameMessage)
+```
+
+### 民族
+```python
+from jtyoui.person import NationsOther,Nations
+if __name__ == '__main__':
+    print(Nations)
+    print(NationsOther)
+```
+
+***
+[1]: https://blog.jtyoui.com

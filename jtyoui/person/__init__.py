@@ -5,3 +5,5 @@
 """
 关于人属性的一个包
 """
+from .nation import *  # 民族
+from .surname import *  # 姓
