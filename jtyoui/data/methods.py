@@ -155,6 +155,25 @@ def is_chinese(char: str) -> bool:
     return False
 
 
+def print_heart(s='♥'):
+    """输出一个心脏的符号
+    :param s: 字符串
+    :return: 心脏的格式
+    """
+    ls = []
+    s += ' '
+    for y in range(15, -15, -1):
+        flag = []
+        for x in range(-30, 30):
+            x1 = x * 0.04
+            y1 = y * 0.1
+            m = (x1 ** 2 + y1 ** 2 - 1) ** 3 - x1 ** 2 * y1 ** 3  # 心脏公式
+            flag.append(s[(x - y) % len(s)] if m <= 0 else ' ')
+        ls.append(''.join(flag) + '\n')
+    print("\033[91m" + ''.join(ls))
+    return ls
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -173,3 +192,4 @@ if __name__ == '__main__':
     print(combination_repeat(range(1, 20)))
     print(permutation(range(1, 20)))
     print(is_chinese('张'), is_chinese('a'))
+    print_heart()
