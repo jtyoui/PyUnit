@@ -12,7 +12,7 @@ def word_nature():
     return cx
 
 
-def reader_conf(path, encoding='UTF-8'):
+def reader_conf(path: str, encoding: str = 'UTF-8') -> dict:
     """读取配置文件
     [capitalize]
     a
@@ -32,6 +32,22 @@ def reader_conf(path, encoding='UTF-8'):
             else:
                 pass
     return cx
+
+
+def save_conf(cx: dict, path: str, encoding='UTF-8'):
+    """保存配置文件
+    :param cx: 保存的字典类型：{str：list}
+    :param path: 保存的路径
+    :param encoding: 保存文件的编码
+    """
+    with open(path, 'w', encoding=encoding, newline='\n')as fp:
+        for key, value in cx.items():
+            fp.write(f'[{key}]\n')
+            if isinstance(value, (list, tuple)):
+                for v in value:
+                    fp.write(v.strip() + '\n')
+            else:
+                raise TypeError('字典的值必须是列表或者元组类型')
 
 
 if __name__ == '__main__':
