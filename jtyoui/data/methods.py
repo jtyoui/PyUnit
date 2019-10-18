@@ -174,6 +174,31 @@ def print_heart(s='♥'):
     return ls
 
 
+def get_argCount(func) -> int:
+    """获取函数对象的参数个数
+
+    def sum(a,b):
+        return(a+b)
+    print(sum.__code__.co_argcount)
+    # 2
+    #输出的函数参数个数
+    print(sum.__code__.co_varnames)
+    # ('a', 'b')
+    #这里会输出函数用到的所有变量名，不只是参数名
+
+    print(sum.__defaults__)
+    # None
+    # 返回参数的初始值
+
+    import inspect
+    inspect.getargspec(sum)
+    # ArgSpec(args=['a', 'b'], varargs=None, keywords=None, defaults=None)
+    :param func: 函数对象
+    :return: 函数对象的参数个数
+    """
+    return func.__code__.co_argcount
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -193,3 +218,4 @@ if __name__ == '__main__':
     print(permutation(range(1, 20)))
     print(is_chinese('张'), is_chinese('a'))
     print_heart()
+    print(get_argCount(contain_subset))
