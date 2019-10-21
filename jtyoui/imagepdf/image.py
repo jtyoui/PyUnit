@@ -116,8 +116,12 @@ def doc_to_photo(doc_path, photo_dir=None) -> bool:
     return False
 
 
+image_to_pdf = image_pdf  # 照片转为PDF
+pdf_to_image = pdf_image  # PDF转为照片
+doc_to_image = doc_to_photo  # doc文档提取照片
+
 if __name__ == '__main__':
     # image_pdf(r'D:\temp')  # 将照片转pdf
     # pdf_image(r'D:\temp.pdf')  # 将PDF转照片
     path = r'C:\Users\Xiaoi\Desktop\案件附件\downloadFunjian2'
-    doc_to_photo(path + os.sep + '102996;政法-刑案侦破-立案侦查.doc', path)
+    doc_to_photo(path + os.sep + '政法-刑案侦破-立案侦查.doc', path)
