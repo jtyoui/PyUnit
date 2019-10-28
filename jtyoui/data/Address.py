@@ -49,6 +49,7 @@ def load_address_file(file_address_path):
     :param file_address_path: 加载地址文件的路径，没有地址文件默认自动下载。
     :return: 地址文件数据，类型字典
     """
+    file_address_path = os.path.abspath(file_address_path) + os.sep + 'jtyoui_address'
     if not os.path.exists(file_address_path):
         if not download_address_file(file_address_path):
             raise DownLoadDataError('检查网络设置，下载地址文件数据异常！')
