@@ -11,7 +11,8 @@ from jtyoui.error import CoordinateLengthNotEqualError, ParameterNotEmptyError
 """
 
 
-def warp(func):
+@warns('也废除，请使用functools.wraps函数来替代', DeprecationWarning)
+def warps(func):
     """这个装饰器等效：functools.wraps(fun)"""
 
     def call(*args, **kwargs):

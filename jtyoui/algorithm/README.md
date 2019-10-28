@@ -48,7 +48,31 @@ if __name__ == '__main__':
     # 【中国】
 ```
 
+## 创建树
+```python
+from jtyoui.algorithm import dict_create_tree
 
+if __name__ == '__main__':
+    """创建下面的树结构
+            a
+        b   c   d
+    e f g |g h| k m
+    """
+    print('----------------------创建树-------------------------------')
+    ds = {'a': {'b': ['e', 'f', 'g'], 'c': ['g', 'h'], 'd': ['k', 'm']}}
+    ts = dict_create_tree(ds)
+    print(ts)
+
+    print('--------------------搜索树对象---------------------------------')
+    tree_object = []
+    ts.search_tree('g', tree_object)
+    print(tree_object)
+
+    print('-----------------------搜索树的路径-------------------------')
+    for i in ts.search_tree_value('g'):
+        print(i)
+
+```
 
 
 
