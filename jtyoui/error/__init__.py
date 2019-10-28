@@ -82,3 +82,8 @@ class NotLinuxSystemError(Exception):
 class MathValueWarning(Warning):
     """数值错误"""
     ...
+
+
+class DownLoadDataError(Exception):
+    """下载数据异常"""
+    ...

@@ -16,7 +16,7 @@ def warns(message, category=None):
     def _(func):
         @functools.wraps(func)
         def warp(*args, **kwargs):
-            warnings.warn(message, category)
+            warnings.warn(message, category, stacklevel=2)
             return func(*args, **kwargs)
 
         return warp

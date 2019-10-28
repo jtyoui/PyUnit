@@ -3,6 +3,8 @@
 # @Time    : 2019/5/1 23:26
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
+from jtyoui.error import DownLoadDataError
+from jtyoui.decorator import deprecationWarning
 from platform import platform
 import os
 import bz2
@@ -20,20 +22,42 @@ re_id_card = """
 _Address = {}
 
 
-def _load(file_address):  # 下载地址的压缩包
+def download_address_file(file_address_path):
+    """下载地址数据包
+    :param file_address_path:保存地址文件的路径
+    """
     from urllib.request import urlretrieve
     url = 'https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/rear.bz2'
-    place = urlretrieve(url, file_address)  # 下载
+    place = urlretrieve(url, file_address_path)  # 下载
     print('---------验证数据-------')
-    if not os.path.exists(file_address):
+    if not os.path.exists(file_address_path):
         print('下载失败')
-    elif os.stat(file_address).st_size != 2292518:
+        return False
+    elif os.stat(file_address_path).st_size != 2292518:
         print('下载失败、移除无效文件！')
-        os.remove(file_address)
+        os.remove(file_address_path)
+        return False
+    else:
+        print('\033[1;33m' + place[0])
+    return True
 
-    print('\033[1;33m' + place[0])
+
+def load_address_file(file_address_path):
+    """加载地址文件数据
+    :param file_address_path: 加载地址文件的路径，没有地址文件默认自动下载。
+    :return: 地址文件数据，类型字典
+    """
+    if not os.path.exists(file_address_path):
+        if not download_address_file(file_address_path):
+            raise DownLoadDataError('检查网络设置，下载地址文件数据异常！')
+    bz = bz2.BZ2File(file_address_path)
+    text = bz.read().decode('utf-8')
+    data = text[512:-1134]
+    address = json.loads(data, encoding='utf8')
+    return address
 
 
+@deprecationWarning
 def find_address(name):
     """查询地址。输入一个地名，查到这个名字的详细地址：比如输入：大连市、朝阳区、遵义县、卡比村等
     :param name: 输入一个地址。
@@ -46,12 +70,7 @@ def find_address(name):
             path = r'D:/jtyoui_address'
         else:
             path = r'./jtyoui_address'
-        if not os.path.exists(path):
-            _load(path)
-        bz = bz2.BZ2File(path)
-        text = bz.read().decode('utf-8')
-        data = text[512:-1134]
-        _Address = json.loads(data, encoding='utf8')
+        _Address = load_address_file(path)
     address = []
     for province in _Address:
         city_s = _Address[province]
@@ -88,6 +107,15 @@ def find_identity_card_address(card_addr):
     town = names.group('town')
     village = names.group('village')
     return province, city, county, town, village
+
+
+def finds_address(data, name):
+    """查询地址。输入一个地名，查到这个名字的详细地址：比如输入：大连市、朝阳区、遵义县、卡比村等
+    :param data: 地址数据
+    :param name: 输入一个地址名
+    :return: 地址的信息
+    """
+    pass
 
 
 if __name__ == '__main__':
