@@ -5,6 +5,7 @@
 # @Software: PyCharm
 from jtyoui.error import DownLoadDataError
 from jtyoui.decorator import deprecationWarning
+from jtyoui.algorithm import dict_create_tree
 from platform import platform
 import os
 import bz2
@@ -20,6 +21,7 @@ re_id_card = """
 """.replace('\n', '')
 
 _Address = {}
+_TREE = None
 
 
 def download_address_file(file_address_path):
@@ -109,17 +111,27 @@ def find_identity_card_address(card_addr):
     return province, city, county, town, village
 
 
-def finds_address(data, name):
+def finds_address(data, name: str):
     """查询地址。输入一个地名，查到这个名字的详细地址：比如输入：大连市、朝阳区、遵义县、卡比村等
     :param data: 地址数据
     :param name: 输入一个地址名
     :return: 地址的信息
     """
-    pass
+    global _TREE
+    if not _TREE:
+        _TREE = dict_create_tree(data)
+    return _TREE.search_tree_value(name)
 
 
 if __name__ == '__main__':
     import pprint
 
-    pprint.pprint(find_address('晋安'))
+    pprint.pprint(find_address('晋安'))  # 已废弃，建议用：finds_address
     print(find_identity_card_address('贵州省贵阳市南明区花果园延安南路28号'))
+
+    print('---------------------搜索树查找，第一次比较慢------------------------------------------')
+    for t in finds_address(load_address_file(r'D:/jtyoui_address'), '晋安'):
+        print(t)
+
+    for t in finds_address(load_address_file(r'D:/jtyoui_address'), '遵义县'):
+        print(t)
