@@ -232,6 +232,9 @@ class StringTime:
                         if not y_:
                             y_ = self.now_year
                         m_ = self.now_mon
+                        add_y, add_m = divmod(m_, 12)
+                        y_ += add_y
+                        m_ = add_m
                     if not mi_:
                         mi_ = '00'
                     if not sec_:
