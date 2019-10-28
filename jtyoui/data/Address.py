@@ -24,7 +24,7 @@ _Address = {}
 _TREE = None
 
 
-def download_address_file(file_address_path):
+def _download_address_file(file_address_path):
     """下载地址数据包
     :param file_address_path:保存地址文件的路径
     """
@@ -49,9 +49,9 @@ def load_address_file(file_address_path):
     :param file_address_path: 加载地址文件的路径，没有地址文件默认自动下载。
     :return: 地址文件数据，类型字典
     """
-    file_address_path = os.path.abspath(file_address_path) + os.sep + 'jtyoui_address'
+    file_address_path = os.path.abspath(file_address_path) + os.sep + 'address'
     if not os.path.exists(file_address_path):
-        if not download_address_file(file_address_path):
+        if not _download_address_file(file_address_path):
             raise DownLoadDataError('检查网络设置，下载地址文件数据异常！')
     bz = bz2.BZ2File(file_address_path)
     text = bz.read().decode('utf-8')
@@ -70,9 +70,9 @@ def find_address(name):
     global _Address
     if not _Address:
         if 'Windows' in platform():
-            path = r'D:/jtyoui_address'
+            path = r'D://'
         else:
-            path = r'./jtyoui_address'
+            path = r'./'
         _Address = load_address_file(path)
     address = []
     for province in _Address:
@@ -131,8 +131,8 @@ if __name__ == '__main__':
     print(find_identity_card_address('贵州省贵阳市南明区花果园延安南路28号'))
 
     print('---------------------搜索树查找，第一次比较慢------------------------------------------')
-    for t in finds_address(load_address_file(r'D:/jtyoui_address'), '晋安'):
+    for t in finds_address(load_address_file('D://'), '晋安'):
         print(t)
 
-    for t in finds_address(load_address_file(r'D:/jtyoui_address'), '遵义县'):
+    for t in finds_address(load_address_file(r'D://'), '遵义县'):
         print(t)
