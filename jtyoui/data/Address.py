@@ -7,6 +7,7 @@ from jtyoui.error import DownLoadDataError
 from jtyoui.decorator import deprecationWarning
 from jtyoui.algorithm import dict_create_tree
 from platform import platform
+import time
 import os
 import bz2
 import json
@@ -32,6 +33,7 @@ def _download_address_file(file_address_path):
     url = 'https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/rear.bz2'
     place = urlretrieve(url, file_address_path)  # 下载
     print('---------验证数据-------')
+    time.sleep(2)
     if not os.path.exists(file_address_path):
         print('下载失败')
         return False
