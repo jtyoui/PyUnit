@@ -32,14 +32,11 @@ class Tree:
         ls = []
         self.search_tree(value, ls)
         for trees in ls:
-            values = []
-            while trees.parent is not None:
-                values.append(trees.value)
-                trees = trees.parent
-            yield '-'.join(reversed(values))
+            yield trees.node_parent_value()
 
     def node_parent_value(self):
         """知道一个节点，打印该节点的所有值（路径）
+        :return: 返回该节点路径上的所有值
         """
         ls = []
         node = self
