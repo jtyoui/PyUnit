@@ -38,6 +38,17 @@ class Tree:
                 trees = trees.parent
             yield '-'.join(reversed(values))
 
+    def node_parent_value(self):
+        """知道一个节点，打印该节点的所有值（路径）
+        """
+        ls = []
+        node = self
+        while node.parent:
+            ls.append(node.value)
+            node = node.parent
+
+        return '-'.join(reversed(ls))
+
 
 def dict_create_tree(data: dict, tree: Tree = Tree(value='Root')):
     """创建下面的树结构
@@ -71,6 +82,9 @@ if __name__ == '__main__':
     tree_object = []
     ts.search_tree('g', tree_object)
     print(tree_object)
+
+    print('---------------------打印路径------------------------------------')
+    print(tree_object[0].node_parent_value())
 
     print('-----------------------搜索树的路径-------------------------')
     for i in ts.search_tree_value('g'):
