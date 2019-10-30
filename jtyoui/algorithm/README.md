@@ -68,6 +68,9 @@ if __name__ == '__main__':
     ts.search_tree('g', tree_object)
     print(tree_object)
 
+    print('---------------------打印路径------------------------------------')
+    print(tree_object[0].node_parent_value())
+
     print('-----------------------搜索树的路径-------------------------')
     for i in ts.search_tree_value('g'):
         print(i)

@@ -4,6 +4,7 @@
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
 from itertools import combinations_with_replacement, permutations, combinations
+from jtyoui.decorator import replace_regular
 import random
 import string
 import collections
@@ -199,6 +200,20 @@ def get_argCount(func) -> int:
     return func.__code__.co_argcount
 
 
+def strip(data: str, re_) -> str:
+    """支持正则去除data中的数据。类似于str.strip()函数
+    :param data: 数据
+    :param re_:去除data中的数据
+    :return: 去除后的数据
+    """
+
+    @replace_regular(re_, '')
+    def clean(data_):
+        return data_
+
+    return clean(data)
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -219,3 +234,4 @@ if __name__ == '__main__':
     print(is_chinese('张'), is_chinese('a'))
     print_heart()
     print(get_argCount(contain_subset))
+    print(strip('张a伟', 'a'))
