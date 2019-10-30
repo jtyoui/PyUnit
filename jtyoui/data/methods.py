@@ -10,6 +10,7 @@ import string
 import collections
 import re
 import os
+import unicodedata
 
 _special = "#$%&@"
 
@@ -171,7 +172,7 @@ def print_heart(s='♥'):
             m = (x1 ** 2 + y1 ** 2 - 1) ** 3 - x1 ** 2 * y1 ** 3  # 心脏公式
             flag.append(s[(x - y) % len(s)] if m <= 0 else ' ')
         ls.append(''.join(flag) + '\n')
-    print("\033[91m" + ''.join(ls))
+    print("\033[5;31m" + ''.join(ls) + '\033[0m')
     return ls
 
 
@@ -214,6 +215,19 @@ def strip(data: str, re_) -> str:
     return clean(data)
 
 
+def find_unicodedata_name(data: str) -> list:
+    """查询Unicode编码中的名字
+    ♠ == BLACK SPADE SUIT
+    \N{BLACK SPADE SUIT} == ♠
+    :param data: 字符串
+    :return: 字符的Unicode名字列表
+    """
+    ls = []
+    for i in data:
+        ls.append(unicodedata.name(i))
+    return ls
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -235,3 +249,4 @@ if __name__ == '__main__':
     print_heart()
     print(get_argCount(contain_subset))
     print(strip('张a伟', 'a'))
+    print(find_unicodedata_name('♠'))
