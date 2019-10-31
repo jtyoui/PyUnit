@@ -45,6 +45,8 @@ class ParseTime:
             self.now_minute = 0
             self.now_second = 0
 
+        self.reduction = True  # 启动还原时分秒
+
     def load_config(self, map_path=None, re_path=None):
         """自定义日期解析映射表和匹配日期的正则表
         :param map_path: 解析日期的映射表
@@ -64,7 +66,12 @@ class ParseTime:
     def change_time(self, day=0, hour=0, minute=0, week=0, second=0):
         """增加天数来修改时间"""
         add_time = datetime.timedelta(days=day, hours=hour, minutes=minute, weeks=week, seconds=second)
-        add = datetime.datetime.strptime(self.str_time(), self.format) + add_time
+        if self.reduction:
+            change = F'{self.now_year}-{self.now_mon}-{self.now_day} 00:00:00'  # 时分秒还原到0
+            self.reduction = False
+        else:
+            change = self.str_time()
+        add = datetime.datetime.strptime(change, self.format) + add_time
         self.now_year = add.year
         self.now_mon = add.month
         self.now_day = add.day
@@ -156,6 +163,8 @@ class ParseTime:
             if add_hour < sc:
                 add_hour += sc
             self.change_time(hour=add_hour)
+        else:
+            self.reduction = False
 
     def minute(self):
         """查找当前的分钟"""
@@ -208,5 +217,50 @@ class ParseTime:
 
 
 if __name__ == '__main__':
-    pt = ParseTime('上上个周星期天下午2点25分钟30秒').parse()
-    print(pt)
+    today = '2019-10-31 16:00:00'
+    pt = ParseTime('上上个周星期天下午2点25分钟30秒', today).parse()
+    print(pt)  # 2019-10-20 14:25:30
+
+    print('-----------------切换日期------------------')
+    st = ParseTime('下周星期一下午2点半开会', today).parse()
+    print(st)  # 2019-11-4 14:30:00
+
+    print('----------------多个时间-------------------')
+    st = ParseTime('今天下午3点', today).parse()
+    print(st)  # 2019-10-31 15:00:00
+
+    print('----------------没有时间-------------------')
+    st = ParseTime('我要是不传时间呢？', today).parse()
+    print(st)  # 2019-10-31 16:00:00
+
+    print('---------------只有天数--------------------')
+    st = ParseTime('明天去哪里？', today).parse()
+    print(st)  # 2019-11-1 16:00:00
+
+    print('---------------没有日期或者天数--------------------')
+    st = ParseTime('下午2点半开会', today).parse()
+    print(st)  # 2019-10-31 14:30:00
+
+    print('---------------*几个月以后--------------------')
+    st = ParseTime('下个月1号下午3点', today).parse()
+    print(st)
+
+    print('--------------几天之后--------------')
+    st = ParseTime('三天之后下午3点开会', today).parse()
+    print(st)
+
+    print('--------------几月底--------------')
+    st = ParseTime('明年的2月底之前必须交报告', today).parse()
+    print(st)
+
+    print('--------晚上-----------')
+    st = ParseTime('晚上11点20分', today).parse()
+    print(st)  # 2019-10-31 23:20:00
+
+    print('--------下个周几-----------')
+    st = ParseTime('下个周2', today).parse()
+    print(st)
+
+    print('--------几个月以后的日期--------')
+    st = ParseTime('5个月后的明天', today).parse()
+    print(st)
