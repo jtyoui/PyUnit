@@ -51,6 +51,10 @@ class StringTime:
 
     def adds(self, x, fmt):
         add = datetime.datetime.strptime(self._localtime, self.format) + datetime.timedelta(days=x)
+        self.now_year = add.year
+        self.now_mon = add.month
+        self.now_day = add.day
+        self.now_week = add.isoweekday()
         return add.strftime(fmt)
 
     def find(self, name):
