@@ -121,10 +121,12 @@ class ParseTime:
         self.now_year += value
 
     def week(self):
+        """查找第几个周"""
         value = self._analysis('week')
         self.change_time(week=value)
 
     def what_week(self):
+        """查找当前周中的第几个星期"""
         ds = self.map['chinese_mon']
         keys = r'星期(\d+|' + '|'.join(ds.keys())[4:-11] + '天|日)'
         match = re.search(keys, self.data)
@@ -143,6 +145,7 @@ class ParseTime:
             self.change_time(day=differ)
 
     def hour(self):
+        """查找当前的小时"""
         re_hour = '(' + '|'.join(self.re['re_hour']) + ')' + r'\d+点'
         match = re.search(re_hour, self.data)
         if match is not None:
@@ -155,6 +158,7 @@ class ParseTime:
             self.change_time(hour=add_hour)
 
     def minute(self):
+        """查找当前的分钟"""
         re_minute = '|'.join(self.re['re_minute'])
         match = re.search(re_minute, self.data)
         if match is not None:
@@ -168,6 +172,7 @@ class ParseTime:
             self.change_time(minute=add_min)
 
     def second(self):
+        """查找当前的秒钟"""
         re_second = '|'.join(self.re['re_second'])
         match = re.search(re_second, self.data)
         if match is not None:
@@ -177,6 +182,7 @@ class ParseTime:
                 self.change_time(second=add_second)
 
     def parse(self):
+        """开始解析，返回解析后的标准时间"""
         self.second()
         self.minute()
         self.hour()
@@ -185,29 +191,22 @@ class ParseTime:
         self.day()
         self.month()
         self.year()
-        return self.standard_time()
+        return self
 
     def __add__(self, other):
-        pass
-
-    def __iadd__(self, other):
+        """两个时间对象相加"""
         pass
 
     def __mul__(self, other):
-        pass
-
-    def __imul__(self, other):
+        """两个时间对象相减"""
         pass
 
     def __str__(self):
+        """字符串格式化"""
         return F'{self.now_year}-{self.now_mon}-{self.now_day} ' \
                F'{self.now_hour:0>2}:{self.now_minute:0>2}:{self.now_second:0>2}'
 
-    def __repr__(self):
-        return self.__str__()
-
 
 if __name__ == '__main__':
-    pt = ParseTime('上上个周星期天下午2点25分钟30秒')
-    t = pt.parse()
+    pt = ParseTime('上上个周星期天下午2点25分钟30秒').parse()
     print(pt)
