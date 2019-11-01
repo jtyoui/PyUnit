@@ -22,7 +22,8 @@ class ParseTime:
         self.map, self.re = None, None
         self.load_config()
 
-        self.data = ''.join(map(lambda x: self.map['chinese_mon'].get(x, x), data))
+        self.data = data + '\033'
+        self._decide_ten()
         # 定义当前日期
         self.localtime = current_date if current_date else time.strftime(date_format)
 
@@ -161,7 +162,15 @@ class ParseTime:
     def year(self):
         """查询年份"""
         value = self._analysis('year')
-        self.now_year += value
+        if value == 0:
+            re_year = '|'.join(self.re['re_year'])
+            change_year = re.search(re_year, self.data)
+            if change_year:
+                message = change_year.group()
+                if message[:-1].isdigit():
+                    self.now_year = int(message[:-1])
+        else:
+            self.now_year += value
 
     def week(self):
         """查找第几个周"""
@@ -241,6 +250,35 @@ class ParseTime:
         self.year()
         return self
 
+    def _decide_ten(self):
+        """重新映射一些词语"""
+        chinese_mon = self.map['chinese_mon']
+        str_ = list()
+        for data in self.data:
+            if data == '周':
+                # 如果又有周又有星期，不改变
+                if '星期' in self.data:
+                    str_.append(data)
+                else:  # 否则将周改为星期
+                    str_.append(self.map['chinese_mon'].get(data, data))
+            elif data != '十' and data in chinese_mon:  # 十为特殊符号
+                str_.append(self.map['chinese_mon'][data])
+            else:
+                str_.append(data)
+        if '十' in str_:
+            # 判断十在每个位置上的不同意义
+            for index, c in enumerate(str_):
+                if c == '十':
+                    if str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：二十一实际上十可以取空，变成21
+                        str_[index] = ''
+                    elif str_[index - 1].isdigit() and (not str_[index + 1].isdigit()):  # 比如：二十实际上十变成0，变成20
+                        str_[index] = '0'
+                    elif not str_[index - 1].isdigit() and str_[index + 1].isdigit():  # 比如：十三实际上十变成1，变成13
+                        str_[index] = '1'
+                    else:
+                        str_[index] = '10'  # 其余情况十就变成10
+        self.data = ''.join(str_[:-1])
+
     def __add__(self, other):
         """两个时间对象相加"""
         pass
@@ -307,3 +345,7 @@ if __name__ == '__main__':
     print('------------凌晨或者半夜------------------')
     st = ParseTime('昨天凌晨3点', today).parse()
     print(st)  # 2019-10-31 03:00:00
+
+    print('-------------只说时间-----------------------')
+    st = ParseTime('二零零七年八月二十一号下午2点半', today).parse()
+    print(st)
