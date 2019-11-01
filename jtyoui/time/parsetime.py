@@ -22,7 +22,7 @@ class ParseTime:
         self.map, self.re = None, None
         self.load_config()
 
-        self.data = data
+        self.data = ''.join(map(lambda x: self.map['chinese_mon'].get(x, x), data))
         # 定义当前日期
         self.localtime = current_date if current_date else time.strftime(date_format)
 
@@ -106,21 +106,57 @@ class ParseTime:
     def day(self):
         """查询天数"""
         value = self._analysis('day')
+        if value == 0:
+            re_year = '|'.join(self.re['re_day'])
+            change_day = re.search(re_year, self.data)
+            if change_day:
+                message = change_day.group()
+                if message[:-1].isdigit():
+                    self.now_day = message[:-1]
+                elif '后' in message:
+                    value = int(message[:message.find('天')])
+                elif '前' in message:
+                    value = -int(message[:message.find('天')])
         self.change_time(day=value)
 
     def month(self):
         """查询月份"""
         value = self._analysis('month')
-        mon = self.now_mon + value
-        if mon == 0:
-            self.now_year -= 1
-            mon = 12
-        if mon > 12:
-            over_12_mon, mod_12 = divmod(mon, 12)
-            self.now_year += over_12_mon
-            self.now_mon = mod_12
-        else:
-            self.now_mon = mon
+        if value == 0:
+            re_month = '|'.join(self.re['re_month'])
+            change_month = re.search(re_month, self.data)
+            if change_month:
+                message = change_month.group()
+                if '个月' in message:
+                    point = message[:message.find('个')]
+                else:
+                    point = message[:message.find('月')]
+                if point.isdigit():
+                    point = int(point)
+                    if '底' in message:
+                        self.now_mon = point + 1
+                        self.now_day = 1
+                        self.change_time(day=-1)
+                    elif '除' in message:
+                        self.now_mon = point
+                        self.now_day = 1
+                    elif '后' in message:
+                        value = point
+                    elif '前' in message:
+                        value = -point
+                    else:
+                        self.now_mon = point
+        if value:
+            mon = self.now_mon + value
+            if mon == 0:
+                self.now_year -= 1
+                mon = 12
+            if mon > 12:
+                over_12_mon, mod_12 = divmod(mon, 12)
+                self.now_year += over_12_mon
+                self.now_mon = mod_12
+            else:
+                self.now_mon = mon
 
     def year(self):
         """查询年份"""
@@ -161,7 +197,10 @@ class ParseTime:
             point = value[:2]
             sc = int(self.map['add_hour'].get(point, 0))
             if add_hour < sc:
-                add_hour += sc
+                if '凌晨' in value and add_hour == 12:
+                    add_hour = sc  # 凌晨12点等于凌晨0点
+                else:
+                    add_hour += sc
             self.change_time(hour=add_hour)
         else:
             self.reduction = False
@@ -243,24 +282,28 @@ if __name__ == '__main__':
 
     print('---------------*几个月以后--------------------')
     st = ParseTime('下个月1号下午3点', today).parse()
-    print(st)
+    print(st)  # 2019-11-1 15:00:00
 
     print('--------------几天之后--------------')
-    st = ParseTime('三天之后下午3点开会', today).parse()
-    print(st)
+    st = ParseTime('三天之前下午3点', today).parse()
+    print(st)  # 2019-10-28 15:00:00
 
     print('--------------几月底--------------')
     st = ParseTime('明年的2月底之前必须交报告', today).parse()
-    print(st)
+    print(st)  # 2020-2-28 16:00:00
 
     print('--------晚上-----------')
-    st = ParseTime('晚上11点20分', today).parse()
-    print(st)  # 2019-10-31 23:20:00
+    st = ParseTime('3月除', today).parse()
+    print(st)  # 2019-3-1 16:00:00
 
     print('--------下个周几-----------')
     st = ParseTime('下个周2', today).parse()
-    print(st)
+    print(st)  # 2019-11-5 16:00:00
 
     print('--------几个月以后的日期--------')
     st = ParseTime('5个月后的明天', today).parse()
-    print(st)
+    print(st)  # 2020-4-1 16:00:00
+
+    print('------------凌晨或者半夜------------------')
+    st = ParseTime('昨天凌晨3点', today).parse()
+    print(st)  # 2019-10-31 03:00:00
