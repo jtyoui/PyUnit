@@ -250,6 +250,10 @@ class ParseTime:
         self.year()
         return self
 
+    def find_times(self):
+        """同StringTime.find_times中的一样"""
+        return [self.parse().__str__()]
+
     def _decide_ten(self):
         """重新映射一些词语"""
         chinese_number = self.map['chinese_number']
