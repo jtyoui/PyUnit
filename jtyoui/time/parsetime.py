@@ -179,7 +179,7 @@ class ParseTime:
 
     def what_week(self):
         """查找当前周中的第几个星期"""
-        ds = self.map['chinese_mon']
+        ds = self.map['chinese_number']
         keys = r'星期(\d+|' + '|'.join(ds.keys())[4:-11] + '天|日)'
         match = re.search(keys, self.data)
         if match is not None:
@@ -252,7 +252,7 @@ class ParseTime:
 
     def _decide_ten(self):
         """重新映射一些词语"""
-        chinese_mon = self.map['chinese_mon']
+        chinese_number = self.map['chinese_number']
         str_ = list()
         for data in self.data:
             if data == '周':
@@ -260,9 +260,9 @@ class ParseTime:
                 if '星期' in self.data:
                     str_.append(data)
                 else:  # 否则将周改为星期
-                    str_.append(self.map['chinese_mon'].get(data, data))
-            elif data != '十' and data in chinese_mon:  # 十为特殊符号
-                str_.append(self.map['chinese_mon'][data])
+                    str_.append(self.map['chinese_number'].get(data, data))
+            elif data != '十' and data in chinese_number:  # 十为特殊符号
+                str_.append(self.map['chinese_number'][data])
             else:
                 str_.append(data)
         if '十' in str_:
@@ -348,4 +348,4 @@ if __name__ == '__main__':
 
     print('-------------只说时间-----------------------')
     st = ParseTime('二零零七年八月二十一号下午2点半', today).parse()
-    print(st)
+    print(st)  # 2007-8-21 14:30:00

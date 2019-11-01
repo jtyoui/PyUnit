@@ -3,6 +3,7 @@
 # @Time  : 2019/4/24 17:29
 # @Author: Jtyoui@qq.com
 from jtyoui.data import chinese_mon_number, add_time
+from jtyoui.decorator import warns
 import re
 import datetime
 import time
@@ -171,6 +172,7 @@ class StringTime:
                     second.append(d[:-1])
         return second if second else []
 
+    @warns('该类已经废除、废除时间2019年11月1日（19.10.28版本），请将StringTime类换成ParseTime类使用', DeprecationWarning)
     def find_times(self):
         """ 根据一句话来找对应的时间"""
         words = re.split(r'[,.，。、?!？！]', self.sentence)

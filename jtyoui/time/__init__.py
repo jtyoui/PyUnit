@@ -2,3 +2,4 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/10/31 13:28
 # @Author: Jtyoui@qq.com
+from .parsetime import ParseTime  # 解析口语化字符串时间

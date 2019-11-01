@@ -32,7 +32,7 @@ if __name__ == '__main__':
     print(st.find_times()) # 2007-10-31 14:30:00
 ```
 
-### 查询字符串时间
+### 查询字符串时间(已废除、使用ParseTime)
 ```python
 from jtyoui.tools import StringTime
 
