@@ -10,7 +10,7 @@
     pip install jtyoui
     
 ### 默认官方数据集训练的模型（只能识别：人名、地名、机构名）
-[点击下载模型](http://q0la55oeq.bkt.clouddn.com/%E5%AE%9E%E4%BD%93%E6%8A%BD%E5%8F%96%E6%A8%A1%E5%9E%8B.rar?attname=)
+[点击下载模型](http://oss.tyoui.cn/%E5%AE%9E%E4%BD%93%E6%8A%BD%E5%8F%96%E6%A8%A1%E5%9E%8B.rar?attname=)
 
 
 ### 默认的参数和映射表
