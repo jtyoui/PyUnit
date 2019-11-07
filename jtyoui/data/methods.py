@@ -5,6 +5,7 @@
 # @Software: PyCharm
 from itertools import combinations_with_replacement, permutations, combinations
 from jtyoui.decorator import replace_regular
+from collections.abc import Iterable
 import random
 import string
 import collections
@@ -226,6 +227,16 @@ def find_unicodedata_name(data: str) -> list:
     for i in data:
         ls.append(unicodedata.name(i))
     return ls
+
+
+def join(chars: str, obj: Iterable) -> str:
+    """同str.join函数一样，只不过数字会自动转为字符串
+    :param chars: 要拼接的字符串
+    :param obj: 拼接对象
+    :return: 字符串
+    """
+    o = (str(i) for i in obj)
+    return chars.join(o)
 
 
 if __name__ == '__main__':
