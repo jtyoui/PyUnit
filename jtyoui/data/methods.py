@@ -4,7 +4,6 @@
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
 from itertools import combinations_with_replacement, permutations, combinations
-from jtyoui.decorator import replace_regular
 from collections.abc import Iterable
 import random
 import string
@@ -12,6 +11,7 @@ import collections
 import re
 import os
 import unicodedata
+import jtyoui
 
 _special = "#$%&@"
 
@@ -209,7 +209,7 @@ def strip(data: str, re_) -> str:
     :return: 去除后的数据
     """
 
-    @replace_regular(re_, '')
+    @jtyoui.replace_regular(re_, '')
     def clean(data_):
         return data_
 
@@ -239,6 +239,27 @@ def join(chars: str, obj: Iterable) -> str:
     return chars.join(o)
 
 
+def key_value_re(key: list, value: list, value_re: str = None, key_re: str = None) -> list:
+    """根据value值的索引获取key或者根据key的索引获取到value。
+    :param key:k值。['a','b']
+    :param value:v值。[0,1]
+    :param value_re: 根据值的正则获取key。比如：01正则表达式获取到ab
+    :param key_re:同理。根据key的正则。获取到值。比如：ab正则表达式。返回01
+    """
+    if key_re is None and value_re is None:
+        raise TypeError('value_re和key_re必须写一个')
+    if len(key) == len(value):
+        if value_re:
+            tool = jtyoui.Tool(join('', key))
+            return tool.index_select_string(join('', value), value_re)
+        else:
+            tool = jtyoui.Tool(join('', value))
+            return tool.index_select_string(join('', key), key_re)
+    else:
+        "这里当key和value不相等时。暂时没有想到怎么处理，比如：['我', '叫', '刘', '万', '光'], [6, 6, 10, 11, 11],这种情况"
+    return []
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -261,3 +282,4 @@ if __name__ == '__main__':
     print(get_argCount(contain_subset))
     print(strip('张a伟', 'a'))
     print(find_unicodedata_name('♠'))
+    print(key_value_re(['我', '叫', '刘', '万', '光'], [6, 6, 0, 1, 1], value_re='01+'))
