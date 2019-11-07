@@ -48,6 +48,7 @@ ________________________
 30. [项目接口文件](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/project)   
 31. [中国人属性包](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/person)   
 31. [口语化时间处理](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/time)   
+32. [机器学习模型](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/ml)  
 
 __________________________
 
