@@ -172,7 +172,8 @@ def st(new_model_path=None, new_config=None, new_label_map_config=None) -> list:
 
 
 if __name__ == '__main__':
-    ERNIE_MODEL_PATH = 'D://modelBS'
+    # 默认的模型参数和映射表
+    ERNIE_MODEL_PATH = 'D://model'
     ERNIE_CONFIG = {
         "attention_probs_dropout_prob": 0.1,
         "hidden_act": "relu",
@@ -192,9 +193,7 @@ if __name__ == '__main__':
         "I-ORG": 3,
         "B-LOC": 4,  # 地名
         "I-LOC": 5,
-        "B-GUE": 6,  # 办事指南
-        "I-GUE": 7,
-        "O": 8
+        "O": 6
     }
     s = st(ERNIE_MODEL_PATH, ERNIE_CONFIG, ERNIE_LABEL_MAP)
     print(match('我叫刘万光我是贵阳市南明村永乐乡水塘村的村民', s))

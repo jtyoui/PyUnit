@@ -8,9 +8,21 @@
 
 ### 安装
     pip install jtyoui
+    
+### 默认官方数据集训练的模型（只能识别：人名、地名、机构名）
+[点击下载模型](http://q0la55oeq.bkt.clouddn.com/%E5%AE%9E%E4%BD%93%E6%8A%BD%E5%8F%96%E6%A8%A1%E5%9E%8B.rar?attname=)
 
 
-### 实体识别
+### 默认的参数和映射表
+```python
+from jtyoui.neuralNetwork import ernie_st,ernie_match,ERNIE_MODEL_PARAMETER,ERNIE_LABEL_MAP
+ERNIE_MODEL_PATH = 'D://model' #解压的文件夹的地址
+s = ernie_st(ERNIE_MODEL_PATH, ERNIE_MODEL_PARAMETER, ERNIE_LABEL_MAP)
+print(ernie_match('我叫刘万光我是贵阳市南明村永乐乡水塘村的村民', s))
+```
+
+
+### 其他模型实体识别
 ```python
 from jtyoui.neuralNetwork import ernie_st,ernie_match
 if __name__ == '__main__':

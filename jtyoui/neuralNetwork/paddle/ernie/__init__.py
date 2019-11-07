@@ -17,3 +17,13 @@ ERNIE_MODEL_PARAMETER = {
     "type_vocab_size": 2,
     "vocab_size": 18000
 }
+
+ERNIE_LABEL_MAP = {
+    "B-PER": 0,  # 人名
+    "I-PER": 1,
+    "B-ORG": 2,  # 机构名
+    "I-ORG": 3,
+    "B-LOC": 4,  # 地名
+    "I-LOC": 5,
+    "O": 6
+}
