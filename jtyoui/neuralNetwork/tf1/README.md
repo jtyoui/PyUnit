@@ -17,9 +17,10 @@
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 ## 初始化第三方库
-    tensorflow==1.14.0
+    tensorflow
     numpy
     pillow
+    keras
 
 
 ## 手写数据训练和测试
