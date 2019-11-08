@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-from jtyoui import __version__, __author__, __description__
+from jtyoui import __version__, __author__, __description__, __email__
 
 with open('README.md', encoding='utf-8') as f:
     long_text = f.read()
@@ -12,7 +12,7 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/jtyoui/Jtyoui',
     author=__author__,
-    author_email='jtyoui@qq.com',
+    author_email=__email__,
     license='MIT Licence',
     packages=find_packages(),
     platforms=["window10", "Linux"],
