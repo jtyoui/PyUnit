@@ -6,7 +6,7 @@ from jtyoui.error import CoordinateLengthNotEqualError
 
 
 def map_replace(str_: str, key: [list, str] = None, value: [list, str] = None, maps: dict = None) -> str:
-    """映射替换
+    """映射替换,最好使用maps字典映射
     :param str_: 字符串
     :param key: 替换字符
     :param value: 被替换的字符
@@ -14,10 +14,10 @@ def map_replace(str_: str, key: [list, str] = None, value: [list, str] = None, m
     :return: 替换完毕的字符串
     """
     if maps:
-        key, value = '', ''
+        strings = str_
         for k, v in maps.items():
-            key += k
-            value += v
+            strings = strings.replace(k, v)
+        return strings
     else:
         if len(key) != len(value):
             raise CoordinateLengthNotEqualError('替换的长度必须相同！')
