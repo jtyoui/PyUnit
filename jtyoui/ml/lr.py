@@ -5,6 +5,10 @@
 from jtyoui.ml import sigmoid, error_rate
 import numpy as np
 
+__description__ = """
+LR(逻辑回归)算法
+"""
+
 
 def lr_train_bgd(feature, label, max_cycle, alpha):
     """利用梯度下降法训练逻辑回归模型（LR）

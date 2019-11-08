@@ -9,6 +9,8 @@ import os
 import datetime
 import re
 
+NOW_TIME = time.localtime(time.time())
+
 
 class ParseTime:
 
