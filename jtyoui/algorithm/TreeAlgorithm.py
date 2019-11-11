@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/10/28 15:27
 # @Author: Jtyoui@qq.com
+import collections
 
 
 class Tree:
@@ -64,6 +65,15 @@ def dict_create_tree(data: dict, tree: Tree = Tree(value='Root')):
     return tree
 
 
+def tree():
+    """创建一颗简单树
+    x=tree()
+    x['a']['b']=1
+    :return: 树
+    """
+    return collections.defaultdict(tree)
+
+
 if __name__ == '__main__':
     """创建下面的树结构
             a
@@ -86,3 +96,10 @@ if __name__ == '__main__':
     print('-----------------------搜索树的路径-------------------------')
     for i in ts.search_tree_value('g'):
         print(i)
+
+    print('#############################################################')
+    x = tree()
+    x['a']['b'] = ['e', 'f', 'g']
+    x['a']['c'] = ['g', 'h']
+    x['a']['d'] = ['k', 'm']
+    print(x)
