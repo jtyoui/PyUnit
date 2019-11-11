@@ -37,3 +37,23 @@ def get_cost(predict: np.mat, label: np.mat) -> float:
     for i in range(m):
         error -= np.log(sigmoid(predict[i, 0] * label[i, 0]))
     return error
+
+
+def line_regression_a_b(x: np.array, y: np.array):
+    """求解线性回归的a和β值。即y=b+a*x
+    :param x: 数据特征值：应该是两维度。即：[[],[],[]]
+    :param y: 数据预测值;一维度。即：[]
+    :return: a值、和b值
+    """
+    var = np.var(x, ddof=1)  # 贝塞尔校正,方差
+    cov = np.cov(x.transpose(), y)[0][1]  # 协方差
+    x_ = np.mean(x)
+    y_ = np.mean(y)
+    a = cov / var
+    b = y_ - a * x_
+    return a, b
+
+
+if __name__ == '__main__':
+    a_, b_ = line_regression_a_b(np.array([[6], [8], [10], [14], [18]]), np.array([7, 9, 13, 17.5, 18]))
+    print(np.array([[12]]) * a_ + b_)  # [[13.68103448]]
