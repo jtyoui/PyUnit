@@ -24,3 +24,16 @@ def error_rate(h, label):
         else:
             sum_err -= 0
     return sum_err / m
+
+
+def get_cost(predict: np.mat, label: np.mat) -> float:
+    """计算损失函数的值
+    :param predict:预测值
+    :param label:标签
+    :return:损失函数的值
+    """
+    m = len(predict)
+    error = 0.0
+    for i in range(m):
+        error -= np.log(sigmoid(predict[i, 0] * label[i, 0]))
+    return error
