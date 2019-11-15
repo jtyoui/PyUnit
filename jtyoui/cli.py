@@ -67,5 +67,13 @@ def weather(name, day):
     pprint.pprint(days)
 
 
+@main.add_command
+@click.command(help='更新pip包')
+def upload():
+    os.system('python setup.py sdist bdist_wheel')
+    os.system('python -m twine upload dist/*')
+    print('更新完毕！')
+
+
 if __name__ == "__main__":
     main()
