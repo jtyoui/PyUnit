@@ -8,8 +8,30 @@ import os
 import numpy as np
 from paddle import fluid
 
+ERNIE_MODEL_PARAMETER = {
+    "attention_probs_dropout_prob": 0.1,
+    "hidden_act": "relu",
+    "hidden_dropout_prob": 0.1,
+    "hidden_size": 768,
+    "initializer_range": 0.02,
+    "max_position_embeddings": 513,
+    "num_attention_heads": 12,
+    "num_hidden_layers": 12,
+    "type_vocab_size": 2,
+    "vocab_size": 18000
+}
+ERNIE_LABEL_MAP = {
+    "B-PER": 0,  # 人名
+    "I-PER": 1,
+    "B-ORG": 2,  # 机构名
+    "I-ORG": 3,
+    "B-LOC": 4,  # 地名
+    "I-LOC": 5,
+    "O": 6
+}
+
 # 需要自己更改
-model_path, config, label_map_config = None, None, None
+model_path, config, label_map_config = None, ERNIE_MODEL_PARAMETER, ERNIE_LABEL_MAP
 
 
 def pad_batch_data(inst, pad_idx=0, input_mask=False):
@@ -67,8 +89,8 @@ def evaluate(exe, program, reader, graph_vars):
 
 
 def create_model():
-    reader = fluid.layers.py_reader(capacity=50, shapes=[[-1, 256, 1]] * 5, dtypes=['int64'] * 5, lod_levels=[0] * 5,
-                                    use_double_buffer=True)
+    reader = fluid.layers.py_reader(capacity=50, shapes=[[-1, 256, 1]] * 5, lod_levels=[0] * 5, use_double_buffer=True,
+                                    dtypes=['int64'] * 3 + ['float32', 'int64'])
 
     src_ids, sent_ids, pos_ids, input_mask, labels = fluid.layers.read_file(reader)
     self_attn_mask = fluid.layers.matmul(x=input_mask, y=input_mask, transpose_y=True)
@@ -174,26 +196,5 @@ def st(new_model_path=None, new_config=None, new_label_map_config=None) -> list:
 if __name__ == '__main__':
     # 默认的模型参数和映射表
     ERNIE_MODEL_PATH = 'D://model'
-    ERNIE_CONFIG = {
-        "attention_probs_dropout_prob": 0.1,
-        "hidden_act": "relu",
-        "hidden_dropout_prob": 0.1,
-        "hidden_size": 768,
-        "initializer_range": 0.02,
-        "max_position_embeddings": 513,
-        "num_attention_heads": 12,
-        "num_hidden_layers": 12,
-        "type_vocab_size": 2,
-        "vocab_size": 18000
-    }
-    ERNIE_LABEL_MAP = {
-        "B-PER": 0,  # 人名
-        "I-PER": 1,
-        "B-ORG": 2,  # 机构名
-        "I-ORG": 3,
-        "B-LOC": 4,  # 地名
-        "I-LOC": 5,
-        "O": 6
-    }
-    s = st(ERNIE_MODEL_PATH, ERNIE_CONFIG, ERNIE_LABEL_MAP)
+    s = st(ERNIE_MODEL_PATH)
     print(match('我叫刘万光我是贵阳市南明村永乐乡水塘村的村民', s))
