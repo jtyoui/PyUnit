@@ -20,7 +20,7 @@ def ua(browser='chrome', version='0.1.11', update=False):
     :return: 字典类型
     """
     global browsers
-    save_path = r'D:\browser.json' if os.name == 'nt' else '/etc/browser.json'
+    save_path = r'C:\browser.json' if os.name == 'nt' else '/etc/browser.json'
     browser_type = ['chrome', 'opera', 'firefox', 'internetexplorer', 'safari']
     b = {
         'c': 'chrome',
