@@ -17,7 +17,7 @@ def double_data_chart(start, end):
     header = ['期号', '红球1', '红球2', '红球3', '红球4', '红球5', '红球6', '篮球', '奖池',
               '一等奖注数', '一等奖奖金', '二等奖注数', '二等奖奖金', '总投注额', '开奖日期']
     ls = [header]
-    assert 1000 <= start < end, MathValueWarning('双色球的开始时间范围在：[1000-现在)')
+    assert 3001 <= start < end, MathValueWarning('双色球的开始时间范围在：[03001-现在)')
     url = f'https://datachart.500.com/ssq/history/newinc/history.php?start={start}&end={end}'
     data = get(url)
     response = data.content.decode('utf-8')
@@ -30,5 +30,5 @@ def double_data_chart(start, end):
 
 
 if __name__ == '__main__':
-    dc = double_data_chart(1000, 19131)
+    dc = double_data_chart(3001, 19131)
     print(dc)
