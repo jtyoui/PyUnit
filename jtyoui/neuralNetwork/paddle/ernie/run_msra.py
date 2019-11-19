@@ -82,7 +82,7 @@ def evaluate(exe, program, reader, graph_vars):
             _, np_infers = exe.run(program=program, fetch_list=fetch_list)
             total_number = [ls[0] for ls in np_infers[1:-1]]
         except Exception as e:
-            print(e)
+            assert 'There is no next data' in e.__str__(), Exception('非正常停止。')
             reader.reset()
             break
     return total_number
