@@ -49,6 +49,7 @@ ________________________
 31. [中国人属性包](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/person)   
 31. [口语化时间处理](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/time)   
 32. [机器学习模型](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/ml)  
+33. [爬虫模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/reptile)            
 
 __________________________
 
