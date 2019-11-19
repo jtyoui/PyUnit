@@ -3,10 +3,11 @@
 # @Time    : 2019/5/24 23:10
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
+from abc import ABC
 from html.parser import HTMLParser
 
 
-class ParseHtml(HTMLParser):
+class ParseHtml(HTMLParser, ABC):
     """基类"""
 
     def __init__(self, start_tag, start_attr, end_tag, end_attr):
