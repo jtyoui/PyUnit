@@ -14,15 +14,18 @@ NOW_TIME = time.localtime(time.time())
 
 class ParseTime:
 
-    def __init__(self, data, current_date=None, date_format='%Y-%m-%d %H:%M:%S'):
+    def __init__(self, data, current_date=None, date_format='%Y-%m-%d %H:%M:%S', **kwargs):
         """初始化数据日期
         :param data:当前数据
         :param current_date:当前日期
         :param date_format:日期解析格式
+        :param kwargs:其他参数
+        map_path :解析日期的映射表
+        re_path :匹配日期的正则表
         """
         # 加载日期的映射表和匹配日期的正则表
         self.map, self.re = None, None
-        self.load_config()
+        self.load_config(**kwargs)
 
         self.data = data + '\033'
         self._decide_ten()
