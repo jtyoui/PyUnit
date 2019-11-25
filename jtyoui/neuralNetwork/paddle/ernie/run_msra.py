@@ -47,6 +47,7 @@ def pad_batch_data(inst, pad_idx=0, input_mask=False):
 
 
 def prepare_batch_data(example):
+    example = example.lower()
     words = [1] + [vocal[word] for word in example if word in vocal] + [2]
     padded_token_ids, input_mask = pad_batch_data([words], 0, True)
     padded_text_type_ids = pad_batch_data([[0] * len(words)])
