@@ -64,7 +64,7 @@ class EntityExtraction:
     def re_card(self):
         """提取身份证号码"""
         cards = []
-        for i in re.findall(r'\d{15,18}', self.sentence):
+        for i in re.findall(r'\d{18}|\d{17}[Xx]|\d{15}', self.sentence):
             try:
                 jtyoui.check_id_card(i)
                 cards.append(i)

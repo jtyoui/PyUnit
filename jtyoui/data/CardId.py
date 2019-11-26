@@ -42,7 +42,7 @@ def check_id_card(id_card: str):
 
         if re.match(erg, id_card):
             m = id_card_calibration(id_card)
-            if m == id_card[17]:
+            if m == id_card[17].upper():  # 校验身份证最后一位，如果是x那么转为大写的X
                 return errors[0]
             else:
                 raise IdCardCheckError(errors[3])
