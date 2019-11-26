@@ -21,6 +21,7 @@ def ua(browser='chrome', version='0.1.11', update=False):
     """
     global browsers
     save_path = r'C:\browser.json' if os.name == 'nt' else '/etc/browser.json'
+    other_save_path = r'D:\browser.json' if os.name == 'nt' else '/home/browser.json'
     browser_type = ['chrome', 'opera', 'firefox', 'internetexplorer', 'safari']
     b = {
         'c': 'chrome',
@@ -37,6 +38,9 @@ def ua(browser='chrome', version='0.1.11', update=False):
     if (not update) and os.path.exists(save_path):
         with open(save_path, 'rb')as fp:
             json = pickle.load(fp)
+    elif (not update) and os.path.exists(other_save_path):
+        with open(other_save_path, 'rb')as fp:
+            json = pickle.load(fp)
     else:
         print(f'第一次在线加载，加载保存的文件在：{save_path}，以后都是离线加载，想改变请修改参数:update==True')
         cache = 'https://fake-useragent.herokuapp.com/browsers/' + version
@@ -47,8 +51,12 @@ def ua(browser='chrome', version='0.1.11', update=False):
             else:
                 raise UAPageVersionError('版本问题,重新指定版本')
         json = response.json()
-        with open(save_path, 'wb')as fp:
-            pickle.dump(json, fp)
+        try:
+            with open(save_path, 'wb')as fp:
+                pickle.dump(json, fp)
+        except PermissionError:
+            with open(other_save_path, 'wb')as fp:
+                pickle.dump(json, fp)
     browsers = json['browsers'][browser]
     return choice(browsers)
 
