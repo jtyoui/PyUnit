@@ -6,7 +6,7 @@ from jtyoui.neuralNetwork.paddle.ernie.transformer_encoder import encoder, pre_p
 from jtyoui.neuralNetwork.paddle.ernie.vocab import vocal
 import os
 import numpy as np
-from paddle import fluid
+from paddle import fluid  # pip install paddlepaddle==1.6.1
 
 ERNIE_MODEL_PARAMETER = {
     "attention_probs_dropout_prob": 0.1,
