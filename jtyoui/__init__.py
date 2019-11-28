@@ -3,7 +3,6 @@
 # @Time    : 2018/2/2 10:58
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
-
 from jtyoui.bs import binary_system  # 任意进制转换
 from jtyoui.code import cr  # 二维码识别
 from jtyoui.plunar import *  # 农历、阳历
@@ -35,6 +34,7 @@ from jtyoui.person import *  # 中国人属性
 from jtyoui.time import *  # 关于处理时间模块
 from jtyoui.reptile import *  # 关于爬虫的模块
 from jtyoui.ee import *  # 抽取实体
+from jtyoui.error.flaskerror import flask_abort, flask_error_abort, flask_register_errors  # 增加flask异常处理
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx', 'neuralNetwork', 'ml'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
