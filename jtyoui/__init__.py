@@ -34,7 +34,7 @@ from jtyoui.person import *  # 中国人属性
 from jtyoui.time import *  # 关于处理时间模块
 from jtyoui.reptile import *  # 关于爬虫的模块
 from jtyoui.ee import *  # 抽取实体
-from jtyoui.error.flaskerror import flask_abort, flask_error_abort, flask_register_errors  # 增加flask异常处理
+from jtyoui.flasks import *  # 对flask框架的补充
 
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx', 'neuralNetwork', 'ml'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
