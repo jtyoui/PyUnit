@@ -7,10 +7,25 @@ import json
 
 def content_type(requests):
     """根据不同的content_type来解析数据"""
-    if requests.content_type == 'application/x-www-form-urlencoded':
-        data = requests.form
-    elif requests.content_type == 'application/json':
-        data = json.loads(requests.data)
-    else:  # 暂时
-        data = json.loads(requests.data)
-    return data
+    if request.method == 'POST':
+        if requests.content_type == 'application/x-www-form-urlencoded':
+            data = requests.form
+        elif requests.content_type == 'application/json':
+            data = request.json
+        else:  # 无法被解析出来的数据
+            data = json.loads(requests.data)
+        return data
+    elif request.method == 'GET':
+        return request.args
+
+
+if __name__ == '__main__':
+    from flask import Flask, request, jsonify
+
+    app = Flask(__name__)
+
+
+    @app.route('/hi', methods=['POST', 'GET'])
+    def hello():
+        data = content_type(request)  # 所有的请求信息
+        return jsonify(data=data)
