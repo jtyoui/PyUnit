@@ -239,6 +239,17 @@ def join(chars: str, obj: Iterable) -> str:
     return chars.join(o)
 
 
+def find(str_: str, re_: str) -> list:
+    """功能类似于str.find(),但是支持正则表达式"""
+    f, flag = [], 0
+    x = re.findall(re_, str_)
+    for v in x:
+        index = str_.find(v, flag)
+        flag = index + 1
+        f.append(index)
+    return f
+
+
 def key_value_re(key: list, value: list, value_re: str = None, key_re: str = None) -> list:
     """根据value值的索引获取key或者根据key的索引获取到value。
     :param key:k值。['a','b']
@@ -283,3 +294,4 @@ if __name__ == '__main__':
     print(strip('张a伟', 'a'))
     print(find_unicodedata_name('♠'))
     print(key_value_re(['我', '叫', '刘', '万', '光'], [6, 6, 0, 1, 1], value_re='01+'))
+    print(find('abc', 'a|b'))  # 查找a或者b的索引
