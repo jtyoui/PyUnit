@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/11 11:33
 # @Author: Jtyoui@qq.com
+from .regexengine import RegexEngine  # 正则解析器
+
 Non_Chinese = r'[^\u4e00-\u9fa5]+'  # 匹配中文字符
 Chinese = r'[\u4e00-\u9fa5]'  # 匹配非中文字符
 

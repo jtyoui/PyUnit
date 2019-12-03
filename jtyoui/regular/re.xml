@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <!--车牌号提取-->
+    <CAR_PLATE part="False">
+        <CAR_PREFIX must="True">
+            [京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z][A-Z]
+        </CAR_PREFIX>
+
+        <CAR_SUFFIX must="True">
+            <ORDINARY_CAR must="False">
+                [A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]
+            </ORDINARY_CAR>
+
+            <NEW_ENERGY_VEHICLE must="False">
+                [0-9]{5}[DF]|[DF][A-HJ-NP-Z0-9][0-9]{4}
+            </NEW_ENERGY_VEHICLE>
+        </CAR_SUFFIX>
+    </CAR_PLATE>
+
+    <!--匹配电话号码-->
+    <ALL_Mobile_Data_Network_Card part="True">
+        <!--手机卡-->
+        <ALL_Mobile_Card must="False">
+            <!--移动手机卡-->
+            <MOVE_Card must="False">
+                (?:\+?86)?1(?:3(?:4[^9\D]|[5-9]\d)|5[^3-6\D]\d|8[23478]\d|(?:78|98)\d)\d{7}
+            </MOVE_Card>
+            <!--联通手机卡-->
+            <UNICOM_Card must="False">
+                (?:\+?86)?1(?:3[0-2]|[578][56]|66)\d{8}
+            </UNICOM_Card>
+            <!--电信手机卡-->
+            <TELECOM_Card must="False">
+                (?:\+?86)?1(?:3(?:3\d|49)\d|53\d{2}|8[019]\d{2}|7(?:[37]\d{2}|40[0-5])|9[19]\d{2})\d{6}
+            </TELECOM_Card>
+        </ALL_Mobile_Card>
+
+        <!--交通运输电话（海事卫星通信）-->
+        <Maritime_Communications must="False">(?:\+?86)?1749\d{7}</Maritime_Communications>
+
+        <!--工业和信息化部应急通信保障中心（应急通信）-->
+        <Emergency_Communication must="False">(?:\+?86)?174(?:0[6-9]|1[0-2])\d{6}</Emergency_Communication>
+
+        <!--虚拟运营商-->
+        <ALL_Virtual_Operator must="False">
+            <!--移动虚拟运营商-->
+            <Move_Virtual_Operator must="False">
+                (?:\+?86)?1(?:65\d|70[356])\d{7}
+            </Move_Virtual_Operator>
+            <!--联通虚拟运营商-->
+            <UNICOM_Virtual_Operator must="False">
+                (?:\+?86)?1(?:70[4789]|71\d|67\d)\d{7}
+            </UNICOM_Virtual_Operator>
+            <!--电信虚拟运营商-->
+            <TELECOM_Virtual_Operator must="False">
+                (?:\+?86)?170[0-2]\d{7}
+            </TELECOM_Virtual_Operator>
+        </ALL_Virtual_Operator>
+
+        <!--物联网数据卡-->
+        <ALL_Internet_of_Things_Data_Card must="False">
+            <!--移动物联网数据卡-->
+            <Move_Internet_of_Things_Data_Card must="False">
+                (?:\+?86)?14(?:40|8\d)\d{9}
+            </Move_Internet_of_Things_Data_Card>
+            <!--联通物联网数据卡-->
+            <UNICOM_Internet_of_Things_Data_Card must="False">
+                (?:\+?86)?146\d{10}
+            </UNICOM_Internet_of_Things_Data_Card>
+            <!--电信物联网数据卡-->
+            <TELECOM_Internet_of_Things_Data_Card must="False">
+                (?:\+?86)?1410\d{9}
+            </TELECOM_Internet_of_Things_Data_Card>
+        </ALL_Internet_of_Things_Data_Card>
+
+        <!--上网卡-->
+        <ALL_Wireless_Network_Card must="False">
+            <!--移动上网卡-->
+            <MOVE_Wireless_Network_Card must="False">
+                (?:\+?86)?147\d{8}
+            </MOVE_Wireless_Network_Card>
+            <!--联通上网卡-->
+            <UNiCOM_Wireless_Network_Card must="False">
+                (?:\+?86)?145\d{8}
+            </UNiCOM_Wireless_Network_Card>
+            <!--电信上网卡-->
+            <TELECOM_Wireless_Network_Card must="False">
+                (?:\+?86)?149\d{8}
+            </TELECOM_Wireless_Network_Card>
+        </ALL_Wireless_Network_Card>
+
+    </ALL_Mobile_Data_Network_Card>
+
+    <!--    身份证提取-->
+    <ID_CARD part="False">
+        <CHINA must="True">\d{18}|\d{17}[Xx]|\d{15}</CHINA>
+    </ID_CARD>
+
+</root>
