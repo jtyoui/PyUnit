@@ -13,6 +13,18 @@ Python版阳历转农历
 
 #### 安装
     pip install jtyoui
+    
+## 阳历和农历相互转换
+```python
+from jtyoui.plunar import LunarSolarDateConverter,SolarDate,LunarDate
+
+if __name__ == '__main__':
+    converter = LunarSolarDateConverter() #阳历和农历相互转换
+    lunar = converter.solar_to_lunar(SolarDate(2019, 12, 6)) #阳历转农历
+    print(lunar.get_time()) #{'isleap': False, 'lunarDay': 11, 'lunarMonth': 11, 'lunarYear': 2019}
+    solar = converter.lunar_to_solar(LunarDate(2019, 11, 10)) #农历转阳历
+    print(solar) #{'solarDay': 5, 'solarMonth': 12, 'solarYear': 2019}
+```
 
 ## 阳历转农历
 ```python
@@ -63,7 +75,6 @@ if __name__ == '__main__':
     # 天干地支
     print(BatchCalendar.td_to_ctc('甲子年乙亥月癸亥日'))  # 天干地支转农历:['1984年闰十月初三', '2044年九月廿一']
     print(BatchCalendar.td_to_sc('甲子年乙亥月癸亥日'))  # 天干地支转阳历:['1984年11月25日', '2044年11月10日']
-
 ```
 
 
