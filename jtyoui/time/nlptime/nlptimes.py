@@ -49,7 +49,7 @@ class NlpTime:
             num = ten * 10 + end
             word = word.replace(m.group(), str(num))
 
-        input_query = re.sub('\\s+', '', word)
+        input_query = re.sub('\\s+|的', '', word)  # 去除不用的字
         match = re.search("[0-9]月[0-9]", input_query)
         if match is not None:
             index = input_query.find('月')
