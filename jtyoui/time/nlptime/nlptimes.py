@@ -18,6 +18,7 @@ class NlpTime:
         self.isTimeSpan = False
 
     def parse(self, target, time_base=None) -> list:
+        """解析时间"""
         self.timeBase = replace(r'\W+', '-', time_base) if time_base else time.strftime('%Y-%m-%d-%H-%M-%S')
         times = []
         input_query = self._filter(target)
