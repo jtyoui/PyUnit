@@ -11,6 +11,9 @@
 #### 安装
     pip install jtyoui
 
+### 建议使用NLPTime
+[NLP时间处理](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/time/nlptime)  
+
 ### 使用
 ```python
 from jtyoui.time import ParseTime
