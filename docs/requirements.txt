@@ -1,3 +1,6 @@
 jtyoui
 paddlepaddle
 kreas
+sphinx_rtd_theme
+requests
+click
