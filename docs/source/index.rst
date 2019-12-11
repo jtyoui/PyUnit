@@ -1,9 +1,9 @@
 .. jtyoui documentation master file, created by
-   sphinx-quickstart on Wed Dec 11 11:13:09 2019.
+   sphinx-quickstart on Wed Dec 11 14:19:17 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to jtyoui's documentation!
+欢迎使用Jtyoui文档！
 ==================================
 
 .. toctree::
