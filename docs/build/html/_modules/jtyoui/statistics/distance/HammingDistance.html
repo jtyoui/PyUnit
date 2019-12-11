@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.statistics.distance.HammingDistance &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.statistics.distance.HammingDistance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.statistics.distance.HammingDistance 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/3/18 9:36</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="kn">from</span> <span class="nn">jtyoui.decorator</span> <span class="k">import</span> <span class="n">replace_regular</span>
+<span class="kn">from</span> <span class="nn">jtyoui.regular</span> <span class="k">import</span> <span class="n">punctuation_re</span>
+
+<span class="kn">import</span> <span class="nn">hashlib</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">海明距离</span>
+<span class="sd">在信息编码中，两个合法代码对应位上编码不同的位数称为码距，又称海明距离。</span>
+<span class="sd">举例如下：10101和00110从第一位开始依次有第一位、第四、第五位不同，则海明距离为3。</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="handle"><a class="viewcode-back" href="../../../../jtyoui.statistics.distance.html#jtyoui.handle">[文档]</a><span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="n">participle_ls</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    将内容转成字典格式</span>
+<span class="sd">    :param participle_ls: 文本分词内容,是一个list分词对象</span>
+<span class="sd">    :param weight: 特征值</span>
+<span class="sd">    :param f: simHash的bit位数</span>
+<span class="sd">    :return: 海明距离值</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ls</span> <span class="ow">in</span> <span class="n">participle_ls</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">weight</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ls</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">features_dict</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="hash_func"><a class="viewcode-back" href="../../../../jtyoui.statistics.distance.html#jtyoui.hash_func">[文档]</a><span class="k">def</span> <span class="nf">hash_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;hash算法&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="features_dict"><a class="viewcode-back" href="../../../../jtyoui.statistics.distance.html#jtyoui.features_dict">[文档]</a><span class="k">def</span> <span class="nf">features_dict</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    特征值字典</span>
+<span class="sd">    :param features: 特征值</span>
+<span class="sd">    :param f: simHash的bit位数</span>
+<span class="sd">    :return: simHash值</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">f</span>
+    <span class="n">masks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">values</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">hash_func</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weight</span> <span class="k">if</span> <span class="n">h</span> <span class="o">&amp;</span> <span class="n">masks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="o">-</span><span class="n">weight</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">|=</span> <span class="n">masks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="distance"><a class="viewcode-back" href="../../../../jtyoui.statistics.distance.html#jtyoui.distance">[文档]</a><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">sim_hash</span><span class="p">,</span> <span class="n">another</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    计算两个simHash的距离</span>
+<span class="sd">    :param sim_hash: simHash值</span>
+<span class="sd">    :param another: 另一个simHash的值</span>
+<span class="sd">    :param f: simHash的bit位数</span>
+<span class="sd">    :return: 海明距离</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">sim_hash</span> <span class="o">^</span> <span class="n">another</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">f</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">x</span> <span class="o">&amp;=</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="ham_distance"><a class="viewcode-back" href="../../../../jtyoui.statistics.distance.html#jtyoui.ham_distance">[文档]</a><span class="k">def</span> <span class="nf">ham_distance</span><span class="p">(</span><span class="n">chars</span><span class="p">,</span> <span class="n">other_chars</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    比较那个字符串的海明距离</span>
+<span class="sd">    :param chars: 字符串</span>
+<span class="sd">    :param other_chars: 另一个字符串</span>
+<span class="sd">    :param weight: 权重字典:weight={&quot;电影&quot;: 3}</span>
+<span class="sd">    :param f: samHash的bit位数</span>
+<span class="sd">    :return: 海明距离值</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v0</span> <span class="o">=</span> <span class="n">handle</span><span class="p">(</span><span class="n">chars</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="n">handle</span><span class="p">(</span><span class="n">other_chars</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">distance</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="simHash_similarity"><a class="viewcode-back" href="../../../../jtyoui.statistics.distance.html#jtyoui.simHash_similarity">[文档]</a><span class="nd">@replace_regular</span><span class="p">(</span><span class="n">punctuation_re</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">simHash_similarity</span><span class="p">(</span><span class="n">text1</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> <span class="n">text2</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> <span class="n">weight</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;文本相似度算法</span>
+<span class="sd">    :param text1: 文本1</span>
+<span class="sd">    :param text2: 文本2</span>
+<span class="sd">    :param weight: 文本词权重</span>
+<span class="sd">    :param f: hash bit位数</span>
+<span class="sd">    :return: 相似度</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">ham_distance</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">v</span> <span class="o">/</span> <span class="n">f</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;我&#39;</span><span class="p">,</span> <span class="s1">&#39;吃饭&#39;</span><span class="p">,</span> <span class="s1">&#39;了&#39;</span><span class="p">,</span> <span class="s1">&#39;明天&#39;</span><span class="p">,</span> <span class="s1">&#39;去&#39;</span><span class="p">,</span> <span class="s1">&#39;看&#39;</span><span class="p">,</span> <span class="s1">&#39;电影&#39;</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;我&#39;</span><span class="p">,</span> <span class="s1">&#39;在&#39;</span><span class="p">,</span> <span class="s1">&#39;吃饭&#39;</span><span class="p">,</span> <span class="s1">&#39;了&#39;</span><span class="p">,</span> <span class="s1">&#39;马上&#39;</span><span class="p">,</span> <span class="s1">&#39;去&#39;</span><span class="p">,</span> <span class="s1">&#39;看&#39;</span><span class="p">,</span> <span class="s1">&#39;电影&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ham_distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;电影&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">simHash_similarity</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

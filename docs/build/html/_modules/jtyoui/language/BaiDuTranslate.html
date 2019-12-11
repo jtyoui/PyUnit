@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.language.BaiDuTranslate &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.language.BaiDuTranslate</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.language.BaiDuTranslate 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/6/11 17:05</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="kn">from</span> <span class="nn">jtyoui.web</span> <span class="k">import</span> <span class="n">post</span><span class="p">,</span> <span class="n">get_js</span>
+
+<span class="n">_sign</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">function a(r, o) {</span>
+<span class="s2">    for (var t = 0; t &lt; o.length - 2; t += 3) {</span>
+<span class="s2">        var a = o.charAt(t + 2);</span>
+<span class="s2">        a = a &gt;= &quot;a&quot; ? a.charCodeAt(0) - 87 : Number(a),</span>
+<span class="s2">        a = &quot;+&quot; === o.charAt(t + 1) ? r &gt;&gt;&gt; a: r &lt;&lt; a,</span>
+<span class="s2">        r = &quot;+&quot; === o.charAt(t) ? r + a &amp; 4294967295 : r ^ a</span>
+<span class="s2">    }</span>
+<span class="s2">    return r</span>
+<span class="s2">}</span>
+<span class="s2">var C = null;</span>
+<span class="s2">var hash = function(r, _gtk) {</span>
+<span class="s2">    var o = r.length;</span>
+<span class="s2">    o &gt; 30 &amp;&amp; (r = &quot;&quot; + r.substr(0, 10) + r.substr(Math.floor(o / 2) - 5, 10) + r.substr( - 10, 10));</span>
+<span class="s2">    var t = void 0,</span>
+<span class="s2">    t = null !== C ? C: (C = _gtk || &quot;&quot;) || &quot;&quot;;</span>
+<span class="s2">    for (var e = t.split(&quot;.&quot;), h = Number(e[0]) || 0, i = Number(e[1]) || 0, d = [], f = 0, g = 0; g &lt; r.length; g++) {</span>
+<span class="s2">        var m = r.charCodeAt(g);</span>
+<span class="s2">        128 &gt; m ? d[f++] = m: (2048 &gt; m ? d[f++] = m &gt;&gt; 6 | 192 : (55296 === (64512 &amp; m) &amp;&amp; g + 1 &lt; r.length &amp;&amp; 56320=== </span>
+<span class="s2">        (64512 &amp; r.charCodeAt(g + 1)) ? (m = 65536 + ((1023 &amp; m) &lt;&lt; 10) + (1023 &amp; r.charCodeAt(++g)), d[f++] = m &gt;&gt; 18</span>
+<span class="s2">        |240, d[f++] = m &gt;&gt; 12 &amp; 63 | 128) : d[f++] = m &gt;&gt; 12 | 224, d[f++] = m &gt;&gt; 6 &amp; 63 | 128), d[f++] = 63 &amp; m | 128)</span>
+<span class="s2">    }</span>
+<span class="s2">    for (var S = h,</span>
+<span class="s2">    u = &quot;+-a^+6&quot;,</span>
+<span class="s2">    l = &quot;+-3^+b+-f&quot;,</span>
+<span class="s2">    s = 0; s &lt; d.length; s++) S += d[s],</span>
+<span class="s2">    S = a(S, u);</span>
+<span class="s2">    return S = a(S, l),</span>
+<span class="s2">    S ^= i,</span>
+<span class="s2">    0 &gt; S &amp;&amp; (S = (2147483647 &amp; S) + 2147483648),</span>
+<span class="s2">    S %= 1e6,</span>
+<span class="s2">    S.toString() + &quot;.&quot; + (S ^ h)</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="bai_du_translate"><a class="viewcode-back" href="../../../jtyoui.language.html#jtyoui.bai_du_translate">[文档]</a><span class="k">def</span> <span class="nf">bai_du_translate</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">from_</span><span class="p">,</span> <span class="n">to_</span><span class="p">,</span> <span class="n">cookie</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;百度翻译：需要自己增加cookie</span>
+<span class="sd">    :param word: 翻译的单词</span>
+<span class="sd">    :param from_: 该单词是什么语言</span>
+<span class="sd">    :param to_: 翻译成什么语言</span>
+<span class="sd">    :param cookie: 百度翻译网址cookie</span>
+<span class="sd">    :return: 返回json数据</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">gtk</span> <span class="o">=</span> <span class="s1">&#39;320305.131321201&#39;</span>
+    <span class="n">sign</span> <span class="o">=</span> <span class="n">get_js</span><span class="p">(</span><span class="n">_sign</span><span class="p">,</span> <span class="s1">&#39;hash&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">word</span><span class="p">,</span> <span class="n">gtk</span><span class="p">])</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">word</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;from&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;to&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sign&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sign</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;dbb0f2ac18d5288a0ab1c09e69092827&#39;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://fanyi.baidu.com/v2transapi&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">cookie</span><span class="o">=</span><span class="n">cookie</span><span class="p">)</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">json</span></div>
+
+
+<div class="viewcode-block" id="BaiDuLanguage"><a class="viewcode-back" href="../../../jtyoui.language.html#jtyoui.BaiDuLanguage">[文档]</a><span class="k">class</span> <span class="nc">BaiDuLanguage</span><span class="p">:</span>
+    <span class="n">English</span> <span class="o">=</span> <span class="s1">&#39;en&#39;</span>  <span class="c1"># 英语</span>
+    <span class="n">Chinese</span> <span class="o">=</span> <span class="s1">&#39;zh&#39;</span>  <span class="c1"># 中文</span>
+    <span class="n">Japan</span> <span class="o">=</span> <span class="s1">&#39;jp&#39;</span>  <span class="c1"># 日本</span>
+    <span class="n">Arab</span> <span class="o">=</span> <span class="s1">&#39;ara&#39;</span>  <span class="c1"># 阿拉伯</span>
+    <span class="n">Estonia</span> <span class="o">=</span> <span class="s1">&#39;est&#39;</span>  <span class="c1"># 爱沙尼亚</span>
+    <span class="n">Bulgarian</span> <span class="o">=</span> <span class="s1">&#39;bul&#39;</span>  <span class="c1"># 保加利亚语</span>
+    <span class="n">Polish</span> <span class="o">=</span> <span class="s1">&#39;pl&#39;</span>  <span class="c1"># 波兰语</span>
+    <span class="n">Danish</span> <span class="o">=</span> <span class="s1">&#39;dan&#39;</span>  <span class="c1"># 丹麦语</span>
+    <span class="n">German</span> <span class="o">=</span> <span class="s1">&#39;de&#39;</span>  <span class="c1"># 德语</span>
+    <span class="n">Russian</span> <span class="o">=</span> <span class="s1">&#39;ru&#39;</span>  <span class="c1"># 俄语</span>
+    <span class="n">French</span> <span class="o">=</span> <span class="s1">&#39;fra&#39;</span>  <span class="c1"># 法语</span>
+    <span class="n">Finnish</span> <span class="o">=</span> <span class="s1">&#39;fin&#39;</span>  <span class="c1"># 芬兰语</span>
+    <span class="n">Korean</span> <span class="o">=</span> <span class="s1">&#39;kor&#39;</span>  <span class="c1"># 韩语</span>
+    <span class="n">Dutch</span> <span class="o">=</span> <span class="s1">&#39;nl&#39;</span>  <span class="c1"># 荷兰语</span>
+    <span class="n">Czech</span> <span class="o">=</span> <span class="s1">&#39;cs&#39;</span>  <span class="c1"># 捷克语</span>
+    <span class="n">Romanian</span> <span class="o">=</span> <span class="s1">&#39;rom&#39;</span>  <span class="c1"># 罗马尼亚语</span>
+    <span class="n">Portuguese</span> <span class="o">=</span> <span class="s1">&#39;pt&#39;</span>  <span class="c1"># 葡萄牙语</span>
+    <span class="n">Swedish</span> <span class="o">=</span> <span class="s1">&#39;swe&#39;</span>  <span class="c1"># 瑞典语</span>
+    <span class="n">Slovenian</span> <span class="o">=</span> <span class="s1">&#39;slo&#39;</span>  <span class="c1"># 斯洛文尼亚语</span>
+    <span class="n">Thai</span> <span class="o">=</span> <span class="s1">&#39;th&#39;</span>  <span class="c1"># 泰语</span>
+    <span class="n">Spanish</span> <span class="o">=</span> <span class="s1">&#39;spa&#39;</span>  <span class="c1"># 西班牙语</span>
+    <span class="n">Greek</span> <span class="o">=</span> <span class="s1">&#39;el&#39;</span>  <span class="c1"># 希腊语</span>
+    <span class="n">Hungarian</span> <span class="o">=</span> <span class="s1">&#39;hu&#39;</span>  <span class="c1"># 匈牙利语</span>
+    <span class="n">Italian</span> <span class="o">=</span> <span class="s1">&#39;it&#39;</span>  <span class="c1"># 意大利语</span>
+    <span class="n">Vietnamese</span> <span class="o">=</span> <span class="s1">&#39;vie&#39;</span>  <span class="c1"># 越南语</span>
+    <span class="n">Cantonese</span> <span class="o">=</span> <span class="s1">&#39;yue&#39;</span>  <span class="c1"># 粤语</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;BAIDUID=1E9344586B339BDFE673A622D274BAD9:FG=1; BIDUPSID=1E9344586B339BDFE673A622D274BAD9; PSTM=1551668971; REALTIME_TRANS_SWITCH=1; FANYI_WORD_SWITCH=1; HISTORY_SWITCH=1; SOUND_SPD_SWITCH=1; SOUND_PREFER_SWITCH=1; MCITY=-%3A; from_lang_often=%5B%7B%22value</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22d</span><span class="s1">an</span><span class="si">%22%</span><span class="s1">2C%22text</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22%</span><span class="s1">u4E39</span><span class="si">%u</span><span class="s1">9EA6</span><span class="si">%u</span><span class="s1">8BED</span><span class="si">%22%</span><span class="s1">7D%2C%7B%22value</span><span class="si">%22%</span><span class="s1">3A%22zh</span><span class="si">%22%</span><span class="s1">2C%22text</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22%</span><span class="s1">u4E2D</span><span class="si">%u</span><span class="s1">6587</span><span class="si">%22%</span><span class="s1">7D%2C%7B%22value</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22e</span><span class="s1">n</span><span class="si">%22%</span><span class="s1">2C%22text</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22%</span><span class="s1">u82F1</span><span class="si">%u</span><span class="s1">8BED</span><span class="si">%22%</span><span class="s1">7D%5D; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; locale=zh; Hm_lvt_64ecd82404c51e03dc91cb9e8c025574=1559124247,1559526164,1559625839,1560239569; delPer=0; H_PS_PSSID=1421_21110_29135_29237_28518_29099_28839; PSINO=6; Hm_lpvt_64ecd82404c51e03dc91cb9e8c025574=1560242851; yjs_js_security_passport=412be9bc7e1f3b3ca2628a701b66667a703c1b81_1560242855_js; to_lang_often=%5B%7B%22value</span><span class="si">%22%</span><span class="s1">3A%22zh</span><span class="si">%22%</span><span class="s1">2C%22text</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22%</span><span class="s1">u4E2D</span><span class="si">%u</span><span class="s1">6587</span><span class="si">%22%</span><span class="s1">7D%2C%7B%22value</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22e</span><span class="s1">n</span><span class="si">%22%</span><span class="s1">2C%22text</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22%</span><span class="s1">u82F1</span><span class="si">%u</span><span class="s1">8BED</span><span class="si">%22%</span><span class="s1">7D%2C%7B%22value</span><span class="si">%22%</span><span class="s1">3A%22jp</span><span class="si">%22%</span><span class="s1">2C%22text</span><span class="si">%22%</span><span class="s1">3A</span><span class="si">%22%</span><span class="s1">u65E5</span><span class="si">%u</span><span class="s1">8BED</span><span class="si">%22%</span><span class="s1">7D%5D&#39;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">bai_du_translate</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">BaiDuLanguage</span><span class="o">.</span><span class="n">English</span><span class="p">,</span> <span class="n">BaiDuLanguage</span><span class="o">.</span><span class="n">Chinese</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

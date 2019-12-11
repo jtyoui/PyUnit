@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.imagepdf.tk &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.imagepdf.tk</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.imagepdf.tk 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time : 2019/2/9 0009</span>
+<span class="c1"># @Email : jtyoui@qq.com</span>
+<span class="c1"># @Software : PyCharm</span>
+<span class="kn">from</span> <span class="nn">jtyoui.error</span> <span class="k">import</span> <span class="n">LibraryNotInstallError</span>
+<span class="kn">from</span> <span class="nn">jtyoui.tools</span> <span class="k">import</span> <span class="n">pips</span>
+<span class="kn">from</span> <span class="nn">jtyoui.file_zip</span> <span class="k">import</span> <span class="n">file_zip_path</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="k">import</span> <span class="n">filedialog</span><span class="p">,</span> <span class="n">messagebox</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">tkinter</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">fitz</span>  <span class="c1"># 安装 pip install PyMuPDF</span>
+<span class="k">except</span> <span class="n">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">fitz</span> <span class="o">=</span> <span class="n">pips</span><span class="p">(</span><span class="s1">&#39;fitz&#39;</span><span class="p">,</span> <span class="s1">&#39;PyMuPDF&#39;</span><span class="p">)</span>  <span class="c1"># 自动安装</span>
+    <span class="k">except</span> <span class="n">ModuleNotFoundError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">LibraryNotInstallError</span><span class="p">(</span><span class="s2">&quot;安装 pip install PyMuPDF&quot;</span><span class="p">)</span>
+
+<span class="n">DIRS</span><span class="p">,</span> <span class="n">FILE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>  <span class="c1"># 文件夹地址,pdf文件地址</span>
+
+
+<div class="viewcode-block" id="select_pdf"><a class="viewcode-back" href="../../../jtyoui.imagepdf.html#jtyoui.imagepdf.tk.select_pdf">[文档]</a><span class="k">def</span> <span class="nf">select_pdf</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">FILE</span>
+    <span class="n">FILE</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askopenfilename</span><span class="p">(</span><span class="n">filetypes</span><span class="o">=</span><span class="p">((</span><span class="s2">&quot;PDF file&quot;</span><span class="p">,</span> <span class="s2">&quot;*.pdf&quot;</span><span class="p">),))</span>  <span class="c1"># 获得pdf文件地址</span></div>
+
+
+<div class="viewcode-block" id="select_dir"><a class="viewcode-back" href="../../../jtyoui.imagepdf.html#jtyoui.imagepdf.tk.select_dir">[文档]</a><span class="k">def</span> <span class="nf">select_dir</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">DIRS</span>
+    <span class="n">DIRS</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">askdirectory</span><span class="p">()</span>  <span class="c1"># 获得文件夹地址</span></div>
+
+
+<div class="viewcode-block" id="start"><a class="viewcode-back" href="../../../jtyoui.imagepdf.html#jtyoui.imagepdf.tk.start">[文档]</a><span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">DIRS</span><span class="p">,</span> <span class="n">FILE</span>
+    <span class="k">if</span> <span class="n">DIRS</span><span class="p">:</span>
+        <span class="n">image_pdf</span><span class="p">(</span><span class="n">DIRS</span><span class="p">)</span>  <span class="c1"># 执行图片转pdf</span>
+        <span class="n">DIRS</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">elif</span> <span class="n">FILE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">FILE</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">FILE</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">pdf_image</span><span class="p">(</span><span class="n">FILE</span><span class="p">)</span>  <span class="c1"># 执行pdf转照片</span>
+        <span class="n">FILE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s1">&#39;警告&#39;</span><span class="p">,</span> <span class="s1">&#39;先选择在执行!&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_dir_name"><a class="viewcode-back" href="../../../jtyoui.imagepdf.html#jtyoui.imagepdf.tk.get_dir_name">[文档]</a><span class="k">def</span> <span class="nf">get_dir_name</span><span class="p">(</span><span class="n">file_dir</span><span class="p">):</span>
+    <span class="n">base_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_dir</span><span class="p">)</span>  <span class="c1"># 获得地址的文件名</span>
+    <span class="n">dir_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_dir</span><span class="p">)</span>  <span class="c1"># 获得地址的父链接</span>
+    <span class="k">return</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">base_name</span></div>
+
+
+<div class="viewcode-block" id="image_pdf"><a class="viewcode-back" href="../../../jtyoui.imagepdf.html#jtyoui.imagepdf.tk.image_pdf">[文档]</a><span class="k">def</span> <span class="nf">image_pdf</span><span class="p">(</span><span class="n">file_dir</span><span class="p">):</span>
+    <span class="n">dir_name</span><span class="p">,</span> <span class="n">base_name</span> <span class="o">=</span> <span class="n">get_dir_name</span><span class="p">(</span><span class="n">file_dir</span><span class="p">)</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">fitz</span><span class="o">.</span><span class="n">Document</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">file_dir</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">*&#39;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">):</span>  <span class="c1"># 排序获得对象</span>
+        <span class="n">img_doc</span> <span class="o">=</span> <span class="n">fitz</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>  <span class="c1"># 获得图片对象</span>
+        <span class="n">pdf_bytes</span> <span class="o">=</span> <span class="n">img_doc</span><span class="o">.</span><span class="n">convertToPDF</span><span class="p">()</span>  <span class="c1"># 获得图片流对象</span>
+        <span class="n">img_pdf</span> <span class="o">=</span> <span class="n">fitz</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">pdf_bytes</span><span class="p">)</span>  <span class="c1"># 将图片流创建单个的PDF文件</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">insertPDF</span><span class="p">(</span><span class="n">img_pdf</span><span class="p">)</span>  <span class="c1"># 将单个文件插入到文档</span>
+        <span class="n">img_doc</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">img_pdf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dir_name</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">base_name</span> <span class="o">+</span> <span class="s2">&quot;.pdf&quot;</span><span class="p">)</span>  <span class="c1"># 保存文档</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s1">&#39;提示&#39;</span><span class="p">,</span> <span class="s1">&#39;转换成功!&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pdf_image"><a class="viewcode-back" href="../../../jtyoui.imagepdf.html#jtyoui.imagepdf.tk.pdf_image">[文档]</a><span class="k">def</span> <span class="nf">pdf_image</span><span class="p">(</span><span class="n">pdf_name</span><span class="p">):</span>
+    <span class="n">dir_name</span><span class="p">,</span> <span class="n">base_name</span> <span class="o">=</span> <span class="n">get_dir_name</span><span class="p">(</span><span class="n">pdf_name</span><span class="p">)</span>
+    <span class="n">pdf</span> <span class="o">=</span> <span class="n">fitz</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span><span class="n">pdf_name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pg</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pdf</span><span class="o">.</span><span class="n">pageCount</span><span class="p">):</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">[</span><span class="n">pg</span><span class="p">]</span>  <span class="c1"># 获得每一页的对象</span>
+        <span class="n">trans</span> <span class="o">=</span> <span class="n">fitz</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">preRotate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">pm</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">getPixmap</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="n">trans</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 获得每一页的流对象</span>
+        <span class="n">pm</span><span class="o">.</span><span class="n">writePNG</span><span class="p">(</span><span class="n">FILE</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">base_name</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_</span><span class="si">{:0&gt;4d}</span><span class="s1">.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># 保存图片</span>
+    <span class="n">pdf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s1">&#39;提示&#39;</span><span class="p">,</span> <span class="s1">&#39;转换成功!&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ui"><a class="viewcode-back" href="../../../jtyoui.imagepdf.html#jtyoui.imagepdf.tk.ui">[文档]</a><span class="k">def</span> <span class="nf">ui</span><span class="p">():</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;PDF和照片互转器&#39;</span><span class="p">)</span>  <span class="c1"># 标题</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">resizable</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 防止大小调整</span>
+    <span class="n">canvas</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">320</span><span class="p">,</span> <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建画布</span>
+    <span class="n">photo</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file_zip_path</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;pdf.png&#39;</span><span class="p">)</span>  <span class="c1"># 获取背景图片的网络连接</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="n">create_image</span><span class="p">(</span><span class="mi">225</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">photo</span><span class="p">)</span>
+
+    <span class="n">select_dir_button</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;选择照片文件夹&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">select_dir</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>  <span class="c1"># 创建按钮</span>
+    <span class="n">select_pdf_button</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;选择PDF文件&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">select_pdf</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="n">click_button</span> <span class="o">=</span> <span class="n">tkinter</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;点击执行&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+    <span class="n">select_dir_button</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>  <span class="c1"># 启动按钮</span>
+    <span class="n">select_pdf_button</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+    <span class="n">click_button</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+    <span class="n">canvas</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">select_dir_button</span><span class="p">)</span>  <span class="c1"># 将按钮创建到画布</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">select_pdf_button</span><span class="p">)</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">click_button</span><span class="p">)</span>
+    <span class="n">canvas</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>  <span class="c1"># 启动画布</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>  <span class="c1"># 主程序循环</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ui</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

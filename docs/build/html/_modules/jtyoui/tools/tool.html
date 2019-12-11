@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.tools.tool &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.tools.tool</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.tools.tool 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/4/12 13:13</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">jtyoui.error</span> <span class="k">import</span> <span class="n">InconsistentLengthError</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+
+
+<div class="viewcode-block" id="Tool"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool">[文档]</a><span class="k">class</span> <span class="nc">Tool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;自定义工具类&quot;&quot;&quot;</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_string</span> <span class="o">=</span> <span class="n">string</span>
+
+<div class="viewcode-block" id="Tool.index_select_string"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool.index_select_string">[文档]</a>    <span class="k">def</span> <span class="nf">index_select_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">select</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;利用索引的关系来标记字符串&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        利用索引的关系来找字符串:一般用在深度学习中的标注模型</span>
+<span class="sd">        :param index: 索引</span>
+<span class="sd">        :param string: 字符串</span>
+<span class="sd">        :param select: 索引匹配的正则</span>
+<span class="sd">        :return: 匹配字符串列表</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ls</span><span class="p">,</span> <span class="n">string</span> <span class="o">=</span> <span class="p">[],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_string</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">InconsistentLengthError</span><span class="p">(</span><span class="s2">&quot;参数index和参数string长度不一致错误!&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">:</span>
+                <span class="n">ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">start</span><span class="p">():</span><span class="n">s</span><span class="o">.</span><span class="n">end</span><span class="p">()])</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
+                <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">ls</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_string</span>
+
+    <span class="nd">@string</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_string</span> <span class="o">=</span> <span class="n">string</span>
+
+<div class="viewcode-block" id="Tool.split"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool.split">[文档]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">re_</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">retain</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;支持正则分割</span>
+<span class="sd">        :param re_:正则表达式</span>
+<span class="sd">        :param flag: re.search(re_, self.string, flag), 默认flag=0</span>
+<span class="sd">        :param retain: 是否要保留正则匹配的字符,默认是保留</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ls_index</span><span class="p">,</span> <span class="n">ls_word</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                <span class="n">ls_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">+</span> <span class="n">end</span><span class="p">)</span>
+                <span class="n">end</span> <span class="o">+=</span> <span class="n">match</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+                <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">end</span><span class="p">():]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">ls_index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="p">):</span>
+            <span class="n">ls_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">ls_index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ls_index</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ls_index</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ls_index</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">ls_word</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="p">[</span><span class="n">value</span><span class="p">:</span><span class="n">ls_index</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">retain</span><span class="p">:</span>
+            <span class="n">ls_words</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">ls_word</span><span class="p">:</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                    <span class="n">w</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">end</span><span class="p">():]</span>
+                    <span class="k">if</span> <span class="n">w</span><span class="p">:</span>
+                        <span class="n">ls_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ls_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+            <span class="n">ls_word</span> <span class="o">=</span> <span class="n">ls_words</span>
+        <span class="k">return</span> <span class="n">ls_word</span></div>
+
+<div class="viewcode-block" id="Tool.string_select_index"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool.string_select_index">[文档]</a>    <span class="k">def</span> <span class="nf">string_select_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">start_name</span><span class="p">,</span> <span class="n">end_name</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;将一段文字进行标记返回标记的列表</span>
+<span class="sd">        :param ls:标记的关键字列表</span>
+<span class="sd">        :param start_name:开始标记的名称</span>
+<span class="sd">        :param end_name:连续标记的名称</span>
+<span class="sd">        :param flag:不在关键字列表中默认标记，默认是O,大写的o</span>
+<span class="sd">        :param labels:自定义标记</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">labels</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="p">))]</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+                    <span class="n">labels</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_name</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+                        <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_name</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="n">end</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>
+        <span class="k">return</span> <span class="n">labels</span></div>
+
+<div class="viewcode-block" id="Tool.select_ls"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool.select_ls">[文档]</a>    <span class="k">def</span> <span class="nf">select_ls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;根据列表里面的元素选取字符串中的元素</span>
+<span class="sd">        :param ls_:列表元素，比如[&#39;张三&#39;,&#39;李四&#39;,&#39;王麻子&#39;]，string=&#39;张三去李四家找东西&#39;</span>
+<span class="sd">        :return :[&#39;张三&#39;,&#39;李四&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ls_</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ls_</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_string</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Tool.select_row"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool.select_row">[文档]</a>    <span class="k">def</span> <span class="nf">select_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable_</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;选取可迭代对象中的某一列</span>
+<span class="sd">        :param iterable_:可迭代对象</span>
+<span class="sd">        :param row:每一列</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterable_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iterable_</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Tool.search"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool.search">[文档]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;根据正则获取字符串的索引以及值，索引和值都是list类型&quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">while</span> <span class="n">r</span><span class="p">:</span>
+            <span class="n">start_</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+            <span class="n">end_</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">()</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+            <span class="n">start</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start_</span><span class="p">)</span>
+            <span class="n">end</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end_</span><span class="p">)</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">[</span><span class="n">start_</span><span class="p">:</span><span class="n">end_</span><span class="p">])</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">[:</span><span class="n">end_</span><span class="p">]</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">[</span><span class="n">end_</span><span class="p">:]</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span>
+
+        <span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">start</span>
+
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">end</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">end</span>
+
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">value</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">value</span>
+
+        <span class="k">return</span> <span class="n">A</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tool.replace"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.Tool.replace">[文档]</a>    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;正则替换&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">tool</span> <span class="o">=</span> <span class="n">Tool</span><span class="p">(</span><span class="s1">&#39;我家在贵州省遵义县的一个地方是虾子&#39;</span><span class="p">)</span>
+    <span class="n">i_s</span> <span class="o">=</span> <span class="n">tool</span><span class="o">.</span><span class="n">index_select_string</span><span class="p">(</span><span class="s1">&#39;01056666600000056&#39;</span><span class="p">,</span> <span class="s1">&#39;56+&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i_s</span><span class="p">)</span>
+    <span class="n">tool</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;我在这里、一、相亲最大的好处是。二、想要什么婚姻。三五、开放型的婚姻是凉鞋。三、&#39;</span>
+    <span class="n">t_s</span> <span class="o">=</span> <span class="n">tool</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[一二三四五六七八九十]+、&#39;</span><span class="p">,</span> <span class="n">retain</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t_s</span><span class="p">)</span>
+    <span class="n">tool</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;我家在贵州省遵义县的一个地方是虾子&#39;</span>
+    <span class="n">s_i</span> <span class="o">=</span> <span class="n">tool</span><span class="o">.</span><span class="n">string_select_index</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;贵州省&#39;</span><span class="p">,</span> <span class="s1">&#39;遵义县&#39;</span><span class="p">,</span> <span class="s1">&#39;虾子&#39;</span><span class="p">],</span> <span class="n">start_name</span><span class="o">=</span><span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="n">end_name</span><span class="o">=</span><span class="s1">&#39;6&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s_i</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tool</span><span class="o">.</span><span class="n">select_row</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># [2, 0, 1]</span>
+    <span class="n">tool</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tool</span><span class="o">.</span><span class="n">select_ls</span><span class="p">([</span><span class="s1">&#39;遵义县&#39;</span><span class="p">,</span> <span class="s1">&#39;虾子&#39;</span><span class="p">]))</span>
+
+    <span class="n">tool</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;9994599945545599945&#39;</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">tool</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(45+)+&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">ts</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">ts</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tool</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+
+    <span class="n">tool</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;are you fuck!&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tool</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[0-9a-zA-Z]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

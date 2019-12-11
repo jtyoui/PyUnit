@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.game.tank &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.game.tank</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.game.tank 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time    : 2018/1/2 16:30</span>
+<span class="c1"># @Email  : jtyoui@qq.com</span>
+<span class="c1"># @Software: PyCharm</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">jtyoui.error</span> <span class="k">import</span> <span class="n">LibraryNotInstallError</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="k">import</span> <span class="n">urlretrieve</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pygame</span>
+<span class="k">except</span> <span class="n">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">LibraryNotInstallError</span><span class="p">(</span><span class="s2">&quot;安装pygame包: pip install pygame&quot;</span><span class="p">)</span>
+
+<span class="n">SCREEN_WIDTH</span><span class="p">,</span> <span class="n">SCREEN_HEIGHT</span> <span class="o">=</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">700</span>
+<span class="n">MY_BIRTH_LEFT</span><span class="p">,</span> <span class="n">MY_BIRTH_TOP</span> <span class="o">=</span> <span class="n">SCREEN_WIDTH</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">SCREEN_HEIGHT</span> <span class="o">-</span> <span class="mi">60</span>
+<span class="n">DIRECTION</span> <span class="o">=</span> <span class="p">[</span><span class="n">U</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">R</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">]</span>
+<span class="n">Tank_IMAGE_POSITION</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;D:/tank_img&#39;</span>
+<span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://gitee.com/tyoui/logo/raw/master/img/&#39;</span>
+
+
+<div class="viewcode-block" id="load_img"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.load_img">[文档]</a><span class="k">def</span> <span class="nf">load_img</span><span class="p">(</span><span class="n">name_img</span><span class="p">):</span>
+    <span class="n">save</span> <span class="o">=</span> <span class="n">Tank_IMAGE_POSITION</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">name_img</span> <span class="o">+</span> <span class="s1">&#39;.gif&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save</span><span class="p">):</span>
+        <span class="n">urlretrieve</span><span class="p">(</span><span class="n">URL</span> <span class="o">+</span> <span class="n">name_img</span> <span class="o">+</span> <span class="s1">&#39;.gif&#39;</span><span class="p">,</span> <span class="n">save</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">save</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_music"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.load_music">[文档]</a><span class="k">def</span> <span class="nf">load_music</span><span class="p">(</span><span class="n">name_music</span><span class="p">):</span>
+    <span class="n">save</span> <span class="o">=</span> <span class="n">Tank_IMAGE_POSITION</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">name_music</span> <span class="o">+</span> <span class="s1">&#39;.wav&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save</span><span class="p">):</span>
+        <span class="n">urlretrieve</span><span class="p">(</span><span class="n">URL</span> <span class="o">+</span> <span class="n">name_music</span> <span class="o">+</span> <span class="s1">&#39;.wav&#39;</span><span class="p">,</span> <span class="n">save</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">save</span><span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">mixer</span><span class="o">.</span><span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TankGame"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame">[文档]</a><span class="k">class</span> <span class="nc">TankGame</span><span class="p">:</span>
+    <span class="n">my_bullet_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">enemy_bullet_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">enemy_tank_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">wall_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">Tank_IMAGE_POSITION</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">Tank_IMAGE_POSITION</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">([</span><span class="n">SCREEN_WIDTH</span><span class="p">,</span> <span class="n">SCREEN_HEIGHT</span><span class="p">],</span> <span class="n">pygame</span><span class="o">.</span><span class="n">RESIZABLE</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;坦克世界&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span> <span class="o">=</span> <span class="n">MyTank</span><span class="p">(</span><span class="n">MY_BIRTH_LEFT</span><span class="p">,</span> <span class="n">MY_BIRTH_TOP</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creat_enemy_number</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_tank_lift</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creat_enemy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">creat_enemy_number</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creat_walls</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s1">&#39;kai_ti&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="TankGame.creat_enemy"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.creat_enemy">[文档]</a>    <span class="k">def</span> <span class="nf">creat_enemy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">SCREEN_WIDTH</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">tank_width</span><span class="p">)</span>
+            <span class="n">enemy_tank</span> <span class="o">=</span> <span class="n">EnemyTank</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+            <span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_tank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy_tank</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TankGame.creat_walls"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.creat_walls">[文档]</a>    <span class="k">def</span> <span class="nf">creat_walls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SCREEN_WIDTH</span> <span class="o">//</span> <span class="mi">60</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">wall_h</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">Wall</span><span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">wall_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+            <span class="n">TankGame</span><span class="o">.</span><span class="n">wall_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TankGame.show_walls"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.show_walls">[文档]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">show_walls</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">wall_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">live</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">display_wall</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">TankGame</span><span class="o">.</span><span class="n">wall_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">w</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TankGame.start_game"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.start_game">[文档]</a>    <span class="k">def</span> <span class="nf">start_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">load_music</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_event</span><span class="p">()</span>
+            <span class="n">len_enemy</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_tank_list</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">draw_text</span><span class="p">(</span><span class="s1">&#39;敌方坦克*</span><span class="si">{0}</span><span class="s1">,我方生命值*</span><span class="si">{1}</span><span class="s1">,当前</span><span class="si">{2}</span><span class="s1">关&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">len_enemy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank_lift</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">)),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">len_enemy</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">creat_enemy_number</span> <span class="o">+=</span> <span class="mi">10</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">my_tank_lift</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">creat_enemy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">creat_enemy_number</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wall_list</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">creat_walls</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_my_tank</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_enemy_tank</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_bullet</span><span class="p">(</span><span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_bullet_list</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_bullet</span><span class="p">(</span><span class="n">TankGame</span><span class="o">.</span><span class="n">my_bullet_list</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_walls</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.02</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TankGame.show_my_tank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.show_my_tank">[文档]</a>    <span class="k">def</span> <span class="nf">show_my_tank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">live</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">tank_collide_tank</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">tank_collide_wall</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Explode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">display_explode</span><span class="p">()</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank_lift</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">end_game</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_tank_lift</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">load_music</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span> <span class="o">=</span> <span class="n">MyTank</span><span class="p">(</span><span class="n">MY_BIRTH_LEFT</span><span class="p">,</span> <span class="n">MY_BIRTH_TOP</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">move_stop</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">direction</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TankGame.show_enemy_tank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.show_enemy_tank">[文档]</a>    <span class="k">def</span> <span class="nf">show_enemy_tank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_tank_list</span><span class="p">:</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">random_move</span><span class="p">()</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">tank_collide_wall</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">live</span><span class="p">:</span>
+                <span class="n">e</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_tank_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">Explode</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">display_explode</span><span class="p">()</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">random_fire</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TankGame.show_bullet"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.show_bullet">[文档]</a>    <span class="k">def</span> <span class="nf">show_bullet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">bullet_move</span><span class="p">()</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">bullet_collide_wall</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ls</span> <span class="ow">is</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">my_bullet_list</span><span class="p">:</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">hit_enemy_tank</span><span class="p">()</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">bullet_collide_bullet</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">hit_my_tank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">live</span><span class="p">:</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">display_bullet</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ls</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TankGame.get_event"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.get_event">[文档]</a>    <span class="k">def</span> <span class="nf">get_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">SCREEN_WIDTH</span><span class="p">,</span> <span class="n">SCREEN_HEIGHT</span>
+        <span class="n">event_list</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">event_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">VIDEORESIZE</span><span class="p">:</span>
+                <span class="n">SCREEN_WIDTH</span><span class="p">,</span> <span class="n">SCREEN_HEIGHT</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">size</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">([</span><span class="n">SCREEN_WIDTH</span><span class="p">,</span> <span class="n">SCREEN_HEIGHT</span><span class="p">],</span> <span class="n">pygame</span><span class="o">.</span><span class="n">RESIZABLE</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">end_game</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_w</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">U</span>
+                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_s</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">D</span>
+                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_a</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">L</span>
+                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_d</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">R</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">move_stop</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">TankGame</span><span class="o">.</span><span class="n">my_bullet_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">bullet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">fire</span><span class="p">()</span>
+                    <span class="n">load_music</span><span class="p">(</span><span class="s1">&#39;fire&#39;</span><span class="p">)</span>
+                    <span class="n">TankGame</span><span class="o">.</span><span class="n">my_bullet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bullet</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">KEYUP</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">my_tank</span><span class="o">.</span><span class="n">move_stop</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="TankGame.end_game"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.end_game">[文档]</a>    <span class="k">def</span> <span class="nf">end_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TankGame.draw_text"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.TankGame.draw_text">[文档]</a>    <span class="k">def</span> <span class="nf">draw_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="n">text_sf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">text_sf</span></div></div>
+
+
+<div class="viewcode-block" id="BaseItem"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.BaseItem">[文档]</a><span class="k">class</span> <span class="nc">BaseItem</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Tank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank">[文档]</a><span class="k">class</span> <span class="nc">Tank</span><span class="p">(</span><span class="n">BaseItem</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_image</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tank_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tank_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall_switch</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_stop</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_top</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="Tank.fire"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.fire">[文档]</a>    <span class="k">def</span> <span class="nf">fire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Bullet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tank.display"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.display">[文档]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_image</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tank.wall_not"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.wall_not">[文档]</a>    <span class="k">def</span> <span class="nf">wall_not</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">U</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">D</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">&lt;=</span> <span class="n">SCREEN_HEIGHT</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tank_height</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">L</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">SCREEN_WIDTH</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tank_width</span></div>
+
+<div class="viewcode-block" id="Tank.wall_yes"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.wall_yes">[文档]</a>    <span class="k">def</span> <span class="nf">wall_yes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">U</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">SCREEN_HEIGHT</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">D</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">%=</span> <span class="n">SCREEN_HEIGHT</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">L</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">SCREEN_WIDTH</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">%=</span> <span class="n">SCREEN_WIDTH</span></div>
+
+<div class="viewcode-block" id="Tank.move"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.move">[文档]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall_switch</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wall_yes</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall_not</span><span class="p">(</span><span class="n">direction</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">U</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">D</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">L</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span></div>
+
+<div class="viewcode-block" id="Tank.stay"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.stay">[文档]</a>    <span class="k">def</span> <span class="nf">stay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">old_top</span></div>
+
+<div class="viewcode-block" id="Tank.tank_collide_wall"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.tank_collide_wall">[文档]</a>    <span class="k">def</span> <span class="nf">tank_collide_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">wall_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">collide_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stay</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tank.tank_collide_tank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Tank.tank_collide_tank">[文档]</a>    <span class="k">def</span> <span class="nf">tank_collide_tank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">tank</span> <span class="ow">in</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_tank_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">collide_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tank</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stay</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="MyTank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.MyTank">[文档]</a><span class="k">class</span> <span class="nc">MyTank</span><span class="p">(</span><span class="n">Tank</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;p2tankU&#39;</span><span class="p">),</span> <span class="n">D</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;p2tankD&#39;</span><span class="p">),</span> <span class="n">L</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;p2tankL&#39;</span><span class="p">),</span> <span class="n">R</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;p2tankR&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_tank_speed</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_tank_speed</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EnemyTank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.EnemyTank">[文档]</a><span class="k">class</span> <span class="nc">EnemyTank</span><span class="p">(</span><span class="n">Tank</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img1</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy1U&#39;</span><span class="p">),</span> <span class="n">D</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy1D&#39;</span><span class="p">),</span> <span class="n">L</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy1L&#39;</span><span class="p">),</span> <span class="n">R</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy1R&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img2</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy2U&#39;</span><span class="p">),</span> <span class="n">D</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy2D&#39;</span><span class="p">),</span> <span class="n">L</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy2L&#39;</span><span class="p">),</span> <span class="n">R</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy2R&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img3</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3U&#39;</span><span class="p">),</span> <span class="n">D</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3D&#39;</span><span class="p">),</span> <span class="n">L</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3L&#39;</span><span class="p">),</span> <span class="n">R</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3R&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img31</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3U_1&#39;</span><span class="p">),</span> <span class="n">D</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3D_1&#39;</span><span class="p">),</span> <span class="n">L</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3L_1&#39;</span><span class="p">),</span>
+                          <span class="n">R</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3R_1&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img32</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3U_2&#39;</span><span class="p">),</span> <span class="n">D</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3D_2&#39;</span><span class="p">),</span> <span class="n">L</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3L_2&#39;</span><span class="p">),</span>
+                          <span class="n">R</span><span class="o">=</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;enemy3R_2&#39;</span><span class="p">))</span>
+        <span class="c1"># 不同的坦克击中的次数不一样</span>
+        <span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">click_count</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([(</span><span class="bp">self</span><span class="o">.</span><span class="n">img1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_direction</span><span class="p">(),</span> <span class="n">speed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">100</span>
+
+<div class="viewcode-block" id="EnemyTank.random_direction"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.EnemyTank.random_direction">[文档]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">random_direction</span><span class="p">():</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DIRECTION</span><span class="p">[</span><span class="n">n</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="EnemyTank.random_move"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.EnemyTank.random_move">[文档]</a>    <span class="k">def</span> <span class="nf">random_move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_direction</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">-=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="EnemyTank.random_fire"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.EnemyTank.random_fire">[文档]</a>    <span class="k">def</span> <span class="nf">random_fire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_bullet_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+            <span class="n">enemy_bullet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fire</span><span class="p">()</span>
+            <span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_bullet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enemy_bullet</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Bullet"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Bullet">[文档]</a><span class="k">class</span> <span class="nc">Bullet</span><span class="p">(</span><span class="n">BaseItem</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tank</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">direction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">speed</span> <span class="o">*</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;bullet&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">U</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">D</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">L</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span>
+
+<div class="viewcode-block" id="Bullet.display_bullet"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Bullet.display_bullet">[文档]</a>    <span class="k">def</span> <span class="nf">display_bullet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bullet.bullet_move"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Bullet.bullet_move">[文档]</a>    <span class="k">def</span> <span class="nf">bullet_move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">U</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+                <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">D</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">&lt;</span> <span class="n">SCREEN_HEIGHT</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+                <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">L</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+                <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">SCREEN_WIDTH</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Bullet.hit_enemy_tank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Bullet.hit_enemy_tank">[文档]</a>    <span class="k">def</span> <span class="nf">hit_enemy_tank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_tank_list</span><span class="p">:</span>
+            <span class="n">hit</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">collide_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">click_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">enemy</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+                <span class="n">enemy</span><span class="o">.</span><span class="n">click_count</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">click_count</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">enemy</span><span class="o">.</span><span class="n">load_image</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">img32</span>
+                <span class="k">if</span> <span class="n">enemy</span><span class="o">.</span><span class="n">click_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">enemy</span><span class="o">.</span><span class="n">load_image</span> <span class="o">=</span> <span class="n">enemy</span><span class="o">.</span><span class="n">img31</span>
+                <span class="n">load_music</span><span class="p">(</span><span class="s1">&#39;hit&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bullet.hit_my_tank"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Bullet.hit_my_tank">[文档]</a>    <span class="k">def</span> <span class="nf">hit_my_tank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tank</span><span class="p">):</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">collide_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tank</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">tank</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Bullet.bullet_collide_wall"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Bullet.bullet_collide_wall">[文档]</a>    <span class="k">def</span> <span class="nf">bullet_collide_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">wall_list</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">collide_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="n">wall</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">wall</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">load_music</span><span class="p">(</span><span class="s1">&#39;hit&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bullet.bullet_collide_bullet"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Bullet.bullet_collide_bullet">[文档]</a>    <span class="k">def</span> <span class="nf">bullet_collide_bullet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">bullet</span> <span class="ow">in</span> <span class="n">TankGame</span><span class="o">.</span><span class="n">enemy_bullet_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">collide_rect</span><span class="p">(</span><span class="n">bullet</span><span class="p">,</span> <span class="bp">self</span><span class="p">):</span>
+                <span class="n">bullet</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">False</span></div></div>
+
+
+<div class="viewcode-block" id="Explode"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Explode">[文档]</a><span class="k">class</span> <span class="nc">Explode</span><span class="p">(</span><span class="n">BaseItem</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tank</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="p">[</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;blast0&#39;</span><span class="p">),</span> <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;blast1&#39;</span><span class="p">),</span> <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;blast2&#39;</span><span class="p">),</span> <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;blast3&#39;</span><span class="p">),</span> <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;blast4&#39;</span><span class="p">),</span>
+                    <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;blast5&#39;</span><span class="p">),</span> <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;blast6&#39;</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">-</span> <span class="n">tank</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span>
+
+<div class="viewcode-block" id="Explode.display_explode"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Explode.display_explode">[文档]</a>    <span class="k">def</span> <span class="nf">display_explode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">load_music</span><span class="p">(</span><span class="s1">&#39;blast&#39;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">+=</span> <span class="mi">1</span></div></div>
+
+
+<div class="viewcode-block" id="Wall"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Wall">[文档]</a><span class="k">class</span> <span class="nc">Wall</span><span class="p">(</span><span class="n">BaseItem</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img</span> <span class="o">=</span> <span class="p">[</span><span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;steels&#39;</span><span class="p">),</span> <span class="n">load_img</span><span class="p">(</span><span class="s1">&#39;walls&#39;</span><span class="p">)][</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Wall.display_wall"><a class="viewcode-back" href="../../../jtyoui.game.html#jtyoui.game.tank.Wall.display_wall">[文档]</a>    <span class="k">def</span> <span class="nf">display_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">TankGame</span><span class="p">()</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">start_game</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

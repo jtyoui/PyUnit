@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.data.phoneRegularity &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.data.phoneRegularity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.data.phoneRegularity 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/8/9 9:56</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="c1"># 一组匹配中国大陆手机号码的正则表达式。</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1"># 匹配所有号码（手机卡 + 数据卡 + 上网卡）</span>
+<span class="n">ALL_Mobile_Data_Network_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:3\d</span><span class="si">{3}</span><span class="s1">|5[^4\D]\d</span><span class="si">{2}</span><span class="s1">|8\d</span><span class="si">{3}</span><span class="s1">|7(?:[01356789]\d</span><span class="si">{2}</span><span class="s1">|4(?:0\d|1[0-2]|9\d))|9[189]\d</span><span class="si">{2}</span><span class="s1">|6[567]\d</span><span class="si">{2}</span><span class="s1">|4(?:[14]0\d</span><span class="si">{3}</span><span class="s1">|[68]\d</span><span class="si">{4}</span><span class="s1">|[579]\d</span><span class="si">{2}</span><span class="s1">))\d</span><span class="si">{6}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 匹配所有支持短信功能的号码（手机卡 + 上网卡）</span>
+<span class="n">ALL_Mobile_Network_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:3\d</span><span class="si">{3}</span><span class="s1">|5[^4\D]\d</span><span class="si">{2}</span><span class="s1">|8\d</span><span class="si">{3}</span><span class="s1">|7(?:[01356789]\d</span><span class="si">{2}</span><span class="s1">|4(?:0\d|1[0-2]|9\d))|9[189]\d</span><span class="si">{2}</span><span class="s1">|6[567]\d</span><span class="si">{2}</span><span class="s1">|4[579]\d</span><span class="si">{2}</span><span class="s1">)\d</span><span class="si">{6}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 手机卡</span>
+<span class="n">ALL_Mobile_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:3\d</span><span class="si">{3}</span><span class="s1">|5[^4\D]\d</span><span class="si">{2}</span><span class="s1">|8\d</span><span class="si">{3}</span><span class="s1">|7(?:[35678]\d</span><span class="si">{2}</span><span class="s1">|4(?:0\d|1[0-2]|9\d))|9[189]\d</span><span class="si">{2}</span><span class="s1">|66\d</span><span class="si">{2}</span><span class="s1">)\d</span><span class="si">{6}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 移动手机卡</span>
+<span class="n">MOVE_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:3(?:4[^9\D]|[5-9]\d)|5[^3-6\D]\d|8[23478]\d|(?:78|98)\d)\d</span><span class="si">{7}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 联通手机卡</span>
+<span class="n">UNICOM_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:3[0-2]|[578][56]|66)\d</span><span class="si">{8}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 电信手机卡</span>
+<span class="n">TELECOM_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:3(?:3\d|49)\d|53\d</span><span class="si">{2}</span><span class="s1">|8[019]\d</span><span class="si">{2}</span><span class="s1">|7(?:[37]\d</span><span class="si">{2}</span><span class="s1">|40[0-5])|9[19]\d</span><span class="si">{2}</span><span class="s1">)\d</span><span class="si">{6}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 匹配北京船舶通信导航有限公司（海事卫星通信）</span>
+<span class="n">Maritime_Communications_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1749\d</span><span class="si">{7}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 工业和信息化部应急通信保障中心（应急通信）</span>
+<span class="n">Emergency_Communication_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?174(?:0[6-9]|1[0-2])\d</span><span class="si">{6}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 虚拟运营商</span>
+<span class="n">ALL_Virtual_Operator_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:7[01]|6[57])\d</span><span class="si">{8}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 移动虚拟运营商</span>
+<span class="n">Move_Virtual_Operator_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:65\d|70[356])\d</span><span class="si">{7}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 联通虚拟运营商</span>
+<span class="n">UNICOM_Virtual_Operator_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1(?:70[4789]|71\d|67\d)\d</span><span class="si">{7}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 电信虚拟运营商</span>
+<span class="n">TELECOM_Virtual_Operator_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?170[0-2]\d</span><span class="si">{7}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 物联网数据卡</span>
+<span class="n">ALL_Internet_of_Things_Data_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?14(?:[14]0|[68]\d)\d</span><span class="si">{9}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 移动物联网数据卡</span>
+<span class="n">Move_Internet_of_Things_Data_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?14(?:40|8\d)\d</span><span class="si">{9}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 联通物联网数据卡</span>
+<span class="n">UNICOM_Internet_of_Things_Data_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?146\d</span><span class="si">{10}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 电信物联网数据卡</span>
+<span class="n">TELECOM_Internet_of_Things_Data_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?1410\d</span><span class="si">{9}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 上网卡</span>
+<span class="n">ALL_Wireless_Network_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?14[579]\d</span><span class="si">{8}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 移动上网卡</span>
+<span class="n">MOVE_Wireless_Network_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?147\d</span><span class="si">{8}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 联通上网卡</span>
+<span class="n">UNiCOM_Wireless_Network_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?145\d</span><span class="si">{8}</span><span class="s1">$&#39;</span>
+
+<span class="c1"># 电信上网卡</span>
+<span class="n">TELECOM_Wireless_Network_Card_RE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(?:\+?86)?149\d</span><span class="si">{8}</span><span class="s1">$&#39;</span>
+
+
+<div class="viewcode-block" id="telephone_number_matching_verification"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.telephone_number_matching_verification">[文档]</a><span class="k">def</span> <span class="nf">telephone_number_matching_verification</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">str_</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">numbers</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="p">[],</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">char_</span> <span class="ow">in</span> <span class="n">str_</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">char_</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">number</span> <span class="o">+=</span> <span class="n">char_</span>
+        <span class="k">elif</span> <span class="n">number</span><span class="p">:</span>
+            <span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">number</span><span class="p">:</span>
+        <span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">number</span>
+    <span class="k">if</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">num</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;我的电话是15180864679，你的电话是13314415519&#39;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">telephone_number_matching_verification</span><span class="p">(</span><span class="n">ALL_Mobile_Data_Network_Card_RE</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

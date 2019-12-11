@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.maps.Baidu &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.maps.Baidu</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.maps.Baidu 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/3/14 9:06</span>
+<span class="c1"># @Author: Jtyoui</span>
+<span class="kn">from</span> <span class="nn">jtyoui.web</span> <span class="k">import</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">jtyoui.error</span> <span class="k">import</span> <span class="n">BaiDuMapError</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">ceil</span>
+
+<span class="n">_total_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">AK</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;8R82NkA5j2YzCO1hG2grXUxdLQnnHdVA&#39;</span><span class="p">,</span> <span class="s1">&#39;mSYhaXLLGXffSkkgkalK84RV0Aof22vA&#39;</span><span class="p">,</span> <span class="s1">&#39;OpYA7uSs7czqHw68w07ZzE9t08RQWrfO&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;Tffez86k4u6rwGmE3MPR2N3XtUUNbZ7H&#39;</span><span class="p">,</span> <span class="s1">&#39;rINxBQe6h4OGbmrLiImffAj96ZlhxCY8&#39;</span><span class="p">,</span> <span class="s1">&#39;V6QYkOxaGwvU3WDVZKBdNUVjVvLcwQpH&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Data"><a class="viewcode-back" href="../../../jtyoui.maps.html#jtyoui.Data">[文档]</a><span class="k">class</span> <span class="nc">Data</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        爬取的数据类</span>
+<span class="sd">        :param name: 名称</span>
+<span class="sd">        :param location: 百度坐标系</span>
+<span class="sd">        :param address: 名称的详细地址</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;名字:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">坐标:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">地址:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;名字:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">坐标:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">地址:&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span></div>
+
+
+<div class="viewcode-block" id="get_data"><a class="viewcode-back" href="../../../jtyoui.maps.html#jtyoui.get_data">[文档]</a><span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">page_num</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    获取数据</span>
+<span class="sd">    :param title: 主题</span>
+<span class="sd">    :param scope: 范围</span>
+<span class="sd">    :param page_size: 返回一条是数据,默认是20,最大是20</span>
+<span class="sd">    :param page_num: 页数</span>
+<span class="sd">    :return: 主题信息集合</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_total_data</span>
+    <span class="n">ak</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="n">AK</span><span class="p">)</span>  <span class="c1"># 随机选取一个Ak值.AK要在百度接口上获取</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;http://api.map.baidu.com/place/v2/search?query=</span><span class="si">{title}</span><span class="s1">&amp;region=</span><span class="si">{scope}</span><span class="s1">&amp;output=json&amp;ak=</span><span class="si">{ak}</span><span class="s1">&amp;page_size=&#39;</span> \
+        <span class="n">f</span><span class="s1">&#39;</span><span class="si">{page_size}</span><span class="s1">&amp;page_num=</span><span class="si">{page_num}</span><span class="s1">&#39;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">random</span><span class="p">()})</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="n">get_data</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">page_num</span><span class="o">=</span><span class="n">page_num</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">BaiDuMapError</span><span class="p">(</span><span class="s1">&#39;该模块已经废弃不可用&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span>  <span class="c1"># 获取主要信息</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span>  <span class="c1"># 获取总条数</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">total</span> <span class="o">/</span> <span class="n">page_size</span><span class="p">)</span>  <span class="c1"># 取上整,获取页数</span>
+    <span class="n">current_page</span> <span class="o">=</span> <span class="n">page_num</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 当前页数,应该等于上一页加1</span>
+    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">locations</span><span class="p">[</span><span class="s1">&#39;lng&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">locations</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">])</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;province&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;address&#39;</span><span class="p">)</span>
+        <span class="n">_total_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Data</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">address</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">current_page</span> <span class="o">&lt;</span> <span class="n">page</span><span class="p">:</span>
+        <span class="n">get_data</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">page_num</span><span class="o">=</span><span class="n">current_page</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bd_map"><a class="viewcode-back" href="../../../jtyoui.maps.html#jtyoui.bd_map">[文档]</a><span class="k">def</span> <span class="nf">bd_map</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">page_num</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;获取信息,和get_data()一样&quot;&quot;&quot;</span>
+    <span class="n">get_data</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">page_size</span><span class="p">,</span> <span class="n">page_num</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_total_data</span></div>
+
+
+<div class="viewcode-block" id="save_txt"><a class="viewcode-back" href="../../../jtyoui.maps.html#jtyoui.save_txt">[文档]</a><span class="k">def</span> <span class="nf">save_txt</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    保存到纯文本</span>
+<span class="sd">    :param file: 文件地址</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">_total_data</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_csv"><a class="viewcode-back" href="../../../jtyoui.maps.html#jtyoui.save_csv">[文档]</a><span class="k">def</span> <span class="nf">save_csv</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    保存到csv文件</span>
+<span class="sd">    :param file: csv文件地址</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;GBK&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">_total_data</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bd</span> <span class="o">=</span> <span class="n">bd_map</span><span class="p">(</span><span class="s1">&#39;景区&#39;</span><span class="p">,</span> <span class="s1">&#39;黔东南苗族侗族自治州&#39;</span><span class="p">)</span>
+    <span class="c1"># save_txt(&#39;./景区.txt&#39;)</span>
+    <span class="n">save_csv</span><span class="p">(</span><span class="s1">&#39;./景区.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

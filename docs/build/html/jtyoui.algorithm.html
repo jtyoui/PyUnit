@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.algorithm package &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">jtyoui.algorithm package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-jtyoui.algorithm.MatchingAlgorithm">jtyoui.algorithm.MatchingAlgorithm module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.algorithm.ReplaceAlgorithm">jtyoui.algorithm.ReplaceAlgorithm module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.algorithm.SearchAlgorithm">jtyoui.algorithm.SearchAlgorithm module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.algorithm.SortAlgorithm">jtyoui.algorithm.SortAlgorithm module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.algorithm.TreeAlgorithm">jtyoui.algorithm.TreeAlgorithm module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.algorithm">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>jtyoui.algorithm package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/jtyoui.algorithm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jtyoui-algorithm-package">
+<h1>jtyoui.algorithm package<a class="headerlink" href="#jtyoui-algorithm-package" title="永久链接至标题">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-jtyoui.algorithm.MatchingAlgorithm">
+<span id="jtyoui-algorithm-matchingalgorithm-module"></span><h2>jtyoui.algorithm.MatchingAlgorithm module<a class="headerlink" href="#module-jtyoui.algorithm.MatchingAlgorithm" title="永久链接至标题">¶</a></h2>
+<p>匹配算法</p>
+<dl class="class">
+<dt id="jtyoui.algorithm.MatchingAlgorithm.FMMA">
+<em class="property">class </em><code class="sig-prename descclassname">jtyoui.algorithm.MatchingAlgorithm.</code><code class="sig-name descname">FMMA</code><span class="sig-paren">(</span><em class="sig-param">ls</em>, <em class="sig-param">sort=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/MatchingAlgorithm.html#FMMA"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.MatchingAlgorithm.FMMA" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>FMMA(Forward Maximum Matching Algorithms)正向最大匹配算法</p>
+<dl class="method">
+<dt id="jtyoui.algorithm.MatchingAlgorithm.FMMA.cut">
+<code class="sig-name descname">cut</code><span class="sig-paren">(</span><em class="sig-param">line</em>, <em class="sig-param">max_length</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/MatchingAlgorithm.html#FMMA.cut"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.MatchingAlgorithm.FMMA.cut" title="永久链接至目标">¶</a></dt>
+<dd><p>输入一行字符串，最大按照max_length拆分</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="jtyoui.algorithm.MatchingAlgorithm.RMMA">
+<em class="property">class </em><code class="sig-prename descclassname">jtyoui.algorithm.MatchingAlgorithm.</code><code class="sig-name descname">RMMA</code><span class="sig-paren">(</span><em class="sig-param">ls</em>, <em class="sig-param">sort=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/MatchingAlgorithm.html#RMMA"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.MatchingAlgorithm.RMMA" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>RMMA(Reverse Maximum Matching Algorithms)逆向最大匹配算法</p>
+<dl class="method">
+<dt id="jtyoui.algorithm.MatchingAlgorithm.RMMA.cut">
+<code class="sig-name descname">cut</code><span class="sig-paren">(</span><em class="sig-param">line</em>, <em class="sig-param">max_length</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/MatchingAlgorithm.html#RMMA.cut"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.MatchingAlgorithm.RMMA.cut" title="永久链接至目标">¶</a></dt>
+<dd><p>输入一行字符串，最大按照max_length拆分</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.algorithm.MatchingAlgorithm.kmp">
+<code class="sig-prename descclassname">jtyoui.algorithm.MatchingAlgorithm.</code><code class="sig-name descname">kmp</code><span class="sig-paren">(</span><em class="sig-param">string</em>, <em class="sig-param">str_</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/MatchingAlgorithm.html#kmp"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.MatchingAlgorithm.kmp" title="永久链接至目标">¶</a></dt>
+<dd><p>KMP(The Knuth-Morris-Pratt Algorithm)无回溯串匹配算法</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.algorithm.MatchingAlgorithm.max_sub_array">
+<code class="sig-prename descclassname">jtyoui.algorithm.MatchingAlgorithm.</code><code class="sig-name descname">max_sub_array</code><span class="sig-paren">(</span><em class="sig-param">ls: list</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/jtyoui/algorithm/MatchingAlgorithm.html#max_sub_array"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.MatchingAlgorithm.max_sub_array" title="永久链接至目标">¶</a></dt>
+<dd><p>求解最大子数组
+:param ls: 数字类列表
+:return:（起始位置，结束位置，最大值）</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.algorithm.ReplaceAlgorithm">
+<span id="jtyoui-algorithm-replacealgorithm-module"></span><h2>jtyoui.algorithm.ReplaceAlgorithm module<a class="headerlink" href="#module-jtyoui.algorithm.ReplaceAlgorithm" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.algorithm.ReplaceAlgorithm.map_replace">
+<code class="sig-prename descclassname">jtyoui.algorithm.ReplaceAlgorithm.</code><code class="sig-name descname">map_replace</code><span class="sig-paren">(</span><em class="sig-param">str_: str</em>, <em class="sig-param">key: [&lt;class 'list'&gt;</em>, <em class="sig-param">&lt;class 'str'&gt;] = None</em>, <em class="sig-param">value: [&lt;class 'list'&gt;</em>, <em class="sig-param">&lt;class 'str'&gt;] = None</em>, <em class="sig-param">maps: dict = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/jtyoui/algorithm/ReplaceAlgorithm.html#map_replace"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.ReplaceAlgorithm.map_replace" title="永久链接至目标">¶</a></dt>
+<dd><p>映射替换,最好使用maps字典映射
+:param <a href="#id3"><span class="problematic" id="id4">str_</span></a>: 字符串
+:param key: 替换字符
+:param value: 被替换的字符
+:param maps:字符映射
+:return: 替换完毕的字符串</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.algorithm.SearchAlgorithm">
+<span id="jtyoui-algorithm-searchalgorithm-module"></span><h2>jtyoui.algorithm.SearchAlgorithm module<a class="headerlink" href="#module-jtyoui.algorithm.SearchAlgorithm" title="永久链接至标题">¶</a></h2>
+<p>搜索算法</p>
+<dl class="function">
+<dt id="jtyoui.algorithm.SearchAlgorithm.binary_search">
+<code class="sig-prename descclassname">jtyoui.algorithm.SearchAlgorithm.</code><code class="sig-name descname">binary_search</code><span class="sig-paren">(</span><em class="sig-param">ls</em>, <em class="sig-param">x</em>, <em class="sig-param">sort=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/SearchAlgorithm.html#binary_search"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.SearchAlgorithm.binary_search" title="永久链接至目标">¶</a></dt>
+<dd><p>二分查找算法
+:param ls: 列表。
+:param x: 被查找的数。
+:param sort: 是否要启动排序，False表示不启动排序，默认是不启动。
+:return: 找到返回True，反之亦然</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.algorithm.SortAlgorithm">
+<span id="jtyoui-algorithm-sortalgorithm-module"></span><h2>jtyoui.algorithm.SortAlgorithm module<a class="headerlink" href="#module-jtyoui.algorithm.SortAlgorithm" title="永久链接至标题">¶</a></h2>
+<p>排序算法</p>
+<dl class="function">
+<dt id="jtyoui.algorithm.SortAlgorithm.bubbled_sort">
+<code class="sig-prename descclassname">jtyoui.algorithm.SortAlgorithm.</code><code class="sig-name descname">bubbled_sort</code><span class="sig-paren">(</span><em class="sig-param">ls</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/SortAlgorithm.html#bubbled_sort"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.SortAlgorithm.bubbled_sort" title="永久链接至目标">¶</a></dt>
+<dd><p>冒泡算法</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.algorithm.TreeAlgorithm">
+<span id="jtyoui-algorithm-treealgorithm-module"></span><h2>jtyoui.algorithm.TreeAlgorithm module<a class="headerlink" href="#module-jtyoui.algorithm.TreeAlgorithm" title="永久链接至标题">¶</a></h2>
+<dl class="class">
+<dt id="jtyoui.algorithm.TreeAlgorithm.Tree">
+<em class="property">class </em><code class="sig-prename descclassname">jtyoui.algorithm.TreeAlgorithm.</code><code class="sig-name descname">Tree</code><span class="sig-paren">(</span><em class="sig-param">value=None</em>, <em class="sig-param">parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/TreeAlgorithm.html#Tree"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.TreeAlgorithm.Tree" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="jtyoui.algorithm.TreeAlgorithm.Tree.add_child">
+<code class="sig-name descname">add_child</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/TreeAlgorithm.html#Tree.add_child"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.TreeAlgorithm.Tree.add_child" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jtyoui.algorithm.TreeAlgorithm.Tree.node_parent_value">
+<code class="sig-name descname">node_parent_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/TreeAlgorithm.html#Tree.node_parent_value"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.TreeAlgorithm.Tree.node_parent_value" title="永久链接至目标">¶</a></dt>
+<dd><p>知道一个节点，打印该节点的所有值（路径）
+:return: 返回该节点路径上的所有值</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jtyoui.algorithm.TreeAlgorithm.Tree.search_tree">
+<code class="sig-name descname">search_tree</code><span class="sig-paren">(</span><em class="sig-param">value: str</em>, <em class="sig-param">ls</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/TreeAlgorithm.html#Tree.search_tree"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.TreeAlgorithm.Tree.search_tree" title="永久链接至目标">¶</a></dt>
+<dd><p>多叉搜索树
+:param value: 树上一个值
+:param ls:树集合</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jtyoui.algorithm.TreeAlgorithm.Tree.search_tree_value">
+<code class="sig-name descname">search_tree_value</code><span class="sig-paren">(</span><em class="sig-param">value: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/TreeAlgorithm.html#Tree.search_tree_value"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.TreeAlgorithm.Tree.search_tree_value" title="永久链接至目标">¶</a></dt>
+<dd><p>搜索树的路径
+:param value:树上的一个值
+:return:树支的路径</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.algorithm.TreeAlgorithm.dict_create_tree">
+<code class="sig-prename descclassname">jtyoui.algorithm.TreeAlgorithm.</code><code class="sig-name descname">dict_create_tree</code><span class="sig-paren">(</span><em class="sig-param">data: dict</em>, <em class="sig-param">tree: jtyoui.algorithm.TreeAlgorithm.Tree = &lt;jtyoui.algorithm.TreeAlgorithm.Tree object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/TreeAlgorithm.html#dict_create_tree"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.TreeAlgorithm.dict_create_tree" title="永久链接至目标">¶</a></dt>
+<dd><dl>
+<dt>创建下面的树结构</dt><dd><blockquote>
+<div><blockquote>
+<div><p>a</p>
+</div></blockquote>
+<p>b   c   d</p>
+</div></blockquote>
+<p>e f g <a href="#id1"><span class="problematic" id="id2">|g h|</span></a> k m</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – 创建树型结构，对照上面，例如：ds = {‘a’: {‘b’: [‘e’, ‘f’, ‘g’], ‘c’: [‘g’, ‘h’], ‘d’: [‘k’, ‘m’]}}</p></li>
+<li><p><strong>tree</strong> – 默认为上一层树结构，不需要传入</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>一颗自动带有root根目录的树结构</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.algorithm.TreeAlgorithm.tree">
+<code class="sig-prename descclassname">jtyoui.algorithm.TreeAlgorithm.</code><code class="sig-name descname">tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/algorithm/TreeAlgorithm.html#tree"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.algorithm.TreeAlgorithm.tree" title="永久链接至目标">¶</a></dt>
+<dd><p>创建一颗简单树
+x=tree()
+x[‘a’][‘b’]=1
+:return: 树</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.algorithm">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-jtyoui.algorithm" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

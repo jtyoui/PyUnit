@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.tools.times &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.tools.times</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.tools.times 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/4/24 17:29</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="kn">from</span> <span class="nn">jtyoui.data</span> <span class="k">import</span> <span class="n">chinese_mon_number</span><span class="p">,</span> <span class="n">add_time</span>
+<span class="kn">from</span> <span class="nn">jtyoui.decorator</span> <span class="k">import</span> <span class="n">warns</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">calendar</span>
+
+
+<div class="viewcode-block" id="StringTime"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.StringTime">[文档]</a><span class="k">class</span> <span class="nc">StringTime</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence</span><span class="p">,</span> <span class="n">date_str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date_format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;传入一个字符串时间和现在时间。</span>
+<span class="sd">        &gt;&gt;&gt; st = StringTime(&#39;二零零七年十月三十一号下午2点半&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(st.find_times())</span>
+<span class="sd">        :param sentence: 字符串时间</span>
+<span class="sd">        :param date_str: 你认为的现在时间，不传默认是当前时间</span>
+<span class="sd">        :param date_format:时间格式</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sentence</span> <span class="o">=</span> <span class="n">sentence</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_localtime</span> <span class="o">=</span> <span class="n">date_str</span> <span class="k">if</span> <span class="n">date_str</span> <span class="k">else</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">date_format</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">date_format</span>
+        <span class="c1"># 自定义</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_localtime</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_year</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d+年)&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_mon</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(上个?月)|(这个?月)|(下个?月)|(\d{0,2}本?月底?)|(\d*个?月以?后)&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_day</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(今天)|(明天)|(后天)|(昨天)|(前天)|(\d+日)|(\d+号)|(\d*天\w?[后前])&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_week</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(上个?周)|(下个?周)|(星期日)|(星期天)|(星期\d+)|(周\d+)&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_hour</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(早上)|(下午)|(晚上)|(\d+点)&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_min</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(\d+分)|(\d+点半)&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_sec</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(\d+秒)&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">tm_year</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">tm_mon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_day</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">tm_mday</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_week</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">tm_wday</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chinese_numerals</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">chinese_mon_number</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chinese_numerals</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;十&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_time</span> <span class="o">=</span> <span class="n">add_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sentence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sentence</span>
+
+    <span class="nd">@sentence</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">sentence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sentence</span> <span class="o">=</span> <span class="n">sentence</span>
+
+<div class="viewcode-block" id="StringTime.adds"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.StringTime.adds">[文档]</a>    <span class="k">def</span> <span class="nf">adds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
+        <span class="n">add</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_localtime</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_year</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">year</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">month</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_day</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">day</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">now_week</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">isoweekday</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">add</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StringTime.find"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.StringTime.find">[文档]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;根据名字来查找年月日号</span>
+<span class="sd">        ：:param name:填写：年、月、日、号、来找对应的日期</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;年&#39;</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;%Y&#39;</span>
+            <span class="n">re_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_year</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;月&#39;</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;%m&#39;</span>
+            <span class="n">re_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_mon</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;日&#39;</span> <span class="ow">or</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;号&#39;</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span>
+            <span class="n">re_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_day</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;周&#39;</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span>
+            <span class="n">re_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_week</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">re_</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">date_time</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">add</span> <span class="o">=</span> <span class="p">[],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentence</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;星期日&#39;</span><span class="p">,</span> <span class="s1">&#39;星期天&#39;</span><span class="p">]:</span>
+                        <span class="n">day</span> <span class="o">=</span> <span class="mi">7</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_week</span>
+                    <span class="k">elif</span> <span class="s1">&#39;星期&#39;</span> <span class="ow">in</span> <span class="n">i</span> <span class="ow">and</span> <span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                        <span class="n">week</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="n">day</span> <span class="o">=</span> <span class="n">week</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_week</span>
+                    <span class="k">elif</span> <span class="s1">&#39;周&#39;</span> <span class="ow">in</span> <span class="n">i</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># 周三、周四等</span>
+                        <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                            <span class="n">week</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="n">day</span> <span class="o">=</span> <span class="n">week</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_week</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">add</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_time</span><span class="p">:</span>
+                            <span class="n">date_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_time</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">flag</span><span class="p">))</span>
+                        <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d{1,2}个?月以?后&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+                            <span class="n">ds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span> <span class="o">+</span> <span class="n">ds</span>
+                        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">i</span> <span class="ow">and</span> <span class="s1">&#39;底&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>  <span class="c1"># 判断不是xx月底</span>
+                            <span class="k">if</span> <span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                                <span class="n">date_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">elif</span> <span class="s1">&#39;月底&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>  <span class="c1"># 处理xx月底</span>
+                            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;本&#39;</span><span class="p">:</span>
+                                <span class="n">days</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">monthrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now_year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                                <span class="n">date_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span><span class="p">)</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_sentence</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{days}</span><span class="s1">日&#39;</span>
+                            <span class="k">elif</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                                <span class="n">days</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">monthrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now_year</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">1</span><span class="p">]</span>
+                                <span class="n">date_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_sentence</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{days}</span><span class="s1">日&#39;</span>
+                            <span class="k">else</span><span class="p">:</span>  <span class="c1"># 既没有xx月也没有本月之类的。暂未考虑</span>
+                                <span class="k">pass</span>
+                        <span class="k">elif</span> <span class="n">add_time</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                                <span class="n">date_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adds</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">flag</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">day</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">add</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">add</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">date_time</span><span class="p">:</span>
+                <span class="n">days</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">day</span>
+                <span class="n">date_time</span> <span class="o">=</span> <span class="p">[</span><span class="n">days</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adds</span><span class="p">(</span><span class="n">day</span> <span class="o">+</span> <span class="n">add</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">days</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_day</span><span class="p">:</span>
+                <span class="n">date_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">days</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">date_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">days</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">date_time</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">date_time</span> <span class="k">if</span> <span class="n">date_time</span> <span class="k">else</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="StringTime.find_hour"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.StringTime.find_hour">[文档]</a>    <span class="k">def</span> <span class="nf">find_hour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;找对应的小时&quot;&quot;&quot;</span>
+        <span class="n">hours</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentence</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;早上&#39;</span><span class="p">:</span>
+                        <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;下午&#39;</span><span class="p">:</span>
+                        <span class="n">flag</span> <span class="o">=</span> <span class="mi">12</span>
+                    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;晚上&#39;</span><span class="p">:</span>
+                        <span class="n">flag</span> <span class="o">=</span> <span class="mi">12</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="p">:</span>
+                                <span class="n">hours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">hours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">flag</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">hours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hours</span> <span class="k">if</span> <span class="n">hours</span> <span class="k">else</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="StringTime.find_min"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.StringTime.find_min">[文档]</a>    <span class="k">def</span> <span class="nf">find_min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;找对应的分钟&quot;&quot;&quot;</span>
+        <span class="n">minute</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentence</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                        <span class="n">minute</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="k">elif</span> <span class="s1">&#39;半&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                        <span class="n">minute</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">minute</span> <span class="k">if</span> <span class="n">minute</span> <span class="k">else</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="StringTime.find_sec"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.StringTime.find_sec">[文档]</a>    <span class="k">def</span> <span class="nf">find_sec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;找对应的秒钟&quot;&quot;&quot;</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re_sec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentence</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">d</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="n">second</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">second</span> <span class="k">if</span> <span class="n">second</span> <span class="k">else</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="StringTime.find_times"><a class="viewcode-back" href="../../../jtyoui.tools.html#jtyoui.StringTime.find_times">[文档]</a>    <span class="nd">@warns</span><span class="p">(</span><span class="s1">&#39;该类已经废除、废除时间2019年11月1日（19.10.28版本），请将StringTime类换成ParseTime类使用&#39;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">find_times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; 根据一句话来找对应的时间&quot;&quot;&quot;</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[,.，。、?!？！]&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentence</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sentences_</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">sentences_</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">sentences</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[到至-]&#39;</span><span class="p">,</span> <span class="n">sentences_</span><span class="p">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;早上|下午|晚上&#39;</span><span class="p">,</span> <span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">_</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;早上|下午|晚上&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="k">else</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
+            <span class="n">flag_y</span><span class="p">,</span> <span class="n">flag_m</span><span class="p">,</span> <span class="n">flag_d</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>  <span class="c1"># 临时变量，存放左右连词的性质</span>
+            <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+                <span class="n">str_</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">chinese_numerals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="p">]</span>  <span class="c1"># 加[&#39; &#39;]的原因保证index+1不会出现list索引溢出</span>
+                <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="k">if</span> <span class="s1">&#39;十&#39;</span> <span class="ow">in</span> <span class="n">str_</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">str_</span><span class="p">):</span>  <span class="c1"># 判断十在每个位置上的不同意义</span>
+                        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;十&#39;</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">str_</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="n">str_</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>  <span class="c1"># 比如：二十一实际上十可以取空，变成21</span>
+                                <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                            <span class="k">elif</span> <span class="n">str_</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">str_</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()):</span>  <span class="c1"># 比如：二十实际上十变成0，变成20</span>
+                                <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+                            <span class="k">elif</span> <span class="ow">not</span> <span class="n">str_</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="n">str_</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>  <span class="c1"># 比如：十三实际上十变成1，变成13</span>
+                                <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;10&#39;</span>  <span class="c1"># 其余情况十就变成10</span>
+                        <span class="n">string</span> <span class="o">+=</span> <span class="n">c</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;[上下]个?周[1-6日]&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+                    <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;周&#39;</span><span class="p">,</span> <span class="s1">&#39;周星期&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_sentence</span> <span class="o">=</span> <span class="n">string</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;年&#39;</span><span class="p">)</span>  <span class="c1"># 找到一句话中的年份</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;月&#39;</span><span class="p">)</span>  <span class="c1"># 找到一句话中的月份</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;号&#39;</span><span class="p">)</span>  <span class="c1"># 找到一句话中的天数</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;日&#39;</span><span class="p">)</span>  <span class="c1"># 找到一句话中的天数</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;周&#39;</span><span class="p">)</span>  <span class="c1"># 找到一句话中的天数</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                        <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                    <span class="n">d</span> <span class="o">+=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">d</span> <span class="o">+=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">w</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_hour</span><span class="p">()</span>  <span class="c1"># 找到一句话中的小时</span>
+                <span class="n">mi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_min</span><span class="p">()</span>  <span class="c1"># 找到一句话中的分钟</span>
+                <span class="n">sec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_sec</span><span class="p">()</span>  <span class="c1"># 找到一句话中的秒钟</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">y</span> <span class="ow">or</span> <span class="n">m</span> <span class="ow">or</span> <span class="n">d</span> <span class="ow">or</span> <span class="n">h</span> <span class="ow">or</span> <span class="n">mi</span> <span class="ow">or</span> <span class="n">sec</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">y</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">flag_y</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">flag_m</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">d</span><span class="p">:</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">flag_d</span>
+                <span class="k">if</span> <span class="n">h</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">d</span><span class="p">:</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">now_day</span><span class="p">]</span>
+                <span class="n">flag_y</span><span class="p">,</span> <span class="n">flag_m</span><span class="p">,</span> <span class="n">flag_d</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span>
+                <span class="k">for</span> <span class="n">y_</span><span class="p">,</span> <span class="n">m_</span><span class="p">,</span> <span class="n">d_</span><span class="p">,</span> <span class="n">h_</span><span class="p">,</span> <span class="n">mi_</span><span class="p">,</span> <span class="n">sec_</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">zip_longest</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">sec</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">y_</span> <span class="ow">and</span> <span class="n">m_</span><span class="p">:</span>
+                        <span class="n">y_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_year</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">m_</span> <span class="ow">and</span> <span class="n">d_</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">y_</span><span class="p">:</span>
+                            <span class="n">y_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_year</span>
+                        <span class="n">m_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now_mon</span>
+                        <span class="n">add_y</span><span class="p">,</span> <span class="n">add_m</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+                        <span class="n">y_</span> <span class="o">+=</span> <span class="n">add_y</span>
+                        <span class="n">m_</span> <span class="o">=</span> <span class="n">add_m</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">mi_</span><span class="p">:</span>
+                        <span class="n">mi_</span> <span class="o">=</span> <span class="s1">&#39;00&#39;</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">sec_</span><span class="p">:</span>
+                        <span class="n">sec_</span> <span class="o">=</span> <span class="s1">&#39;00&#39;</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">m_</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{y_}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="n">d_</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{y_}</span><span class="s1">-</span><span class="si">{m_:0&gt;2}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="n">h_</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{y_}</span><span class="s1">-</span><span class="si">{m_:0&gt;2}</span><span class="s1">-</span><span class="si">{d_:0&gt;2}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{y_}</span><span class="s1">-</span><span class="si">{m_:0&gt;2}</span><span class="s1">-</span><span class="si">{d_:0&gt;2}</span><span class="s1"> </span><span class="si">{h_:0&gt;2}</span><span class="s1">:</span><span class="si">{mi_:0&gt;2}</span><span class="s1">:</span><span class="si">{sec_:0&gt;2}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="k">break</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">times</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------默认是当日期------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;二零零七年十月三十一号下午2点半&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2007-10-31 14:30:00&#39;]</span>
+    <span class="n">st</span><span class="o">.</span><span class="n">sentence</span> <span class="o">=</span> <span class="s1">&#39;下周星期一下午15点半开会&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-08 15:30:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----------------切换日期------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;下周星期一下午2点半开会&#39;</span><span class="p">,</span> <span class="s1">&#39;2019-4-17 00:00:00&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-04-22 14:30:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------多个时间-------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;今天下午3点开会到4点整到12楼大会议室开会。&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-02 15:00:00&#39;, &#39;2019-07-02 16:00:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------没有时间-------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;我要是不传时间呢？&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># []</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------只有天数--------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;今天去北京，明天去哪里？&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-02&#39;, &#39;2019-07-03&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------跳断日期--------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;下周星期一下午2点半到4点开会&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-08 14:30:00&#39;, &#39;2019-07-08 16:00:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------非常间断日期--------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;明天下午2点半一直到下周星期五下午4点开会&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-03 14:30:00&#39;, &#39;2019-07-12 16:00:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------没有日期或者天数--------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;下午2点半开会&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-03 14:30:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------*几个月以后--------------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;请王鹏宇下个月1号下午3点上交财务报表&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-08-01 15:00:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------几天之后--------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;三天之后下午3点开会&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-08 15:00:00&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------几月底--------------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;明年的2月底之前必须交报告,本月底吃饭&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>  <span class="c1"># [&#39;2019-07-31&#39;, &#39;2020-02-28&#39;]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------晚上-----------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;晚上11点20分&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------下个周几-----------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;下个周2&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------几个月以后的日期--------&#39;</span><span class="p">)</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">StringTime</span><span class="p">(</span><span class="s1">&#39;5个月后的明天&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">find_times</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

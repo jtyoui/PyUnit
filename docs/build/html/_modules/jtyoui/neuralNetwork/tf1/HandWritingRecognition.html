@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.neuralNetwork.tf1.HandWritingRecognition &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.neuralNetwork.tf1.HandWritingRecognition</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.neuralNetwork.tf1.HandWritingRecognition 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/7/28 0:51</span>
+<span class="c1"># @Author: jtyoui@qq.com</span>
+<span class="kn">from</span> <span class="nn">tensorflow.examples.tutorials.mnist</span> <span class="k">import</span> <span class="n">input_data</span>
+<span class="kn">from</span> <span class="nn">tensorflow.contrib.layers</span> <span class="k">import</span> <span class="n">l2_regularizer</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">input_node</span> <span class="o">=</span> <span class="mi">784</span>  <span class="c1"># 输入节点</span>
+<span class="n">output_node</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># 输出节点</span>
+<span class="n">layer_node</span> <span class="o">=</span> <span class="mi">500</span>  <span class="c1"># 隐藏层节点</span>
+<span class="n">regularization</span> <span class="o">=</span> <span class="mf">0.001</span>  <span class="c1"># 正则值</span>
+<span class="n">bitch_size</span> <span class="o">=</span> <span class="mi">200</span>  <span class="c1"># 批量大小</span>
+<span class="n">learning_rates</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># 初始学习率</span>
+<span class="n">learning_rate_decay</span> <span class="o">=</span> <span class="mf">0.99</span>  <span class="c1"># 学习衰减率</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">50000</span>  <span class="c1"># 训练步数</span>
+<span class="n">moving_average_decay</span> <span class="o">=</span> <span class="mf">0.99</span>  <span class="c1"># 滑动平均衰减值</span>
+<span class="n">model_save_path</span> <span class="o">=</span> <span class="s1">&#39;./model/&#39;</span>  <span class="c1"># 保存文件夹</span>
+<span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;mist_model&#39;</span>  <span class="c1"># 保存名字</span>
+
+
+<div class="viewcode-block" id="get_w"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.get_w">[文档]</a><span class="k">def</span> <span class="nf">get_w</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">regular</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;获得w权重&quot;&quot;&quot;</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">truncated_normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">regular</span><span class="p">:</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">add_to_collection</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;losses&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">l2_regularizer</span><span class="p">(</span><span class="n">regular</span><span class="p">)(</span><span class="n">w</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">w</span></div>
+
+
+<div class="viewcode-block" id="get_b"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.get_b">[文档]</a><span class="k">def</span> <span class="nf">get_b</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;获得b权重&quot;&quot;&quot;</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">b</span></div>
+
+
+<div class="viewcode-block" id="forward"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.forward">[文档]</a><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">regular</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;前向传播&quot;&quot;&quot;</span>
+    <span class="n">w1</span> <span class="o">=</span> <span class="n">get_w</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_node</span><span class="p">,</span> <span class="n">layer_node</span><span class="p">),</span> <span class="n">regular</span><span class="o">=</span><span class="n">regular</span><span class="p">)</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="n">get_b</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="n">layer_node</span><span class="p">])</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span><span class="p">)</span>
+    <span class="n">w2</span> <span class="o">=</span> <span class="n">get_w</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">layer_node</span><span class="p">,</span> <span class="n">output_node</span><span class="p">),</span> <span class="n">regular</span><span class="o">=</span><span class="n">regular</span><span class="p">)</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">get_b</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="n">output_node</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>
+    <span class="k">return</span> <span class="n">y</span></div>
+
+
+<div class="viewcode-block" id="get_pic"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.get_pic">[文档]</a><span class="k">def</span> <span class="nf">get_pic</span><span class="p">(</span><span class="n">photo</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;将照片转为输入格式&quot;&quot;&quot;</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">photo</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>  <span class="c1"># 进行转灰度</span>
+    <span class="n">img_array</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>  <span class="c1"># 压缩高质量照片</span>
+    <span class="n">img_array</span> <span class="o">=</span> <span class="mi">255</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img_array</span><span class="p">)</span>  <span class="c1"># 将黑变白。白变黑</span>
+    <span class="n">img_array</span><span class="p">[</span><span class="n">img_array</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 小于50转为黑色</span>
+    <span class="n">img_array</span><span class="p">[</span><span class="n">img_array</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>  <span class="c1"># 大于50转为纯白色</span>
+    <span class="n">nm_array</span> <span class="o">=</span> <span class="n">img_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nm_array</span></div>
+
+
+<div class="viewcode-block" id="backward"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.backward">[文档]</a><span class="k">def</span> <span class="nf">backward</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;后向传播&quot;&quot;&quot;</span>
+    <span class="n">mist</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">read_data_sets</span><span class="p">(</span><span class="n">train_dir</span><span class="o">=</span><span class="s1">&#39;./data/&#39;</span><span class="p">,</span> <span class="n">one_hot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_node</span><span class="p">))</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_node</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">forward</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">regular</span><span class="o">=</span><span class="n">regularization</span><span class="p">)</span>
+    <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># 定义一个计数器，不参与训练</span>
+
+    <span class="c1"># 交叉熵</span>
+    <span class="n">ce</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">sparse_softmax_cross_entropy_with_logits</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">cem</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">ce</span><span class="p">)</span>
+
+    <span class="c1"># 正则化</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">cem</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">add_n</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">get_collection</span><span class="p">(</span><span class="s1">&#39;losses&#39;</span><span class="p">))</span>
+
+    <span class="c1"># 验证正确率</span>
+    <span class="n">correct_predict</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">correct_predict</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+    <span class="c1"># 指数衰减学习率</span>
+    <span class="n">learning_rate</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">exponential_decay</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rates</span><span class="p">,</span>
+                                                         <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">,</span>
+                                                         <span class="n">decay_steps</span><span class="o">=</span><span class="n">mist</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">num_examples</span> <span class="o">/</span> <span class="n">bitch_size</span><span class="p">,</span>
+                                                         <span class="n">decay_rate</span><span class="o">=</span><span class="n">learning_rate_decay</span><span class="p">,</span>
+                                                         <span class="n">staircase</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">train_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">)</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+
+    <span class="c1"># 滑动平均</span>
+    <span class="n">ema</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">ExponentialMovingAverage</span><span class="p">(</span><span class="n">moving_average_decay</span><span class="p">,</span> <span class="n">global_step</span><span class="p">)</span>
+    <span class="n">ema_op</span> <span class="o">=</span> <span class="n">ema</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">var_list</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">())</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">control_dependencies</span><span class="p">(</span><span class="n">control_inputs</span><span class="o">=</span><span class="p">[</span><span class="n">train_step</span><span class="p">,</span> <span class="n">ema_op</span><span class="p">]):</span>
+        <span class="n">train_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">no_op</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+
+    <span class="n">saver</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Saver</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+        <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">global_variables_initializer</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+            <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">mist</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">next_batch</span><span class="p">(</span><span class="n">bitch_size</span><span class="p">)</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">loss_val</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fetches</span><span class="o">=</span><span class="p">[</span><span class="n">train_op</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">],</span>
+                                              <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">train_data</span><span class="p">:</span> <span class="n">xs</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="n">ys</span><span class="p">})</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;loss:</span><span class="si">{loss_val}</span><span class="s1">,accuracy:</span><span class="si">{acc}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">saver</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_save_path</span><span class="p">,</span> <span class="n">model_name</span><span class="p">),</span> <span class="n">global_step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="train"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.train">[文档]</a><span class="k">def</span> <span class="nf">train</span><span class="p">():</span>
+    <span class="n">backward</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="restore_model"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.restore_model">[文档]</a><span class="k">def</span> <span class="nf">restore_model</span><span class="p">(</span><span class="n">pic</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">input_node</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">pre_value</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">v</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">ExponentialMovingAverage</span><span class="p">(</span><span class="n">moving_average_decay</span><span class="p">)</span><span class="o">.</span><span class="n">variables_to_restore</span><span class="p">()</span>
+        <span class="n">saves</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Saver</span><span class="p">(</span><span class="n">var_list</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+            <span class="n">cp</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_checkpoint_state</span><span class="p">(</span><span class="n">checkpoint_dir</span><span class="o">=</span><span class="n">model_save_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cp</span> <span class="ow">and</span> <span class="n">cp</span><span class="o">.</span><span class="n">model_checkpoint_path</span><span class="p">:</span>
+                <span class="n">saves</span><span class="o">.</span><span class="n">restore</span><span class="p">(</span><span class="n">sess</span><span class="o">=</span><span class="n">sess</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="n">cp</span><span class="o">.</span><span class="n">model_checkpoint_path</span><span class="p">)</span>
+                <span class="n">pre_value</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fetches</span><span class="o">=</span><span class="n">pre_value</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">pic</span><span class="p">})</span>
+                <span class="k">return</span> <span class="n">pre_value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NO Model file found!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="test"><a class="viewcode-back" href="../../../../jtyoui.neuralNetwork.tf1.html#jtyoui.neuralNetwork.tf1.HandWritingRecognition.test">[文档]</a><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">photo_path</span><span class="p">):</span>
+    <span class="n">pic</span> <span class="o">=</span> <span class="n">get_pic</span><span class="p">(</span><span class="n">photo_path</span><span class="p">)</span>
+    <span class="c1"># Image.fromarray(pic.reshape((28, 28))).show()  # 展示图画数字</span>
+    <span class="k">return</span> <span class="n">restore_model</span><span class="p">(</span><span class="n">pic</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># 先训练在测试</span>
+    <span class="n">train</span><span class="p">()</span>  <span class="c1"># 训练</span>
+    <span class="c1"># value = test(&#39;./5.jpg&#39;)  # 测试</span>
+    <span class="c1"># print(value)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

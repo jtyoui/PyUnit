@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.ml package &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">jtyoui.ml package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml.classify">jtyoui.ml.classify module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml.common">jtyoui.ml.common module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml.fm">jtyoui.ml.fm module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml.lr">jtyoui.ml.lr module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml.neighbor">jtyoui.ml.neighbor module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml.onehot">jtyoui.ml.onehot module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml.testdata">jtyoui.ml.testdata module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.ml">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>jtyoui.ml package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/jtyoui.ml.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jtyoui-ml-package">
+<h1>jtyoui.ml package<a class="headerlink" href="#jtyoui-ml-package" title="永久链接至标题">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-jtyoui.ml.classify">
+<span id="jtyoui-ml-classify-module"></span><h2>jtyoui.ml.classify module<a class="headerlink" href="#module-jtyoui.ml.classify" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-jtyoui.ml.common">
+<span id="jtyoui-ml-common-module"></span><h2>jtyoui.ml.common module<a class="headerlink" href="#module-jtyoui.ml.common" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.ml.common.error_rate">
+<code class="sig-prename descclassname">jtyoui.ml.common.</code><code class="sig-name descname">error_rate</code><span class="sig-paren">(</span><em class="sig-param">h</em>, <em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/common.html#error_rate"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.common.error_rate" title="永久链接至目标">¶</a></dt>
+<dd><p>计算当前的损失函数值
+:param h:预测值
+:param label:实际值
+:return:错误率</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.common.get_cost">
+<code class="sig-prename descclassname">jtyoui.ml.common.</code><code class="sig-name descname">get_cost</code><span class="sig-paren">(</span><em class="sig-param">predict: numpy.asmatrix</em>, <em class="sig-param">label: numpy.asmatrix</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/jtyoui/ml/common.html#get_cost"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.common.get_cost" title="永久链接至目标">¶</a></dt>
+<dd><p>计算损失函数的值
+:param predict:预测值
+:param label:标签
+:return:损失函数的值</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.common.line_regression_a_b">
+<code class="sig-prename descclassname">jtyoui.ml.common.</code><code class="sig-name descname">line_regression_a_b</code><span class="sig-paren">(</span><em class="sig-param">x: numpy.array</em>, <em class="sig-param">y: numpy.array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/common.html#line_regression_a_b"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.common.line_regression_a_b" title="永久链接至目标">¶</a></dt>
+<dd><p>求解线性回归的a和β值。即y=b+a*x
+:param x: 数据特征值：应该是两维度。即：[[],[],[]]
+:param y: 数据预测值;一维度。即：[]
+:return: a值、和b值</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.common.sigmoid">
+<code class="sig-prename descclassname">jtyoui.ml.common.</code><code class="sig-name descname">sigmoid</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/common.html#sigmoid"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.common.sigmoid" title="永久链接至目标">¶</a></dt>
+<dd><p>Sigmoid函数</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.ml.fm">
+<span id="jtyoui-ml-fm-module"></span><h2>jtyoui.ml.fm module<a class="headerlink" href="#module-jtyoui.ml.fm" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.ml.fm.get_prediction">
+<code class="sig-prename descclassname">jtyoui.ml.fm.</code><code class="sig-name descname">get_prediction</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">w0</em>, <em class="sig-param">w</em>, <em class="sig-param">v</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/fm.html#get_prediction"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.fm.get_prediction" title="永久链接至目标">¶</a></dt>
+<dd><p>预测值
+:param data:特征
+:param w0:一次项权重
+:param w:常数项权重
+:param v:交叉项权重
+:return:预测结果</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.fm.initialize_v">
+<code class="sig-prename descclassname">jtyoui.ml.fm.</code><code class="sig-name descname">initialize_v</code><span class="sig-paren">(</span><em class="sig-param">n: int</em>, <em class="sig-param">k: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/fm.html#initialize_v"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.fm.initialize_v" title="永久链接至目标">¶</a></dt>
+<dd><p>初始化交叉项
+:param n:特征个数
+:param k:FM模型的度
+:return:交叉项的系数权重</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.fm.stop_grad_ascent">
+<code class="sig-prename descclassname">jtyoui.ml.fm.</code><code class="sig-name descname">stop_grad_ascent</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.asmatrix</em>, <em class="sig-param">label: numpy.asmatrix</em>, <em class="sig-param">k: int</em>, <em class="sig-param">max_iter: int</em>, <em class="sig-param">alpha: float) -&gt; (&lt;class 'float'&gt;</em>, <em class="sig-param">&lt;function asmatrix at 0x000002354DB7CA68&gt;</em>, <em class="sig-param">&lt;function asmatrix at 0x000002354DB7CA68&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/fm.html#stop_grad_ascent"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.fm.stop_grad_ascent" title="永久链接至目标">¶</a></dt>
+<dd><p>利用随机梯度下降法训练FM模型
+:param data: 数据特征
+:param label:标签
+:param k:v的维度
+:param max_iter:最大迭代次数
+:param alpha:学习率
+:return:w0,w,v权重</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.ml.lr">
+<span id="jtyoui-ml-lr-module"></span><h2>jtyoui.ml.lr module<a class="headerlink" href="#module-jtyoui.ml.lr" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.ml.lr.lr_train_bgd">
+<code class="sig-prename descclassname">jtyoui.ml.lr.</code><code class="sig-name descname">lr_train_bgd</code><span class="sig-paren">(</span><em class="sig-param">feature: numpy.array</em>, <em class="sig-param">label: numpy.array</em>, <em class="sig-param">max_cycle: int</em>, <em class="sig-param">alpha: float</em><span class="sig-paren">)</span> &#x2192; numpy.asmatrix<a class="reference internal" href="_modules/jtyoui/ml/lr.html#lr_train_bgd"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.lr.lr_train_bgd" title="永久链接至目标">¶</a></dt>
+<dd><p>利用梯度下降法训练逻辑回归模型（LR）
+:param feature:特征
+:param label:标签
+:param max_cycle:最大迭代次数
+:param alpha:学习率
+:return:w的权重</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.ml.neighbor">
+<span id="jtyoui-ml-neighbor-module"></span><h2>jtyoui.ml.neighbor module<a class="headerlink" href="#module-jtyoui.ml.neighbor" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.ml.neighbor.knn_class_fit">
+<code class="sig-prename descclassname">jtyoui.ml.neighbor.</code><code class="sig-name descname">knn_class_fit</code><span class="sig-paren">(</span><em class="sig-param">train</em>, <em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/neighbor.html#knn_class_fit"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.neighbor.knn_class_fit" title="永久链接至目标">¶</a></dt>
+<dd><p>训练数据模型</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.neighbor.knn_class_predict">
+<code class="sig-prename descclassname">jtyoui.ml.neighbor.</code><code class="sig-name descname">knn_class_predict</code><span class="sig-paren">(</span><em class="sig-param">models</em>, <em class="sig-param">predict_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/neighbor.html#knn_class_predict"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.neighbor.knn_class_predict" title="永久链接至目标">¶</a></dt>
+<dd><p>预测模型</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.neighbor.knn_regress_fit">
+<code class="sig-prename descclassname">jtyoui.ml.neighbor.</code><code class="sig-name descname">knn_regress_fit</code><span class="sig-paren">(</span><em class="sig-param">train</em>, <em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/neighbor.html#knn_regress_fit"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.neighbor.knn_regress_fit" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.ml.neighbor.knn_regress_predict">
+<code class="sig-prename descclassname">jtyoui.ml.neighbor.</code><code class="sig-name descname">knn_regress_predict</code><span class="sig-paren">(</span><em class="sig-param">models</em>, <em class="sig-param">predict_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/ml/neighbor.html#knn_regress_predict"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.ml.neighbor.knn_regress_predict" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.ml.onehot">
+<span id="jtyoui-ml-onehot-module"></span><h2>jtyoui.ml.onehot module<a class="headerlink" href="#module-jtyoui.ml.onehot" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-jtyoui.ml.testdata">
+<span id="jtyoui-ml-testdata-module"></span><h2>jtyoui.ml.testdata module<a class="headerlink" href="#module-jtyoui.ml.testdata" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-jtyoui.ml">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-jtyoui.ml" title="永久链接至标题">¶</a></h2>
+<p>这个包都是一些机器学习的用例算法，不提供使用！</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

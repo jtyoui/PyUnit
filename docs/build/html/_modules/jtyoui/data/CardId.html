@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.data.CardId &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.data.CardId</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.data.CardId 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/8/9 13:53</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">jtyoui.error</span> <span class="k">import</span> <span class="n">IdCardCheckError</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<div class="viewcode-block" id="check_id_card"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.check_id_card">[文档]</a><span class="k">def</span> <span class="nf">check_id_card</span><span class="p">(</span><span class="n">id_card</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;验证通过!&#39;</span><span class="p">,</span> <span class="s1">&#39;身份证号码位数不对!&#39;</span><span class="p">,</span> <span class="s1">&#39;身份证号码出生日期超出范围或含有非法字符!&#39;</span><span class="p">,</span> <span class="s1">&#39;身份证号码校验错误!&#39;</span><span class="p">,</span> <span class="s1">&#39;身份证地区非法!&#39;</span><span class="p">]</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;11&quot;</span><span class="p">:</span> <span class="s2">&quot;北京&quot;</span><span class="p">,</span> <span class="s2">&quot;12&quot;</span><span class="p">:</span> <span class="s2">&quot;天津&quot;</span><span class="p">,</span> <span class="s2">&quot;13&quot;</span><span class="p">:</span> <span class="s2">&quot;河北&quot;</span><span class="p">,</span> <span class="s2">&quot;14&quot;</span><span class="p">:</span> <span class="s2">&quot;山西&quot;</span><span class="p">,</span> <span class="s2">&quot;15&quot;</span><span class="p">:</span> <span class="s2">&quot;内蒙古&quot;</span><span class="p">,</span> <span class="s2">&quot;21&quot;</span><span class="p">:</span> <span class="s2">&quot;辽宁&quot;</span><span class="p">,</span> <span class="s2">&quot;22&quot;</span><span class="p">:</span> <span class="s2">&quot;吉林&quot;</span><span class="p">,</span> <span class="s2">&quot;23&quot;</span><span class="p">:</span> <span class="s2">&quot;黑龙江&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;31&quot;</span><span class="p">:</span> <span class="s2">&quot;上海&quot;</span><span class="p">,</span> <span class="s2">&quot;32&quot;</span><span class="p">:</span> <span class="s2">&quot;江苏&quot;</span><span class="p">,</span> <span class="s2">&quot;33&quot;</span><span class="p">:</span> <span class="s2">&quot;浙江&quot;</span><span class="p">,</span> <span class="s2">&quot;34&quot;</span><span class="p">:</span> <span class="s2">&quot;安徽&quot;</span><span class="p">,</span> <span class="s2">&quot;35&quot;</span><span class="p">:</span> <span class="s2">&quot;福建&quot;</span><span class="p">,</span> <span class="s2">&quot;36&quot;</span><span class="p">:</span> <span class="s2">&quot;江西&quot;</span><span class="p">,</span> <span class="s2">&quot;37&quot;</span><span class="p">:</span> <span class="s2">&quot;山东&quot;</span><span class="p">,</span> <span class="s2">&quot;41&quot;</span><span class="p">:</span> <span class="s2">&quot;河南&quot;</span><span class="p">,</span> <span class="s2">&quot;42&quot;</span><span class="p">:</span> <span class="s2">&quot;湖北&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;43&quot;</span><span class="p">:</span> <span class="s2">&quot;湖南&quot;</span><span class="p">,</span> <span class="s2">&quot;44&quot;</span><span class="p">:</span> <span class="s2">&quot;广东&quot;</span><span class="p">,</span> <span class="s2">&quot;45&quot;</span><span class="p">:</span> <span class="s2">&quot;广西&quot;</span><span class="p">,</span> <span class="s2">&quot;46&quot;</span><span class="p">:</span> <span class="s2">&quot;海南&quot;</span><span class="p">,</span> <span class="s2">&quot;50&quot;</span><span class="p">:</span> <span class="s2">&quot;重庆&quot;</span><span class="p">,</span> <span class="s2">&quot;51&quot;</span><span class="p">:</span> <span class="s2">&quot;四川&quot;</span><span class="p">,</span> <span class="s2">&quot;52&quot;</span><span class="p">:</span> <span class="s2">&quot;贵州&quot;</span><span class="p">,</span> <span class="s2">&quot;53&quot;</span><span class="p">:</span> <span class="s2">&quot;云南&quot;</span><span class="p">,</span> <span class="s2">&quot;54&quot;</span><span class="p">:</span> <span class="s2">&quot;西藏&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;61&quot;</span><span class="p">:</span> <span class="s2">&quot;陕西&quot;</span><span class="p">,</span> <span class="s2">&quot;62&quot;</span><span class="p">:</span> <span class="s2">&quot;甘肃&quot;</span><span class="p">,</span> <span class="s2">&quot;63&quot;</span><span class="p">:</span> <span class="s2">&quot;青海&quot;</span><span class="p">,</span> <span class="s2">&quot;64&quot;</span><span class="p">:</span> <span class="s2">&quot;宁夏&quot;</span><span class="p">,</span> <span class="s2">&quot;65&quot;</span><span class="p">:</span> <span class="s2">&quot;新疆&quot;</span><span class="p">,</span> <span class="s2">&quot;71&quot;</span><span class="p">:</span> <span class="s2">&quot;台湾&quot;</span><span class="p">,</span> <span class="s2">&quot;81&quot;</span><span class="p">:</span> <span class="s2">&quot;香港&quot;</span><span class="p">,</span> <span class="s2">&quot;82&quot;</span><span class="p">:</span> <span class="s2">&quot;澳门&quot;</span><span class="p">,</span> <span class="s2">&quot;91&quot;</span><span class="p">:</span> <span class="s2">&quot;国外&quot;</span><span class="p">}</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">id_card</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">id_card</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># 地区中的键是否存在</span>
+    <span class="k">assert</span> <span class="n">area</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">errors</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">leap_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">id_card</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 闰年</span>
+    <span class="c1"># 15位身份号码检测</span>
+    <span class="k">if</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">15</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">leap_year</span><span class="p">:</span>
+            <span class="n">erg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[1-9][0-9]</span><span class="si">{5}</span><span class="s1">[0-9]</span><span class="si">{2}</span><span class="s1">((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)&#39;</span>
+                             <span class="s1">&#39;(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]</span><span class="si">{3}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">erg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[1-9][0-9]</span><span class="si">{5}</span><span class="s1">[0-9]</span><span class="si">{2}</span><span class="s1">((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)&#39;</span>
+                             <span class="s1">&#39;(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]</span><span class="si">{3}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">erg</span><span class="p">,</span> <span class="n">id_card</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">IdCardCheckError</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="c1"># 18位身份号码检测</span>
+    <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">18</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">leap_year</span><span class="p">:</span>
+            <span class="c1"># 闰年出生日期的合法性正则表达式</span>
+            <span class="n">erg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[1-9][0-9]</span><span class="si">{5}</span><span class="s1">(19[0-9]</span><span class="si">{2}</span><span class="s1">|20[0-9]</span><span class="si">{2}</span><span class="s1">)((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|&#39;</span>
+                             <span class="s1">&#39;(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]</span><span class="si">{3}</span><span class="s1">[0-9Xx]$&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 平年出生日期的合法性正则表达式</span>
+            <span class="n">erg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[1-9][0-9]</span><span class="si">{5}</span><span class="s1">(19[0-9]</span><span class="si">{2}</span><span class="s1">|20[0-9]</span><span class="si">{2}</span><span class="s1">)((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|&#39;</span>
+                             <span class="s1">&#39;(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]</span><span class="si">{3}</span><span class="s1">[0-9Xx]$&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">erg</span><span class="p">,</span> <span class="n">id_card</span><span class="p">):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">id_card_calibration</span><span class="p">(</span><span class="n">id_card</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="n">id_card</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>  <span class="c1"># 校验身份证最后一位，如果是x那么转为大写的X</span>
+                <span class="k">return</span> <span class="n">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">IdCardCheckError</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">IdCardCheckError</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">IdCardCheckError</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="id_card_calibration"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.id_card_calibration">[文档]</a><span class="k">def</span> <span class="nf">id_card_calibration</span><span class="p">(</span><span class="n">id_card</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">id_card_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">id_card</span><span class="p">)</span>
+    <span class="c1"># 计算校验位</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">10</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">+</span> <span class="p">(</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">11</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">12</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">13</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">14</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">15</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">16</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">id_card_list</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="o">*</span> <span class="mi">3</span>
+        <span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;10X98765432&quot;</span><span class="p">[</span><span class="n">s</span> <span class="o">%</span> <span class="mi">11</span><span class="p">]</span>  <span class="c1"># 判断校验位</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">check_id_card</span><span class="p">(</span><span class="s1">&#39;522121199505302563&#39;</span><span class="p">))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

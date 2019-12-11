@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.data.methods &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.data.methods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.data.methods 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time    : 2019/6/1 22:34</span>
+<span class="c1"># @Email  : jtyoui@qq.com</span>
+<span class="c1"># @Software: PyCharm</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">combinations_with_replacement</span><span class="p">,</span> <span class="n">permutations</span><span class="p">,</span> <span class="n">combinations</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="k">import</span> <span class="n">Iterable</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">unicodedata</span>
+<span class="kn">import</span> <span class="nn">jtyoui</span>
+
+<span class="n">_special</span> <span class="o">=</span> <span class="s2">&quot;#$%&amp;@&quot;</span>
+
+
+<span class="c1"># 随机选择字母:</span>
+<div class="viewcode-block" id="random_char"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.random_char">[文档]</a><span class="k">def</span> <span class="nf">random_char</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;随机选择字母:number是生成个数&quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span></div>
+
+
+<span class="c1"># 随机选择小写字母:</span>
+<div class="viewcode-block" id="random_lower_char"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.random_lower_char">[文档]</a><span class="k">def</span> <span class="nf">random_lower_char</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;随机选择小写字母:number是生成个数&quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span></div>
+
+
+<span class="c1"># 随机选择大写字母:</span>
+<div class="viewcode-block" id="random_upper_char"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.random_upper_char">[文档]</a><span class="k">def</span> <span class="nf">random_upper_char</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;随机选择大写字母:number是生成个数&quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span></div>
+
+
+<span class="c1"># 随机选择数字:</span>
+<div class="viewcode-block" id="random_digits"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.random_digits">[文档]</a><span class="k">def</span> <span class="nf">random_digits</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;随机选择数字:number是生成个数&quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span></div>
+
+
+<span class="c1"># 随机选择特殊字符:</span>
+<div class="viewcode-block" id="random_special"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.random_special">[文档]</a><span class="k">def</span> <span class="nf">random_special</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;随机选择特殊字符:number是生成个数&quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">_special</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="flag_contain_subset"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.flag_contain_subset">[文档]</a><span class="k">def</span> <span class="nf">flag_contain_subset</span><span class="p">(</span><span class="n">str_</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ls</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;输入一个字符串判断字符串的子集是否在ls列表中&quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="kc">True</span> <span class="k">if</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">str_</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="contain_subset"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.contain_subset">[文档]</a><span class="k">def</span> <span class="nf">contain_subset</span><span class="p">(</span><span class="n">str_</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ls</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    输入一个字符串判断字符串的子集是否在ls列表中,并且返回子集列表</span>
+<span class="sd">    :param str_: 字符串</span>
+<span class="sd">    :param ls: 字符串列表</span>
+<span class="sd">    :return: 存在返回True。不存在返回False。都会返回list列表</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">subset</span> <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">ls</span> <span class="k">if</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">str_</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">v</span></div>
+
+
+<div class="viewcode-block" id="max_str"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.max_str">[文档]</a><span class="k">def</span> <span class="nf">max_str</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;统计字符串列表出现字符串最多的字符串&quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="contain_list_subset"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.contain_list_subset">[文档]</a><span class="k">def</span> <span class="nf">contain_list_subset</span><span class="p">(</span><span class="n">str_</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ls</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    输入一个字符串判断字符串是否属于某个列表的子集。例如：str_：贵州，ls：[贵州省，遵义市]，那么贵州属于ls某个字符串的子集</span>
+<span class="sd">     :param str_: 字符串</span>
+<span class="sd">    :param ls: 字符串列表</span>
+<span class="sd">    :return: 存在返回True。不存在返回False。都会返回list列表</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">subset</span> <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">ls</span> <span class="k">if</span> <span class="n">str_</span> <span class="ow">in</span> <span class="n">subset</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">v</span></div>
+
+
+<div class="viewcode-block" id="char_number_split"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.char_number_split">[文档]</a><span class="k">def</span> <span class="nf">char_number_split</span><span class="p">(</span><span class="n">str_</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;根据字符串个数来分割字符串&quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="n">str_</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">str_</span><span class="p">[:</span><span class="n">number</span><span class="p">]</span>
+        <span class="n">str_</span> <span class="o">=</span> <span class="n">str_</span><span class="p">[</span><span class="n">number</span><span class="p">:]</span></div>
+
+
+<div class="viewcode-block" id="split"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.split">[文档]</a><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">str_</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_split</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;支持正则分割</span>
+<span class="sd">    :param re_:正则表达式</span>
+<span class="sd">    :param str_:字符串</span>
+<span class="sd">    :param flag: re.search(re_, self.string, flag), 默认flag=0</span>
+<span class="sd">    :param max_split: 最大分割数量</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="n">re_</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="n">str_</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="n">max_split</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flag</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="replace"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.replace">[文档]</a><span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">string_</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;支持正则替换&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">string_</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_subset"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.remove_subset">[文档]</a><span class="k">def</span> <span class="nf">remove_subset</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;去除列表中的子集。比如：[&#39;aa&#39;,&#39;a&#39;,&#39;ab&#39;] --&gt; [&#39;aa&#39;,&#39;ab&#39;]&quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">subset</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">total</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">total</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+                    <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+                <span class="n">total</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total</span></div>
+
+
+<div class="viewcode-block" id="rm_empty_dir"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.rm_empty_dir">[文档]</a><span class="k">def</span> <span class="nf">rm_empty_dir</span><span class="p">(</span><span class="n">dir_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;删除空目录&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">dir_path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="combination"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.combination">[文档]</a><span class="k">def</span> <span class="nf">combination</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="nb">iter</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;组合：不重复&quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">combinations</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="combination_repeat"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.combination_repeat">[文档]</a><span class="k">def</span> <span class="nf">combination_repeat</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="nb">iter</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;组合：可重复&quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">combinations_with_replacement</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="permutation"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.permutation">[文档]</a><span class="k">def</span> <span class="nf">permutation</span><span class="p">(</span><span class="n">ls</span><span class="p">:</span> <span class="nb">iter</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;排列&quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">permutations</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_chinese"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.is_chinese">[文档]</a><span class="k">def</span> <span class="nf">is_chinese</span><span class="p">(</span><span class="n">char</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;判断一个字符是否是中文</span>
+<span class="sd">    :param char: 一个字符</span>
+<span class="sd">    :return: 是中文返回真，否则是假</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="s1">&#39;</span><span class="se">\u4e00</span><span class="s1">&#39;</span> <span class="o">&lt;</span> <span class="n">char</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="se">\u9fa5</span><span class="s1">&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="print_heart"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.print_heart">[文档]</a><span class="k">def</span> <span class="nf">print_heart</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;♥&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;输出一个心脏的符号</span>
+<span class="sd">    :param s: 字符串</span>
+<span class="sd">    :return: 心脏的格式</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mf">0.04</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mf">0.1</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">x1</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y1</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">x1</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y1</span> <span class="o">**</span> <span class="mi">3</span>  <span class="c1"># 心脏公式</span>
+            <span class="n">flag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[5;31m&quot;</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ls</span></div>
+
+
+<div class="viewcode-block" id="get_argCount"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.get_argCount">[文档]</a><span class="k">def</span> <span class="nf">get_argCount</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;获取函数对象的参数个数</span>
+
+<span class="sd">    def sum(a,b):</span>
+<span class="sd">        return(a+b)</span>
+<span class="sd">    print(sum.__code__.co_argcount)</span>
+<span class="sd">    # 2</span>
+<span class="sd">    #输出的函数参数个数</span>
+<span class="sd">    print(sum.__code__.co_varnames)</span>
+<span class="sd">    # (&#39;a&#39;, &#39;b&#39;)</span>
+<span class="sd">    #这里会输出函数用到的所有变量名，不只是参数名</span>
+
+<span class="sd">    print(sum.__defaults__)</span>
+<span class="sd">    # None</span>
+<span class="sd">    # 返回参数的初始值</span>
+
+<span class="sd">    import inspect</span>
+<span class="sd">    inspect.getargspec(sum)</span>
+<span class="sd">    # ArgSpec(args=[&#39;a&#39;, &#39;b&#39;], varargs=None, keywords=None, defaults=None)</span>
+<span class="sd">    :param func: 函数对象</span>
+<span class="sd">    :return: 函数对象的参数个数</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">func</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span></div>
+
+
+<div class="viewcode-block" id="strip"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.strip">[文档]</a><span class="k">def</span> <span class="nf">strip</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">re_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;支持正则去除data中的数据。类似于str.strip()函数</span>
+<span class="sd">    :param data: 数据</span>
+<span class="sd">    :param re_:去除data中的数据</span>
+<span class="sd">    :return: 去除后的数据</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@jtyoui</span><span class="o">.</span><span class="n">replace_regular</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">data_</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data_</span>
+
+    <span class="k">return</span> <span class="n">clean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="find_unicodedata_name"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.find_unicodedata_name">[文档]</a><span class="k">def</span> <span class="nf">find_unicodedata_name</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;查询Unicode编码中的名字</span>
+<span class="sd">    ♠ == BLACK SPADE SUIT</span>
+<span class="sd">    \N{BLACK SPADE SUIT} == ♠</span>
+<span class="sd">    :param data: 字符串</span>
+<span class="sd">    :return: 字符的Unicode名字列表</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unicodedata</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ls</span></div>
+
+
+<div class="viewcode-block" id="join"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.join">[文档]</a><span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="n">chars</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;同str.join函数一样，只不过数字会自动转为字符串</span>
+<span class="sd">    :param chars: 要拼接的字符串</span>
+<span class="sd">    :param obj: 拼接对象</span>
+<span class="sd">    :return: 字符串</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">chars</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">o</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="find"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.find">[文档]</a><span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">str_</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">re_</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;功能类似于str.find(),但是支持正则表达式&quot;&quot;&quot;</span>
+    <span class="n">f</span><span class="p">,</span> <span class="n">flag</span> <span class="o">=</span> <span class="p">[],</span> <span class="mi">0</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">re_</span><span class="p">,</span> <span class="n">str_</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">str_</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f</span></div>
+
+
+<div class="viewcode-block" id="key_value_re"><a class="viewcode-back" href="../../../jtyoui.data.html#jtyoui.key_value_re">[文档]</a><span class="k">def</span> <span class="nf">key_value_re</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">value_re</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key_re</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;根据value值的索引获取key或者根据key的索引获取到value。</span>
+<span class="sd">    :param key:k值。[&#39;a&#39;,&#39;b&#39;]</span>
+<span class="sd">    :param value:v值。[0,1]</span>
+<span class="sd">    :param value_re: 根据值的正则获取key。比如：01正则表达式获取到ab</span>
+<span class="sd">    :param key_re:同理。根据key的正则。获取到值。比如：ab正则表达式。返回01</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">key_re</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value_re</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;value_re和key_re必须写一个&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value_re</span><span class="p">:</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="n">jtyoui</span><span class="o">.</span><span class="n">Tool</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">tool</span><span class="o">.</span><span class="n">index_select_string</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span> <span class="n">value_re</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="n">jtyoui</span><span class="o">.</span><span class="n">Tool</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">tool</span><span class="o">.</span><span class="n">index_select_string</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">),</span> <span class="n">key_re</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="s2">&quot;这里当key和value不相等时。暂时没有想到怎么处理，比如：[&#39;我&#39;, &#39;叫&#39;, &#39;刘&#39;, &#39;万&#39;, &#39;光&#39;], [6, 6, 10, 11, 11],这种情况&quot;</span>
+    <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">random_char</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">random_lower_char</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">random_special</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">random_upper_char</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">random_digits</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">flag_contain_subset</span><span class="p">(</span><span class="s1">&#39;我家住在北京&#39;</span><span class="p">,</span> <span class="s1">&#39;家住、诉求、请求&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;、&#39;</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">contain_subset</span><span class="p">(</span><span class="s1">&#39;我家住在北京&#39;</span><span class="p">,</span> <span class="s1">&#39;家住、诉求、请求&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;、&#39;</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">max_str</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">contain_list_subset</span><span class="p">(</span><span class="s1">&#39;贵州&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;贵州省&#39;</span><span class="p">,</span> <span class="s1">&#39;遵义市&#39;</span><span class="p">,</span> <span class="s1">&#39;贵州省贵阳市&#39;</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">cns</span> <span class="ow">in</span> <span class="n">char_number_split</span><span class="p">(</span><span class="s1">&#39;我家住在北京&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cns</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[.,，。]&#39;</span><span class="p">,</span> <span class="s1">&#39;我家组在北京。我去玩，啊&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">remove_subset</span><span class="p">([</span><span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;ab&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1_0000</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">combination</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">combination_repeat</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">permutation</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">is_chinese</span><span class="p">(</span><span class="s1">&#39;张&#39;</span><span class="p">),</span> <span class="n">is_chinese</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">))</span>
+    <span class="n">print_heart</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">get_argCount</span><span class="p">(</span><span class="n">contain_subset</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;张a伟&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">find_unicodedata_name</span><span class="p">(</span><span class="s1">&#39;♠&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key_value_re</span><span class="p">([</span><span class="s1">&#39;我&#39;</span><span class="p">,</span> <span class="s1">&#39;叫&#39;</span><span class="p">,</span> <span class="s1">&#39;刘&#39;</span><span class="p">,</span> <span class="s1">&#39;万&#39;</span><span class="p">,</span> <span class="s1">&#39;光&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">value_re</span><span class="o">=</span><span class="s1">&#39;01+&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="s1">&#39;a|b&#39;</span><span class="p">))</span>  <span class="c1"># 查找a或者b的索引</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

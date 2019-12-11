@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.statistics.distance package &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">jtyoui.statistics.distance package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.BrayCurtisDistance">jtyoui.statistics.distance.BrayCurtisDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.ChebyshevDistance">jtyoui.statistics.distance.ChebyshevDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.CosineDistance">jtyoui.statistics.distance.CosineDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.EditDistance">jtyoui.statistics.distance.EditDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.EuclideanDistance">jtyoui.statistics.distance.EuclideanDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.HammingDistance">jtyoui.statistics.distance.HammingDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.JaccardDistance">jtyoui.statistics.distance.JaccardDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.MahalanobisDistance">jtyoui.statistics.distance.MahalanobisDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.ManhattanDistance">jtyoui.statistics.distance.ManhattanDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance.MinkowskiDistance">jtyoui.statistics.distance.MinkowskiDistance module</a></li>
+<li><a class="reference internal" href="#module-jtyoui.statistics.distance">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>jtyoui.statistics.distance package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/jtyoui.statistics.distance.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jtyoui-statistics-distance-package">
+<h1>jtyoui.statistics.distance package<a class="headerlink" href="#jtyoui-statistics-distance-package" title="永久链接至标题">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.BrayCurtisDistance">
+<span id="jtyoui-statistics-distance-braycurtisdistance-module"></span><h2>jtyoui.statistics.distance.BrayCurtisDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.BrayCurtisDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.BrayCurtisDistance.bray_curtis_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.BrayCurtisDistance.</code><code class="sig-name descname">bray_curtis_distance</code><span class="sig-paren">(</span><em class="sig-param">dimension_x</em>, <em class="sig-param">dimension_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/BrayCurtisDistance.html#bray_curtis_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.BrayCurtisDistance.bray_curtis_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>布雷柯蒂斯距离
+:param dimension_x: 一个维度的集合,不是一个点
+:param dimension_y:另一个维度的集合.不是另一个点
+:return:布雷柯蒂斯距离</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.ChebyshevDistance">
+<span id="jtyoui-statistics-distance-chebyshevdistance-module"></span><h2>jtyoui.statistics.distance.ChebyshevDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.ChebyshevDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.ChebyshevDistance.chebyshev_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.ChebyshevDistance.</code><code class="sig-name descname">chebyshev_distance</code><span class="sig-paren">(</span><em class="sig-param">coordinate_p</em>, <em class="sig-param">coordinate_q</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/ChebyshevDistance.html#chebyshev_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.ChebyshevDistance.chebyshev_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>传入的是两个可迭代对象,每一个是一个n位坐标,比如:p=(x1,x2,x3….xn),q=(y1,y2,y3….yn)
+:param coordinate_p: p坐标
+:param coordinate_q: q坐标
+:return: 切比雪夫距离(棋盘距离)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.CosineDistance">
+<span id="jtyoui-statistics-distance-cosinedistance-module"></span><h2>jtyoui.statistics.distance.CosineDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.CosineDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.CosineDistance.cosine">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.CosineDistance.</code><code class="sig-name descname">cosine</code><span class="sig-paren">(</span><em class="sig-param">coordinate_p</em>, <em class="sig-param">coordinate_q</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/CosineDistance.html#cosine"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.CosineDistance.cosine" title="永久链接至目标">¶</a></dt>
+<dd><p>余弦距离又叫余弦角度
+:param coordinate_p:p坐标
+:param coordinate_q:q坐标
+:return:余弦距离</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.statistics.distance.CosineDistance.cosine_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.CosineDistance.</code><code class="sig-name descname">cosine_distance</code><span class="sig-paren">(</span><em class="sig-param">sentence</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/CosineDistance.html#cosine_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.CosineDistance.cosine_distance" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.EditDistance">
+<span id="jtyoui-statistics-distance-editdistance-module"></span><h2>jtyoui.statistics.distance.EditDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.EditDistance" title="永久链接至标题">¶</a></h2>
+<p>编辑距离
+编辑距离又称Levenshtein距离，是指两个字串之间，由一个转成另一个所需的最少编辑操作次数。
+许可的编辑操作包括将一个字符替换成另一个字符，插入一个字符，删除一个字符。一般来说，
+编辑距离越小，两个串的相似度越大。</p>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.EditDistance.edit_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.EditDistance.</code><code class="sig-name descname">edit_distance</code><span class="sig-paren">(</span><em class="sig-param">chars</em>, <em class="sig-param">other_chars</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/EditDistance.html#edit_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.EditDistance.edit_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>编辑距离
+:param chars: 字符串
+:param other_chars: 另一个字符串
+:return: 编辑距离值</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.EuclideanDistance">
+<span id="jtyoui-statistics-distance-euclideandistance-module"></span><h2>jtyoui.statistics.distance.EuclideanDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.EuclideanDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.EuclideanDistance.euclidean_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.EuclideanDistance.</code><code class="sig-name descname">euclidean_distance</code><span class="sig-paren">(</span><em class="sig-param">coordinate_p</em>, <em class="sig-param">coordinate_q</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/EuclideanDistance.html#euclidean_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.EuclideanDistance.euclidean_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>欧氏距离
+:param coordinate_p: p坐标
+:param coordinate_q: q坐标
+:return: 欧氏距离值</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.HammingDistance">
+<span id="jtyoui-statistics-distance-hammingdistance-module"></span><h2>jtyoui.statistics.distance.HammingDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.HammingDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.HammingDistance.distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.HammingDistance.</code><code class="sig-name descname">distance</code><span class="sig-paren">(</span><em class="sig-param">sim_hash</em>, <em class="sig-param">another</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/HammingDistance.html#distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.HammingDistance.distance" title="永久链接至目标">¶</a></dt>
+<dd><p>计算两个simHash的距离
+:param sim_hash: simHash值
+:param another: 另一个simHash的值
+:param f: simHash的bit位数
+:return: 海明距离</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.statistics.distance.HammingDistance.features_dict">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.HammingDistance.</code><code class="sig-name descname">features_dict</code><span class="sig-paren">(</span><em class="sig-param">features</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/HammingDistance.html#features_dict"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.HammingDistance.features_dict" title="永久链接至目标">¶</a></dt>
+<dd><p>特征值字典
+:param features: 特征值
+:param f: simHash的bit位数
+:return: simHash值</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.statistics.distance.HammingDistance.ham_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.HammingDistance.</code><code class="sig-name descname">ham_distance</code><span class="sig-paren">(</span><em class="sig-param">chars</em>, <em class="sig-param">other_chars</em>, <em class="sig-param">weight=None</em>, <em class="sig-param">f=64</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/HammingDistance.html#ham_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.HammingDistance.ham_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>比较那个字符串的海明距离
+:param chars: 字符串
+:param other_chars: 另一个字符串
+:param weight: 权重字典:weight={“电影”: 3}
+:param f: samHash的bit位数
+:return: 海明距离值</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.statistics.distance.HammingDistance.handle">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.HammingDistance.</code><code class="sig-name descname">handle</code><span class="sig-paren">(</span><em class="sig-param">participle_ls</em>, <em class="sig-param">weight</em>, <em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/HammingDistance.html#handle"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.HammingDistance.handle" title="永久链接至目标">¶</a></dt>
+<dd><p>将内容转成字典格式
+:param participle_ls: 文本分词内容,是一个list分词对象
+:param weight: 特征值
+:param f: simHash的bit位数
+:return: 海明距离值</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.statistics.distance.HammingDistance.hash_func">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.HammingDistance.</code><code class="sig-name descname">hash_func</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/HammingDistance.html#hash_func"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.HammingDistance.hash_func" title="永久链接至目标">¶</a></dt>
+<dd><p>hash算法</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.statistics.distance.HammingDistance.simHash_similarity">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.HammingDistance.</code><code class="sig-name descname">simHash_similarity</code><span class="sig-paren">(</span><em class="sig-param">text1: (&lt;class 'str'&gt;</em>, <em class="sig-param">&lt;class 'dict'&gt;)</em>, <em class="sig-param">text2: (&lt;class 'str'&gt;</em>, <em class="sig-param">&lt;class 'dict'&gt;)</em>, <em class="sig-param">weight: dict = None</em>, <em class="sig-param">f: int = 64</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/jtyoui/statistics/distance/HammingDistance.html#simHash_similarity"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.HammingDistance.simHash_similarity" title="永久链接至目标">¶</a></dt>
+<dd><p>文本相似度算法
+:param text1: 文本1
+:param text2: 文本2
+:param weight: 文本词权重
+:param f: hash bit位数
+:return: 相似度</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.JaccardDistance">
+<span id="jtyoui-statistics-distance-jaccarddistance-module"></span><h2>jtyoui.statistics.distance.JaccardDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.JaccardDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.JaccardDistance.jaccard_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.JaccardDistance.</code><code class="sig-name descname">jaccard_distance</code><span class="sig-paren">(</span><em class="sig-param">set_</em>, <em class="sig-param">other_set</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/JaccardDistance.html#jaccard_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.JaccardDistance.jaccard_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>杰卡德距离
+1）  m00:代表向量A与向量B都是0的维度个数；
+2）  m01:代表向量A是0而向量B是1的维度个数；
+3）  m10:代表向量A是1而向量B是0的维度个数；
+4)   m11:代表向量A和向量B都是1的维度个数。
+n维向量的每一维都会落入这4类中的某一类，因此：
+Jaccard距离为:m01+m10/m01+m10+m11+m00
+:param <a href="#id1"><span class="problematic" id="id2">set_</span></a>:以1和0组合的集合
+:param other_set:以1和0组合的集合
+:return:两个不一样的频率</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="jtyoui.statistics.distance.JaccardDistance.jaccard_set_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.JaccardDistance.</code><code class="sig-name descname">jaccard_set_distance</code><span class="sig-paren">(</span><em class="sig-param">set_</em>, <em class="sig-param">other_set</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/JaccardDistance.html#jaccard_set_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.JaccardDistance.jaccard_set_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>杰卡德距离
+两个集合A和B的交集元素在A，B的并集中所占的比例，
+称为两个集合的杰卡德相似系数
+与杰卡德相似系数相反的概念是杰卡德距离
+杰卡德距离用两个集合中不同元素占所有元素的比例来衡量两个集合的区分度
+:param <a href="#id3"><span class="problematic" id="id4">set_</span></a>:一个set类型
+:param other_set:另一个set类型
+:return:集合之间的值</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.MahalanobisDistance">
+<span id="jtyoui-statistics-distance-mahalanobisdistance-module"></span><h2>jtyoui.statistics.distance.MahalanobisDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.MahalanobisDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.MahalanobisDistance.mahalanobis_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.MahalanobisDistance.</code><code class="sig-name descname">mahalanobis_distance</code><span class="sig-paren">(</span><em class="sig-param">matrix</em>, <em class="sig-param">coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/MahalanobisDistance.html#mahalanobis_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.MahalanobisDistance.mahalanobis_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>求解马氏距离
+:param matrix: 矩阵列表
+:param coordinate: 坐标
+:return result: 两个点的马氏距离</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.ManhattanDistance">
+<span id="jtyoui-statistics-distance-manhattandistance-module"></span><h2>jtyoui.statistics.distance.ManhattanDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.ManhattanDistance" title="永久链接至标题">¶</a></h2>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.ManhattanDistance.manhattan_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.ManhattanDistance.</code><code class="sig-name descname">manhattan_distance</code><span class="sig-paren">(</span><em class="sig-param">coordinate_p</em>, <em class="sig-param">coordinate_q</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/ManhattanDistance.html#manhattan_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.ManhattanDistance.manhattan_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>曼哈顿距离
+:param coordinate_p: p坐标
+:param coordinate_q: q坐标
+:return: 曼哈顿距离值</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance.MinkowskiDistance">
+<span id="jtyoui-statistics-distance-minkowskidistance-module"></span><h2>jtyoui.statistics.distance.MinkowskiDistance module<a class="headerlink" href="#module-jtyoui.statistics.distance.MinkowskiDistance" title="永久链接至标题">¶</a></h2>
+<p>闵可夫斯基距离
+闵氏空间指狭义相对论中由一个时间维和三个空间维组成的时空，
+为俄裔德国数学家闵可夫斯基(1864-1909)最先表述。
+他的平坦空间的概念以及表示为特殊距离量的几何学是与狭义相对论的要求相一致的。
+闵可夫斯基空间不同于牛顿力学的平坦空间
+当dimension=1时，得到绝对值距离，也叫曼哈顿距离
+当dimension=2时，得到欧几里德距离
+令dimension=无穷大(math.inf)，得到切比雪夫距离</p>
+<dl class="function">
+<dt id="jtyoui.statistics.distance.MinkowskiDistance.minkowski_distance">
+<code class="sig-prename descclassname">jtyoui.statistics.distance.MinkowskiDistance.</code><code class="sig-name descname">minkowski_distance</code><span class="sig-paren">(</span><em class="sig-param">coordinate_p</em>, <em class="sig-param">coordinate_q</em>, <em class="sig-param">dimension</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jtyoui/statistics/distance/MinkowskiDistance.html#minkowski_distance"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#jtyoui.statistics.distance.MinkowskiDistance.minkowski_distance" title="永久链接至目标">¶</a></dt>
+<dd><p>闵可夫斯基距离
+:param coordinate_p: p坐标
+:param coordinate_q: q坐标
+:param dimension:闵可夫斯基维度
+:return: 闵可夫斯基距离</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-jtyoui.statistics.distance">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-jtyoui.statistics.distance" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.word.NAA &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.word.NAA</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.word.NAA 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2018/2/28 10:58</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">NAA(New Word Analysis Algorithms):分析新词算法</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="NAA"><a class="viewcode-back" href="../../../jtyoui.word.html#jtyoui.NAA">[文档]</a><span class="k">class</span> <span class="nc">NAA</span><span class="p">:</span>
+    <span class="n">all_lens</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">naa_words</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split_num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">seq</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">cond</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">free</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        初始化参数</span>
+<span class="sd">        :param split_num: 匹配个数</span>
+<span class="sd">        :param seq: 关键字出现的频率</span>
+<span class="sd">        :param cond: 凝固程度</span>
+<span class="sd">        :param free: 自由程度</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">split_num</span> <span class="o">=</span> <span class="n">split_num</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq</span> <span class="o">=</span> <span class="n">seq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cond</span> <span class="o">=</span> <span class="n">cond</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">free</span> <span class="o">=</span> <span class="n">free</span>
+
+<div class="viewcode-block" id="NAA.read_ls"><a class="viewcode-back" href="../../../jtyoui.word.html#jtyoui.NAA.read_ls">[文档]</a>    <span class="k">def</span> <span class="nf">read_ls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls</span><span class="p">):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_lens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">words</span><span class="o">=</span><span class="n">word</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;split over!&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__read_ls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        读取链表，格式是[str,str,str,.....]一维链表</span>
+<span class="sd">        :param ls: 链表</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">words</span><span class="o">=</span><span class="n">word</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;split over!&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="NAA.read_string"><a class="viewcode-back" href="../../../jtyoui.word.html#jtyoui.NAA.read_string">[文档]</a>    <span class="k">def</span> <span class="nf">read_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">split_seq</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        讲字符按照split_seq格式来分割</span>
+<span class="sd">        :param st: 字符串</span>
+<span class="sd">        :param split_seq: 字符分割</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_lens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">ls</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">split_seq</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reader over!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__read_ls</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NAA.read_file"><a class="viewcode-back" href="../../../jtyoui.word.html#jtyoui.NAA.read_file">[文档]</a>    <span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">file_encoding</span><span class="o">=</span><span class="s1">&#39;utf-8-sig&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        读取文件内容，注意文件是UTF-8的格式且不是BOM格式</span>
+<span class="sd">        :param file: 读取的文件</span>
+<span class="sd">        :param file_encoding: 文本编码</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">file_encoding</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_string</span><span class="p">(</span><span class="n">st</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NAA.split"><a class="viewcode-back" href="../../../jtyoui.word.html#jtyoui.NAA.split">[文档]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">words</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        拆分字符，最大匹配num个字符，并也字典的形式返回，</span>
+<span class="sd">        [出现次数,出现频率,凝固程度,自由程度,关键字的左邻,关键字的右邻](作为信息熵的衡量)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lens</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">lens</span><span class="p">:</span>
+                    <span class="n">k</span> <span class="o">=</span> <span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+                    <span class="n">word</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">word</span><span class="p">:</span>
+                        <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_lens</span>
+                        <span class="n">word</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                        <span class="n">word</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_lens</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">words</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">words</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]]</span></div>
+
+<div class="viewcode-block" id="NAA.handle"><a class="viewcode-back" href="../../../jtyoui.word.html#jtyoui.NAA.handle">[文档]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        处理数据</span>
+<span class="sd">        计算左邻字集合和右邻字集合有多随机，左邻字信息熵和右邻字信息熵中的较小值</span>
+<span class="sd">        计算凝固程度,自由程度</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">word</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">end_all</span> <span class="o">=</span> <span class="n">front_all</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">:]][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">k</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">front</span> <span class="ow">in</span> <span class="n">word</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">front</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">:</span>
+                    <span class="n">front_all</span> <span class="o">-=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">front</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">front</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">word</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">end</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">:</span>
+                    <span class="n">end_all</span> <span class="o">-=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">end</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">end</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">word</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span> <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="k">else</span> <span class="n">right</span>
+            <span class="n">word</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">front_all</span> <span class="k">if</span> <span class="n">front_all</span> <span class="o">&lt;</span> <span class="n">end_all</span> <span class="k">else</span> <span class="n">end_all</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;handle over!&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NAA.filter"><a class="viewcode-back" href="../../../jtyoui.word.html#jtyoui.NAA.filter">[文档]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_cond</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">filter_free</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        过滤一些不重要的数据</span>
+<span class="sd">        [出现次数,出现频率,凝固程度,自由程度]</span>
+<span class="sd">        :param filter_cond:  过滤凝聚度</span>
+<span class="sd">        :param filter_free:  过滤自由度</span>
+<span class="sd">        :param flag 是否是并且还是或者,默认是或者，满足一个就过滤</span>
+<span class="sd">        :return: 过滤后的数据字典</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key_words</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">splits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">naa_words</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">splits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq</span> <span class="ow">and</span> <span class="n">splits</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cond</span> <span class="ow">and</span> <span class="n">splits</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">free</span><span class="p">:</span>
+                <span class="n">key_words</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">splits</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">splits</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">splits</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+
+        <span class="n">new_key</span> <span class="o">=</span> <span class="n">key_words</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">key_words</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">max_key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                去除关键字像：中国新时，这种不能分成更多的词语</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">lens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">max_key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lens</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="n">split_flag</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">lens</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">max_key</span><span class="p">[</span><span class="n">split_flag</span><span class="p">:</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">keys</span> <span class="ow">and</span> <span class="n">max_key</span><span class="p">[</span><span class="n">split_flag</span><span class="p">:</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">max_key</span><span class="p">:</span>
+                        <span class="n">split_flag</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">split_flag</span> <span class="o">!=</span> <span class="n">lens</span><span class="p">:</span>
+                    <span class="n">new_key</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_key</span><span class="p">)</span>
+                    <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">min_key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    去除子集</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="n">max_keys</span> <span class="o">=</span> <span class="n">key_words</span><span class="p">[</span><span class="n">max_key</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">max_key</span> <span class="ow">in</span> <span class="n">min_key</span> <span class="ow">and</span> <span class="n">max_key</span> <span class="o">!=</span> <span class="n">min_key</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">max_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">key_words</span><span class="p">[</span><span class="n">min_key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span><span class="p">:</span>
+                        <span class="n">new_key</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_key</span><span class="p">)</span>
+                        <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">max_keys</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">filter_cond</span> <span class="ow">and</span> <span class="n">max_keys</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">filter_free</span><span class="p">:</span>
+                                <span class="n">new_key</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_key</span><span class="p">)</span>
+                                <span class="k">break</span>
+                        <span class="k">elif</span> <span class="n">max_keys</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">filter_cond</span> <span class="ow">or</span> <span class="n">max_keys</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">filter_free</span><span class="p">:</span>
+                            <span class="n">new_key</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">max_key</span><span class="p">)</span>
+                            <span class="k">break</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;filter over!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_key</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">naa</span> <span class="o">=</span> <span class="n">NAA</span><span class="p">(</span><span class="n">split_num</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seq</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span>
+    <span class="n">naa</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;D:\data.txt&quot;</span><span class="p">)</span>
+    <span class="n">naa</span><span class="o">.</span><span class="n">handle</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">naa</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">filter_free</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">filter_cond</span><span class="o">=</span><span class="mi">84</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">F</span><span class="s1">&#39;关键字:</span><span class="si">{key}</span><span class="s1">,次数:</span><span class="si">{value[0]}</span><span class="s1">,频率:</span><span class="si">{value[1]}</span><span class="s1">,凝聚度:</span><span class="si">{value[2]}</span><span class="s1">,自由度:{(value[3])}&#39;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

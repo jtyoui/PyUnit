@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.flasks.flaskerror &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.flasks.flaskerror</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.flasks.flaskerror 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/11/28 10:51</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+<span class="kn">from</span> <span class="nn">jtyoui.data.constant</span> <span class="k">import</span> <span class="n">http_status_code</span>
+
+
+<div class="viewcode-block" id="flask_error_abort"><a class="viewcode-back" href="../../../jtyoui.flasks.html#jtyoui.flask_error_abort">[文档]</a><span class="k">def</span> <span class="nf">flask_error_abort</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;手动抛出flask异常、并且增加error详细异常&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">jsonify</span><span class="o">=</span><span class="n">jsonify</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="flask_abort"><a class="viewcode-back" href="../../../jtyoui.flasks.html#jtyoui.flask_abort">[文档]</a><span class="k">def</span> <span class="nf">flask_abort</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;手动抛出flask异常</span>
+<span class="sd">    :param code: 状态码</span>
+<span class="sd">    :param jsonify: 传入flask里面的jsonify对象。from flask import jsonify</span>
+<span class="sd">    :param message: 返回的msg异常信息</span>
+<span class="sd">    :param kwargs:其他jsonify参数</span>
+<span class="sd">    :return:异常状态信息</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">http_status_code</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">code</span><span class="p">),</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="p">,</span> <span class="n">code</span></div>
+
+
+<div class="viewcode-block" id="flask_register_errors"><a class="viewcode-back" href="../../../jtyoui.flasks.html#jtyoui.flask_register_errors">[文档]</a><span class="k">def</span> <span class="nf">flask_register_errors</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;app启动处注册一个错误处理器</span>
+<span class="sd">        from flask import jsonify,Flask</span>
+<span class="sd">        app = Flask(__name__)</span>
+<span class="sd">        register_errors(app, jsonify) #注册异常解析器</span>
+<span class="sd">    :param app: app对象</span>
+<span class="sd">    :param jsonify: jsonify对象</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">bad_request</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">)</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">verify_id</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">401</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">)</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">forbidden</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">403</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">)</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">database_not_found_error_handler</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">)</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">405</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">method_not_allowed</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">405</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">)</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">internal_server_error</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">)</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">default_error_handler</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;发生未处理的异常 -&gt; </span><span class="si">{e}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">abort</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">flask_register_errors</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">)</span>  <span class="c1"># 注册错误异常处理器</span>
+
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/hi&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;请求成功！&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>  <span class="c1"># 正常信息</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">flask_abort</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;被除数不能为0&#39;</span><span class="p">)</span>  <span class="c1"># 有自定义的处理器来处理</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="mi">400</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># 其他错误</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="mi">500</span>
+        <span class="k">return</span> <span class="n">abort</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>  <span class="c1"># 由错误异常处理器来处理</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

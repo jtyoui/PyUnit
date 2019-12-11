@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jtyoui.plunar.SC_ &mdash; jtyoui 2019.12.11 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> jtyoui
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">jtyoui</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>jtyoui.plunar.SC_</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>jtyoui.plunar.SC_ 源代码</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3.7</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># @Time  : 2019/5/9 11:48</span>
+<span class="c1"># @Author: Jtyoui@qq.com</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SC (solar calendar)：阳历</span>
+<span class="sd">阳历转农历</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">jtyoui.data</span> <span class="k">import</span> <span class="n">holiday</span><span class="p">,</span> <span class="n">week_to_chinese</span><span class="p">,</span> <span class="n">chinese_mon</span>
+
+
+<div class="viewcode-block" id="Lunar"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar">[文档]</a><span class="k">class</span> <span class="nc">Lunar</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;lun = Lunar(year=2018, month=1, day=2)   print(lun)  # 二零一九年 七月 十四 星期四 无</span>
+<span class="sd">    print(lun.y)  # 农历的年,中文字符 二零一九</span>
+<span class="sd">    print(lun.year)  # 农历的年，阿拉伯数字 2019</span>
+<span class="sd">    print(lun.m)  # 农历的月份 中文字符 七</span>
+<span class="sd">    print(lun.month)  # 农历的月份 阿拉伯字符 7</span>
+<span class="sd">    print(lun.d)  # 农历的日期 中文字符 十四</span>
+<span class="sd">    print(lun.day)  # 阳历的日期 阿拉伯数字 15 ，注意。和农历不一样</span>
+<span class="sd">    print(lun.w)  # 星期几 中文字符</span>
+<span class="sd">    print(lun.week)  # 星期几、英文字符</span>
+<span class="sd">    print(lun.h)  # 节日</span>
+<span class="sd">    print(lun)  # 二零一九年 七月 十四 星期四 无</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            1980年的数据是： 0x095b0</span>
+<span class="sd">            二进制：0000 1001 0101 1011 0000</span>
+<span class="sd">            1-4: 表示当年有无闰年，有的话，为闰月的月份，没有的话，为0。</span>
+<span class="sd">            5-16：为除了闰月外的正常月份是大月还是小月，1为30天，0为29天。</span>
+<span class="sd">            注意：从1月到12月对应的是第16位到第5位。</span>
+<span class="sd">            17-20：表示闰月是大月还是小月，仅当存在闰月的情况下有意义。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">-</span><span class="si">{1:0&gt;2}</span><span class="s1">-</span><span class="si">{2:0&gt;2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">&gt;</span> <span class="mi">2050</span> <span class="ow">or</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="mi">1990</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;输入的范围在1990-2050年之间&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">week</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">leap</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chinese_week</span> <span class="o">=</span> <span class="n">week_to_chinese</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chinese_number</span> <span class="o">=</span> <span class="n">chinese_mon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lunar_info</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="mh">0x04bd8</span><span class="p">,</span> <span class="mh">0x04ae0</span><span class="p">,</span> <span class="mh">0x0a570</span><span class="p">,</span> <span class="mh">0x054d5</span><span class="p">,</span> <span class="mh">0x0d260</span><span class="p">,</span> <span class="mh">0x0d950</span><span class="p">,</span> <span class="mh">0x16554</span><span class="p">,</span> <span class="mh">0x056a0</span><span class="p">,</span> <span class="mh">0x09ad0</span><span class="p">,</span> <span class="mh">0x055d2</span><span class="p">,</span>
+            <span class="mh">0x04ae0</span><span class="p">,</span> <span class="mh">0x0a5b6</span><span class="p">,</span> <span class="mh">0x0a4d0</span><span class="p">,</span> <span class="mh">0x0d250</span><span class="p">,</span> <span class="mh">0x1d255</span><span class="p">,</span> <span class="mh">0x0b540</span><span class="p">,</span> <span class="mh">0x0d6a0</span><span class="p">,</span> <span class="mh">0x0ada2</span><span class="p">,</span> <span class="mh">0x095b0</span><span class="p">,</span> <span class="mh">0x14977</span><span class="p">,</span>
+            <span class="mh">0x04970</span><span class="p">,</span> <span class="mh">0x0a4b0</span><span class="p">,</span> <span class="mh">0x0b4b5</span><span class="p">,</span> <span class="mh">0x06a50</span><span class="p">,</span> <span class="mh">0x06d40</span><span class="p">,</span> <span class="mh">0x1ab54</span><span class="p">,</span> <span class="mh">0x02b60</span><span class="p">,</span> <span class="mh">0x09570</span><span class="p">,</span> <span class="mh">0x052f2</span><span class="p">,</span> <span class="mh">0x04970</span><span class="p">,</span>
+            <span class="mh">0x06566</span><span class="p">,</span> <span class="mh">0x0d4a0</span><span class="p">,</span> <span class="mh">0x0ea50</span><span class="p">,</span> <span class="mh">0x06e95</span><span class="p">,</span> <span class="mh">0x05ad0</span><span class="p">,</span> <span class="mh">0x02b60</span><span class="p">,</span> <span class="mh">0x186e3</span><span class="p">,</span> <span class="mh">0x092e0</span><span class="p">,</span> <span class="mh">0x1c8d7</span><span class="p">,</span> <span class="mh">0x0c950</span><span class="p">,</span>
+            <span class="mh">0x0d4a0</span><span class="p">,</span> <span class="mh">0x1d8a6</span><span class="p">,</span> <span class="mh">0x0b550</span><span class="p">,</span> <span class="mh">0x056a0</span><span class="p">,</span> <span class="mh">0x1a5b4</span><span class="p">,</span> <span class="mh">0x025d0</span><span class="p">,</span> <span class="mh">0x092d0</span><span class="p">,</span> <span class="mh">0x0d2b2</span><span class="p">,</span> <span class="mh">0x0a950</span><span class="p">,</span> <span class="mh">0x0b557</span><span class="p">,</span>
+            <span class="mh">0x06ca0</span><span class="p">,</span> <span class="mh">0x0b550</span><span class="p">,</span> <span class="mh">0x15355</span><span class="p">,</span> <span class="mh">0x04da0</span><span class="p">,</span> <span class="mh">0x0a5d0</span><span class="p">,</span> <span class="mh">0x14573</span><span class="p">,</span> <span class="mh">0x052d0</span><span class="p">,</span> <span class="mh">0x0a9a8</span><span class="p">,</span> <span class="mh">0x0e950</span><span class="p">,</span> <span class="mh">0x06aa0</span><span class="p">,</span>
+            <span class="mh">0x0aea6</span><span class="p">,</span> <span class="mh">0x0ab50</span><span class="p">,</span> <span class="mh">0x04b60</span><span class="p">,</span> <span class="mh">0x0aae4</span><span class="p">,</span> <span class="mh">0x0a570</span><span class="p">,</span> <span class="mh">0x05260</span><span class="p">,</span> <span class="mh">0x0f263</span><span class="p">,</span> <span class="mh">0x0d950</span><span class="p">,</span> <span class="mh">0x05b57</span><span class="p">,</span> <span class="mh">0x056a0</span><span class="p">,</span>
+            <span class="mh">0x096d0</span><span class="p">,</span> <span class="mh">0x04dd5</span><span class="p">,</span> <span class="mh">0x04ad0</span><span class="p">,</span> <span class="mh">0x0a4d0</span><span class="p">,</span> <span class="mh">0x0d4d4</span><span class="p">,</span> <span class="mh">0x0d250</span><span class="p">,</span> <span class="mh">0x0d558</span><span class="p">,</span> <span class="mh">0x0b540</span><span class="p">,</span> <span class="mh">0x0b5a0</span><span class="p">,</span> <span class="mh">0x195a6</span><span class="p">,</span>
+            <span class="mh">0x095b0</span><span class="p">,</span> <span class="mh">0x049b0</span><span class="p">,</span> <span class="mh">0x0a974</span><span class="p">,</span> <span class="mh">0x0a4b0</span><span class="p">,</span> <span class="mh">0x0b27a</span><span class="p">,</span> <span class="mh">0x06a50</span><span class="p">,</span> <span class="mh">0x06d40</span><span class="p">,</span> <span class="mh">0x0af46</span><span class="p">,</span> <span class="mh">0x0ab60</span><span class="p">,</span> <span class="mh">0x09570</span><span class="p">,</span>
+            <span class="mh">0x04af5</span><span class="p">,</span> <span class="mh">0x04970</span><span class="p">,</span> <span class="mh">0x064b0</span><span class="p">,</span> <span class="mh">0x074a3</span><span class="p">,</span> <span class="mh">0x0ea50</span><span class="p">,</span> <span class="mh">0x06b58</span><span class="p">,</span> <span class="mh">0x055c0</span><span class="p">,</span> <span class="mh">0x0ab60</span><span class="p">,</span> <span class="mh">0x096d5</span><span class="p">,</span> <span class="mh">0x092e0</span><span class="p">,</span>
+            <span class="mh">0x0c960</span><span class="p">,</span> <span class="mh">0x0d954</span><span class="p">,</span> <span class="mh">0x0d4a0</span><span class="p">,</span> <span class="mh">0x0da50</span><span class="p">,</span> <span class="mh">0x07552</span><span class="p">,</span> <span class="mh">0x056a0</span><span class="p">,</span> <span class="mh">0x0abb7</span><span class="p">,</span> <span class="mh">0x025d0</span><span class="p">,</span> <span class="mh">0x092d0</span><span class="p">,</span> <span class="mh">0x0cab5</span><span class="p">,</span>
+            <span class="mh">0x0a950</span><span class="p">,</span> <span class="mh">0x0b4a0</span><span class="p">,</span> <span class="mh">0x0baa4</span><span class="p">,</span> <span class="mh">0x0ad50</span><span class="p">,</span> <span class="mh">0x055d9</span><span class="p">,</span> <span class="mh">0x04ba0</span><span class="p">,</span> <span class="mh">0x0a5b0</span><span class="p">,</span> <span class="mh">0x15176</span><span class="p">,</span> <span class="mh">0x052b0</span><span class="p">,</span> <span class="mh">0x0a930</span><span class="p">,</span>
+            <span class="mh">0x07954</span><span class="p">,</span> <span class="mh">0x06aa0</span><span class="p">,</span> <span class="mh">0x0ad50</span><span class="p">,</span> <span class="mh">0x05b52</span><span class="p">,</span> <span class="mh">0x04b60</span><span class="p">,</span> <span class="mh">0x0a6e6</span><span class="p">,</span> <span class="mh">0x0a4e0</span><span class="p">,</span> <span class="mh">0x0d260</span><span class="p">,</span> <span class="mh">0x0ea65</span><span class="p">,</span> <span class="mh">0x0d530</span><span class="p">,</span>
+            <span class="mh">0x05aa0</span><span class="p">,</span> <span class="mh">0x076a3</span><span class="p">,</span> <span class="mh">0x096d0</span><span class="p">,</span> <span class="mh">0x04bd7</span><span class="p">,</span> <span class="mh">0x04ad0</span><span class="p">,</span> <span class="mh">0x0a4d0</span><span class="p">,</span> <span class="mh">0x1d0b6</span><span class="p">,</span> <span class="mh">0x0d250</span><span class="p">,</span> <span class="mh">0x0d520</span><span class="p">,</span> <span class="mh">0x0dd45</span><span class="p">,</span>
+            <span class="mh">0x0b5a0</span><span class="p">,</span> <span class="mh">0x056d0</span><span class="p">,</span> <span class="mh">0x055b2</span><span class="p">,</span> <span class="mh">0x049b0</span><span class="p">,</span> <span class="mh">0x0a577</span><span class="p">,</span> <span class="mh">0x0a4b0</span><span class="p">,</span> <span class="mh">0x0aa50</span><span class="p">,</span> <span class="mh">0x1b255</span><span class="p">,</span> <span class="mh">0x06d20</span><span class="p">,</span> <span class="mh">0x0ada0</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lunar</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Lunar.lunar"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.lunar">[文档]</a>    <span class="k">def</span> <span class="nf">lunar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">date_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># 25538是1900-01-01到1970-01-01的天数，86400是一年的秒数</span>
+        <span class="n">total_day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">date_time</span><span class="p">)</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">)</span> <span class="o">+</span> <span class="mi">25538</span>
+
+        <span class="c1"># 计算当天是农历第几天</span>
+        <span class="n">lunar_year</span><span class="p">,</span> <span class="n">year_day</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">lunar_year</span> <span class="o">&lt;</span> <span class="mi">2050</span> <span class="o">-</span> <span class="mi">1900</span> <span class="ow">and</span> <span class="n">total_day</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">year_day</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">year_days</span><span class="p">(</span><span class="n">lunar_year</span><span class="p">)</span>
+            <span class="n">total_day</span> <span class="o">-=</span> <span class="n">year_day</span>
+            <span class="n">lunar_year</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">total_day</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">total_day</span> <span class="o">+=</span> <span class="n">year_day</span>
+            <span class="n">lunar_year</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># 农历年份</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">lunar_year</span> <span class="o">+</span> <span class="mi">1900</span>
+        <span class="n">leap_month</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap_months</span><span class="p">(</span><span class="n">lunar_year</span><span class="p">)</span>  <span class="c1"># 闰哪个月, 1 - 12</span>
+        <span class="c1"># 用当年的天数offset, 逐个减去每月（农历）的天数，求出当天是本月的第几天</span>
+        <span class="n">lunar_month</span><span class="p">,</span> <span class="n">month_day</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">lunar_month</span> <span class="o">&lt;</span> <span class="mi">13</span> <span class="ow">and</span> <span class="n">total_day</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># 闰月</span>
+            <span class="k">if</span> <span class="n">leap_month</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">lunar_month</span> <span class="o">==</span> <span class="p">(</span><span class="n">leap_month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap</span><span class="p">):</span>
+                <span class="n">lunar_month</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">leap</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">month_day</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap_days</span><span class="p">(</span><span class="n">lunar_year</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">month_day</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">month_days</span><span class="p">(</span><span class="n">lunar_year</span><span class="p">,</span> <span class="n">lunar_month</span><span class="p">)</span>
+            <span class="n">total_day</span> <span class="o">-=</span> <span class="n">month_day</span>
+            <span class="c1"># 解除闰月</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap</span> <span class="ow">and</span> <span class="n">lunar_month</span> <span class="o">==</span> <span class="p">(</span><span class="n">leap_month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">leap</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">lunar_month</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># offset为0时，并且刚才计算的月份是闰月，要校正</span>
+        <span class="k">if</span> <span class="n">total_day</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">leap_month</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">lunar_month</span> <span class="o">==</span> <span class="n">leap_month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">leap</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap</span> <span class="k">else</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">leap</span><span class="p">:</span>
+                <span class="n">lunar_month</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="c1"># offset小于0时，也要校正</span>
+        <span class="k">if</span> <span class="n">total_day</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">total_day</span> <span class="o">+=</span> <span class="n">month_day</span>
+            <span class="n">lunar_month</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">lunar_month</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="n">total_day</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">week</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">date_time</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Lunar.year_days"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.year_days">[文档]</a>    <span class="k">def</span> <span class="nf">year_days</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lunar_year</span><span class="p">):</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">sum_day</span> <span class="o">=</span> <span class="mh">0x8000</span><span class="p">,</span> <span class="mi">348</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mh">0x8</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lunar_info</span><span class="p">[</span><span class="n">lunar_year</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">i</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sum_day</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">i</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">sum_day</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap_days</span><span class="p">(</span><span class="n">lunar_year</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Lunar.leap_months"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.leap_months">[文档]</a>    <span class="k">def</span> <span class="nf">leap_months</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lunar_year</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lunar_info</span><span class="p">[</span><span class="n">lunar_year</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Lunar.leap_days"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.leap_days">[文档]</a>    <span class="k">def</span> <span class="nf">leap_days</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lunar_year</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap_months</span><span class="p">(</span><span class="n">lunar_year</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">30</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lunar_info</span><span class="p">[</span><span class="n">lunar_year</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0x10000</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">29</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="Lunar.month_days"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.month_days">[文档]</a>    <span class="k">def</span> <span class="nf">month_days</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lunar_year</span><span class="p">,</span> <span class="n">lunar_month</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">29</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lunar_info</span><span class="p">[</span><span class="n">lunar_year</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mh">0x10000</span> <span class="o">&gt;&gt;</span> <span class="n">lunar_month</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">30</span></div>
+
+<div class="viewcode-block" id="Lunar.get_china_day"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.get_china_day">[文档]</a>    <span class="k">def</span> <span class="nf">get_china_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="n">chinese_ten</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;初&#39;</span><span class="p">,</span> <span class="s1">&#39;十&#39;</span><span class="p">,</span> <span class="s1">&#39;廿&#39;</span><span class="p">,</span> <span class="s1">&#39;卅&#39;</span><span class="p">]</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span> <span class="k">if</span> <span class="n">d</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">d</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;初十&#39;</span>
+        <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">chinese_ten</span><span class="p">[</span><span class="n">d</span> <span class="o">//</span> <span class="mi">10</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;一&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">chinese_ten</span><span class="p">[</span><span class="n">d</span> <span class="o">//</span> <span class="mi">10</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">chinese_number</span><span class="p">[</span><span class="n">n</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Lunar.get_holiday"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.get_holiday">[文档]</a>    <span class="k">def</span> <span class="nf">get_holiday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">holiday</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">5</span><span class="p">:])</span>
+        <span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">holiday</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chinese_number</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;月&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_china_day</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">z</span> <span class="k">if</span> <span class="n">z</span> <span class="k">else</span> <span class="s1">&#39;无&#39;</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: 年 月 日 星期 节日(没有是无)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="s1">&#39;年 闰&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="o">+</span> <span class="s1">&#39;月 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+</span> <span class="s1">&#39; 节日：&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="s1">&#39;年 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="o">+</span> <span class="s1">&#39;月 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+</span> <span class="s1">&#39; 节日：&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">y</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chinese_number</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">//</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">y</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;正&#39;</span><span class="p">,</span> <span class="s1">&#39;一&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">chinese_number</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_china_day</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">chinese_week</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">week</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s1">&#39;h&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_holiday</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Lunar.to_sc"><a class="viewcode-back" href="../../../jtyoui.plunar.html#jtyoui.Lunar.to_sc">[文档]</a>    <span class="k">def</span> <span class="nf">to_sc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;年 月 日 &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">leap</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;年闰&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;月&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;日&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;年&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;月&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;日&#39;</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
+
+
+<span class="n">SC</span> <span class="o">=</span> <span class="n">Lunar</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">lun</span> <span class="o">=</span> <span class="n">Lunar</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2017</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">27</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># 农历的年,中文字符 二零一九</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>  <span class="c1"># 农历的年，阿拉伯数字 2019</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>  <span class="c1"># 农历的月份 中文字符 七</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>  <span class="c1"># 农历的月份 阿拉伯字符 7</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>  <span class="c1"># 农历的日期 中文字符 十四</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>  <span class="c1"># 阳历的日期 阿拉伯数字 15 ，注意。和农历不一样</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>  <span class="c1"># 星期几 中文字符</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">week</span><span class="p">)</span>  <span class="c1"># 星期几、英文字符</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>  <span class="c1"># 节日</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lun</span><span class="p">)</span>  <span class="c1"># 二零一九年 七月 十四 星期四 无</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">二零一九</span>
+<span class="sd">2019</span>
+<span class="sd">七</span>
+<span class="sd">7</span>
+<span class="sd">十四</span>
+<span class="sd">15</span>
+<span class="sd">四</span>
+<span class="sd">Thu</span>
+<span class="sd">无</span>
+<span class="sd">2019年 七月 十四 星期四 无</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 张伟
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
