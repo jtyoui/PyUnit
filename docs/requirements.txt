@@ -6,4 +6,5 @@ requests
 click
 itchat
 pygame
+recommonmark
 
