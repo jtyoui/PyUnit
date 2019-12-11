@@ -15,4 +15,4 @@ language = 'zh_cn'
 exclude_patterns = []
 extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc']
 html_static_path = ['_static']
-sys.path.insert(0, os.path.abspath('../../Jtyoui'))
+sys.path.insert(0, os.path.abspath('../..'))
