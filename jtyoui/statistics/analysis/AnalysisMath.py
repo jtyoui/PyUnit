@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/21 14:59
 # @Author: Jtyoui@qq.com
-from jtyoui.decorator import parameter_set_length
+from jtyoui.decorators import parameter_set_length
 
 """
 平均值,中位数,众数,分位数,极差,方差,标准差,偏度,峰度

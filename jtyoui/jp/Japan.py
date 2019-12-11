@@ -5,7 +5,7 @@
 # @Software: PyCharm
 from urllib.parse import quote
 from jtyoui.error import LibraryNotInstallError
-from jtyoui.decorator import replace_regular
+from jtyoui.decorators import replace_regular
 from jtyoui.web import header
 import requests
 

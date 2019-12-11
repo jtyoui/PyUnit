@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/11 11:43
 # @Author: Jtyoui@qq.com
-from jtyoui.decorator.warn import *
+from jtyoui.decorators.warn import *
 import re
 from jtyoui.error import CoordinateLengthNotEqualError, ParameterNotEmptyError
 

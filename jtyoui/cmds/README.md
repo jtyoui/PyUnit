@@ -13,7 +13,7 @@
 
 ### 高级隐藏window系统下的文件夹或者文件
 ```python
-from jtyoui.cmd import hide_file,display_file
+from jtyoui.cmds import hide_file,display_file
 if __name__ == '__main__':
     print(hide_file(r'D:/1/2.txt')) #隐藏
     print(display_file(r'D:/1/2.txt'))#显示
@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
 ### 获取MAC、IP等信息
 ```python
-from jtyoui.cmd import get_mac_address,get_window_ip,get_linux_ip
+from jtyoui.cmds import get_mac_address,get_window_ip,get_linux_ip
 if __name__ == '__main__':
     print(get_mac_address()) #获取window下的MAC地址
     print(get_window_ip())#获取window下的ip地址
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
 ### 获取window系统名
 ```python
-from jtyoui.cmd import get_window_name
+from jtyoui.cmds import get_window_name
 if __name__ == '__main__':
     print(get_window_name())
 ```

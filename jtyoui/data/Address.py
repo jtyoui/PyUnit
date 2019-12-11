@@ -4,7 +4,7 @@
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
 from jtyoui.error import DownLoadDataError
-from jtyoui.decorator import deprecationWarning
+from jtyoui.decorators import deprecationWarning
 from jtyoui.algorithm import dict_create_tree
 from platform import platform
 import time

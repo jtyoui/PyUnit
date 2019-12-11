@@ -6,7 +6,7 @@
 import math
 import re
 from jtyoui.regular import Non_Chinese
-from jtyoui.decorator import replace_regular
+from jtyoui.decorators import replace_regular
 from collections import Counter
 import os
 

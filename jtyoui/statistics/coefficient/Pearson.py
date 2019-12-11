@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/21 15:04
 # @Author: Jtyoui@qq.com
-from jtyoui.decorator import parameter_set_length
+from jtyoui.decorators import parameter_set_length
 from jtyoui.statistics.analysis import AnalysisMath, cov
 
 """

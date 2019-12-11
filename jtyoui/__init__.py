@@ -14,7 +14,7 @@ from jtyoui.fractal import *  # 分形
 from jtyoui.web import *  # 网页
 from jtyoui.language import *  # 语言
 from jtyoui.regular import *  # 正则
-from jtyoui.decorator import *  # 装饰器
+from jtyoui.decorators import *  # 装饰器
 from jtyoui.error import *  # 异常
 from jtyoui.maps import *  # 地图
 from jtyoui.statistics import *  # 文本统计方法
@@ -25,7 +25,7 @@ from jtyoui.baidu import *  # 增加关于百度的资料及应用
 from jtyoui.jp import *  # 提取日语意思
 from jtyoui.compress import *  # 压缩包文件
 from jtyoui.algorithm import *  # 常见算法
-from jtyoui.cmd import *  # CMD命令
+from jtyoui.cmds import *  # CMD命令
 from jtyoui.interface import *  # 界面
 from jtyoui.reflex import *  # 反射
 from jtyoui.logger import *  # 增加日志文件夹

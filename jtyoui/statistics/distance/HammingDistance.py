@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:36
 # @Author: Jtyoui@qq.com
-from jtyoui.decorator import replace_regular
+from jtyoui.decorators import replace_regular
 from jtyoui.regular import punctuation_re
 
 import hashlib

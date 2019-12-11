@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/21 15:08
 # @Author: Jtyoui@qq.com
-
-from jtyoui.decorator import parameter_set_length
+from jtyoui.decorators import parameter_set_length
 from collections import Counter
 
 """

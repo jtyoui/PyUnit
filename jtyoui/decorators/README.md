@@ -16,7 +16,7 @@
 ```python
 
 from jtyoui.regular import Non_Chinese
-from jtyoui.decorator import replace_regular,parameter_set_length
+from jtyoui.decorators import replace_regular,parameter_set_length
 
 
 @replace_regular(' ', '')
@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
 ### 单身模式修饰器
 ```python
-from jtyoui.decorator import singleton
+from jtyoui.decorators import singleton
 
 @singleton
 class A:
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
 ### 自动激活协程装饰器
 ```python
-from jtyoui.decorator import coroutine
+from jtyoui.decorators import coroutine
 if __name__ == '__main__':
     @coroutine
     def receiver():
@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
 ### 警告装饰器
 ```python
-from jtyoui.decorator import warns
+from jtyoui.decorators import warns
 if __name__ == '__main__':
     @warns('该函数已废弃!',DeprecationWarning)
     def w(): ...

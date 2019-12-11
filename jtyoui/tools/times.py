@@ -3,7 +3,7 @@
 # @Time  : 2019/4/24 17:29
 # @Author: Jtyoui@qq.com
 from jtyoui.data import chinese_mon_number, add_time
-from jtyoui.decorator import warns
+from jtyoui.decorators import warns
 import re
 import datetime
 import time
