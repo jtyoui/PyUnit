@@ -17,7 +17,7 @@ import sphinx_rtd_theme
 
 html_theme = "sphinx_rtd_theme"
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-
+master_doc = 'index'
 # -- Project information -----------------------------------------------------
 
 project = 'jtyoui'
@@ -49,13 +49,7 @@ language = 'zh_CN'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-extensions = ['sphinx.ext.autodoc',
-              'sphinx.ext.doctest',
-              'sphinx.ext.intersphinx',
-              'sphinx.ext.todo',
-              'sphinx.ext.coverage',
-              'sphinx.ext.mathjax',
-              'recommonmark']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'recommonmark']
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -68,4 +62,3 @@ extensions = ['sphinx.ext.autodoc',
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 sys.path.insert(0, os.path.abspath('../../jtyoui'))
-master_doc = 'index'
