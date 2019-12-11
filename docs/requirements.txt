@@ -6,3 +6,4 @@ requests
 click
 itchat
 pygame
+sphinx==2.2.0
