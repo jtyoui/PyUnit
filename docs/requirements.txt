@@ -1,4 +1,3 @@
-jtyoui
 paddlepaddle
 keras
 sphinx_rtd_theme
@@ -7,4 +6,3 @@ click
 itchat
 pygame
 recommonmark
-
