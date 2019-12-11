@@ -14,8 +14,8 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../jtyoui'))
 
+sys.path.insert(0, os.path.abspath('../../jtyoui'))
 
 # -- Project information -----------------------------------------------------
 
@@ -43,7 +43,10 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.autodoc',
+    'recommonmark'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
