@@ -11,11 +11,14 @@ import time
 
 class NlpTime:
     def __init__(self):
+        self.isPreferFuture = True
         self.pattern = re.compile(DATE_RE)
         self.timeBase = None
         self.solar_holiday = Solar_Holiday
         self.lunar_holiday = Lunar_Holiday
         self.isTimeSpan = False
+        self.invalidSpan = False
+        self.timeSpan = ''
 
     def parse(self, target, time_base=None) -> list:
         """解析时间"""
@@ -24,7 +27,9 @@ class NlpTime:
         input_query = self._filter(target)
         time_token = self._ex(input_query)
         for res in time_token:
-            times.append(res.time.format("YYYY-MM-DD HH:mm:ss"))
+            rt = res.time
+            if rt:
+                times.append(rt.format("YYYY-MM-DD HH:mm:ss"))
         return times
 
     @staticmethod

@@ -14,7 +14,6 @@ class TimePoint:
         self.unit = [-1, -1, -1, -1, -1, -1]
 
 
-# 范围时间的默认时间点
 class RangeTimeEnum:
     day_break = 3  # 黎明
     early_morning = 8  # 早
