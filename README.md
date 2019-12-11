@@ -9,6 +9,10 @@
     pip install jtyoui
     
     
+## 文档docs
+[点击查看文档](https://jtyoui.readthedocs.io/zh_CN/latest/)  
+
+
 ## 支持版本
     python 3.x
 
