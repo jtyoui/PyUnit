@@ -6,6 +6,7 @@ from jtyoui.plunar import LunarSolarDateConverter, LunarDate
 import regex as re  # pip install regex==2.5.65
 import arrow  # pip install arrow==0.13.1
 import copy
+import jtyoui
 
 
 class TimePoint:
@@ -49,13 +50,15 @@ class TimeUnit:
         self.norm_set_month()
         self.norm_set_day()
         self.norm_set_month_fuzzy_day()
+        self.norm_set_base_related()
+        self.norm_set_solar_holiday()
         self.norm_set_cur_related()
         self.norm_set_hour()
         self.norm_set_minute()
         self.norm_set_second()
         self.norm_set_special()
         self.norm_set_span_related()
-        self.norm_set_holiday()
+        self.norm_set_lunar_holiday()
         self.modify_time_base()
         self.tp_origin.unit = copy.deepcopy(self.tp.unit)
 
@@ -443,7 +446,10 @@ class TimeUnit:
 
     def norm_set_base_related(self):
         """设置以上文时间为基准的时间偏移计算"""
-        cur = arrow.get(self.normalizer.timeBase, "YYYY-M-D-H-m-s")
+        if self.tp.unit[0] > 0 and self.tp.unit[1] > 0 and self.tp.unit[2] > 0:
+            cur = arrow.get(jtyoui.join('-', self.tp.unit[0:3]), "YYYY-M-D")
+        else:
+            cur = arrow.get(self.normalizer.timeBase, "YYYY-M-D")
         flag = [False, False, False]
         rule = "\\d+(?=天[以之]?前)"
         pattern = re.compile(rule)
@@ -542,23 +548,19 @@ class TimeUnit:
             self.tp.unit[2] += int(week * 7)
 
     # 节假日相关
-    def norm_set_holiday(self):
-        rule = "(情人节)|(母亲节)|(青年节)|(教师节)|(中元节)|(端午)|(劳动节)|(7夕)|(建党节)|(建军节)|(初13)|(初14)|(初15)|" \
-               "(初12)|(初11)|(初9)|(初8)|(初7)|(初6)|(初5)|(初4)|(初3)|(初2)|(初1)|(中和节)|(圣诞)|(中秋)|(春节)|(元宵)|" \
-               "(航海日)|(儿童节)|(国庆)|(植树节)|(元旦)|(重阳节)|(妇女节)|(记者节)|(立春)|(雨水)|(惊蛰)|(春分)|(清明)|(谷雨)|" \
+    def norm_set_lunar_holiday(self):
+        rule = "(中元节)|(端午)|(7夕)|(中和节)|(中秋)|(春节)|(元宵)|(元旦)|(重阳节)|(立春)|(雨水)|(惊蛰)|(春分)|(清明)|(谷雨)|" \
                "(立夏)|(小满 )|(芒种)|(夏至)|(小暑)|(大暑)|(立秋)|(处暑)|(白露)|(秋分)|(寒露)|(霜降)|(立冬)|(小雪)|(大雪)|" \
-               "(冬至)|(小寒)|(大寒)"
+               "(冬至)|(小寒)|(大寒)|(初5)"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
             if self.tp.unit[0] == -1:
                 self.tp.unit[0] = int(self.normalizer.timeBase.split('-')[0])
             holiday = match.group()
-            if u'节' not in holiday:
-                holiday += u'节'
-            if holiday in self.normalizer.solar_holiday:
-                date = self.normalizer.solar_holiday[holiday].split('-')
-            elif holiday in self.normalizer.lunar_holiday:
+            if '节' not in holiday:
+                holiday += '节'
+            if holiday in self.normalizer.lunar_holiday:
                 date = self.normalizer.lunar_holiday[holiday].split('-')
                 ls_converter = LunarSolarDateConverter()
                 lunar = LunarDate(self.tp.unit[0], int(date[0]), int(date[1]), False)
@@ -567,7 +569,30 @@ class TimeUnit:
                 date[0] = solar.solarMonth
                 date[1] = solar.solarDay
             else:
-                holiday = holiday.strip(u'节')
+                holiday = holiday.strip('节')
+                if holiday in ['小寒', '大寒']:
+                    self.tp.unit[0] += 1
+                date = self.china_24_st(self.tp.unit[0], holiday)
+            self.tp.unit[1] = int(date[0])
+            self.tp.unit[2] = int(date[1])
+
+    # 节假日相关
+    def norm_set_solar_holiday(self):
+        rule = "(情人节)|(母亲节)|(青年节)|(教师节)|(劳动节)|(建党节)|(建军节)|(圣诞)|(航海日)|(儿童节)|(国庆节)|(植树节)|(重阳节)" \
+               "|(妇女节)|(记者节)|(立春)|(雨水)|(惊蛰)|(春分)|(清明)|(谷雨)|(立夏)|(小满 )|(芒种)|(夏至)|(小暑)|(大暑)|(立秋)" \
+               "|(处暑)|(白露)|(秋分)|(寒露)|(霜降)|(立冬)|(小雪)|(大雪)|(冬至)|(小寒)|(大寒)"
+        pattern = re.compile(rule)
+        match = pattern.search(self.exp_time)
+        if match is not None:
+            if self.tp.unit[0] == -1:
+                self.tp.unit[0] = int(self.normalizer.timeBase.split('-')[0])
+            holiday = match.group()
+            if '节' not in holiday:
+                holiday += '节'
+            if holiday in self.normalizer.solar_holiday:
+                date = self.normalizer.solar_holiday[holiday].split('-')
+            else:
+                holiday = holiday.strip('节')
                 if holiday in ['小寒', '大寒']:
                     self.tp.unit[0] += 1
                 date = self.china_24_st(self.tp.unit[0], holiday)
@@ -625,7 +650,10 @@ class TimeUnit:
 
     def norm_set_cur_related(self):
         """设置当前时间相关的时间表达式 """
-        cur = arrow.get(self.normalizer.timeBase, "YYYY-M-D-H-m-s")
+        if self.tp.unit[0] > 0 and self.tp.unit[1] > 0 and self.tp.unit[2] > 0:
+            cur = arrow.get(jtyoui.join('-', self.tp.unit[0:3]), "YYYY-M-D")
+        else:
+            cur = arrow.get(self.normalizer.timeBase, "YYYY-M-D")
         flag = [False, False, False]
         rule = "前年"
         pattern = re.compile(rule)
@@ -890,7 +918,13 @@ class TimeUnit:
         self.isFirstTimeSolveContext = False
 
     @staticmethod
-    def add_time(cur, fore_unit):
+    def add_time(cur, fore_unit: int):
+        """修改日期
+
+        :param cur: 当前日期
+        :param fore_unit: 修改属性
+        :return: 修改好的日期
+        """
         if fore_unit == 0:
             cur = cur.shift(years=1)
         elif fore_unit == 1:

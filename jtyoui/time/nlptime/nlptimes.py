@@ -10,7 +10,13 @@ import time
 
 
 class NlpTime:
-    def __init__(self):
+    def __init__(self, time_base=None):
+        """时间解析
+
+        分析文件进行数据时间分析，包括复杂的时间、口语化、农历等
+
+        :param time_base: 当前时间，格式是年-月-日 时:分:秒
+        """
         self.isPreferFuture = True
         self.pattern = re.compile(DATE_RE)
         self.timeBase = None
@@ -19,10 +25,10 @@ class NlpTime:
         self.isTimeSpan = False
         self.invalidSpan = False
         self.timeSpan = ''
-
-    def parse(self, target, time_base=None) -> list:
-        """解析时间"""
         self.timeBase = replace(r'\W+', '-', time_base) if time_base else time.strftime('%Y-%m-%d-%H-%M-%S')
+
+    def parse(self, target) -> list:
+        """解析时间"""
         times = []
         input_query = self._filter(target)
         time_token = self._ex(input_query)
@@ -92,14 +98,15 @@ class NlpTime:
 
 
 if __name__ == '__main__':
-    nt = NlpTime()
-    np = nt.parse('今天晚上8点到明天上午10点之间')
-    print(np)  # ['2019-12-09 20:00:00', '2019-12-10 10:00:00']
-    np = nt.parse('今年儿童节晚上九点一刻')
+    np = NlpTime('2019-12-19 00:00:00').parse('国庆节的前天晚上8点半')
+    print(np)  # ['2019-09-29 20:30:00']
+    np = NlpTime('2019-12-19 00:00:00').parse('今天晚上8点到明天上午10点之间')
+    print(np)  # ['2019-12-19 20:00:00', '2019-12-20 10:00:00']
+    np = NlpTime('2019-12-19 00:00:00').parse('今年儿童节晚上九点一刻')
     print(np)  # ['2019-06-01 21:15:00']
-    np = nt.parse('今天中午十二点')
+    np = NlpTime('2019-12-19 00:00:00').parse('今天中午十二点')
     print(np)  # ['2019-12-09 12:00:00']
-    np = nt.parse('明年春节')
+    np = NlpTime('2019-12-19 00:00:00').parse('明年春节')
     print(np)  # ['2020-01-25 00:00:00']
-    np = nt.parse('下下下个星期五早上7点半')
-    print(np)  # ['2020-01-3 07:30:00']
+    np = NlpTime('2019-12-19 00:00:00').parse('下下下个星期五早上7点半')
+    print(np)  # ['2020-01-10 07:30:00']
