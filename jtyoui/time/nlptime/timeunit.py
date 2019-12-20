@@ -16,6 +16,7 @@ class TimePoint:
 
 
 class RangeTimeEnum:
+    """一天大概范围时间"""
     day_break = 3  # 黎明
     early_morning = 8  # 早
     morning = 10  # 上午
@@ -27,6 +28,7 @@ class RangeTimeEnum:
 
     @classmethod
     def name(cls, names):
+        """根据名字获取数据"""
         if hasattr(RangeTimeEnum, names):
             return getattr(RangeTimeEnum, names)
         return 0
@@ -46,6 +48,7 @@ class TimeUnit:
         self.time_normalization()
 
     def time_normalization(self):
+        """时间解析"""
         self.norm_set_year()
         self.norm_set_month()
         self.norm_set_day()
@@ -107,6 +110,7 @@ class TimeUnit:
 
     @staticmethod
     def gen_time(unit):
+        """得到时间"""
         time = arrow.get('1970-01-01 00:00:00')
         if unit[0] > 0:
             time = time.replace(year=int(unit[0]))
@@ -199,6 +203,21 @@ class TimeUnit:
             self._check_time(self.tp.unit)
 
     def daytime(self, rule, name):
+        """预测一天是在什么时候
+
+        预测情况包括：
+            day_break = 3  # 黎明
+            early_morning = 8  # 早
+            morning = 10  # 上午
+            noon = 12  # 中午、午间
+            afternoon = 15  # 下午、午后
+            night = 18  # 晚上、傍晚
+            lateNight = 20  # 晚、晚间
+            midNight = 23  # 深夜
+
+        :param rule: 预测情况的正则
+        :param name: 预测的名字
+        """
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -547,17 +566,18 @@ class TimeUnit:
                 self.tp.unit[2] = 0
             self.tp.unit[2] += int(week * 7)
 
-    # 节假日相关
     def norm_set_lunar_holiday(self):
+        """识别农历节日和时节"""
         rule = "(中元节)|(端午)|(7夕)|(中和节)|(中秋)|(春节)|(元宵)|(元旦)|(重阳节)|(立春)|(雨水)|(惊蛰)|(春分)|(清明)|(谷雨)|" \
                "(立夏)|(小满 )|(芒种)|(夏至)|(小暑)|(大暑)|(立秋)|(处暑)|(白露)|(秋分)|(寒露)|(霜降)|(立冬)|(小雪)|(大雪)|" \
-               "(冬至)|(小寒)|(大寒)|(初5)"
+               "(冬至)|(小寒)|(大寒)"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
             if self.tp.unit[0] == -1:
                 self.tp.unit[0] = int(self.normalizer.timeBase.split('-')[0])
             holiday = match.group()
+            holiday = '七夕' if holiday == '7夕' else holiday
             if '节' not in holiday:
                 holiday += '节'
             if holiday in self.normalizer.lunar_holiday:
@@ -576,28 +596,19 @@ class TimeUnit:
             self.tp.unit[1] = int(date[0])
             self.tp.unit[2] = int(date[1])
 
-    # 节假日相关
     def norm_set_solar_holiday(self):
-        rule = "(情人节)|(母亲节)|(青年节)|(教师节)|(劳动节)|(建党节)|(建军节)|(圣诞)|(航海日)|(儿童节)|(国庆节)|(植树节)|(重阳节)" \
-               "|(妇女节)|(记者节)|(立春)|(雨水)|(惊蛰)|(春分)|(清明)|(谷雨)|(立夏)|(小满 )|(芒种)|(夏至)|(小暑)|(大暑)|(立秋)" \
-               "|(处暑)|(白露)|(秋分)|(寒露)|(霜降)|(立冬)|(小雪)|(大雪)|(冬至)|(小寒)|(大寒)"
+        """识别阳历节日"""
+        rule = "(情人节)|(母亲节)|(青年节)|(教师节)|(劳动节)|(建党节)|(建军节)|(圣诞节)|(航海节)|(儿童节)|(国庆节)|(植树节)|(重阳节)|(妇女节)|(记者节)"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
             if self.tp.unit[0] == -1:
                 self.tp.unit[0] = int(self.normalizer.timeBase.split('-')[0])
             holiday = match.group()
-            if '节' not in holiday:
-                holiday += '节'
             if holiday in self.normalizer.solar_holiday:
                 date = self.normalizer.solar_holiday[holiday].split('-')
-            else:
-                holiday = holiday.strip('节')
-                if holiday in ['小寒', '大寒']:
-                    self.tp.unit[0] += 1
-                date = self.china_24_st(self.tp.unit[0], holiday)
-            self.tp.unit[1] = int(date[0])
-            self.tp.unit[2] = int(date[1])
+                self.tp.unit[1] = int(date[0])
+                self.tp.unit[2] = int(date[1])
 
     @staticmethod
     def china_24_st(year: int, china_st: str):
@@ -848,6 +859,12 @@ class TimeUnit:
             self.normalizer.timeBase = '-'.join(arr)
 
     def prefer_future_week(self, weekday, cur):
+        """预测下一个周的时间
+
+        :param weekday:星期几
+        :param cur: 当前时间
+        :return: 预测的时间
+        """
         # 1. 确认用户选项
         if not self.normalizer.isPreferFuture:
             return cur
@@ -864,6 +881,7 @@ class TimeUnit:
 
     def prefer_future(self, check_time_index):
         """如果用户选项是倾向于未来时间，检查check_time_index所指的时间是否是过去的时间，如果是的话，将大一级的时间设为当前时间的+1。
+
         如在晚上说“早上8点看书”，则识别为明天早上;
         12月31日说3号买菜，则识别为明年1月的3号。
         """

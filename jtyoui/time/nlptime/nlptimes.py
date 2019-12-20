@@ -74,7 +74,7 @@ class NlpTime:
         match = re.search("月", input_query)
         if match is None:
             input_query = input_query.replace('个', '')
-        replaces = {'中旬': '15号', '傍晚': '午后', '大年': '', '五一': '劳动节', '白天': '早上', '：': ':'}
+        replaces = {'中旬': '15号', '傍晚': '午后', '大年': '春节', '51': '劳动节', '白天': '早上', '：': ':', '前1天': '前天', '后1天': '后天'}
         for k, v in replaces.items():
             input_query = input_query.replace(k, v)
         return input_query
@@ -98,7 +98,7 @@ class NlpTime:
 
 
 if __name__ == '__main__':
-    np = NlpTime('2019-12-19 00:00:00').parse('国庆节的前天晚上8点半')
+    np = NlpTime('2019-12-19 00:00:00').parse('国庆节的前一天晚上8点半')
     print(np)  # ['2019-09-29 20:30:00']
     np = NlpTime('2019-12-19 00:00:00').parse('今天晚上8点到明天上午10点之间')
     print(np)  # ['2019-12-19 20:00:00', '2019-12-20 10:00:00']
@@ -110,3 +110,5 @@ if __name__ == '__main__':
     print(np)  # ['2020-01-25 00:00:00']
     np = NlpTime('2019-12-19 00:00:00').parse('下下下个星期五早上7点半')
     print(np)  # ['2020-01-10 07:30:00']
+    np = NlpTime('2019-12-19 00:00:00').parse('今年的大寒')
+    print(np)  # ['2020-01-20 00:00:00']
