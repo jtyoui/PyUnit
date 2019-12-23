@@ -14,6 +14,13 @@ import time
 
 
 class BaiDuWenKu:
+    """下载百度文库资料
+
+    url是下载百度文库的文档链接
+
+    >>> wk = BaiDuWenKu(url=r'https://wenku.baidu.com/view/f50def7c43323968001c924c.html?sxts=1563610333674')
+    >>> wk.load('D:')
+    """
 
     def __init__(self, url):
         """爬取百度文库：URL是文库资料地址"""

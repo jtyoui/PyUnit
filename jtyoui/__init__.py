@@ -20,7 +20,6 @@ from jtyoui.maps import *  # 地图
 from jtyoui.statistics import *  # 文本统计方法
 from jtyoui.bayes import *  # 贝叶斯算法
 from jtyoui.tools import *  # 常见的工具类函数
-from jtyoui.c import *  # 增加c代码引用
 from jtyoui.baidu import *  # 增加关于百度的资料及应用
 from jtyoui.jp import *  # 提取日语意思
 from jtyoui.compress import *  # 压缩包文件

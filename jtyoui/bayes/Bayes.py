@@ -5,7 +5,15 @@
 
 
 class BayesProbability:
-    """贝叶斯"""
+    """贝叶斯
+
+    >>> bp = BayesProbability()
+    >>> bp['bowl_one'] = 1 / 2
+    >>> bp['bowl_two'] = 1 / 2
+    >>> bp.prior_probability('bowl_one', 3 / 4)
+    >>> bp.prior_probability('bowl_two', 1 / 2)
+    >>> print(bp.posterior_probability('bowl_one'))
+    """
 
     def __init__(self):
         self.name_prob = dict()

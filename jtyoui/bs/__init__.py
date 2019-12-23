@@ -16,6 +16,8 @@ def __successive_division(n, x):  # 辗转相除法
 def binary_system(x, base_x, base_y):
     """转化进制
 
+    >>> print(binary_system(2542, 7, 12))
+
     :param x: 字符串非负整数
     :param base_x: 字符串的进制
     :param base_y: 转化的进制
@@ -40,6 +42,8 @@ def binary_system(x, base_x, base_y):
 
 def gcd(m, n):
     """最大公约数
+
+    >>> print(gcd(97 * 2, 97 * 3))
 
     :param m: 大于零的整数
     :param n: 大于零的整数

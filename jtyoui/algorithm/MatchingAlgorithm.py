@@ -121,7 +121,7 @@ def max_sub_array(ls: list) -> tuple:
     >>> print(max_sub_array([5, 4, -12, 1, 3, -1, 4, 1, -6]))
 
     :param ls: 数字类列表
-    :return:（起始位置，结束位置，最大值）
+    :return: （起始位置，结束位置，最大值）
     """
     min_, max_, sum_ = 0, 0, 0
     return_max = 0, 0, 0

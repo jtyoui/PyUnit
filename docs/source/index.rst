@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to jtyoui's documentation!
+欢迎使用Jtyoui文档
 ==================================
 
 .. toctree::
@@ -12,7 +12,7 @@ Welcome to jtyoui's documentation!
 
 
 
-Indices and tables
+目录
 ==================
 
 * :ref:`genindex`

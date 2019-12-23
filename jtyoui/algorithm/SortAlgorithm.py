@@ -11,12 +11,9 @@ def bubbled_sort(ls):
     >>> import random
     >>> import time
     >>> s = []
-    >>> for _ in range(1_00):
-        >>> jr = random.randint(0, 1000)
-        >>> s.append(jr)
-    >>> for _ in range(1_00):
-        jr = random.randint(0, 1000)
-        s.append(jr)
+    >>> for _ in range(100):
+            jr = random.randint(0, 1000)
+            s.append(jr)
     >>> start = time.time()
     >>> bs = bubbled_sort(s)
     >>> print(bs)

@@ -10,8 +10,8 @@ class Tree:
 
     >>> tree = Tree(value='Root')
     >>> for d in data:
-        >>> t = Tree(value=d, parent=tree)
-        >>> tree.add_child(t)
+            t = Tree(value=d, parent=tree)
+            tree.add_child(t)
 
     """
 
