@@ -35,9 +35,7 @@ from jtyoui.time import *  # 关于处理时间模块
 from jtyoui.reptile import *  # 关于爬虫的模块
 from jtyoui.ee import *  # 抽取实体
 from jtyoui.flasks import *  # 对flask框架的补充
-import sys
 
-sys.path.append('..')  # 使用sphinx
 __all__ = [a for a in dir() if not a.startswith('_')]
 __all__.extend(['game', 'imagepdf', 'wx', 'neuralNetwork', 'ml'])  # 游戏 pdf和照片互转 微信抓电影和聊天机器人
 __version__ = f'{NOW_TIME.tm_year}.{NOW_TIME.tm_mon:0>2}.{NOW_TIME.tm_mday:0>2}'

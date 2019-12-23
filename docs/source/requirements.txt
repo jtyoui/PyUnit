@@ -1,6 +1,4 @@
-sphinx_rtd_theme
-requests
-click
-itchat
-pygame
-recommonmark
+sphinx==1.8.*
+sphinx_rtd_theme==0.4.*
+recommonmark==0.5.*
+jtyoui
