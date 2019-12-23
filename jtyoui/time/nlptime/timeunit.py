@@ -861,7 +861,7 @@ class TimeUnit:
     def prefer_future_week(self, weekday, cur):
         """预测下一个周的时间
 
-        :param weekday:星期几
+        :param weekday: 星期几
         :param cur: 当前时间
         :return: 预测的时间
         """
