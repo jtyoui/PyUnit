@@ -156,9 +156,10 @@ def create_model():
 
 def match(words, init_st: list):
     """抽取实体函数
-    :param words:需要抽取的文字
-    :param init_st:初始化参数。st()
-    :return:数字列表，这些数字是在label_map_config中配置的
+
+    :param words: 需要抽取的文字
+    :param init_st: 初始化参数。st()
+    :return: 数字列表，这些数字是在label_map_config中配置的
     """
     init_st[2].decorate_tensor_provider(data_generator(words))
     number = evaluate(*init_st)
@@ -167,6 +168,7 @@ def match(words, init_st: list):
 
 def st(new_model_path=None, new_config=None, new_label_map_config=None) -> list:
     """初始化模型，只需要加载一次即可
+
     :param new_model_path: 模型路径
     :param new_config: 模型配置参数
     :param new_label_map_config: 模型实体映射

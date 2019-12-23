@@ -13,7 +13,12 @@ def _verification(number):
 
 
 class FMMA:
-    """FMMA(Forward Maximum Matching Algorithms)正向最大匹配算法"""
+    """FMMA(Forward Maximum Matching Algorithms)正向最大匹配算法
+
+    >>> r = FMMA(ls=['我们', '野生', '动物园', '在野'], sort=True)
+    >>> print(r.cut('我们在野生动物园玩', 3))
+    >>> # ['我们', '在野', '生', '动物园', '玩']
+    """
 
     def __init__(self, ls, sort=False):
         """正向最大匹配算法、匹配的词典
@@ -43,10 +48,16 @@ class FMMA:
 
 
 class RMMA:
-    """RMMA(Reverse Maximum Matching Algorithms)逆向最大匹配算法"""
+    """RMMA(Reverse Maximum Matching Algorithms)逆向最大匹配算法
+
+    >>> r = RMMA(ls=['我们', '野生', '动物园', '在野'], sort=True)
+    >>> print(r.cut('我们在野生动物园玩', 3))
+    >>> # ['我们', '在', '野生', '动物园', '玩']
+    """
 
     def __init__(self, ls, sort=False):
         """逆向最大匹配算法、匹配的词典
+
         :param ls: 词典
         :param sort: 是否要排序
         """
@@ -87,7 +98,10 @@ def _kmp(p):
 
 
 def kmp(string, str_):
-    """KMP(The Knuth-Morris-Pratt Algorithm)无回溯串匹配算法"""
+    """KMP(The Knuth-Morris-Pratt Algorithm)无回溯串匹配算法
+
+    >>> print(kmp('我们在野生动物园玩', '动物园'))
+    """
     j, i = 0, 0
     p_next = _kmp(string)
     n, m = len(string), len(str_)
@@ -103,6 +117,8 @@ def kmp(string, str_):
 
 def max_sub_array(ls: list) -> tuple:
     """求解最大子数组
+
+    >>> print(max_sub_array([5, 4, -12, 1, 3, -1, 4, 1, -6]))
 
     :param ls: 数字类列表
     :return:（起始位置，结束位置，最大值）

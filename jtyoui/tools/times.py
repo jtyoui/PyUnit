@@ -13,11 +13,15 @@ import calendar
 
 
 class StringTime:
+    """解析时间
+
+    >>> st = StringTime('二零零七年十月三十一号下午2点半')
+    >>> print(st.find_times())
+
+    """
+
     def __init__(self, sentence, date_str=None, date_format='%Y-%m-%d %H:%M:%S'):
         """传入一个字符串时间和现在时间
-
-        >>> st = StringTime('二零零七年十月三十一号下午2点半')
-        >>> print(st.find_times())
 
         :param sentence: 字符串时间
         :param date_str: 你认为的现在时间，不传默认是当前时间
@@ -26,7 +30,6 @@ class StringTime:
         self._sentence = sentence
         self._localtime = date_str if date_str else time.strftime(date_format)
         self.format = date_format
-        # 自定义
         self.local = time.strptime(self._localtime, self.format)
         self.re_year = r'(今年)|(明年)|(后年)|(昨年)|(前年)|(去年)|(\d+年)'
         self.re_mon = r'(上个?月)|(这个?月)|(下个?月)|(\d{0,2}本?月底?)|(\d*个?月以?后)'
@@ -63,7 +66,7 @@ class StringTime:
     def find(self, name):
         """根据名字来查找年月日
 
-        :param name:填写：年、月、日、号、来找对应的日期
+        :param name: 填写年、月、日、号、来找对应的日期
         """
         if name == '年':
             flag = '%Y'

@@ -8,10 +8,13 @@ from jtyoui.error import CoordinateLengthNotEqualError
 def map_replace(str_: str, key: [list, str] = None, value: [list, str] = None, maps: dict = None) -> str:
     """映射替换,最好使用maps字典映射
 
+    >>> print(map_replace('[中国]', '[]', '【】')) #【中国】
+    >>> print(map_replace('[中国]', maps={'[': '【', ']': '】'})) #【中国】
+
     :param str_: 字符串
     :param key: 替换字符
     :param value: 被替换的字符
-    :param maps:字符映射
+    :param maps: 字符映射
     :return: 替换完毕的字符串
     """
     if maps:

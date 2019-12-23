@@ -64,6 +64,7 @@ def analysis_rational_len(train_or_dev_path, percent=0.9):
 
 def vocab_train_label(train_or_dev_path, vocab, tags, max_chunk_length):
     """将训练数据转为格式化
+
     :param train_or_dev_path: 训练数据路径
     :param vocab: 词向量
     :param tags: 序列标签

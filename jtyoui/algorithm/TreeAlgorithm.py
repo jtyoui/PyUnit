@@ -6,6 +6,15 @@ import collections
 
 
 class Tree:
+    """创建一颗树
+
+    >>> tree = Tree(value='Root')
+    >>> for d in data:
+        >>> t = Tree(value=d, parent=tree)
+        >>> tree.add_child(t)
+
+    """
+
     def __init__(self, value=None, parent=None):
         self.value = value
         self.node = []
@@ -21,8 +30,12 @@ class Tree:
     def search_tree(self, value: str, ls):
         """多叉搜索树
 
+        >>> tree_object = []
+        >>> ts.search_tree('g', tree_object)
+        >>> print(tree_object)
+
         :param value: 树上一个值
-        :param ls:树集合
+        :param ls: 树集合
         """
         if value in self.value:
             ls.append(self)
@@ -33,8 +46,8 @@ class Tree:
     def search_tree_value(self, value: str):
         """搜索树的路径
 
-        :param value:树上的一个值
-        :return:树支的路径
+        :param value: 树上的一个值
+        :return: 树支的路径
         """
         ls = []
         self.search_tree(value, ls)
@@ -61,6 +74,10 @@ def dict_create_tree(data: dict, tree: Tree = Tree(value='Root')):
             b   c   d
         e f g |g h| k m
 
+    >>> ds = {'a': {'b': ['e', 'f', 'g'], 'c': ['g', 'h'], 'd': ['k', 'm']}}
+    >>> ts = dict_create_tree(ds)
+    >>> print(ts)
+
     :param data: 创建树型结构，对照上面，例如：ds = {'a': {'b': ['e', 'f', 'g'], 'c': ['g', 'h'], 'd': ['k', 'm']}}
     :param tree: 默认为上一层树结构，不需要传入
     :return: 一颗自动带有root根目录的树结构
@@ -76,8 +93,8 @@ def dict_create_tree(data: dict, tree: Tree = Tree(value='Root')):
 def tree():
     """创建一颗简单树
 
-    x=tree()
-    x['a']['b']=1
+    >>> x = tree()
+    >>> x['a']['b'] = 1
 
     :return: 树
     """

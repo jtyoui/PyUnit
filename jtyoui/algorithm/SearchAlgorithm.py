@@ -9,6 +9,9 @@ import bisect
 def binary_search(ls, x, sort=False):
     """二分查找算法
 
+    >>> s = [1, 2, 3, 4, 5, 6, 10, 7]
+    >>> print(binary_search(s, 7, True))
+
     :param ls: 列表。
     :param x: 被查找的数。
     :param sort: 是否要启动排序，False表示不启动排序，默认是不启动。

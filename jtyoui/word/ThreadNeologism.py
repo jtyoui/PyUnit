@@ -40,6 +40,7 @@ class Neologism(Thread):
 
     def read_ls(self, ls):
         """数据类型[str]
+
         :param ls: 表示链表
         """
         global All_LENS

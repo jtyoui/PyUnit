@@ -12,9 +12,10 @@ import re
 class Sentence:
     """造句函数，输入一个词语，造出一些句子
 
-    >>>s = Sentence()
-    >>>data = s['我爱你']
-    >>>>for jz in data:print(jz)
+    >>> s = Sentence()
+    >>> data = s['我爱你']
+    >>> for jz in data:print(jz)
+
     """
 
     def __init__(self):
@@ -67,7 +68,8 @@ class Sentence:
 
     def make_sentence(self, word):
         """制造句子
-        :param word:输入一个词语:比如:刘德华、万绮雯、宇宙等
+
+        :param word: 输入一个词语:比如:刘德华、万绮雯、宇宙等
         """
         data_ls = []
         url_ = self._redirect_link(word)
