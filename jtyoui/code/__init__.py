@@ -10,7 +10,8 @@ import requests
 class CodeRecognition:
 
     def __init__(self, username, password, app_id, app_key):
-        """
+        """初始化账号
+
         :param username: 用户账号，不是开发者账号
         :param password: 用户密码，不是开发者密码
         :param app_id: 软件ＩＤ，开发者分成必要参数。
@@ -47,7 +48,8 @@ class CodeRecognition:
         return response and response['text'] or ''
 
     def decode(self, filename, code_type, timeout=60):
-        """
+        """识别验证码
+
         :param filename:  图片文件
         :param code_type: 验证码类型
         :param timeout: 超时时间，秒

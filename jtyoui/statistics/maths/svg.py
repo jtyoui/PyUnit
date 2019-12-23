@@ -7,7 +7,10 @@ from urllib.parse import quote
 
 
 def math_tex(tex, file_path=None):
-    """根据Tex语言生成数学公式矢量图：关于Tex语法参考：https://blog.csdn.net/qfire/article/details/81382048
+    """根据Tex语言生成数学公式矢量图
+
+    关于Tex语法参考：https://blog.csdn.net/qfire/article/details/81382048
+
     :param tex: Tex语言
     :param file_path: 保存矢量图的地址，后缀名一定是: xxx.svg
     :return: 默认返回SVG数据。有地址保存到地址，返回True

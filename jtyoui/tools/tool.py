@@ -15,11 +15,11 @@ class Tool:
         self._string = string
 
     def index_select_string(self, index, select):
-        """利用索引的关系来标记字符串"""
-        """
+        """利用索引的关系来标记字符串
+
         利用索引的关系来找字符串:一般用在深度学习中的标注模型
+
         :param index: 索引
-        :param string: 字符串
         :param select: 索引匹配的正则
         :return: 匹配字符串列表
         """
@@ -46,7 +46,8 @@ class Tool:
 
     def split(self, re_, flag=0, retain=True):
         """支持正则分割
-        :param re_:正则表达式
+
+        :param re_: 正则表达式
         :param flag: re.search(re_, self.string, flag), 默认flag=0
         :param retain: 是否要保留正则匹配的字符,默认是保留
         """
@@ -82,11 +83,12 @@ class Tool:
 
     def string_select_index(self, ls, start_name, end_name, flag='O', labels=None):
         """将一段文字进行标记返回标记的列表
-        :param ls:标记的关键字列表
-        :param start_name:开始标记的名称
-        :param end_name:连续标记的名称
-        :param flag:不在关键字列表中默认标记，默认是O,大写的o
-        :param labels:自定义标记
+
+        :param ls: 标记的关键字列表
+        :param start_name: 开始标记的名称
+        :param end_name: 连续标记的名称
+        :param flag: 不在关键字列表中默认标记，默认是O,大写的o
+        :param labels: 自定义标记
         """
         if not labels:
             labels = [flag for _ in range(len(self._string))]
@@ -106,8 +108,9 @@ class Tool:
 
     def select_ls(self, ls_):
         """根据列表里面的元素选取字符串中的元素
-        :param ls_:列表元素，比如['张三','李四','王麻子']，string='张三去李四家找东西'
-        :return :['张三','李四']
+
+        :param ls_: 列表元素，比如['张三','李四','王麻子']，string='张三去李四家找东西'
+        :return: ['张三','李四']
         """
         if self.generator:
             return (name for name in ls_ if self._string.find(name) > 0)
@@ -116,8 +119,9 @@ class Tool:
 
     def select_row(self, iterable_, row):
         """选取可迭代对象中的某一列
-        :param iterable_:可迭代对象
-        :param row:每一列
+
+        :param iterable_: 可迭代对象
+        :param row: 每一列
         """
         g = operator.itemgetter(row)
         if self.generator:

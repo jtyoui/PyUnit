@@ -18,13 +18,14 @@ class AnalysisMath:
         self.__length = len(data)
 
     def average(self, flag=0):
-        """平均数"""
-        """
+        """平均数
+
         flag=0 算术平均值
         flag=1 几何平均值
         flag=2 平方平均值(均方根)
         flag=3 调和平均值
-        :param flag:根据不同的数值,进行不同的平均值
+
+        :param flag: 根据不同的数值,进行不同的平均值
         """
         if flag == 0:
             return sum(self.__data) / self.__length
@@ -61,12 +62,13 @@ class AnalysisMath:
         return max_[0][0]
 
     def quantile(self, position=1):
-        """分位数"""
-        """
+        """分位数
+
         position=1: 第一四分位数 (Q1)，又称“较小四分位数”，等于该样本中所有数值由小到大排列后第25%的数字。
         position=2: 第二四分位数 (Q2)，又称“中位数”，等于该样本中所有数值由小到大排列后第50%的数字。
         position=3: 第三四分位数 (Q3)，又称“较大四分位数”，等于该样本中所有数值由小到大排列后第75%的数字。
-        :param position:根据不同的数值计算不同的分位数
+
+        :param position: 根据不同的数值计算不同的分位数
         """
         if position > 3:
             raise ValueError("position的取值范围是[1,2,3]整数")
@@ -113,8 +115,8 @@ class AnalysisMath:
 
     @property
     def kurtosis(self):
-        """峰度"""
-        """
+        """峰度
+
         如果超值峰度为正，称为尖峰态
         如果超值峰度为负，称为低峰态
         """
@@ -129,8 +131,10 @@ class AnalysisMath:
 
 @parameter_set_length
 def cov(x, y):
-    """协方差"""
-    """expect_x:表示x的数学期望"""
+    """协方差
+
+    :return: 表示x的数学期望
+    """
     if isinstance(x, (set, list, tuple)) and isinstance(y, (set, list, tuple)):
         ana = AnalysisMath()
         expect_x = ana.expect(x)

@@ -67,6 +67,22 @@ TELECOM_Wireless_Network_Card_RE = r'^(?:\+?86)?149\d{8}$'
 
 
 def telephone_number_matching_verification(re_, str_: str):
+    """电话号码匹配
+
+    默认匹配到的电话号码包括：
+    —— 移动、联通、电信手机卡
+    —— 海事卫星通信
+    —— 应急通信
+    —— 移动、联通、电信虚拟运营商
+    —— 移动、联通、电信物联网数据卡
+    —— 移动、联通、电信上网卡
+
+    具体使用默认正则：请看： https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/data/phoneRegularity.py
+
+    :param re_: 电话号码匹配的正则
+    :param str_: 一串数字
+    :return: 匹配到的电话号码
+    """
     numbers, number = [], ''
     for char_ in str_:
         if char_.isdigit():

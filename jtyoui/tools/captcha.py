@@ -10,9 +10,11 @@ import random
 
 class Captcha:
     """验证码生成器
+
     >>> c = Captcha(300, 60)  # 验证码大小是300*60
     >>> c.format(lower=1, upper=2, digits=4, special=1)  # 有小写字母1个、大写字母2、数字4个、特殊符号1个
     >>> c.make_photo(f'D://')  # 生成的验证码存放在D盘下
+
     """
 
     def __init__(self, width=240, height=60):
@@ -30,8 +32,8 @@ class Captcha:
         return random.randint(32, 127), random.randint(32, 127), random.randint(32, 127)
 
     def format(self, lower=4, upper=0, digits=0, special=0):
-        """
-        验证码格式
+        """验证码格式
+
         :param lower: 小写字母
         :param upper: 大写字母
         :param digits: 数字
@@ -47,6 +49,7 @@ class Captcha:
 
     def make_photo(self, dir_):
         """生成验证码
+
         :param dir_: 存放验证码照片的文件夹
         """
         from PIL import Image  # 安装pillow： pip install pillow

@@ -12,8 +12,8 @@ class BayesProbability:
         self.name_prior_prob = dict()
 
     def __setitem__(self, name, prob):
-        """
-        初始化name的概率
+        """初始化name的概率
+
         :param name: 名字
         :param prob: 独立概率
         """
@@ -21,6 +21,7 @@ class BayesProbability:
 
     def prior_probability(self, name, prob):
         """先验概率
+
         :param name: 名字
         :param prob: 先验概率
         """

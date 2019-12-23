@@ -12,8 +12,8 @@
 
 
 def edit_distance(chars, other_chars):
-    """
-    编辑距离
+    """编辑距离
+
     :param chars: 字符串
     :param other_chars: 另一个字符串
     :return: 编辑距离值

@@ -17,6 +17,7 @@ class FMMA:
 
     def __init__(self, ls, sort=False):
         """正向最大匹配算法、匹配的词典
+
         :param ls: 词典
         :param sort: 是否要排序
         """
@@ -102,6 +103,7 @@ def kmp(string, str_):
 
 def max_sub_array(ls: list) -> tuple:
     """求解最大子数组
+
     :param ls: 数字类列表
     :return:（起始位置，结束位置，最大值）
     """

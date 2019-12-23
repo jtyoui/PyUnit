@@ -42,6 +42,7 @@ var hash = function(r, _gtk) {
 
 def bai_du_translate(word, from_, to_, cookie):
     """百度翻译：需要自己增加cookie
+
     :param word: 翻译的单词
     :param from_: 该单词是什么语言
     :param to_: 翻译成什么语言

@@ -20,8 +20,8 @@ def koch(p, order, size):
 
 
 def draw_koch(n=3, polygon=6):
-    """
-    绘画科赫雪花
+    """绘画科赫雪花
+
     :param n: 迭代次数
     :param polygon: 多边形雪花
     """

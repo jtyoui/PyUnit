@@ -20,13 +20,14 @@ from collections import Counter
 
 @parameter_set_length
 def kendall_coefficient(sample_x, sample_y):
-    """
-    肯德尔相关性系数
+    """肯德尔相关性系数
+
     其中C表示XY中拥有一致性的元素对数（两个元素为一对）；D表示XY中拥有不一致性的元素对数。
     n1,n2,n3可以参考 https://blog.csdn.net/wsywl/article/details/5889419
-    :param sample_x:数据集合
-    :param sample_y:数据集合
-    :return:两个集合的肯德尔相关性系数
+
+    :param sample_x: 数据集合
+    :param sample_y: 数据集合
+    :return: 两个集合的肯德尔相关性系数
     """
     if not (isinstance(sample_y, set) and isinstance(sample_x, set)):
         set_x, set_y = set(sample_x), set(sample_y)

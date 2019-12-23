@@ -18,35 +18,50 @@ _special = "#$%&@"
 
 # 随机选择字母:
 def random_char(number=1):
-    """随机选择字母:number是生成个数"""
+    """随机选择字母
+
+    :param number: 生成个数
+    """
     ls = random.choices(string.ascii_letters, k=number)
     return ''.join(ls)
 
 
 # 随机选择小写字母:
 def random_lower_char(number=1):
-    """随机选择小写字母:number是生成个数"""
+    """随机选择小写字母
+
+    :param number: 生成个数
+    """
     ls = random.choices(string.ascii_lowercase, k=number)
     return ''.join(ls)
 
 
 # 随机选择大写字母:
 def random_upper_char(number=1):
-    """随机选择大写字母:number是生成个数"""
+    """随机选择大写字母
+
+    :param number: 生成个数
+    """
     ls = random.choices(string.ascii_uppercase, k=number)
     return ''.join(ls)
 
 
 # 随机选择数字:
 def random_digits(number=1):
-    """随机选择数字:number是生成个数"""
+    """随机选择数字
+
+    :param number: 生成个数
+    """
     ls = random.choices(string.digits, k=number)
     return ''.join(ls)
 
 
 # 随机选择特殊字符:
 def random_special(number=1):
-    """随机选择特殊字符:number是生成个数"""
+    """随机选择特殊字符
+
+    :param number: 生成个数
+    """
     ls = random.choices(_special, k=number)
     return ''.join(ls)
 
@@ -58,8 +73,8 @@ def flag_contain_subset(str_: str, ls: list) -> bool:
 
 
 def contain_subset(str_: str, ls: list) -> (bool, list):
-    """
-    输入一个字符串判断字符串的子集是否在ls列表中,并且返回子集列表
+    """输入一个字符串判断字符串的子集是否在ls列表中,并且返回子集列表
+
     :param str_: 字符串
     :param ls: 字符串列表
     :return: 存在返回True。不存在返回False。都会返回list列表
@@ -75,9 +90,11 @@ def max_str(ls: list):
 
 
 def contain_list_subset(str_: str, ls: list) -> (bool, list):
-    """
-    输入一个字符串判断字符串是否属于某个列表的子集。例如：str_：贵州，ls：[贵州省，遵义市]，那么贵州属于ls某个字符串的子集
-     :param str_: 字符串
+    """输入一个字符串判断字符串是否属于某个列表的子集
+
+    例如：str_：贵州，ls：[贵州省，遵义市]，那么贵州属于ls某个字符串的子集
+
+    :param str_: 字符串
     :param ls: 字符串列表
     :return: 存在返回True。不存在返回False。都会返回list列表
     """
@@ -94,8 +111,9 @@ def char_number_split(str_: str, number: int):
 
 def split(re_, str_, flag=0, max_split=0) -> list:
     """支持正则分割
-    :param re_:正则表达式
-    :param str_:字符串
+
+    :param re_: 正则表达式
+    :param str_: 字符串
     :param flag: re.search(re_, self.string, flag), 默认flag=0
     :param max_split: 最大分割数量
     """
@@ -108,7 +126,13 @@ def replace(re_, repl, string_, count=0, flags=0):
 
 
 def remove_subset(ls: list) -> list:
-    """去除列表中的子集。比如：['aa','a','ab'] --> ['aa','ab']"""
+    """去除列表中的子集
+
+    比如：['aa','a','ab'] --> ['aa','ab']
+
+    :param ls: 字符串列表
+    :return: 返回去重后的结果
+    """
     ls = sorted(ls, key=lambda x: len(x), reverse=True)
     total = []
     for subset in ls:
@@ -150,6 +174,7 @@ def permutation(ls: iter, number=2) -> list:
 
 def is_chinese(char: str) -> bool:
     """判断一个字符是否是中文
+
     :param char: 一个字符
     :return: 是中文返回真，否则是假
     """
@@ -160,6 +185,7 @@ def is_chinese(char: str) -> bool:
 
 def print_heart(s='♥'):
     """输出一个心脏的符号
+
     :param s: 字符串
     :return: 心脏的格式
     """
@@ -182,20 +208,18 @@ def get_argCount(func) -> int:
 
     def sum(a,b):
         return(a+b)
-    print(sum.__code__.co_argcount)
-    # 2
+    print(sum.__code__.co_argcount) # 2
+
     #输出的函数参数个数
-    print(sum.__code__.co_varnames)
-    # ('a', 'b')
+    print(sum.__code__.co_varnames) # ('a', 'b')
     #这里会输出函数用到的所有变量名，不只是参数名
 
-    print(sum.__defaults__)
-    # None
+    print(sum.__defaults__) # None
     # 返回参数的初始值
 
     import inspect
-    inspect.getargspec(sum)
-    # ArgSpec(args=['a', 'b'], varargs=None, keywords=None, defaults=None)
+    inspect.getargspec(sum) #ArgSpec(args=['a', 'b'], varargs=None, keywords=None, defaults=None)
+
     :param func: 函数对象
     :return: 函数对象的参数个数
     """
@@ -204,22 +228,25 @@ def get_argCount(func) -> int:
 
 def strip(data: str, re_) -> str:
     """支持正则去除data中的数据。类似于str.strip()函数
+
     :param data: 数据
-    :param re_:去除data中的数据
+    :param re_: 去除data中的数据
     :return: 去除后的数据
     """
 
     @jtyoui.replace_regular(re_, '')
-    def clean(data_):
+    def _(data_):
         return data_
 
-    return clean(data)
+    return _(data)
 
 
 def find_unicodedata_name(data: str) -> list:
     """查询Unicode编码中的名字
+
     ♠ == BLACK SPADE SUIT
-    \N{BLACK SPADE SUIT} == ♠
+    \\N{BLACK SPADE SUIT} == ♠
+
     :param data: 字符串
     :return: 字符的Unicode名字列表
     """
@@ -231,6 +258,7 @@ def find_unicodedata_name(data: str) -> list:
 
 def join(chars: str, obj: Iterable) -> str:
     """同str.join函数一样，只不过数字会自动转为字符串
+
     :param chars: 要拼接的字符串
     :param obj: 拼接对象
     :return: 字符串
@@ -240,22 +268,22 @@ def join(chars: str, obj: Iterable) -> str:
 
 
 def find(str_: str, re_: str) -> list:
-    """功能类似于str.find(),但是支持正则表达式"""
-    f, flag = [], 0
-    x = re.findall(re_, str_)
-    for v in x:
-        index = str_.find(v, flag)
-        flag = index + 1
-        f.append(index)
-    return f
+    """功能类似于str.find(),但是支持正则表达式
+
+    :param str_: 字符串
+    :param re_: 正则
+    :return: 返回列表，包含元组：（匹配正则对象，匹配正则的开始索引）
+    """
+    return [(v, v.start()) for v in re.finditer(re_, str_)]
 
 
 def key_value_re(key: list, value: list, value_re: str = None, key_re: str = None) -> list:
-    """根据value值的索引获取key或者根据key的索引获取到value。
-    :param key:k值。['a','b']
-    :param value:v值。[0,1]
+    """根据value值的索引获取key或者根据key的索引获取到value
+
+    :param key: k值。['a','b']
+    :param value: v值。[0,1]
     :param value_re: 根据值的正则获取key。比如：01正则表达式获取到ab
-    :param key_re:同理。根据key的正则。获取到值。比如：ab正则表达式。返回01
+    :param key_re: 同理。根据key的正则。获取到值。比如：ab正则表达式。返回01
     """
     if key_re is None and value_re is None:
         raise TypeError('value_re和key_re必须写一个')
@@ -269,6 +297,19 @@ def key_value_re(key: list, value: list, value_re: str = None, key_re: str = Non
     else:
         "这里当key和value不相等时。暂时没有想到怎么处理，比如：['我', '叫', '刘', '万', '光'], [6, 6, 10, 11, 11],这种情况"
     return []
+
+
+def dict_key_value_re(dicts: dict, value_re: str = None, key_re: str = None) -> list:
+    """根据字典的key-value来进行正则匹配
+
+    根据value值的索引获取key或者根据key的索引获取到value
+    同理：key_value_re函数
+
+    :param dicts: 字典
+    :param value_re: 根据值的正则获取key。比如：01正则表达式获取到ab
+    :param key_re: 同理。根据key的正则。获取到值。比如：ab正则表达式。返回01
+    """
+    return key_value_re(key=list(dicts.keys()), value=list(dicts.values()), value_re=value_re, key_re=key_re)
 
 
 if __name__ == '__main__':
@@ -295,3 +336,4 @@ if __name__ == '__main__':
     print(find_unicodedata_name('♠'))
     print(key_value_re(['我', '叫', '刘', '万', '光'], [6, 6, 0, 1, 1], value_re='01+'))
     print(find('abc', 'a|b'))  # 查找a或者b的索引
+    print(dict_key_value_re({'我': '6', '叫': '6', '张': '0', '伟': '1'}, value_re='01+'))

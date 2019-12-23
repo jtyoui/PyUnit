@@ -15,14 +15,15 @@ from jtyoui.statistics.analysis import Matrix, cov, AnalysisMath
 
 
 def mahalanobis_distance(matrix, coordinate):
-    """
-    求解马氏距离
+    """求解马氏距离
+
+    马氏距离要求样本数要大于维数，否则无法求协方差矩阵
+    此处进行转置，表示10个样本，每个样本2维
+
     :param matrix: 矩阵列表
     :param coordinate: 坐标
     :return result: 两个点的马氏距离
     """
-    # 马氏距离要求样本数要大于维数，否则无法求协方差矩阵
-    # 此处进行转置，表示10个样本，每个样本2维
     s = Matrix(matrix).t
     ana = AnalysisMath()
     mean, c, distance = [], [], []

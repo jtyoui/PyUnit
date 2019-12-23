@@ -8,6 +8,7 @@ import re
 
 def plus_date(start: str, end: str, format_='%Y-%m-%d %H:%M:%S') -> datetime:
     """两个日期相减得差数 :end-start
+
     :param start: 一个正确的日期
     :param end: 另一个正确的日期
     :param format_: 日期格式化
@@ -24,6 +25,7 @@ def plus_date(start: str, end: str, format_='%Y-%m-%d %H:%M:%S') -> datetime:
 
 def add_day(date: str, format_='%Y-%m-%d', to_str=False, **kwargs) -> datetime:
     """一个日期加多少天或者时间
+
     :param date: 一个正确的日期
     :param format_: 日期格式化
     :param to_str: 是否打印字符串
@@ -40,6 +42,7 @@ def add_day(date: str, format_='%Y-%m-%d', to_str=False, **kwargs) -> datetime:
 
 def check_date_type(date_str: str) -> (bool, datetime):
     """验证数字字符串是否日期类型：例如 2018-2-1
+
     :param date_str: 日期类型 例如 2019-2-1，返回真、2019-2-29 返回假（2019年没有2月29号）。
     :return: 返回元组，（真、datetime类型）、（假、None）
     """

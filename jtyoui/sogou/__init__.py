@@ -19,9 +19,9 @@ import struct
 
 class SoGou:
     def __init__(self, search):
-        """
-        初始化，也就是模糊搜索的第一步
-        :param search:  关键字
+        """初始化，也就是模糊搜索的第一步
+
+        :param search: 关键字
         """
         self.header = {'User-Agent': random()}  # 设置UA
         # 将中文字转化为URL链接。注意搜狗将中文字进行的GBK编码。而不是UTF-8
@@ -40,9 +40,9 @@ class SoGou:
         self.load_url = map(lambda x: load_url.format(x[0], x[1]), m)
 
     def load_word(self, url_word=None):
-        """
-        下载搜狗文件
-        :param url_word:  下载链接
+        """下载搜狗文件
+
+        :param url_word: 下载链接
         :return: 转化好的搜狗文件。返回格式的链表
         """
         load_ls = dict()  # 字典的键是下载词库的名字。字典的值是词库的内容
@@ -60,6 +60,7 @@ class SoGou:
 
 
 def to_txt(data):
+    """转写搜狗文件格式"""
     ls_word = []  # 转化搜狗为UTF-8格式内容
     w = ''  # 每一个词条
     for i in range(0, len(data), 2):

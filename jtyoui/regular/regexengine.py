@@ -16,6 +16,7 @@ import re
 class RegexEngine:
     def __init__(self, xml, str_):
         """加载正则表。正则表为xml
+
         :param xml: 正则表的位置
         :param str_: 要匹配的字符串
         """
@@ -26,6 +27,7 @@ class RegexEngine:
 
     def select(self, tag):
         """根据xml的tag来实现不同的正则提取
+
         :param tag: xml的tag标签
         :return: 正则提取的数据
         """

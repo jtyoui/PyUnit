@@ -9,8 +9,11 @@ from os import path
 
 
 def load_pin_yin(tone=False):
-    """加载拼音模型字典：参数：True 有声调， False没有声调
-    :param tone:是否要加载声调
+    """加载拼音模型字典
+
+    参数：True 有声调， False没有声调
+
+    :param tone: 是否要加载声调
     :return: 拼音模型字典
     """
     d = {}
@@ -34,9 +37,9 @@ def load_pin_yin(tone=False):
 
 
 def chinese_to_pin_yin(pin_yin, string_):
-    """
-    将汉字转为拼音
-    :param pin_yin:拼音模型
+    """将汉字转为拼音
+
+    :param pin_yin: 拼音模型
     :param string_: 汉字
     :return: 拼音列表
     """

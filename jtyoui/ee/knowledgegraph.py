@@ -7,6 +7,7 @@ from jtyoui.web import get
 
 def mention_to_entity(mention):
     """输入名称->实体
+
     :param mention: 输入名称
     :return: 根据名称获取歧义关系
     """
@@ -16,6 +17,7 @@ def mention_to_entity(mention):
 
 def entity_to_knowledge(entity):
     """ 实体->知识
+
     :param entity: 实体名
     :return: 根据实体获取实体知识
     """
@@ -25,6 +27,7 @@ def entity_to_knowledge(entity):
 
 def entity_attribute_value(entity, attribute):
     """实体&属性->属性值
+
     :param entity: 实体名
     :param attribute: 属性名
     :return: 根据实体、属性获取属性值

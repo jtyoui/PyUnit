@@ -12,8 +12,8 @@ GITEE = 'https://gitee.com/tyoui/{project}/raw/master/{package}/{name}'  # gitee
 
 
 def fetch_gitee(package, name, project='logo'):
-    """
-    爬取非结构文本数据
+    """爬取非结构文本数据
+
     :param package: 包名
     :param name: 文件名
     :param project: 项目名
@@ -26,8 +26,8 @@ def fetch_gitee(package, name, project='logo'):
 
 
 def download_gitee(package, name, file_dir=None, project='logo'):
-    """
-    下载非结构文本数据
+    """下载非结构文本数据
+
     :param package: 包名
     :param name: 文件名
     :param file_dir: 保存文件的文件夹地址

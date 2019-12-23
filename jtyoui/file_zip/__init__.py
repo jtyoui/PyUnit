@@ -11,10 +11,11 @@ sep = path.sep
 
 def load_zip(zip_name, file_name, encoding='UTF-8', sep='\n'):
     """加载zip数据
-    :param zip_name:压缩包的名字
-    :param file_name:压缩包里面文件的名字
-    :param encoding:文件的编码
-    :param sep:压缩文件里面的换行符
+
+    :param zip_name: 压缩包的名字
+    :param file_name: 压缩包里面文件的名字
+    :param encoding: 文件的编码
+    :param sep: 压缩文件里面的换行符
     :return: 压缩包里面的数据：默认编码的UTF-8
     """
     file_zip = path.join(file_zip_path, zip_name)

@@ -150,7 +150,8 @@ class Lunar:
             return z if z else '无'
 
     def __str__(self):
-        """
+        """返回字符串数据
+
         :return: 年 月 日 星期 节日(没有是无)
         """
         if self.leap:

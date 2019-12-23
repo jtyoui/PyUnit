@@ -23,6 +23,7 @@ class BaiDuWenKu:
     def load(self, save_path):
         """
         下载资料
+
         :param save_path: 保存文件地址
         :return: 成功返回True
         """
@@ -40,9 +41,9 @@ class BaiDuWenKu:
         return False
 
     def get_title(self):
-        """
-        获得资料的标题和类型
-        :return:
+        """获得资料的标题和类型
+
+        :return: 返回类型、标题、数据
         """
         data = get(self.url).content.decode('gbk')
         types = re.findall(r'\'docType\': \'\w+\'', data)[0][12:-1]

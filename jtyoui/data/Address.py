@@ -27,7 +27,8 @@ _TREE = None
 
 def _download_address_file(file_address_path):
     """下载地址数据包
-    :param file_address_path:保存地址文件的路径
+
+    :param file_address_path: 保存地址文件的路径
     """
     from urllib.request import urlretrieve
     url = 'https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/rear.bz2'
@@ -48,6 +49,7 @@ def _download_address_file(file_address_path):
 
 def load_address_file(file_address_path):
     """加载地址文件数据
+
     :param file_address_path: 加载地址文件的路径，没有地址文件默认自动下载。
     :return: 地址文件数据，类型字典
     """
@@ -64,7 +66,11 @@ def load_address_file(file_address_path):
 
 @deprecationWarning
 def find_address(name):
-    """查询地址。输入一个地名，查到这个名字的详细地址：比如输入：大连市、朝阳区、遵义县、卡比村等
+    """查询地址
+
+    该函数也废除，建议使用：finds_address函数
+    输入一个地名，查到这个名字的详细地址：比如输入：大连市、朝阳区、遵义县、卡比村等
+
     :param name: 输入一个地址。
     :return: 地址的信息
     """
@@ -105,6 +111,19 @@ def find_address(name):
 
 
 def find_identity_card_address(card_addr):
+    """识别身份证地址
+
+    输入一个地址，判断是否是身份证上的地址，返回格式包括：
+    一级地址：省|自治区
+    二级地址：自治州|市|盟|地区|区划
+    三级地址：市|县|旗|区
+    四级地址：区|镇
+    五级地址：其他
+
+
+    :param card_addr: 一串地址
+    :return: 返回元组，包括五级地址
+    """
     names = re.match(re_id_card, card_addr)
     province = names.group('province')
     city = names.group('city')
@@ -115,7 +134,10 @@ def find_identity_card_address(card_addr):
 
 
 def finds_address(data, name: str):
-    """查询地址。输入一个地名，查到这个名字的详细地址：比如输入：大连市、朝阳区、遵义县、卡比村等
+    """查询地址
+
+    输入一个地名，查到这个名字的详细地址：比如输入：大连市、朝阳区、遵义县、卡比村等
+
     :param data: 地址数据
     :param name: 输入一个地址名
     :return: 地址的信息

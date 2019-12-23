@@ -5,8 +5,8 @@
 
 
 def header(request_headers):
-    """
-    将浏览器中的Request Headers头复制过来.进行改装成字典类型
+    """将浏览器中的Request Headers头复制过来.进行改装成字典类型
+
     :param request_headers:  浏览器中的Request Headers头信息
     :return: 分割Headers头信息的键值对
     """

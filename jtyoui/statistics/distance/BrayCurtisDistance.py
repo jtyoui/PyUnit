@@ -13,11 +13,11 @@ Bray Curtis距离主要用于生态学和环境科学，计算坐标之间的距
 
 @parameter_set_length
 def bray_curtis_distance(dimension_x, dimension_y):
-    """
-    布雷柯蒂斯距离
+    """布雷柯蒂斯距离
+
     :param dimension_x: 一个维度的集合,不是一个点
-    :param dimension_y:另一个维度的集合.不是另一个点
-    :return:布雷柯蒂斯距离
+    :param dimension_y: 另一个维度的集合.不是另一个点
+    :return: 布雷柯蒂斯距离
     """
     all_ = []
     for x, y in zip(dimension_x, dimension_y):

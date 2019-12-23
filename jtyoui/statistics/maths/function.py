@@ -66,11 +66,14 @@ def is_prime(n):
 
 def primes(n):
     """埃拉托斯特尼质数筛法
-    >>> print(len(list(primes(1_0000_0000))))  # 时间5.5541136264801025秒
-     10万内：9592
-     100万内：78498
-     1000万内：664579
-     1亿内：5761455
+
+    print(len(list(primes(1_0000_0000))))  # 时间5.5541136264801025秒
+    10万内：9592
+    100万内：78498
+    1000万内：664579
+    1亿内：5761455
+
+    :param n: 表示[0,n]范围的质数
     """
     n += 1
     ps = [True] * n
@@ -122,6 +125,7 @@ def tetrahedron_volume2(a, b, c, m, n, l):
 
 def helen_formula(a, b, c):
     """海伦公式，知道三边求面积
+
     a、b、c是三角形的三条边
     """
     if a > 0 and b > 0 and c > 0:
@@ -134,10 +138,12 @@ def helen_formula(a, b, c):
 
 def factorial(n, number=1):
     """求n的阶乘
+
     当number==1时，表示n!
     当number==2时，表示n!!
     当number==3时，表示n!!!
     ...................
+
     :param n: 输入大于1的整数
     :param number: 阶乘数
     :return: n的number阶乘
@@ -147,8 +153,9 @@ def factorial(n, number=1):
 
 def pi(n=7):
     """计算PI,能精确到小数点：15万5千6百42位
-    :param n:表示精确的小数，n的范围是：0-155640
-    :return:返回的是字符串，默认是返回小数点7位
+
+    :param n: 表示精确的小数，n的范围是：0-155640
+    :return: 返回的是字符串，默认是返回小数点7位
     """
     line = load_zip('pi.zip', 'pi.txt')
     return line[0][:n + 2]

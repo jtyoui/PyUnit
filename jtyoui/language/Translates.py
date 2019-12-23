@@ -36,9 +36,10 @@ class _Html(HTMLParser):
 
 def translate_to_chinese(name, languages, headers=_headers):
     """将一种语言翻译成中文
+
     :param name: 单词
-    :param languages:语言、及包含：from jtyoui.data import Languages
-    :param headers:请求头。更新方法：https://dict.hjenglish.com/
+    :param languages: 语言、及包含：from jtyoui.data import Languages
+    :param headers: 请求头。更新方法：https://dict.hjenglish.com/
     :return: 中文
     """
     names = quote(name)

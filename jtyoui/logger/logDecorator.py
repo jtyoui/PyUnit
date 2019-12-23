@@ -9,9 +9,12 @@ import os
 
 
 def log(log_file, config_file=None):
-    """日志装饰器，用于测试函数的时候打印日志。
-    :param log_file:日志地址保存地方
-    :param config_file:日志配置地址保存地址。关于日志配置：可以参考官网配置： https://docs.python.org/3.7/library/logging.config.html
+    """日志装饰器，用于测试函数的时候打印日志
+
+    关于日志配置：可以参考官网配置： https://docs.python.org/3.7/library/logging.config.html
+
+    :param log_file: 日志地址保存地方
+    :param config_file: 日志配置地址保存地址
     """
 
     def inner(fun):

@@ -24,6 +24,7 @@ class Neologism:
 
     def read_file(self, file, split_num):
         """按文件读取
+
         :param file: 文件地址
         :param split_num: 最大分割词语
         """
@@ -34,18 +35,19 @@ class Neologism:
 
     def read_string(self, st, split_num, split_seq='[，。！？：.,?]'):
         """按字符按照split_seq格式来分割
+
         :param st: 字符串
-        :param split_num:分词的个数
+        :param split_num: 分词的个数
         :param split_seq: 字符分割
-        :return: None
         """
         ls = re.split(split_seq, st)
         self.read_ls(ls, split_num)
 
     def read_ls(self, ls, split_num):
         """数据类型[str]
+
         :param ls: 表示链表
-        :param split_num:分词的个数
+        :param split_num: 分词的个数
         """
         for word in ls:
             self.All_LENS += len(word)
@@ -102,12 +104,14 @@ class Neologism:
 
     def filter_words(self, count, frequency, cond, free):
         """过滤一些不重要的数据
+
         [出现次数,出现频率,凝固程度,自由程度]
-        :param count:key出现的次数
+
+        :param count: key出现的次数
         :param frequency: 过滤的频率
-        :param cond:过滤凝聚度
-        :param free:过滤自由度
-        :return:过滤后的数据字典
+        :param cond: 过滤凝聚度
+        :param free: 过滤自由度
+        :return: 过滤后的数据字典
         """
         ls = []
         for key, one_word in self.ALL_WORDS.items():
@@ -135,6 +139,7 @@ def remove_subset(ls: list) -> list:
 
 def mains(file, split_num, count, frequency, cond, free):
     """成词发现算法。保存结果在当前运行环境下的result.txt文件中
+
     :param file: 文本地址
     :param split_num: 成词最大粒度
     :param count: key出现的次数

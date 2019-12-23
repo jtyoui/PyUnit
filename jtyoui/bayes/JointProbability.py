@@ -10,8 +10,8 @@ from jtyoui.data.constant import MathSymbols
 
 
 def independent_joint(a, operation, b):
-    """独立联合事件"""
-    """
+    """独立联合事件
+
     :param operation: and==∩，or==|,比如:independent_joint(a,'and',b)等价于P(a∩b)
     """
     if operation == 'and' or operation == MathSymbols.intersection:

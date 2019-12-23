@@ -26,8 +26,8 @@ def _get_dir_name(file_dir):
 
 
 def image_pdf(file_dir, pdf_address=None):
-    """
-    照片转pdf
+    """照片转pdf
+
     :param file_dir: 照片的地址文件夹
     :param pdf_address: 保存pdf的文件地址，默认是当前地址
     :return: 成功返回True
@@ -50,8 +50,8 @@ def image_pdf(file_dir, pdf_address=None):
 
 
 def pdf_image(pdf_address, image_dir=None):
-    """
-    PDF转照片
+    """PDF转照片
+
     :param pdf_address: PDF文件地址
     :param image_dir: 照片的文件夹地址
     :return: 成功返回True
@@ -72,6 +72,7 @@ def pdf_image(pdf_address, image_dir=None):
 
 def doc_to_docx(doc_path, docx_path):
     """将doc文件转为docx文件
+
     :param doc_path: doc文件夹的路径
     :param docx_path: 保存docx文件夹的路径
     """
@@ -84,8 +85,9 @@ def doc_to_docx(doc_path, docx_path):
 
 def doc_to_photo(doc_path, photo_dir=None) -> bool:
     """将文件word：docx中的照片提出来,只能支持docx文档
+
     :param doc_path: docx文件路径
-    :param photo_dir:保存照片的文件夹
+    :param photo_dir: 保存照片的文件夹
     :return: 有照片返回True，没有照片返回False
     """
     dirname, name = os.path.dirname(doc_path), os.path.basename(doc_path)

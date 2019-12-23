@@ -37,16 +37,18 @@ def download_date(download_address='date'):
 
 def td_to_ctc(td):
     """天干地支纪年转农历
-    :param td:输入一个天干地支纪年
-    :return :农历
+
+    :param td: 输入一个天干地支纪年
+    :return: 农历
     """
     return _TIANGAN_DIZHI.get(td)
 
 
 def td_to_sc(td):
     """天干地支纪年转阳历
-    :param td:输入一个天干地支纪年
-    :return :阳历
+
+    :param td: 输入一个天干地支纪年
+    :return: 阳历
     """
     ctc = td_to_ctc(td)
     return [ctc_to_sc(c) for c in ctc]
@@ -54,6 +56,7 @@ def td_to_sc(td):
 
 def ctc_to_sc(ctc):
     """农历转阳历
+
     :param ctc: 农历
     :return: 阳历
     """
@@ -61,8 +64,8 @@ def ctc_to_sc(ctc):
 
 
 def ctc_to_td(ctc):
-    """
-    农历转天干地支
+    """农历转天干地支
+
     :param ctc: 农历
     :return: 天干地支,找不到返回空
     """
@@ -74,6 +77,7 @@ def ctc_to_td(ctc):
 
 def sc_to_ctc(sc):
     """阳历转农历
+
     :param sc: 阳历
     :return: 农历
     """
@@ -82,6 +86,7 @@ def sc_to_ctc(sc):
 
 def sc_to_td(sc):
     """阳历转天干地支纪年
+
     :param sc: 阳历
     :return: 天干地支纪年
     """

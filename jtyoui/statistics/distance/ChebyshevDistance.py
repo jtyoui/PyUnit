@@ -16,8 +16,8 @@ from jtyoui import parameter_set_length
 
 @parameter_set_length
 def chebyshev_distance(coordinate_p, coordinate_q):
-    """
-    传入的是两个可迭代对象,每一个是一个n位坐标,比如:p=(x1,x2,x3....xn),q=(y1,y2,y3....yn)
+    """传入的是两个可迭代对象,每一个是一个n位坐标,比如:p=(x1,x2,x3....xn),q=(y1,y2,y3....yn)
+
     :param coordinate_p: p坐标
     :param coordinate_q: q坐标
     :return: 切比雪夫距离(棋盘距离)

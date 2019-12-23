@@ -14,12 +14,14 @@ import calendar
 
 class StringTime:
     def __init__(self, sentence, date_str=None, date_format='%Y-%m-%d %H:%M:%S'):
-        """传入一个字符串时间和现在时间。
+        """传入一个字符串时间和现在时间
+
         >>> st = StringTime('二零零七年十月三十一号下午2点半')
         >>> print(st.find_times())
+
         :param sentence: 字符串时间
         :param date_str: 你认为的现在时间，不传默认是当前时间
-        :param date_format:时间格式
+        :param date_format: 时间格式
         """
         self._sentence = sentence
         self._localtime = date_str if date_str else time.strftime(date_format)
@@ -59,8 +61,9 @@ class StringTime:
         return add.strftime(fmt)
 
     def find(self, name):
-        """根据名字来查找年月日号
-        ：:param name:填写：年、月、日、号、来找对应的日期
+        """根据名字来查找年月日
+
+        :param name:填写：年、月、日、号、来找对应的日期
         """
         if name == '年':
             flag = '%Y'
@@ -174,7 +177,7 @@ class StringTime:
 
     @warns('该类已经废除、废除时间2019年11月1日（19.10.28版本），请将StringTime类换成ParseTime类使用', DeprecationWarning)
     def find_times(self):
-        """ 根据一句话来找对应的时间"""
+        """根据一句话来找对应的时间"""
         words = re.split(r'[,.，。、?!？！]', self.sentence)
         for sentences_ in words:
             if not sentences_:

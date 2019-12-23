@@ -9,8 +9,8 @@ J_F, F_J = Han_J_F, {f: j for j, f in Han_J_F.items()}  # 简体字:J表示, 繁
 
 
 def j_to_f(str_):
-    """
-    简体字转繁体字
+    """简体字转繁体字
+
     :param str_: 字符串
     :return: 转换后的字符串生成器
     """
@@ -19,8 +19,8 @@ def j_to_f(str_):
 
 
 def f_to_j(str_):
-    """
-    繁体字转简体字
+    """繁体字转简体字
+
     :param str_: 字符串
     :return: 转换后的字符串生成器
     """

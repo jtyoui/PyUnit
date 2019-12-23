@@ -22,11 +22,11 @@ Pearson相关系数是用来衡量两个数据集合是否在一条线上面，�
 
 @parameter_set_length
 def pearson_coefficient(sample_x, sample_y):
-    """
-    皮尔森相关性系数
+    """皮尔森相关性系数
+
     :param sample_x: x样本数据变量集合
     :param sample_y: y样本数据变量集合
-    :return:x和y的相关系数
+    :return: x和y的相关系数
     """
     ana = AnalysisMath()  # 数学分析模块
     numerator = cov(sample_x, sample_y)  # 分子是协方差

@@ -9,9 +9,10 @@ import requests
 
 def interface_test(dict_, address, record_time=True, **kwargs):
     """简单接口测试
+
     :param dict_: 传入的参数
     :param address: url地址
-    :param kwargs:参考requests.post **kwargs
+    :param kwargs: 参考requests.post **kwargs
     :param record_time: 是否记录消耗时间
     :return: 接口返回值
     """
@@ -27,6 +28,7 @@ def interface_test(dict_, address, record_time=True, **kwargs):
 
 def interface_tests(method, url, data, record_time=True, **kwargs):
     """简单接口测试
+
     :param method: 请求方法，比如：post、get
     :param url: url地址
     :param data: 传入的参数

@@ -16,12 +16,13 @@ class ParseTime:
 
     def __init__(self, data, current_date=None, date_format='%Y-%m-%d %H:%M:%S', **kwargs):
         """初始化数据日期
-        :param data:当前数据
-        :param current_date:当前日期
-        :param date_format:日期解析格式
-        :param kwargs:其他参数
-        map_path :解析日期的映射表
-        re_path :匹配日期的正则表
+
+        :param data: 当前数据
+        :param current_date: 当前日期
+        :param date_format: 日期解析格式
+        :param kwargs: 其他参数
+            -  map_path: 解析日期的映射表
+            -  re_path: 匹配日期的正则表
         """
         # 加载日期的映射表和匹配日期的正则表
         self.map, self.re = None, None
@@ -55,6 +56,7 @@ class ParseTime:
 
     def load_config(self, map_path=None, re_path=None):
         """自定义日期解析映射表和匹配日期的正则表
+
         :param map_path: 解析日期的映射表
         :param re_path: 匹配日期的正则表
         """
@@ -88,6 +90,7 @@ class ParseTime:
 
     def _analysis(self, name):
         """分析数据获取年月日周时分秒中的有效信息
+
         :param name: 年月日时周分秒调用名字
         :return: 改变的值
         """

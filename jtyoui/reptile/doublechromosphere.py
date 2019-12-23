@@ -8,10 +8,11 @@ import re
 
 
 def double_data_chart(start=None, end=None):
-    """爬取双色球数据,第一列数据是信息头。
-    :param start:开始期号：默认是第一期时间。
-    :param end:结束期号：默认是现在时间。
-    :return:二维列表。
+    """爬取双色球数据,第一列数据是信息头
+
+    :param start: 开始期号：默认是第一期时间
+    :param end: 结束期号：默认是现在时间
+    :return: 二维列表
     """
     if start is None and end is None:
         return double_data_chart(*_get_start_end())

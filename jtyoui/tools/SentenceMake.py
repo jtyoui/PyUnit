@@ -11,6 +11,7 @@ import re
 
 class Sentence:
     """造句函数，输入一个词语，造出一些句子
+
     >>>s = Sentence()
     >>>data = s['我爱你']
     >>>>for jz in data:print(jz)

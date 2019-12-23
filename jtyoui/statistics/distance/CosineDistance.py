@@ -15,11 +15,11 @@ from jtyoui import parameter_set_length
 
 @parameter_set_length
 def cosine(coordinate_p, coordinate_q):
-    """
-    余弦距离又叫余弦角度
-    :param coordinate_p:p坐标
-    :param coordinate_q:q坐标
-    :return:余弦距离
+    """余弦距离又叫余弦角度
+
+    :param coordinate_p: p坐标
+    :param coordinate_q: q坐标
+    :return: 余弦距离
     """
     numerator, denominator = 0, 1  # 分子和父母
     for x, y in zip(coordinate_p, coordinate_q):
@@ -30,6 +30,7 @@ def cosine(coordinate_p, coordinate_q):
 
 
 def cosine_distance(sentence, data):
+    """余弦距离"""
     import jieba  # 安装 pip install jieba
     ls, ds = [], []
     s = jieba.cut(sentence)

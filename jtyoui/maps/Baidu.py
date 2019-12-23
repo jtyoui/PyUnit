@@ -15,8 +15,8 @@ AK = ['8R82NkA5j2YzCO1hG2grXUxdLQnnHdVA', 'mSYhaXLLGXffSkkgkalK84RV0Aof22vA', 'O
 
 class Data:
     def __init__(self, name, location, address):
-        """
-        爬取的数据类
+        """爬取的数据类
+
         :param name: 名称
         :param location: 百度坐标系
         :param address: 名称的详细地址
@@ -33,8 +33,8 @@ class Data:
 
 
 def get_data(title, scope, page_size=20, page_num=0):
-    """
-    获取数据
+    """获取数据
+
     :param title: 主题
     :param scope: 范围
     :param page_size: 返回一条是数据,默认是20,最大是20
@@ -75,8 +75,8 @@ def bd_map(title, scope, page_size=20, page_num=0):
 
 
 def save_txt(file):
-    """
-    保存到纯文本
+    """保存到纯文本
+
     :param file: 文件地址
     """
     with open(file, encoding='utf-8', mode='a') as f:
@@ -85,8 +85,8 @@ def save_txt(file):
 
 
 def save_csv(file):
-    """
-    保存到csv文件
+    """保存到csv文件
+
     :param file: csv文件地址
     """
     with open(file, encoding='GBK', mode='w') as f:

@@ -8,7 +8,7 @@ import functools
 
 def warns(message, category=None):
     """警告装饰器
-    :param message:警告信息
+    :param message: 警告信息
     :param category: 警告类型：默认是None
     :return: 装饰函数的对象
     """

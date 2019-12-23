@@ -16,11 +16,11 @@
 
 
 def minkowski_distance(coordinate_p, coordinate_q, dimension):
-    """
-    闵可夫斯基距离
+    """闵可夫斯基距离
+
     :param coordinate_p: p坐标
     :param coordinate_q: q坐标
-    :param dimension:闵可夫斯基维度
+    :param dimension: 闵可夫斯基维度
     :return: 闵可夫斯基距离
     """
     all_ = []

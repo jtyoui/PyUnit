@@ -17,6 +17,7 @@ def reader_conf(path: str, encoding: str = 'UTF-8') -> dict:
     [capitalize]
     a
     b
+
     :param path: 配置文件路径
     :param encoding: 文件编码
     """
@@ -36,6 +37,7 @@ def reader_conf(path: str, encoding: str = 'UTF-8') -> dict:
 
 def save_conf(cx: dict, path: str, encoding='UTF-8'):
     """保存配置文件
+
     :param cx: 保存的字典类型：{str：list}
     :param path: 保存的路径
     :param encoding: 保存文件的编码

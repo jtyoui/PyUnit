@@ -30,11 +30,10 @@ class Neologism(Thread):
                 return
 
     def read_string(self, st, split_seq='[，。！？：]'):
-        """
-        讲字符按照split_seq格式来分割
+        """讲字符按照split_seq格式来分割
+
         :param st: 字符串
         :param split_seq: 字符分割
-        :return: None
         """
         ls = re.split(split_seq, st)
         self.read_ls(ls=ls)
@@ -51,8 +50,8 @@ class Neologism(Thread):
                 self.split(clean_data, lens)
 
     def split(self, words, lens):
-        """
-        拆分字符，最大匹配num个字符，并也字典的形式返回，
+        """拆分字符，最大匹配num个字符，并也字典的形式返回，
+
         [出现次数,出现频率,凝固程度,自由程度,关键字的左邻,关键字的右邻](作为信息熵的衡量)
         """
         global ALL_WORDS
@@ -75,8 +74,7 @@ def statistics(key_list):  # 统计每个单词的频率
 
 
 def handle(key_list):
-    """
-    处理数据
+    """处理数据
     计算左邻字集合和右邻字集合的频率，左邻字信息熵和右邻字信息熵中的较小值
     计算凝固程度,自由程度
     """
@@ -104,14 +102,15 @@ def handle(key_list):
 
 
 def filter_words(frequency, cond, free, flag):
-    """
-    过滤一些不重要的数据
+    """过滤一些不重要的数据
+
     [出现次数,出现频率,凝固程度,自由程度]
+
     :param frequency: 过滤的频率
-    :param cond:过滤凝聚度
-    :param free:过滤自由度
+    :param cond: 过滤凝聚度
+    :param free: 过滤自由度
     :param flag: 是否是并且还是或者,默认是或者，满足一个就过滤
-    :return:过滤后的数据字典
+    :return: 过滤后的数据字典
     """
     key_words = dict()
     for key in ALL_WORDS.keys():
@@ -128,8 +127,8 @@ def filter_words(frequency, cond, free, flag):
 
 
 def read_file(file, file_encoding='utf-8'):
-    """
-    读取文件内容，注意文件是UTF-8的格式且不是BOM格式
+    """读取文件内容，注意文件是UTF-8的格式且不是BOM格式
+
     :param file: 读取的文件
     :param file_encoding: 文本编码
     """
@@ -147,14 +146,15 @@ def clean(data):
 
 
 def thread_analysis(file, thread_num=10, split_num=4, frequency=0.0001, cond=10, free=0.1, flag=False):
-    """
+    """多线程启动分析
+
     :param file: 训练的文本
     :param thread_num: 线程数
     :param split_num: 匹配个数
     :param frequency: 频率
     :param cond: 凝聚度
     :param free: 自由度
-    :param flag:是否是并且还是或者,默认是或者，满足一个就过滤
+    :param flag: 是否是并且还是或者,默认是或者，满足一个就过滤
     :return: 分析完毕的字典
     """
     queues = read_file(file)
@@ -173,13 +173,12 @@ def thread_analysis(file, thread_num=10, split_num=4, frequency=0.0001, cond=10,
 
 
 def thread_open(split_num, target, keys_list, size):
-    """
-    开启多线程
+    """开启多线程
+
     :param split_num: 线程数
     :param target: 被开启的方法
     :param keys_list: 所有单词的键链表
     :param size: 被分割成一块的大小
-    :return: 无
     """
     threads = []
     for i in range(split_num):

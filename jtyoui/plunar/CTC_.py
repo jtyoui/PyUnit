@@ -14,6 +14,7 @@ class CTC:
 
     def __init__(self, ctc_year, ctc_mon, ctc_day):
         """农历的年、农历的月、农历的日，如果是闰月在月的前面加负号， 比如：闰6月 -6
+
         :param ctc_year: 农历的年：2017（2017年）
         :param ctc_mon: 农历的月：-6 （闰6月）。6 （6月）
         :param ctc_day: 农历的日：8（初八）

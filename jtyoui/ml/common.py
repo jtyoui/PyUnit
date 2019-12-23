@@ -11,10 +11,11 @@ def sigmoid(x):
 
 
 def error_rate(h, label):
-    """计算当前的损失函数值
-    :param h:预测值
-    :param label:实际值
-    :return:错误率
+    """计算当前的错误率函数值
+
+    :param h: 预测值
+    :param label: 实际值
+    :return: 错误率
     """
     m = np.shape(h)[0]
     sum_err = 0
@@ -28,9 +29,10 @@ def error_rate(h, label):
 
 def get_cost(predict: np.mat, label: np.mat) -> float:
     """计算损失函数的值
-    :param predict:预测值
-    :param label:标签
-    :return:损失函数的值
+
+    :param predict: 预测值
+    :param label: 标签
+    :return: 损失函数的值
     """
     m = len(predict)
     error = 0.0
@@ -41,6 +43,7 @@ def get_cost(predict: np.mat, label: np.mat) -> float:
 
 def line_regression_a_b(x: np.array, y: np.array):
     """求解线性回归的a和β值。即y=b+a*x
+
     :param x: 数据特征值：应该是两维度。即：[[],[],[]]
     :param y: 数据预测值;一维度。即：[]
     :return: a值、和b值

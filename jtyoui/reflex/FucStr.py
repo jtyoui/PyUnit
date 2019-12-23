@@ -7,10 +7,11 @@ from types import FunctionType, ModuleType
 
 def string_function(module: [str, ModuleType], func: str, *args, **kwargs):
     """根据字符串方法名来进行调用模块方法
+
     :param module: 模块名
     :param func: 模块中的方法名字
-    :param args:方法里面的参数值
-    :param kwargs:方法里面的参数值
+    :param args: 方法里面的参数值
+    :param kwargs: 方法里面的参数值
     :return: 返回一个返回值
     """
     if isinstance(module, ModuleType):

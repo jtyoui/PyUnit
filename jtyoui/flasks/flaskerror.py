@@ -12,11 +12,12 @@ def flask_error_abort(code, jsonify, error, message=None, **kwargs):
 
 def flask_abort(code, jsonify, message=None, **kwargs):
     """手动抛出flask异常
+
     :param code: 状态码
     :param jsonify: 传入flask里面的jsonify对象。from flask import jsonify
     :param message: 返回的msg异常信息
-    :param kwargs:其他jsonify参数
-    :return:异常状态信息
+    :param kwargs: 其他jsonify参数
+    :return: 异常状态信息
     """
     if message is None:
         message = http_status_code.get(str(code), '')
@@ -26,9 +27,11 @@ def flask_abort(code, jsonify, message=None, **kwargs):
 
 def flask_register_errors(app, jsonify):
     """app启动处注册一个错误处理器
-        from flask import jsonify,Flask
-        app = Flask(__name__)
-        register_errors(app, jsonify) #注册异常解析器
+
+    from flask import jsonify,Flask
+    app = Flask(__name__)
+    register_errors(app, jsonify) #注册异常解析器
+
     :param app: app对象
     :param jsonify: jsonify对象
     """

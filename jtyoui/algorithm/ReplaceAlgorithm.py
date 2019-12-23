@@ -7,6 +7,7 @@ from jtyoui.error import CoordinateLengthNotEqualError
 
 def map_replace(str_: str, key: [list, str] = None, value: [list, str] = None, maps: dict = None) -> str:
     """映射替换,最好使用maps字典映射
+
     :param str_: 字符串
     :param key: 替换字符
     :param value: 被替换的字符

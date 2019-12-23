@@ -12,11 +12,11 @@ browsers = None
 
 
 def ua(browser='chrome', version='0.1.11', update=False):
-    """
-    随机返回browser浏览器一条UA
+    """随机返回browser浏览器一条UA
+
     :param browser: 浏览器名字,包括如下:[chrome,opera,firefox,internetexplorer,safari]
     :param version: 爬取ua网页版本
-    :param update:是否更新保存的UA文件数据
+    :param update: 是否更新保存的UA文件数据
     :return: 字典类型
     """
     global browsers

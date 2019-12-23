@@ -87,8 +87,9 @@ def analysis(data_name, response_headers=Response_Headers):
 
 def cut(text_name):
     """从原始数据里面提取日语单词
-    :param text_name:原始数据的文件地址
-    :return:返回提取数据文本的地址
+
+    :param text_name: 原始数据的文件地址
+    :return: 返回提取数据文本的地址
     """
     try:
         from janome.tokenizer import Tokenizer  # pip install janome

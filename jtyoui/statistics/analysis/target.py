@@ -18,9 +18,10 @@ ALL=P+N=PP+NN=所有
 
 def confusion_matrix(simple, pred):
     """混淆矩阵
-    :param simple:实际样本分类列表
-    :param pred:预测样本分类列表
-    :return TP,TN,FP,FN
+
+    :param simple: 实际样本分类列表
+    :param pred: 预测样本分类列表
+    :return: TP,TN,FP,FN
     """
     tp, tn, fp, fn = 0, 0, 0, 0
     for s, p in zip(simple, pred):

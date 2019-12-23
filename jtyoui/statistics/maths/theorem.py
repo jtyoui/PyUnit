@@ -8,12 +8,15 @@ import warnings
 
 
 def theorem_Zero(function, x1: float, x2: float) -> float:
-    """零点定理：定义一个函数：x^3-2x-5=0,求x等于多少。x的值域：[1,1000],
-    原理利用二分法不断的逼近，求出答案。
-    :param function:定一个函数
-    :param x1:开始值
-    :param x2:结束值
-    :return:返回零点的值
+    """零点定理
+
+    定义一个函数：x^3-2x-5=0,求x等于多少。x的值域：[1,1000]
+    原理利用二分法不断的逼近，求出答案
+
+    :param function: 定一个函数
+    :param x1: 开始值
+    :param x2: 结束值
+    :return: 返回零点的值
     """
     if function(x1) == 0:
         return x1

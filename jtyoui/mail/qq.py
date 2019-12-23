@@ -9,8 +9,8 @@ from email.mime.application import MIMEApplication
 
 
 def send_qq_mail(from_addr, password, to_addr, content, subject='', files=None, host=('smtp.qq.com', 465)):
-    """
-    这个一个邮箱发送函数.默认是qq邮箱
+    """这个一个邮箱发送函数.默认是qq邮箱
+
     :param from_addr: 发送方邮箱
     :param password: 填入发送方邮箱的授权码
     :param to_addr: 收件人为多个收件人,通过;为间隔的字符串,比如: xx@qq.com;yy@qq.com

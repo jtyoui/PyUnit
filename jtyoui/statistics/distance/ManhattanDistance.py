@@ -14,8 +14,8 @@ from jtyoui import parameter_set_length
 
 @parameter_set_length
 def manhattan_distance(coordinate_p, coordinate_q):
-    """
-    曼哈顿距离
+    """曼哈顿距离
+
     :param coordinate_p: p坐标
     :param coordinate_q: q坐标
     :return: 曼哈顿距离值

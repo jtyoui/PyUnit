@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/3/18 9:32
 # @Author: Jtyoui@qq.com
-
 from .ChebyshevDistance import chebyshev_distance  # 切比雪夫距离
 from .CosineDistance import cosine_distance, cosine  # 余弦距离
 from .EditDistance import edit_distance  # 编辑距离

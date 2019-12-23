@@ -70,8 +70,8 @@ class WeatherForecast:
         self.codes = []
 
     def set_city(self, city):
-        """
-        输入一个城市名字
+        """输入一个城市名字
+
         :param city: 城市名字
         """
         if self.codes:

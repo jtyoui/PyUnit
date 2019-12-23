@@ -14,8 +14,8 @@ from jtyoui import parameter_set_length
 
 @parameter_set_length
 def euclidean_distance(coordinate_p, coordinate_q):
-    """
-    欧氏距离
+    """欧氏距离
+
     :param coordinate_p: p坐标
     :param coordinate_q: q坐标
     :return: 欧氏距离值

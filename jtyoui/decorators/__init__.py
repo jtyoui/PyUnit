@@ -25,8 +25,8 @@ def warps(func):
 
 
 def replace_regular(re_, replace_):
-    """
-    根据正则来修改参数
+    """根据正则来修改参数
+
     :param re_: 匹配的正则
     :param replace_: 替换正则的数据
     :return: 被替换完毕的参数

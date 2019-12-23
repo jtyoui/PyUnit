@@ -13,9 +13,10 @@ FM(因子分解机)算法
 
 def initialize_v(n: int, k: int):
     """初始化交叉项
-    :param n:特征个数
-    :param k:FM模型的度
-    :return:交叉项的系数权重
+
+    :param n: 特征个数
+    :param k: FM模型的度
+    :return: 交叉项的系数权重
     """
     v = np.mat(np.zeros(shape=(n, k)))
     for i in range(n):
@@ -26,11 +27,12 @@ def initialize_v(n: int, k: int):
 
 def get_prediction(data, w0, w, v):
     """预测值
-    :param data:特征
-    :param w0:一次项权重
-    :param w:常数项权重
-    :param v:交叉项权重
-    :return:预测结果
+
+    :param data: 特征
+    :param w0: 一次项权重
+    :param w: 常数项权重
+    :param v: 交叉项权重
+    :return: 预测结果
     """
     m = np.shape(data)[0]
     result = []
@@ -46,12 +48,13 @@ def get_prediction(data, w0, w, v):
 
 def stop_grad_ascent(data: np.mat, label: np.mat, k: int, max_iter: int, alpha: float) -> (float, np.mat, np.mat):
     """利用随机梯度下降法训练FM模型
+
     :param data: 数据特征
-    :param label:标签
-    :param k:v的维度
-    :param max_iter:最大迭代次数
-    :param alpha:学习率
-    :return:w0,w,v权重
+    :param label: 标签
+    :param k: v的维度
+    :param max_iter: 最大迭代次数
+    :param alpha: 学习率
+    :return: w0,w,v权重
     """
     m, n = np.shape(data)
     w = np.random.randn(n).reshape((n, 1))

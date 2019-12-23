@@ -15,8 +15,8 @@ import hashlib
 
 
 def handle(participle_ls, weight, f):
-    """
-    将内容转成字典格式
+    """将内容转成字典格式
+
     :param participle_ls: 文本分词内容,是一个list分词对象
     :param weight: 特征值
     :param f: simHash的bit位数
@@ -38,8 +38,8 @@ def hash_func(x):
 
 
 def features_dict(features, f):
-    """
-    特征值字典
+    """特征值字典
+
     :param features: 特征值
     :param f: simHash的bit位数
     :return: simHash值
@@ -58,8 +58,8 @@ def features_dict(features, f):
 
 
 def distance(sim_hash, another, f):
-    """
-    计算两个simHash的距离
+    """计算两个simHash的距离
+
     :param sim_hash: simHash值
     :param another: 另一个simHash的值
     :param f: simHash的bit位数
@@ -74,8 +74,8 @@ def distance(sim_hash, another, f):
 
 
 def ham_distance(chars, other_chars, weight=None, f=64):
-    """
-    比较那个字符串的海明距离
+    """比较那个字符串的海明距离
+
     :param chars: 字符串
     :param other_chars: 另一个字符串
     :param weight: 权重字典:weight={"电影": 3}
@@ -90,6 +90,7 @@ def ham_distance(chars, other_chars, weight=None, f=64):
 @replace_regular(punctuation_re, '')
 def simHash_similarity(text1: (str, dict), text2: (str, dict), weight: dict = None, f: int = 64) -> float:
     """文本相似度算法
+
     :param text1: 文本1
     :param text2: 文本2
     :param weight: 文本词权重

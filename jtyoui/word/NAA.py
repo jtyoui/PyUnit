@@ -14,8 +14,8 @@ class NAA:
     naa_words = dict()
 
     def __init__(self, split_num=4, seq=0.001, cond=50, free=0.5):
-        """
-        初始化参数
+        """初始化参数
+
         :param split_num: 匹配个数
         :param seq: 关键字出现的频率
         :param cond: 凝固程度
@@ -34,8 +34,8 @@ class NAA:
         print("split over!")
 
     def __read_ls(self, ls):
-        """
-        读取链表，格式是[str,str,str,.....]一维链表
+        """读取链表，格式是[str,str,str,.....]一维链表
+
         :param ls: 链表
         """
         for word in ls:
@@ -43,8 +43,8 @@ class NAA:
         print("split over!")
 
     def read_string(self, st, split_seq='\n'):
-        """
-        讲字符按照split_seq格式来分割
+        """讲字符按照split_seq格式来分割
+
         :param st: 字符串
         :param split_seq: 字符分割
         :return: None
@@ -55,8 +55,8 @@ class NAA:
         self.__read_ls(ls=ls)
 
     def read_file(self, file, file_encoding='utf-8-sig'):
-        """
-        读取文件内容，注意文件是UTF-8的格式且不是BOM格式
+        """读取文件内容，注意文件是UTF-8的格式且不是BOM格式
+
         :param file: 读取的文件
         :param file_encoding: 文本编码
         """
@@ -66,8 +66,8 @@ class NAA:
         fp.close()
 
     def split(self, words):
-        """
-        拆分字符，最大匹配num个字符，并也字典的形式返回，
+        """拆分字符，最大匹配num个字符，并也字典的形式返回
+
         [出现次数,出现频率,凝固程度,自由程度,关键字的左邻,关键字的右邻](作为信息熵的衡量)
         """
         lens = len(words)
@@ -85,8 +85,7 @@ class NAA:
                         self.naa_words[k] = [1, 1 / self.all_lens, 1, 0, [words[i - 1]], [words[i + 1]]]
 
     def handle(self):
-        """
-        处理数据
+        """处理数据
         计算左邻字集合和右邻字集合有多随机，左邻字信息熵和右邻字信息熵中的较小值
         计算凝固程度,自由程度
         """
@@ -111,12 +110,13 @@ class NAA:
         print("handle over!")
 
     def filter(self, filter_cond=10, filter_free=0.5, flag=False):
-        """
-        过滤一些不重要的数据
+        """过滤一些不重要的数据
+
         [出现次数,出现频率,凝固程度,自由程度]
-        :param filter_cond:  过滤凝聚度
-        :param filter_free:  过滤自由度
-        :param flag 是否是并且还是或者,默认是或者，满足一个就过滤
+
+        :param filter_cond: 过滤凝聚度
+        :param filter_free: 过滤自由度
+        :param flag: 是否是并且还是或者,默认是或者，满足一个就过滤
         :return: 过滤后的数据字典
         """
         key_words = dict()

@@ -12,11 +12,12 @@ LR(逻辑回归)算法
 
 def lr_train_bgd(feature: np.array, label: np.array, max_cycle: int, alpha: float) -> np.mat:
     """利用梯度下降法训练逻辑回归模型（LR）
-    :param feature:特征
-    :param label:标签
-    :param max_cycle:最大迭代次数
-    :param alpha:学习率
-    :return:w的权重
+
+    :param feature: 特征
+    :param label: 标签
+    :param max_cycle: 最大迭代次数
+    :param alpha: 学习率
+    :return: w的权重
     """
     n = np.shape(feature)[1]  # 特征个数
     w = np.random.rand(n).reshape((n, 1))  # 随机初始化权重

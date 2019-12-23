@@ -31,7 +31,10 @@ def get_linux_ip(eth):
 
 
 def auto_get_ip(eth=None):
-    """自动获取ip地址,window下eth默认是None。在Linux下，eth对应着不同的网卡"""
+    """自动获取ip地址
+
+    :param eth: window下eth默认是None。在Linux下，eth对应着不同的网卡
+    """
     if os.name == 'nt':
         return get_window_ip()
     elif os.name == 'posix':
@@ -41,7 +44,11 @@ def auto_get_ip(eth=None):
 
 
 def windowName_get_ip(window_name):
-    """根据window的名字来获取ip地址"""
+    """根据window的名字来获取ip地址
+
+    :param window_name: window的名字
+    :return: 返回当前计算机的ip地址
+    """
     return socket.gethostbyname(window_name)
 
 
