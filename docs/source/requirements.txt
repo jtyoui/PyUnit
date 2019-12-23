@@ -12,6 +12,5 @@ tensorflow
 regex
 keras
 sklearn
-keras_contrib
 arrow
 flask
