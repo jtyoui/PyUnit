@@ -26,7 +26,6 @@ from jtyoui.jp import *  # 提取日语意思
 from jtyoui.compress import *  # 压缩包文件
 from jtyoui.algorithm import *  # 常见算法
 from jtyoui.cmds import *  # CMD命令
-from jtyoui.interface import *  # 界面
 from jtyoui.reflex import *  # 反射
 from jtyoui.logger import *  # 增加日志文件夹
 from jtyoui.project import *  # 项目接口
