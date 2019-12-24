@@ -12,6 +12,7 @@ import re
 import os
 import unicodedata
 import jtyoui
+import copy
 
 _special = "#$%&@"
 
@@ -310,6 +311,22 @@ def dict_key_value_re(dicts: dict, value_re: str = None, key_re: str = None) -> 
     :param key_re: 同理。根据key的正则。获取到值。比如：ab正则表达式。返回01
     """
     return key_value_re(key=list(dicts.keys()), value=list(dicts.values()), value_re=value_re, key_re=key_re)
+
+
+def merge_address(work: str, address: list, new_address: list) -> list:
+    """合并地址
+
+    当模型无法提取一些地址的时候，需要手动添加一些地址，添加后的地址需要进行合并
+
+    :param work: 地址数据
+    :param address: 地址1
+    :param new_address: 地址2
+    :return: 返回合并后的地址
+    """
+    flag = copy.deepcopy(work)
+    for addr in new_address + address:
+        flag = flag.replace(addr, '#' * len(addr))
+    return key_value_re(list(work), list(flag), value_re='#{2,}')
 
 
 if __name__ == '__main__':
