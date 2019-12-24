@@ -306,6 +306,8 @@ def dict_key_value_re(dicts: dict, value_re: str = None, key_re: str = None) -> 
     根据value值的索引获取key或者根据key的索引获取到value
     同理：key_value_re函数
 
+    >>> print(dict_key_value_re({'我': '6', '叫': '6', '张': '0', '伟': '1'}, value_re='01+'))
+
     :param dicts: 字典
     :param value_re: 根据值的正则获取key。比如：01正则表达式获取到ab
     :param key_re: 同理。根据key的正则。获取到值。比如：ab正则表达式。返回01
@@ -318,15 +320,20 @@ def merge_address(work: str, address: list, new_address: list) -> list:
 
     当模型无法提取一些地址的时候，需要手动添加一些地址，添加后的地址需要进行合并
 
+    >>> print(merge_address('观山湖区长岭北路89号金融城B座', ['观山湖区'], ['观山湖区长岭北路']))
+
     :param work: 地址数据
     :param address: 地址1
     :param new_address: 地址2
     :return: 返回合并后的地址
     """
+    char_ = chr(9775)
+    work = work.replace(char_, '')
     flag = copy.deepcopy(work)
-    for addr in new_address + address:
-        flag = flag.replace(addr, '#' * len(addr))
-    return key_value_re(list(work), list(flag), value_re='#{2,}')
+    address_ls = remove_subset(new_address + address)
+    for addr in address_ls:
+        flag = flag.replace(addr, char_ * len(addr))
+    return key_value_re(list(work), list(flag), value_re=char_ + '{2,}')
 
 
 if __name__ == '__main__':
@@ -339,8 +346,7 @@ if __name__ == '__main__':
     print(contain_subset('我家住在北京', '家住、诉求、请求'.split('、')))
     print(max_str(['a', 'a', 'a', 'b', 'c', 'd', 'd']))
     print(contain_list_subset('贵州', ['贵州省', '遵义市', '贵州省贵阳市']))
-    for cns in char_number_split('我家住在北京', 4):
-        print(cns)
+    for cns in char_number_split('我家住在北京', 4): print(cns)
     print(split('[.,，。]', '我家组在北京。我去玩，啊'))
     print(remove_subset(['aa', 'a', 'ab'] * 1_0000))
     print(combination(range(1, 20)))
@@ -354,3 +360,4 @@ if __name__ == '__main__':
     print(key_value_re(['我', '叫', '刘', '万', '光'], [6, 6, 0, 1, 1], value_re='01+'))
     print(find('abc', 'a|b'))  # 查找a或者b的索引
     print(dict_key_value_re({'我': '6', '叫': '6', '张': '0', '伟': '1'}, value_re='01+'))
+    print(merge_address('观山湖区长岭北路89号金融城B座', ['观山湖区'], ['观山湖区长岭北路']))
