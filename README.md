@@ -19,7 +19,6 @@
 ________________________
 
 ## 模块如下
-
 01. [任意进制转换](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bs)  
 02. [验证码识别](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/code)  
 03. [数据下载](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/data)  
@@ -40,7 +39,6 @@ ________________________
 18. [计算统计](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics)  
 19. [贝叶斯算法](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/bayes)  
 20. [常见的工具类](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/tools) 
-21. [c模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/c)    
 22. [百度应用](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/baidu)   
 23. [日语单词翻译](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/jp)    
 24. [压缩包工具](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/compress)   
