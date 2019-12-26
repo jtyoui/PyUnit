@@ -13,17 +13,22 @@ from jtyoui.data import holiday, week_to_chinese, chinese_mon
 
 
 class Lunar:
-    """lun = Lunar(year=2018, month=1, day=2)   print(lun)  # 二零一九年 七月 十四 星期四 无
-    print(lun.y)  # 农历的年,中文字符 二零一九
-    print(lun.year)  # 农历的年，阿拉伯数字 2019
-    print(lun.m)  # 农历的月份 中文字符 七
-    print(lun.month)  # 农历的月份 阿拉伯字符 7
-    print(lun.d)  # 农历的日期 中文字符 十四
-    print(lun.day)  # 阳历的日期 阿拉伯数字 15 ，注意。和农历不一样
-    print(lun.w)  # 星期几 中文字符
-    print(lun.week)  # 星期几、英文字符
-    print(lun.h)  # 节日
-    print(lun)  # 二零一九年 七月 十四 星期四 无
+    """阳历转农历
+
+    返回年月日星期和节日
+
+    >>> lun = Lunar(year=2018, month=1, day=2)
+    >>> print(lun)  # 二零一九年 七月 十四 星期四 无
+    >>> print(lun.y)  # 农历的年,中文字符 二零一九
+    >>> print(lun.year)  # 农历的年，阿拉伯数字 2019
+    >>> print(lun.m)  # 农历的月份 中文字符 七
+    >>> print(lun.month)  # 农历的月份 阿拉伯字符 7
+    >>> print(lun.d)  # 农历的日期 中文字符 十四
+    >>> print(lun.day)  # 阳历的日期 阿拉伯数字 15 ，注意。和农历不一样
+    >>> print(lun.w)  # 星期几 中文字符
+    >>> print(lun.week)  # 星期几、英文字符
+    >>> print(lun.h)  # 节日
+    >>> print(lun)  # 二零一九年 七月 十四 星期四 无
     """
 
     def __init__(self, year, month, day):
@@ -139,7 +144,7 @@ class Lunar:
         elif n == 0:
             return chinese_ten[d // 10] + '一'
         else:
-            return chinese_ten[d // 10] + self.chinese_number[n]
+            return chinese_ten[d // 10] + self.chinese_number[n + 1]
 
     def get_holiday(self, date):
         x = holiday.get(date[5:])
@@ -188,7 +193,7 @@ class Lunar:
 SC = Lunar
 
 if __name__ == '__main__':
-    lun = Lunar(year=2017, month=7, day=27)
+    lun = Lunar(year=2019, month=12, day=27)
     print(lun.y)  # 农历的年,中文字符 二零一九
     print(lun.year)  # 农历的年，阿拉伯数字 2019
     print(lun.m)  # 农历的月份 中文字符 七
@@ -199,15 +204,3 @@ if __name__ == '__main__':
     print(lun.week)  # 星期几、英文字符
     print(lun.h)  # 节日
     print(lun)  # 二零一九年 七月 十四 星期四 无
-"""
-二零一九
-2019
-七
-7
-十四
-15
-四
-Thu
-无
-2019年 七月 十四 星期四 无
-"""
