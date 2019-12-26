@@ -120,15 +120,46 @@ def finds_address(data, name: str):
     return _TREE.search_tree_value(name)
 
 
+def supplement_address(address_ls, address_tree):
+    """补全地址
+
+    输入零碎的地址信息。补全地址，比如输入：['山西', '文水', '孝义村'],补全为：山西省-吕梁市-文水县-孝义镇-孝义村委会
+
+    >>> Tree = jtyoui.dict_create_tree(jtyoui.load_address_file('D://'))
+    >>> print(supplement_address(['山西', '文水', '孝义'], Tree))
+
+    :param address_ls: 补全的地址名字
+    :param address_tree: 地址树，默认方法：dict_create_tree(load_address_file('D://'))
+    :return: 返回列表，列表里面是一个元组，第一个参数是地址名字，第二个参数是地址的权重，权重越大越相似，排序越前。
+    """
+    max_addr, ls = {}, []
+    for index in range(len(address_ls)):
+        address_tree.search_tree(address_ls[index], ls)
+        while ls:
+            tree = ls.pop()
+            for params in address_ls:
+                if params == address_ls[index]:
+                    continue
+                path = tree.node_parent_value()
+                if params in path:
+                    max_addr[path] = max_addr.get(path, 0) + 1
+    addr = jtyoui.remove_subset(list(max_addr.keys()))
+    return sorted(((a, max_addr[a]) for a in addr), key=lambda k: k[1], reverse=True)
+
+
 if __name__ == '__main__':
     import pprint
 
+    load = load_address_file('D://')
     pprint.pprint(find_address('晋安'))  # 已废弃，建议用：finds_address
     print(find_identity_card_address('贵州省贵阳市南明区花果园延安南路28号'))
 
     print('---------------------搜索树查找，第一次比较慢------------------------------------------')
-    for t in finds_address(load_address_file('D://'), '晋安'):
+    for t in finds_address(load, '晋安'):
         print(t)
 
-    for t in finds_address(load_address_file(r'D://'), '遵义县'):
+    for t in finds_address(load, '遵义县'):
         print(t)
+
+    Tree = jtyoui.dict_create_tree(load, jtyoui.Tree(value='Root'))
+    print(supplement_address(['山西', '文水', '孝义'], Tree))
