@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/5/10 9:15
 # @Author: Jtyoui@qq.com
+import jtyoui
 import os
 
 """
@@ -12,27 +13,21 @@ _TIANGAN_DIZHI = {}
 _SC = {}
 
 
-def download_date(download_address='date'):
+def load_date(load_date_dir):
     global _CTC, _TIANGAN_DIZHI, _SC
-    if not os.path.exists(download_address + os.sep + 'date.zip'):
-        from jtyoui.data import download_gitee
-        b = download_gitee('packet', 'date.zip', download_address)
-    else:
-        b = 'success'
-    if b == 'success':
-        from jtyoui.compress import unzip
-        ls = unzip(download_address + os.sep + 'date.zip', 'date.txt', sep='\r\n')
-        for line in ls[:-1]:
-            ctc, cs, td = line.split('\t')
-            _CTC[ctc] = cs
-            _SC[cs] = ctc
-            if _TIANGAN_DIZHI.get(td):
-                _TIANGAN_DIZHI[td].append(ctc)
-            else:
-                _TIANGAN_DIZHI[td] = [ctc]
-    else:
-        from jtyoui.error import DownloadDataExceptionError
-        raise DownloadDataExceptionError('下载失败！请检查网络。')
+    if not os.path.exists(load_date_dir + os.sep + 'date.zip'):
+        jtyoui.download_dev_tencent('date.zip', 'zhangwei0530', 'logo', load_date_dir,
+                                    '79A5A43F33CA300CD2671DF1168B24E5')
+    uz = jtyoui.unzip(load_date_dir + os.sep + 'date.zip', 'date.txt')
+    ls = uz.split('\r\n')
+    for line in ls[:-1]:
+        ctc, cs, td = line.split('\t')
+        _CTC[ctc] = cs
+        _SC[cs] = ctc
+        if _TIANGAN_DIZHI.get(td):
+            _TIANGAN_DIZHI[td].append(ctc)
+        else:
+            _TIANGAN_DIZHI[td] = [ctc]
 
 
 def td_to_ctc(td):
@@ -95,7 +90,7 @@ def sc_to_td(sc):
 
 
 if __name__ == '__main__':
-    download_date('temp')
+    load_date('D://')
     print('-----------------------------')
     # 农历
     print(ctc_to_sc('1984年闰十月初三'))  # 农历转阳历 1984年11月25日

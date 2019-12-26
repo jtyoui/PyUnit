@@ -29,14 +29,9 @@ def load_address_file(file_address_path):
     """
     file_address_path = os.path.abspath(file_address_path)
     if not os.path.exists(file_address_path + os.sep + 'rear.bz2'):
-        data = jtyoui.download_dev_tencent('rear.bz2', 'zhangwei0530', 'logo', file_address_path,
-                                           '52288E9AD139B0BAE97A55997B69A51F')
-        file_address_path = data
-        if not data:
-            raise jtyoui.DownLoadDataError('检查网络设置，下载地址文件数据异常！')
-    else:
-        file_address_path = file_address_path + os.sep + 'rear.bz2'
-    bz = jtyoui.unbz2_one(file_address_path, None)
+        jtyoui.download_dev_tencent('rear.bz2', 'zhangwei0530', 'logo', file_address_path,
+                                    '52288E9AD139B0BAE97A55997B69A51F')
+    bz = jtyoui.unbz2_one(file_address_path + os.sep + 'rear.bz2', None)
     address = json.loads(bz[512:-1134], encoding='utf8')
     return address
 

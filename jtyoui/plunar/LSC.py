@@ -5,30 +5,41 @@
 
 
 class LunarDate:
+    """农历"""
+
     def __init__(self, year, month, day, isleap=False):
+        """初始化农历
+
+        :param year: 年
+        :param month: 月
+        :param day: 日
+        :param isleap: 该月是否为闰月
+        """
         self.isleap = isleap
         self.lunarDay = day
         self.lunarMonth = month
         self.lunarYear = year
 
     def __str__(self):
-        return str(self.get_time())
-
-    def get_time(self):
-        return vars(self)
+        return str(vars(self))
 
 
 class SolarDate:
+    """阳历"""
+
     def __init__(self, year, month, day):
+        """初始化阳历
+
+        :param year: 年
+        :param month: 月
+        :param day: 日
+        """
         self.solarDay = day
         self.solarMonth = month
         self.solarYear = year
 
     def __str__(self):
-        return str(self.get_time())
-
-    def get_time(self):
-        return vars(self)
+        return str(vars(self))
 
 
 def get_bit_int(data, length, shift):
@@ -55,15 +66,24 @@ def solar_from_int(g):
 
 
 class LunarSolarDateConverter:
+    """农历和阳历互转
+
+    >>> converter = LunarSolarDateConverter()
+    >>> lunar = converter.solar_to_lunar(SolarDate(2019, 12, 6))
+    >>> print(lunar)
+    >>> solar = converter.lunar_to_solar(LunarDate(2019, 11, 10))
+    >>> print(solar)
+    """
+
     def __init__(self):
-        """1888~2111年农历数据表,农历数据 每个元素的存储格式如下：
-        16~13    12          11~0
-        闰几月 闰月日数  1~12月份农历日数(大小月)
-        1、bit0表示农历1月份日数，为1表示30天，为0表示29天。bit1表示农历2月份日数，依次类推。
-        2、bit12表示闰月日数，1为30天，0为29天。bit16~bit13表示第几月是闰月(注：为0表示该年无闰月)
-        数据来源参考: https://www.hko.gov.hk/tc/gts/time/conversion1_text.htm#
-        额外添加数据，方便快速计算阴历转阳历 每个元素的存储格式如下：
-        12~7         6~5    4~0
+        """1888~2111年农历数据表,农历数据 每个元素的存储格式如下\n
+        16~13    12     11~0\n
+        闰几月 闰月日数  1~12月份农历日数(大小月)\n
+        1、bit0表示农历1月份日数，为1表示30天，为0表示29天。bit1表示农历2月份日数，依次类推。\n
+        2、bit12表示闰月日数，1为30天，0为29天。bit16~bit13表示第几月是闰月(注：为0表示该年无闰月)\n
+        数据来源参考: https://www.hko.gov.hk/tc/gts/time/conversion1_text.htm#\n
+        方便快速计算阴历转阳历 每个元素的存储格式如下\n
+        12~7         6~5    4~0\n
         离元旦多少天  春节月  春节日
         """
         self._lunar_month_days = [1887, 0x1694, 0x16aa, 0x4ad5, 0xab6, 0xc4b7, 0x4ae, 0xa56, 0xb52a, 0x1d2a, 0xd54,
@@ -149,7 +169,8 @@ class LunarSolarDateConverter:
                               0x107e48
                               ]
 
-    def lunar_to_solar(self, lunar_date: LunarDate):
+    def lunar_to_solar(self, lunar_date: LunarDate) -> SolarDate:
+        """农历转阳历"""
         days = self._lunar_month_days[lunar_date.lunarYear - self._lunar_month_days[0]]
         leap = get_bit_int(days, 4, 13)
         offset = 0
@@ -168,8 +189,9 @@ class LunarSolarDateConverter:
         d = get_bit_int(solar11, 5, 0)
         return solar_from_int(solar_to_int(y, m, d) + offset - 1)
 
-    def solar_to_lunar(self, solar_date: SolarDate):
-        lunar_ = LunarDate(0, 0, 0, False)
+    def solar_to_lunar(self, solar_date: SolarDate) -> LunarDate:
+        """阳历转农历"""
+        lunar_ = LunarDate(0, 0, 0)
         index = solar_date.solarYear - self._new_year_day[0]
         data = (solar_date.solarYear << 9) | (solar_date.solarMonth << 5) | solar_date.solarDay
         if self._new_year_day[index] > data:
@@ -209,6 +231,6 @@ class LunarSolarDateConverter:
 if __name__ == '__main__':
     converter = LunarSolarDateConverter()
     lunar = converter.solar_to_lunar(SolarDate(2019, 12, 6))
-    print(lunar.get_time())
+    print(lunar)
     solar = converter.lunar_to_solar(LunarDate(2019, 11, 10))
     print(solar)
