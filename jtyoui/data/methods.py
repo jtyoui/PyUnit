@@ -13,6 +13,7 @@ import os
 import unicodedata
 import jtyoui
 import copy
+import hashlib
 
 _special = "#$%&@"
 
@@ -336,6 +337,29 @@ def merge_address(work: str, address: list, new_address: list) -> list:
     return key_value_re(list(work), list(flag), value_re=char_ + '{2,}')
 
 
+def get_file_md5(file_path):
+    """获取文件的MD5值
+
+    :param file_path: 文件地址
+    :return: MD5校验值
+    """
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError(f'{file_path}文件不存在或者不是文件')
+    hash_ = hashlib.md5()
+    f = open(file_path, 'rb')
+    while True:
+        b = f.read(8096)
+        if not b:
+            break
+        else:
+            hash_.update(b)
+    f.close()
+    data = hash_.hexdigest()
+    if data and isinstance(data, str):
+        return data.upper()
+    return ''
+
+
 if __name__ == '__main__':
     print(random_char(4))
     print(random_lower_char(4))
@@ -361,3 +385,4 @@ if __name__ == '__main__':
     print(find('abc', 'a|b'))  # 查找a或者b的索引
     print(dict_key_value_re({'我': '6', '叫': '6', '张': '0', '伟': '1'}, value_re='01+'))
     print(merge_address('观山湖区长岭北路89号金融城B座', ['观山湖区'], ['观山湖区长岭北路']))
+    print(get_file_md5(r'C:\Users\jtyou\Downloads\date.zip'))

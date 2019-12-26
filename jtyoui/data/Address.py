@@ -3,13 +3,9 @@
 # @Time    : 2019/5/1 23:26
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
-from jtyoui.error import DownLoadDataError
 from jtyoui.decorators import deprecationWarning
-from jtyoui.algorithm import dict_create_tree
-from platform import platform
-import time
+import jtyoui
 import os
-import bz2
 import json
 import re
 
@@ -25,42 +21,23 @@ _Address = {}
 _TREE = None
 
 
-def _download_address_file(file_address_path):
-    """下载地址数据包
-
-    :param file_address_path: 保存地址文件的路径
-    """
-    from urllib.request import urlretrieve
-    url = 'https://dev.tencent.com/u/zhangwei0530/p/logo/git/raw/master/rear.bz2'
-    place = urlretrieve(url, file_address_path)  # 下载
-    print('---------验证数据-------')
-    time.sleep(2)
-    if not os.path.exists(file_address_path):
-        print('下载失败')
-        return False
-    elif os.stat(file_address_path).st_size != 2292518:
-        print('下载失败、移除无效文件！')
-        os.remove(file_address_path)
-        return False
-    else:
-        print('\033[1;33m' + place[0])
-    return True
-
-
 def load_address_file(file_address_path):
     """加载地址文件数据
 
     :param file_address_path: 加载地址文件的路径，没有地址文件默认自动下载。
     :return: 地址文件数据，类型字典
     """
-    file_address_path = os.path.abspath(file_address_path) + os.sep + 'address'
-    if not os.path.exists(file_address_path):
-        if not _download_address_file(file_address_path):
-            raise DownLoadDataError('检查网络设置，下载地址文件数据异常！')
-    bz = bz2.BZ2File(file_address_path)
-    text = bz.read().decode('utf-8')
-    data = text[512:-1134]
-    address = json.loads(data, encoding='utf8')
+    file_address_path = os.path.abspath(file_address_path)
+    if not os.path.exists(file_address_path + os.sep + 'rear.bz2'):
+        data = jtyoui.download_dev_tencent('rear.bz2', 'zhangwei0530', 'logo', file_address_path,
+                                           '52288E9AD139B0BAE97A55997B69A51F')
+        file_address_path = data
+        if not data:
+            raise jtyoui.DownLoadDataError('检查网络设置，下载地址文件数据异常！')
+    else:
+        file_address_path = file_address_path + os.sep + 'rear.bz2'
+    bz = jtyoui.unbz2_one(file_address_path, None)
+    address = json.loads(bz[512:-1134], encoding='utf8')
     return address
 
 
@@ -77,7 +54,7 @@ def find_address(name):
     assert True if name else False, '输入的字符串不能为空'
     global _Address
     if not _Address:
-        if 'Windows' in platform():
+        if 'nt' == os.name:
             path = r'D://'
         else:
             path = r'./'
@@ -144,7 +121,7 @@ def finds_address(data, name: str):
     """
     global _TREE
     if not _TREE:
-        _TREE = dict_create_tree(data)
+        _TREE = jtyoui.dict_create_tree(data)
     return _TREE.search_tree_value(name)
 
 

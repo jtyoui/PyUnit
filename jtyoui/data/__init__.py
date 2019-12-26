@@ -19,4 +19,4 @@ from .genericity import fun_generic  # 重载
 from .phoneRegularity import *  # 电话号码匹配
 from .CardId import *  # 增加身份证校验功能
 from .platenumber import *  # 增加车牌号验证
-
+from .tencent import download_dev_tencent  # 下载远程数据
