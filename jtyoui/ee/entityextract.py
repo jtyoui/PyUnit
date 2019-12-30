@@ -2,20 +2,26 @@
 # -*- coding: utf-8 -*-
 # @Time  : 2019/11/25 14:19
 # @Author: Jtyoui@qq.com
-import jtyoui.neuralNetwork
 import jtyoui
 import re
 import os
 
 
 class EntityExtraction:
+    """信息抽取"""
+
     def __init__(self, sentence: str, model_path: str = None):
         self.sentence = sentence
         self.num = None
         self.model_path = model_path
         if self.model_path and os.path.exists(self.model_path):
-            self._st = jtyoui.neuralNetwork.ernie_st(self.model_path)
+            self._st = self._load_model()
             self._load()
+
+    def _load_model(self):
+        from jtyoui.neuralNetwork import ernie_st, ernie_match
+        self.ernie_match = ernie_match
+        return ernie_st(self.model_path)
 
     def _nn(self, r):
         """根据正则去获取实体"""
@@ -43,8 +49,8 @@ class EntityExtraction:
         return self._nn('[23]+')
 
     def _load(self):
-        """加载模型"""
-        self.num = jtyoui.neuralNetwork.ernie_match(self.sentence, self._st)
+        """抽取信息"""
+        self.num = self.ernie_match(self.sentence, self._st)
 
     @property
     def time(self):
