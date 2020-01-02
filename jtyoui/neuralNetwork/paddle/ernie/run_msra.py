@@ -32,6 +32,7 @@ ERNIE_LABEL_MAP = {
 
 # 需要自己更改
 model_path, config, label_map_config = None, ERNIE_MODEL_PARAMETER, ERNIE_LABEL_MAP
+examples = ''
 
 
 def pad_batch_data(inst, pad_idx=0, input_mask=False):
@@ -47,20 +48,27 @@ def pad_batch_data(inst, pad_idx=0, input_mask=False):
 
 
 def prepare_batch_data(example):
-    example = example.lower()
-    words = [1] + [vocal[word] for word in example if word in vocal] + [2]
+    examples = ''
+    words = [1]
+    for word in example:
+        if word in vocal:
+            words.append(vocal[word])
+            examples += word
+    else:
+        words.append(2)
     padded_token_ids, input_mask = pad_batch_data([words], 0, True)
     padded_text_type_ids = pad_batch_data([[0] * len(words)])
     padded_position_ids = pad_batch_data([list(range(len(words)))])
     padded_label_ids = pad_batch_data([[8] * len(words)], len(label_map_config) - 1)
     return_list = [padded_token_ids, padded_text_type_ids, padded_position_ids, input_mask, padded_label_ids]
-    yield return_list
+    return return_list, examples
 
 
 def data_generator(input_str):
     def wrapper():
-        for batch_data in prepare_batch_data(input_str):
-            yield batch_data
+        global examples
+        return_list, examples = prepare_batch_data(input_str)
+        yield return_list
 
     return wrapper
 
@@ -161,9 +169,12 @@ def match(words, init_st: list):
     :param init_st: 初始化参数。st()
     :return: 数字列表，这些数字是在label_map_config中配置的
     """
-    init_st[2].decorate_tensor_provider(data_generator(words))
+    global examples
+    examples = ''
+    data = data_generator(words)
+    init_st[2].decorate_tensor_provider(data)
     number = evaluate(*init_st)
-    return number
+    return number, examples
 
 
 def st(new_model_path=None, new_config=None, new_label_map_config=None) -> list:
@@ -200,4 +211,4 @@ if __name__ == '__main__':
     # 默认的模型参数和映射表
     ERNIE_MODEL_PATH = 'D://model'
     s = st(ERNIE_MODEL_PATH)
-    print(match('我叫刘万光我是贵阳市南明村永乐乡水塘村的村民', s))
+    print(match('我叫刘万光我是贵阳       市南明叇村永乐乡水塘村的村民', s))
