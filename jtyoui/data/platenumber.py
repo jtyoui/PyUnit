@@ -28,8 +28,8 @@ def plate_number(number: str, car_re: str = ALL_CAR_RE) -> list:
     :param number: 车牌号
     :return: 车牌号
     """
-    return re.findall(car_re, number)
+    return re.findall(car_re, number, flags=re.I)
 
 
 if __name__ == '__main__':
-    print(plate_number('我家车牌号是：渝D134567'))
+    print(plate_number('我家车牌号是：渝d134567'))
