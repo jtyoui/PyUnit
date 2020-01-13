@@ -59,11 +59,22 @@ class ChineseError:
         return ' '.join(total)
 
     def error_word(self, word):
-        """将错误的词语转为正确的词语"""
+        """将错误的词语转为正确的词语
+
+        如果有纠错文字，将纠错文字返回，没有返回原文字。
+
+        >>> ce = ChineseError(['六盘水钟山区'])
+        >>> print(ce.error_word('我在六盘谁中三区里面'))
+
+        :param word: 纠错文字
+        :return: 返回纠错文本或原文本
+        """
         ls = chinese_to_pin_yin(self._model, word)
         self._word = word
         total = self._flag(ls)
-        return total
+        if total:
+            return total
+        return word
 
 
 if __name__ == '__main__':
