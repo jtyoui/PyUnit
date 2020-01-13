@@ -12,7 +12,7 @@ from random import randint
 """
 
 
-def miller_rabin(n, k=50):
+def miller_rabin_prime(n, k=50):
     """米勒-拉宾素性检验是一种素数判定法则
 
     米勒-拉宾素性检验是一种素数判定法则，利用随机化算法判断一个数是合数还是可能是素数。
@@ -50,6 +50,23 @@ def miller_rabin(n, k=50):
     return True
 
 
+def random_big_prime(n=15):
+    """随机生成一个大位质数
+
+    >>> print(random_big_prime(128))
+
+    这种算法具有不确定，错误概率在亿分之一以下。犹如买彩票一样
+
+    :param n: 质数的位数
+    :return: 大质数
+    """
+    while True:
+        s = randint(10 ** (n - 1), 10 ** n)
+        if miller_rabin_prime(s):
+            return s
+
+
 if __name__ == '__main__':
-    m = miller_rabin(1202665577221067947046558160900252532924577373213201474275893551111)
+    m = miller_rabin_prime(1202665577221067947046558160900252532924577373213201474275893551111)
     print(m)
+    print(random_big_prime(128))
