@@ -48,6 +48,8 @@ def chinese_to_pin_yin(pin_yin, string_):
         data = pin_yin.get(str_)
         if data:
             py.append(data)
+        else:
+            py.append('@')
     return py
 
 

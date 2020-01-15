@@ -52,9 +52,10 @@ class ChineseError:
         """转为模糊音"""
         total = []
         for word in words.split(' '):
-            for correct, error in self.fuzzy_tone.items():
-                if error not in word and correct in word:
-                    word = word.replace(correct, error)
+            if word != '@':
+                for correct, error in self.fuzzy_tone.items():
+                    if error not in word and correct in word:
+                        word = word.replace(correct, error)
             total.append(word)
         return ' '.join(total)
 
