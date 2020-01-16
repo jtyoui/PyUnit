@@ -29,14 +29,15 @@ class NlpTime:
 
     """
 
-    def __init__(self, time_base=None):
+    def __init__(self, time_base=None, prefer_future=False):
         """时间解析
 
         分析文件进行数据时间分析，包括复杂的时间、口语化、农历等
 
         :param time_base: 当前时间，格式是年-月-日 时:分:秒
+        :param prefer_future: 启动预测功能
         """
-        self.isPreferFuture = True
+        self.isPreferFuture = prefer_future
         self.pattern = re.compile(DATE_RE)
         self.timeBase = None
         self.solar_holiday = Solar_Holiday

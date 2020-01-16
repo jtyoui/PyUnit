@@ -30,7 +30,7 @@ class ChineseError:
         self.fuzzy_tone = fuzzy_tone
 
     def _flag(self, ls, word):
-        total = list(word)
+        total = word
         value = ' '.join(ls)
         fuz = self._fuzzy(value)
         for k, v in self._words.items():
@@ -43,7 +43,8 @@ class ChineseError:
                     index = fuz.find(v)
             if index > -1:  # 替换错误单词
                 index_ = value[:index].count(' ')
-                total[index_:index_ + len(k)] = k
+                old_str = word[index_:index_ + len(k)]
+                total = total.replace(old_str, k)
         return total
 
     def _fuzzy(self, words):
@@ -70,9 +71,9 @@ class ChineseError:
         """
         ls = chinese_to_pin_yin(self._model, word)
         total = self._flag(ls, word)
-        return ''.join(total)
+        return total
 
 
 if __name__ == '__main__':
     ce = ChineseError(['六盘水钟山区'])
-    print(ce.error_word('我在六盘谁中三区里面'))
+    print(ce.error_word('我在六盘谁中三区里面六盘谁中三区'))
