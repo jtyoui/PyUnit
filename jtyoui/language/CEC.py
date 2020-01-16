@@ -14,7 +14,7 @@ class ChineseError:
     """基于拼音谐音纠错"""
 
     def __init__(self, words_or_file):
-        self._model = load_pin_yin(False)  # 加载拼音模型
+        self._model = load_pin_yin()  # 加载拼音模型
         self._words = {}
         if (not isinstance(words_or_file, str)) and isinstance(words_or_file, Iterable):
             for word in words_or_file:
@@ -28,13 +28,13 @@ class ChineseError:
         else:
             raise TypeError('输入一个纠错列表或者文件地址')
         self.fuzzy_tone = fuzzy_tone
-        self._word = None
 
-    def _flag(self, ls):
-        total, index = [], -1
+    def _flag(self, ls, word):
+        total = list(word)
         value = ' '.join(ls)
         fuz = self._fuzzy(value)
         for k, v in self._words.items():
+            index = -1
             if v in value:
                 index = value.find(v)
             else:
@@ -43,9 +43,7 @@ class ChineseError:
                     index = fuz.find(v)
             if index > -1:  # 替换错误单词
                 index_ = value[:index].count(' ')
-                name = self._word[:index_] + k + self._word[index_ + len(k):]
-                total.append(name)
-                index = -1
+                total[index_:index_ + len(k)] = k
         return total
 
     def _fuzzy(self, words):
@@ -71,11 +69,8 @@ class ChineseError:
         :return: 返回纠错文本或原文本
         """
         ls = chinese_to_pin_yin(self._model, word)
-        self._word = word
-        total = self._flag(ls)
-        if total:
-            return total
-        return word
+        total = self._flag(ls, word)
+        return ''.join(total)
 
 
 if __name__ == '__main__':
