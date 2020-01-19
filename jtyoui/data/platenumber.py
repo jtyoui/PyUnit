@@ -15,14 +15,14 @@ ALL_CAR_RE = ORDINARY_CAR_RE + "|" + NEW_ENERGY_VEHICLE_RE
 def plate_number(number: str, car_re: str = ALL_CAR_RE) -> list:
     """车牌号验证
 
-    默认校验车牌号号码包括：
-    —— 普通车牌
-    —— 新能源车牌
+    默认校验车牌号号码包括：\n
+    —— 普通车牌\n
+    —— 新能源车牌\n
 
-    具体的引用正则包括：
-    —— 普通车牌 jtyoui.ORDINARY_CAR_RE
-    —— 新能源车牌 jtyoui.NEW_ENERGY_VEHICLE_RE
-    —— 所有的车牌 jtyoui.ALL_CAR_RE
+    具体的引用正则包括：\n
+    —— 普通车牌 jtyoui.ORDINARY_CAR_RE\n
+    —— 新能源车牌 jtyoui.NEW_ENERGY_VEHICLE_RE\n
+    —— 所有的车牌 jtyoui.ALL_CAR_RE\n
 
     :param car_re: 匹配车牌号的正则，默认是：CAR_RE
     :param number: 车牌号
@@ -32,4 +32,4 @@ def plate_number(number: str, car_re: str = ALL_CAR_RE) -> list:
 
 
 if __name__ == '__main__':
-    print(plate_number('我家车牌号是：渝d134567'))
+    print(plate_number('我家车牌号是：au134567'))
