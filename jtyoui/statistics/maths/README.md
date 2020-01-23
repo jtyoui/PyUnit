@@ -52,5 +52,15 @@ if __name__ == '__main__':
     # 定义一个函数：x^3-2x-5=0,求x等于多少。x的值域：[1,1000]
     print(theorem_Zero(lambda x: x**3 - 2 * x - 5, 2, 1000))
 ```
+
+## 进制转换
+```python
+from jtyoui.statistics.maths import binary_system
+if __name__ == '__main__':
+    y=binary_system(2542, 7, 12)#将7进制的2542转为12进制
+    print(y)
+```
+
+
 ***
 [1]: https://blog.jtyoui.com
