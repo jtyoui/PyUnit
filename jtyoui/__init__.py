@@ -3,7 +3,6 @@
 # @Time    : 2018/2/2 10:58
 # @Email  : jtyoui@qq.com
 # @Software: PyCharm
-from jtyoui.bs import binary_system  # 任意进制转换
 from jtyoui.code import cr  # 二维码识别
 from jtyoui.plunar import *  # 农历、阳历
 from jtyoui.sogou import SoGou  # 下载搜狗

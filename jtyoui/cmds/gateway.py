@@ -18,7 +18,7 @@ def get_mac_address() -> str:
 def get_window_ip():
     """在window下获取ip"""
     name = get_window_name()
-    return windowName_get_ip(name)
+    return window_name_get_ip(name)
 
 
 def get_linux_ip(eth):
@@ -43,7 +43,7 @@ def auto_get_ip(eth=None):
         raise Exception('暂时支持Linux和window系统')
 
 
-def windowName_get_ip(window_name):
+def window_name_get_ip(window_name):
     """根据window的名字来获取ip地址
 
     :param window_name: window的名字
@@ -63,3 +63,5 @@ if __name__ == '__main__':
     print(get_window_ip())
     if os.name == 'posix':
         print(get_linux_ip('ens192'))
+    print(auto_get_ip())
+    print(window_name_get_ip('tyoui-zhang'))
