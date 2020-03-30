@@ -55,6 +55,9 @@ ________________________
 34. [实体抽取](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/ee)    
 35. [flask框架模块](https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/flasks)  
 
+## 单个模块实现地址(推荐)
+    https://github.com/pyunit
+    
 __________________________
 
 
