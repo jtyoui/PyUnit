@@ -1,0 +1,15 @@
+pyunit-address==2020.6.19
+pyunit-calendar==2020.6.2
+pyunit-color==2020.2.11
+pyunit-gof==2020.3.11
+pyunit-idcard==2020.6.22
+pyunit-log==2020.2.10
+pyunit-map==2020.6.17
+pyunit-phone==2020.6.28
+pyunit-plate==2020.6.17
+pyunit-prime==2020.3.22
+pyunit-sogou==2019.1.24
+pyunit-string==2020.4.10
+pyunit-time==2020.4.27
+pyunit-tool==2020.3.10
+pyunit-weather==2019.3.1
