@@ -4,11 +4,17 @@
     照片和PDF相互转化, 微信自动聊天机器人,中国农历与阳历的转换关系,简体字与繁体字的转换,坦克小游戏,分形模式,邮箱,地图,正则,装饰器,
     数学统计,数据处理,nlp算法、进制转换 验证码识别 数据下载 分形模型 小游戏 照片与PDF互转 语言处理 邮箱应用 阳历转农历 搜狗下载 
     网页处理 新词发现 微信 正则 装饰器 异常 地图 计算统计 贝叶斯算法 常见的工具类 c模块 百度应用 日语单词翻译、天气预报、汉语纠错、反射等等
-  
+
+## 更新版本
+    该版本支持组件式安装、组件地址： https://github.com/pyunit
+
 ## 安装
-    pip install jtyoui
+    pip install jtyoui>2020.7
     
-    
+## 如果需要旧版本
+[旧版本](https://github.com/jtyoui/Jtyoui/tree/master)
+
+
 ## 文档docs
 [点击查看文档](https://jtyoui.readthedocs.io/zh_CN/latest/)  
 
@@ -35,9 +41,6 @@ ________________________
 14. [质数处理](https://github.com/pyunit/pyunit-prime)  
 15. [天气预报](https://github.com/pyunit/pyunit-weather)    
 
-
-## 单个模块实现地址(推荐)
-    https://github.com/pyunit
     
 __________________________
 

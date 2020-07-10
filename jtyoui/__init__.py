@@ -21,7 +21,7 @@ from pyunit_tool import *
 from pyunit_weather import *
 
 __all__ = [a for a in dir() if not a.startswith('_')]
-__version__ = f'2020.07.08'
+__version__ = f'2020.7.8'
 __author__ = 'Jtyoui'
 __description__ = f'这是一个Python集合包,包含了:{len(__all__)}个模块。'
 __email__ = 'jtyoui@qq.com'
