@@ -16,4 +16,4 @@
 15. [天气预报](https://github.com/pyunit/pyunit-weather)    
 
 ## 如果需要旧版本
-[旧版本](https://github.com/jtyoui/Jtyoui/tree/master)
+[旧版本](https://github.com/jtyoui/PyUnit/tree/master)
